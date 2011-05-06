@@ -1,0 +1,25 @@
+.banner_table {
+  width: 640px;
+  border: 2px solid #ECEBE1;
+  border-collapse: collapse;
+}
+.banner_content TD{
+  color: black;
+  border: 1px solid #ECEBE1;
+  padding: 6px;
+  line-height: 1.2;
+  background-color: #FFFFFF
+}
+.banner_content TH {
+  color: black;
+  border: 1px solid #ECEBE1;
+  padding: 6px;
+  line-height: 1.2;
+  background-color: #F9F9F4
+}
+
+/*.banner_item {}
+.banner_data {}*/
+/*.banner_table TD {background-color: #FFFFFF}*/
+
+

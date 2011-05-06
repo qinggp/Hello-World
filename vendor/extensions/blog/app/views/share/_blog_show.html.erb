@@ -1,0 +1,42 @@
+<%
+  blog_entry ||= @blog_entry
+%>
+<div id="blog_home">
+  <%= render :partial => "/share/blog_title" %>
+
+  <div id="blog_container">
+    <div id="blog_container_bg">
+
+      <div id="blog_contents">
+        <div id="blogmain">
+          <% display_round_box(:width => "515px") do %>
+            <%= render :partial => "/blog_entries/blog_entry_prev_next" if @blog_entry %>
+            <%= render :partial => "/blog_entries/blog_entry_header", :locals => {:blog_entry => blog_entry} %>
+
+            <div class="content_body">
+              <%= display_blog_entry_body(blog_entry,
+                                          :display_type => :normal) -%>
+
+              <%= render :partial => "/share/blog_entry_map_view", :locals => {:blog_entry => blog_entry} %>
+            </div>
+
+            <%= render :partial => "/blog_entries/blog_entry_footer", :locals => {:blog_entry => blog_entry} %>
+
+            <% if blog_entry.commentable?(current_user) %>
+              <div class="blog_entry_sub_title">
+                <a name="<%= blog_comment_anchor_name %>"></a>
+                コメントを書く
+              </div>
+              <%= render :partial => comment_template %>
+            <% end %>
+
+            <%= render :partial => "/blog_comments/blog_comments" %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render :partial => "/share/blog_navigation", :locals => {:user => blog_entry.user} %>
+
+    </div>
+  </div>
+</div>

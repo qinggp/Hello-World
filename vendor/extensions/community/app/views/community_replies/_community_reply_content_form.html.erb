@@ -1,0 +1,8 @@
+<%= text_area :community_reply, :content, :rows => 10, :cols => 50 %>
+<% if @community_reply.new_record? %>
+  <span style="font-size: 80%:">
+    <%= submit_to_remote("quote", "引用",
+                         :url => {:action => "quote_content"},
+                         :update => "community_reply_content_form") %>
+  </span>
+<% end %>

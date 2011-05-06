@@ -1,0 +1,19 @@
+<div class="title">■コミュニティリンク新着</div>
+<% display_round_box do %>
+  <% linkages = @community.news_community_linkage(self) %>
+  <% if linkages.empty? %>
+    <div class="no_data">
+      新着はありません。
+    </div>
+  <% else %>
+    <div class="news_data">
+      <% linkages.each do |hash| %>
+        <div class="news_link" align="left">
+          <%= display_news_line_format(hash[:updated_at],
+                                       link_to(h(hash[:content]) + hash[:image], hash[:url_to_article]),
+                                       link_to(h(hash[:title]), hash[:url_to_linkage])) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

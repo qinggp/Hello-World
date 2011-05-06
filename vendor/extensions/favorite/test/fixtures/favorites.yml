@@ -1,0 +1,19 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: favorites
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  name       :string(255)
+#  url        :string(255)
+#  category   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+sns_tarou_blog:
+  user: sns_tarou
+  name: sns_tarouのブログ
+  url: /users/<%= Fixtures.identify(:sns_tarou) %>/blog_entries/index_for_user 
+  category: ブログ

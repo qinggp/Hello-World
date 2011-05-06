@@ -1,0 +1,19 @@
+# SNS連携注目情報出力
+
+xml.instruct!
+
+sns_api_rss2_feed_layout(xml) do |xml|
+  unless @items.empty?
+    @items.each do |item|
+      xml.item do |xml|
+        xml.title item[:title]
+        xml.link item[:link]
+        xml.author item[:author]
+        unless item[:category].blank?
+          xml.category item[:category]
+        end
+        xml.pubDate item[:pubDate].to_formatted_s(:rfc822)
+      end
+    end
+  end
+end

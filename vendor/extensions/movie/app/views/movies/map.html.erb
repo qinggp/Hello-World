@@ -1,0 +1,50 @@
+<div style="border-bottom:1px dotted gray;font-weight:bold;margin:10px;">
+  <a name="map_top">■ムービーマップ</a>
+</div>
+<div style="margin-left:15px;">
+  <%= h SnsConfig.title %>ユーザが登録したムービーの撮影場所を紹介します。<br/>
+  あなたもムービー登録してみましょう！
+  →[ <%= link_to('ムービーを登録！', new_movie_path) %> ]
+  <span style="font-size:0.8em;">※登録・編修時に地図座標を設定して下さい</span>
+  <br/>
+  ※新着順に最大100件まで表示されます。
+</div>
+
+<div id="map_container">
+  <div id="map">Now Loading...</div>
+  <div id="list">
+    <% if @movies.empty? -%>
+      ムービーが登録されていません。
+    <% else -%>
+      <% @movies.each_with_index do |movie, index| -%>
+        <% list_name = index.even? ? "map_list_even" : "map_list_odd" %>
+        <div class="<%= list_name %>">
+          <div class="map_title"><a href="#map_top" onclick="GMapViewer.open_info_window(<%= movie.id %>);"><%= h(movie.title) %></a></div>
+          <div class="map_name"><%= link_to_username(movie.user) %>さん</div>
+          <div class="map_created_at"><%=h l(movie.created_at.to_date, :format => :default_year_month_date) %> UP!</div>
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>
+<br/>
+<%= render :partial => "/share/google_map_script" %>
+<%= javascript_include_tag('gmap_viewer') %>
+<%= javascript_include_tag('movie/movie_marker') %>
+<script type="text/javascript">
+  var marker = null;
+  <% @movies.each do |movie| -%>
+    GMapViewer.markers.push(new MovieMarker(
+      new GLatLng(<%=h movie.latitude %>, <%=h movie.longitude %>),
+    {
+      id : <%= movie.id.to_json %>,
+      title : <%= h(movie.title).to_json %>,
+      body : <%= h(movie.body).to_json %>,
+      link_to : <%= movie_path(movie).to_json %>
+    }));
+  <% end  %>
+  GMapViewer.maps_load("map",
+                       {latitude : <%= SnsConfig.g_map_latitude %>,
+                        longitude : <%= SnsConfig.g_map_longitude %>,
+                        zoom : <%= SnsConfig.g_map_zoom %>});
+</script>

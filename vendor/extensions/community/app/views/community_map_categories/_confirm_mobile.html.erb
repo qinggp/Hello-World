@@ -1,0 +1,5 @@
+<b>--- コミュニティマップカテゴリ登録・編集確認 ---</b><br/>
+
+[<%=h CommunityMapCategory.human_attribute_name("name") %>]<%= font_coution "※" %><br/>
+<%= h @community_map_category.name %>
+<%= hidden_field(:community_map_category, :name) %>

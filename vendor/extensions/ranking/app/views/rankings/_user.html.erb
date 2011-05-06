@@ -1,0 +1,10 @@
+<%
+  link = link_to(h(user.name), user_path(user))
+  count = user.count
+  rank = user_counter + 1
+  if rank == 1
+    link_in_image = link_to(display_face_photo(user.face_photo, :width => "100"), user_path(user))
+  end
+%>
+
+<%= display_ranking(rank, link, count, link_in_image).untaint %>

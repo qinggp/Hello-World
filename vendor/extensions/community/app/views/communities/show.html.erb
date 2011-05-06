@@ -1,0 +1,64 @@
+<center>
+  <%= render(:partial => "community_top") %>
+</center>
+
+<div id="community_home">
+  <div id="community_container">
+    <div id="community_contents">
+      <div id="community_main">
+        <%= render(:partial => "community_detail") %>
+        <% if @community.pending?(@user) %>
+          <div style="margin-top: 10px;">
+            <% display_round_box do %>
+              参加依頼中です。
+            <% end %>
+          </div>
+        <% end %>
+        <% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+          <%= render(:partial => "community_maintenance_link") %>
+        <% end %>
+
+        <% if @community.visibility_private? %>
+          <% if @community.member?(current_user) %>
+            <%= render(:partial => "community_news") %>
+          <% elsif !@community.pending?(@user) %>
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+              <% display_round_box do %>
+                <div class="no_data" style="padding: 10px;">
+                  このコミュニティは非公開になっております。<br />
+                  コミュニティに参加すれば閲覧できるようになります。<br />
+                  [ <%= link_to("コミュニティに参加", confirm_before_apply_community_path(@community))  %> ]
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= render(:partial => "community_news") %>
+        <% end %>
+
+        <%= render(:partial => "community_link_news") %>
+      </div>
+    </div>
+    <div id="community_navigation">
+      <%= render(:partial => "community_navigation") %>
+      <div class="title">■イベントカレンダー</div>
+      <% display_round_box do %>
+        <div id="community_event_calendar">
+          <%= render :partial => "community_event_calendar" %>
+        </div>
+      <% end %>
+      <div class="all_link">[ <%= link_to("月間カレンダー", show_calendar_community_events_path(:community_id => @community.id)) %> ]</div>
+
+      <%= render(:partial => "community_member_list") %>
+      <%= render(:partial => "community_link_list") %>
+      <%= render(:partial => "received_mail_setting") %>
+      <div style="margin-top: 20px;">
+        <% display_round_box do %>
+          <%= render(:partial => "topic_search") %>
+          <%= render(:partial => "fied") %>
+          <%= render(:partial => "qr_code") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

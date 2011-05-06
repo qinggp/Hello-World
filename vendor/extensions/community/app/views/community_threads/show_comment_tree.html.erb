@@ -1,0 +1,28 @@
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to h(@community.name), community_path(@community) %>のトピックツリー
+  </div>
+
+  <% if @community.some_thread_createable?(current_user) %>
+    <% display_round_box(:color => "#ECEBE1", :width => "490px") do %>
+      <div style="text-align: center; padding: 6px;">
+        <%= render(:partial => "/share/links_to_post") %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div style="margin-top:10px;">
+    <div style="width: 700px; text-align: right;">
+      [
+      <%= theme_image_tag("community/topic.gif", :style => "vertical-align: middle;", :size => "12x12") %>
+      <%= link_to("トピック一覧", search_community_threads_path(:community_id => @community)) %>
+      ]
+    </div>
+
+    <% display_round_box(:width => "710px", :white_bg => false) do %>
+      <% display_collection_box(@community_threads, {:collection_name => "トピック数", :width => "690px", :per_pages => [5, 10, 20, 50, 100], :checked_value => 10, :form => { :options => {:method => :get}}}) do %>
+        <%= render :partial => "share/comment_tree", :locals => {:threads => @community_threads}%>
+      <% end %>
+    <% end %>
+  </div>
+</center>

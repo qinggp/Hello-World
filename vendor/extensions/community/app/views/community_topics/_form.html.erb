@@ -1,0 +1,13 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h form_title %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[タイトル]<%= font_red("※") %></th>
+  <td><%= f.text_field :title, :size => 50 %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[本文]<%= font_red("※") %></th>
+  <td><%= f.text_area :content, :rows => 10, :cols => 50 %></td>
+</tr>
+
+<%= render :partial => "share/upload_form", :locals => {:model => @community_topic} %>

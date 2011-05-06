@@ -1,0 +1,16 @@
+<% form_for(@forgot_password) do |f| %>
+  もしログインパスワードを忘れてしまった場合は、<br/>
+  登録されたメールアドレス（ログインユーザー名）宛てに<br/>
+  新規パスワード発行用のURLを送付いたします。<br/>
+  <br/>
+  ※メールアドレスによる受信制限を行っている場合は<%=h CONFIG['mail']['mail_sender_from'] %> からのメールを許可してください。<br/>
+  ※携帯アドレスを登録されている方はそちらでも可能です。
+  <br/>
+  <br/>
+
+  メールアドレス：<br/>
+  <%= f.text_field :email %><br/>
+  <%= f.submit "再発行" %><br/>
+<% end %>
+
+<%= render :partial => "footer_mobile" %>

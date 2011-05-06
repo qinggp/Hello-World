@@ -1,0 +1,25 @@
+<% @blog_entries_for_calender ||= BlogEntry.by_user(@user).by_now_month %>
+<table class="content_box_bg" style="width:100%">
+  <tr>
+    <td>
+      <%=h display_calender_month(:format => :year_month) %>
+    </td>
+    <td style="text-align: right;">
+      <%= calendar_move_to{|params| index_for_user_user_blog_entries_path(params.merge(:user_id => @user.id)) } %>
+    </td>
+  </tr>
+</table>
+<div style="background-color:#FFFFFF;">
+  <%=
+     mars_calendar(:year => @calendar_year, :month => @calendar_month) do |cur|
+       if entry = @blog_entries_for_calender.detect{|e| e.created_at.to_date == cur}
+         cell_text = ""
+         cell_text << link_to(cur.mday, index_for_user_user_blog_entries_path(:user_id => @user.id,
+                                           :date => {:year => cur.year, :month => cur.month, :day => cur.day}))
+         [cell_text, nil]
+       else
+         [nil, nil]
+       end
+     end
+  %>
+</div>

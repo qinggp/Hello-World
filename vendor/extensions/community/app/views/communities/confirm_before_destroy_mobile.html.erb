@@ -1,0 +1,8 @@
+「<%= h @community.name %>」を本当に削除してよろしいですか？<br />
+<br />
+<% form_for(@community, :url => community_path(params[:id]), :html => {:method => :delete}) do |f| %>
+  <%= f.submit('削除する') %><br />
+  <%= f.submit('戻る', :name => :cancel) %>
+<% end %>
+
+<%= render :partial => "/share/community_footer" %>

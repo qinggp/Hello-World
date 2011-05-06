@@ -1,0 +1,22 @@
+<% 
+  sns_linkages = SnsLinkage.by_enableds(current_user.id)
+%>
+<% unless sns_linkages.map{|sl| sl.sns_link_notice_data.channel.item }.compact.empty? %>
+  <div class="content_title_not_bold content_box_bg">
+    <%= display_open_colse_box_button('sns_linkage_notice') %>連携サイト注目情報
+  </div>
+  <% display_open_colse_box(:id => "sns_linkage_notice", :class => "base_data") do %>
+    <% sns_linkages.each do |sl| %>
+      <% sl.sns_link_notice_data.channel.items.each do |item| %>
+        <div class="news_link">
+          <b><font color="red">【<%= sl.rss_channel.title %>】</font>
+          <%= link_to item.title + theme_image_tag("outlink.gif"), item.link, :target => "_blank" %>
+          </b>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="all_link">
+      <%= theme_image_tag "sns_linkage/linkage.gif" %>[ <%= link_to "連携サイトの新着情報一覧", news_sns_linkages_path %> ]
+    </div>
+  <% end %>
+<% end %>

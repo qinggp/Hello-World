@@ -1,0 +1,9 @@
+<% unless @linkages.count.zero? %>
+  ▽コミュニティリンク新着情報<br />
+  <% @community.news_community_linkage(self, 5).each do |hash| %>
+    [<%= hash[:updated_at].strftime("%m/%d") %>]
+    <%= link_to(h(hash[:content]) + hash[:image], hash[:url_to_article]) %>
+    (<%= link_to(h(hash[:title]), hash[:url_to_linkage]) %>)
+    <br />
+  <% end %>
+<% end %>

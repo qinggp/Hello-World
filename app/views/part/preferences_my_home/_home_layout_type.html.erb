@@ -1,0 +1,18 @@
+<% if view_type == :form  %>
+  <tr>
+    <th>[<%=h Preference.human_attribute_name("home_layout_type") %>]</th>
+    <td>
+      <%= f.select :home_layout_type, select_options_for_const("Preference", "HOME_LAYOUT_TYPES")  %>
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("home_layout_type") %>]
+    </th>
+    <td>
+      <%=h t("preference.home_layout_type_label.#{@preference.home_layout_type_name}") %>
+      <%= f.hidden_field :home_layout_type %>
+    </td>
+  </tr>
+<% end %>

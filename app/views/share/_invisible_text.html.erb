@@ -1,0 +1,15 @@
+<div id="invisible">
+  <p class="skiplink"><a href="#HONBUN">本文へ移動</a></p>
+  <p class="skiplink"><a href="#main_menu">メインメニューへ移動</a></p>
+  <p class="skiplink"><a href="#main_search">検索へ移動</a></p>
+  <% if logged_in? %>
+    <p class="skiplink"><a href="#my_menu">マイメニューへ移動</a></p>
+    <% if controller.controller_name == "users" &&
+          (controller.action_name == "my_home" || controller.action_name == "show") %>
+      <p class="skiplink"><a href="#my_navigation_schedule_calendar">マイスケジュールへ移動</a></p>
+      <p class="skiplink"><a href="#my_navigation_friend_list">友達リンクへ移動</a></p>
+      <p class="skiplink"><a href="#my_navigation_community">コミュニティリストへ移動</a></p>
+    <% end %>
+  <% end %>
+</div>
+

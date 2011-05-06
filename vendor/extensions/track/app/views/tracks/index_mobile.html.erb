@@ -1,0 +1,33 @@
+あなたのページを訪れた人たちです。(最新30件)<br /><br />
+
+<% if @total_access == 0 %>
+  あしあとはありません
+<% else %>
+
+  <% if action_name == "index" %>
+    総数：<%= h @total_access %>件(<%= h @total_visitor %>名)
+  <% elsif action_name == "search" && !params[:specific_number].blank? && Track.range_of_total_count?(current_user, params[:specific_number].to_i)  %>
+    記念すべき<%= h params[:specific_number] %>件目を踏んだトモダチは以下の方です。
+  <% elsif action_name == "search" && !params[:split_number].blank? && Track.range_of_total_count?(current_user, params[:split_number].to_i) %>
+  <%= h params[:split_number] %>件ごとのキリ番のトモダチは以下の方々です。
+  <% else %>
+    総数：<%= h @total_access %>件(<%= h @total_visitor %>名)
+  <% end %>
+  <br /><br />
+
+  <% form_tag(search_tracks_path) do %>
+    <%= select_tag(:split_number, options_for_select(split_number_list_for_select, params[:split_number])) %>
+    <%= text_field_tag :specific_number, params[:specific_number], :size => 8 %>
+    <%= submit_tag("キリ番") %>
+  <% end %>
+
+  <% @tracks.each do |track| %>
+    [<%= h(track.created_at.strftime("%m/%d %H:%M")) %>]
+    <%= link_to(h(track.visitor.name), user_path(track.visitor)) %>さん
+    <% if track.respond_to?(:number) %>
+      (<%= h track.number %>件目)
+    <% end %>
+    <br />
+  <% end %>
+
+<% end %>

@@ -1,0 +1,7 @@
+<% link_to(communities_path, :accesskey => '5', :title => "コミュニティ") do %>
+    <%= theme_image_tag "community/my_menu_community.gif", :id => "my_menu_community",
+        :alt => "コミュニティ",
+        :onmouseover => "$('my_menu_community').src=#{theme_image_path('community/my_menu_community_ov.gif').to_json}",
+        :onmouseout => "$('my_menu_community').src=#{theme_image_path('community/my_menu_community.gif').to_json}"
+    %>
+<% end %>

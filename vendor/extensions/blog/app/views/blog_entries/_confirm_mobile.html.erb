@@ -1,0 +1,36 @@
+<b>--- ブログ投稿 ---</b><br/>
+<%= display_form_attr_name(BlogEntry, "created_at") %><br/>
+<%= l(post_time_or_now(@blog_entry), :format => "default_minute") %>
+<%= f.hidden_field :created_at %>
+<br/>
+
+[カテゴリ]<br/>
+<%=h @blog_entry.blog_category.name %>
+<%= f.hidden_field :blog_category_id %>
+<br/>
+
+[タイトル]<br/>
+<%=h @blog_entry.title %>
+<%= f.hidden_field :title %>
+<br/>
+
+[本文]<br/>
+<%= display_blog_entry_body(@blog_entry) %>
+<%= f.hidden_field :body %>
+<%= f.hidden_field :body_format %>
+<br/>
+
+<b>--- 投稿別設定 ---</b><br/>
+
+[公開制限]<br/>
+<%= t("blog.blog_entry.visibility_label.#{@blog_entry.visibility_name.to_s}") %>
+<%= f.hidden_field :visibility %>
+<br/>
+
+[コメント制限]<br/>
+<%= t("blog.blog_entry.comment_restraint_label.#{@blog_entry.comment_restraint_name.to_s}") %>
+<%= f.hidden_field :comment_restraint %>
+<br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "confirm", :model => @blog_entry} %>

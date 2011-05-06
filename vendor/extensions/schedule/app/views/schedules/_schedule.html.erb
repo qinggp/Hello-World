@@ -1,0 +1,33 @@
+<tr>
+  <td width="100" valign="top" style="background-color: #FFFFFF; text-align: center;" rowspan="2">
+    <%= h(@date.strftime("%y年%m月%d日")) %><br />
+    <% if params[:action] == "show" || schedule.object_type == "Schedule" %>
+      <%= h schedule.period %>
+      <% if schedule.editable?(@user) %>
+        <br />
+        [ <%= link_to("編集", edit_schedule_path(schedule)) %> ]
+        [ <%= link_to("削除", schedule_path(schedule), :confirm => "削除してよろしいですか？", :method => :delete) %> ]
+      <% end %>
+    <% end %>
+  </td>
+  <th nowrap="" width="60">タイトル</th>
+  <td width="400" colspan="2">
+    <% if params[:action] == "show" || schedule.object_type == "Schedule" %>
+      <%= h schedule.title %>
+    <% elsif schedule.object_type == "User" %>
+      <%= link_to(h(schedule.title + "さん"), user_path(schedule.id)) %>
+    <% elsif schedule.object_type == "CommunityEvent" %>
+      <%= link_to(h(schedule.title), community_event_path(:community_id => schedule.community_id, :id => schedule.id)) %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th nowrap="" width="60">詳細</th>
+  <td width="400" colspan="2">
+    <% if params[:action] == "show" || schedule.object_type == "CommunityEvent" || schedule.object_type == "Schedule" %>
+      <%= hbr schedule.detail %>
+    <% elsif schedule.object_type == "User" %>
+       <%= age(params[:date], schedule.date) %>歳の誕生日
+    <% end %>
+  </td>
+</tr>

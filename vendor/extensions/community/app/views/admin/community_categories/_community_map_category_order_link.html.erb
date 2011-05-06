@@ -1,0 +1,15 @@
+<%
+list =
+[{:name => "マップカテゴリ名", :kind => Admin::CommunityCategoriesController::NAME},
+ {:name => "コミュニティ名", :kind => Admin::CommunityCategoriesController::COMMUNITY_NAME},
+ {:name => "作成者名", :kind => Admin::CommunityCategoriesController::USER_NAME }
+]
+%>
+<% list.each do |parameter| %>
+<th>
+<% parameter_for_order_link(parameter[:kind]) do |order_param| %>
+    <%= link_to(parameter[:name], map_category_list_admin_community_categories_path(order_param.merge(paginate_parameter))) %>
+  <% end %>
+</th>
+<% end %>
+

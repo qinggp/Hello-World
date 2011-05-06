@@ -1,0 +1,18 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h form_title %></td>
+</tr>
+<tr>
+  <th nowrap="">[タイトル]<span class="attention">※</span></th>
+  <td><%= f.text_field :title, :size => 50 %></td>
+</tr>
+<tr>
+  <th nowrap="">[本文]<span class="attention">※</span></th>
+  <td id="community_reply_content_form">
+    <%= render :partial => "community_reply_content_form" %>
+  </td>
+</tr>
+<%= render :partial => "share/upload_form", :locals => {:model => @community_reply} %>
+
+<%= f.hidden_field :parent_id %>
+<%= f.hidden_field :thread_id %>
+<%= hidden_field_tag "event_member", params[:event_member] %>

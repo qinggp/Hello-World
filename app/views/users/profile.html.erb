@@ -1,0 +1,123 @@
+<div id="myhome">
+  <% if displayed_user.same_user?(current_user) %>
+    <div align="right">
+      [<%= link_to "プロフィールの編集", edit_user_path(current_user) %>]
+    </div>
+  <% end %>
+  <%= render_profile_header %>
+  <div id="my_container">
+
+    <div id="my_contents">
+      <div class="title" style="text-align:left;">■<%=h @user.name %>さんのプロフィール</div>
+      <div>
+        <% display_round_box do %>
+          <table class="content_table">
+            <% if @user.visible_profile?(current_user, :real_name)  %>
+              <tr>
+                <th>
+                  名前
+                </th>
+                <td>
+                  <%=h @user.full_real_name %>
+                  <%= display_profile_visibility_name(@user.real_name_visibility_name) %>
+                  （<%= t("user.gender_label.#{@user.gender_name}") %>）
+                </td>
+              </tr>
+            <% end %>
+            <% if @user.visible_profile?(current_user, :birthday) %>
+              <tr>
+                <th>
+                  年齢
+                </th>
+                <td>
+                  <%= @user.age %>歳
+                  <%= display_profile_visibility_name(@user.birthday_visibility_name) %>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  誕生日
+                </th>
+                <td>
+                  <%=h l(@user.birthday, :format => :month_date) %>
+                  <%= display_profile_visibility_name(@user.birthday_visibility_name) %>
+                </td>
+              </tr>
+            <% end %>
+            <% if @user.blood_type_name  %>
+              <tr>
+                <th>血液型</th>
+                <td>
+                  <%=h t("user.blood_type_label.#{@user.blood_type_name}") %>型
+                </td>
+              </tr>
+            <% end %>
+            <% if @user.visible_profile?(current_user, :now_address)  %>
+              <tr>
+                <th>現住所</th>
+                <td>
+                  <%=h @user.now_prefecture.name %><%=h @user.now_city %>
+                  <%= display_profile_visibility_name(@user.now_address_visibility_name) %>
+                </td>
+              </tr>
+            <% end %>
+            <% if @user.home_prefecture  %>
+              <tr>
+                <th>出身地</th>
+                <td><%=h @user.home_prefecture.name %></td>
+              </tr>
+            <% end %>
+            <% unless @user.hobbies.empty?  %>
+              <tr>
+                <th>趣味</th>
+                <td><%=h @user.hobbies.map(&:name).join(", ") %></td>
+              </tr>
+            <% end %>
+            <% if @user.visible_profile?(current_user, :job) && @user.job %>
+              <tr>
+                <th>職業</th>
+                <td>
+                  <%=h @user.job.name %>
+                  <%= display_profile_visibility_name(@user.job_visibility_name) %>
+                </td>
+              </tr>
+            <% end %>
+            <% if @user.visible_profile?(current_user, :affiliation) && !@user.affiliation.blank? %>
+              <tr>
+                <th>所属</th>
+                <td>
+                  <%=h @user.affiliation %>
+                  <%= display_profile_visibility_name(@user.affiliation_visibility_name) %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <th>一言メッセージ</th>
+              <td><%=hbr @user.message %></td>
+            </tr>
+            <% if logged_in? %>
+              <tr>
+                <th>自己紹介</th>
+                <td><%= auto_link hbr(@user.detail) %></td>
+            </tr>
+            <% end %>
+          </table>
+          <div align="right">
+            （<%= l(@user.updated_at || @user.created_at, :format => :year_month_date) %>更新）
+          </div>
+        <% end %>
+      </div>
+
+      <% Mars::UI.instance.profile_contents.map do |part|%>
+        <br/>
+        <%= part.display(self) %>
+      <% end %>
+
+    </div>
+
+    <%= render :partial => "my_navigation" %>
+
+  </div>
+</div>
+<div style="font-size: 80%; text-align: right; margin-top: 10px; clear: both;">
+</div>

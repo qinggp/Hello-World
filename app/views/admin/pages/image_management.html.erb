@@ -1,0 +1,40 @@
+<center>
+  <div style="text-align:center; margin:5px;">
+    [ <%= link_to '画像管理', image_management_admin_pages_path %> ]
+  </div>
+  <% display_round_box(:width => "600px", :white_bg => false) do %>
+    <% form_tag(image_upload_admin_pages_path, {:multipart => true}) do %>
+      画像：<%= file_field_tag "upload", :size => '30' %>
+      上書き<%= check_box_tag 'overwrite' %><br/>
+      アップロード先：<%= text_field_tag "upload_path", {}, :size => '30' %><br/>
+      <span style="font-size:80%;">/images/xxx.png という形式で指定してください。</span><br/>
+      <%= submit_tag "送信" %>
+    <% end %>
+  <% end %>
+  <% form_tag(image_management_admin_pages_path, :method => :get) do %>
+    <% if @images %>
+      <table class="image_management_table">
+        <tr>
+          <% @images.each_with_index do |image, index| %>
+            <% if index >= 6 && index % 6 == 0 %>
+              </tr>
+              <tr>
+            <% end %>
+            <td>
+                [ <%= link_to '削除', {:action => :image_destroy, :filename => image}, :confirm => '削除してもよろしいですか？'%> ]<br />
+                <%= h image %><br />
+              <div>
+                <%= image_management_file_view(image) %>
+              </div>
+            </td>
+          <% end %>
+          <% unless @images.size % 6 == 0 %>
+            <% (6 - @images.size % 6).times do %>
+              <td style="border: 1px solid white; padding: 2px;" width="100px">&nbsp;</td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+</center>

@@ -1,0 +1,11 @@
+<% unless model.attachments.size.zero? %>
+  <div style="margin-top: 5px;">
+    <% model.attachments.sort_by{|a| a.position}.each do |a| %>
+      <%
+        original_attachment_path = url_for_attachment(a)
+        attachment_path = url_for_attachment(a, :image_type => "thumb")
+        %>
+      <%= display_attachment_file(a, :original_attachment_path => original_attachment_path, :attachment_path => attachment_path) %>
+    <% end %>
+  </div>
+<% end %>

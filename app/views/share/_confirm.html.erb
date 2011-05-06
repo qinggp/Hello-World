@@ -1,0 +1,24 @@
+<%
+  partial_template ||= "confirm"
+  form = confirm_form_params
+  display_round_box_opts ||= {:width => "660px"}
+%>
+
+<center>
+  <div>
+    <%= confirm_notation %>
+  </div>
+  <% display_round_box(display_round_box_opts) do %>
+    <% form_for(form[:model_instance], :url => form[:url], :html => {:method => form[:method]}) do |f| %>
+      <table class="content_table">
+
+        <%= render :partial => partial_template, :locals => {:f => f} %>
+
+      </table>
+      <div class="content_box_bg" align="center">
+        <%= f.submit '送信する', :disable_with => "送信中..." %>
+        <%= f.submit '入力画面へ戻る', :name => "cancel" %>
+      </div>
+    <% end %>
+  <% end %>
+</center>

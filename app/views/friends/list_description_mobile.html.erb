@@ -1,0 +1,15 @@
+<% if @friendships.total_entries.zero? %>
+  紹介文はありません<br />
+<% else %>
+  <% @friendships.each do |friendship| %>
+    <%= link_to h(friendship.user.name), user_path(friendship.user) %><br />
+    <%= hbr friendship.description %>
+    <% if current_user.id == friendship.user_id %>
+      <br />
+      [ <%= link_to("修正", edit_friend_description_user_path(displayed_user, :user_id => displayed_user.id)) %> ]
+      [ <%= link_to("削除", confirm_before_clear_friend_description_user_path(displayed_user, :user_id => displayed_user.id)) %> ]
+    <% end %>
+    <hr size="1" noshade>
+  <% end %>
+<% end %>
+<%= link_to("戻る", user_path(displayed_user)) %>

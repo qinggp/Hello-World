@@ -1,0 +1,15 @@
+<% if @favoritable_action %>
+  <% if @favorite %>
+    <%= link_to("お気に入り削除",
+                confirm_before_destroy_by_footer_favorite_path(@favorite))
+        %>
+    <br/>
+  <% else %>
+    <% form_tag(confirm_before_create_favorites_path) do  %>
+      <%= hidden_field_tag "favorite[name]", h(page_title) %>
+      <%= hidden_field_tag "favorite[category]", @favorite_category %>
+      <%= hidden_field_tag "favorite[url]", request.request_uri %>
+      <%= submit_tag("お気に入り追加") %>
+    <% end %>
+  <% end %>
+<% end %>

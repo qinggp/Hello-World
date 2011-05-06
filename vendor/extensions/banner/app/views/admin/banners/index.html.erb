@@ -1,0 +1,48 @@
+<% pagination_params = {:per_page => params[:per_page], :page => params[:page]} %>
+<center>
+  [<%= link_to '新規登録',new_admin_banner_path %>]
+  <% form_tag(admin_banners_path, :method => :get) do %>
+    <% display_collection_box(@banners, :collection_name => "現在の登録数", :checked_value => 5) do %>
+      <% display_round_box(:width => "650px", :white_bg => false) do %>
+        <table width="640px" align="center" class="banner_table">
+          <tr>
+            <th align="center" class="banner_table_title" colspan="5">
+              <%= render :partial => "banner_order_link", :locals => {:paginate_parameter => pagination_params} %>
+            </th>
+          </tr>
+          <% @banners.each do |banner| %>
+            <tr class="banner_content">
+              <td width="320" rowspan="3" height="80" nowrap>
+                <% if banner.image %>
+                  <% if banner.link_url.blank? %>
+                    <%= images_banner_list_view(banner) %>
+                  <% else %>
+                    <%= link_to(images_banner_list_view(banner), banner.link_url, {:target => '_blank'})  %>
+                  <% end %>
+                <% end %>
+              </td>
+              <th width="60" nowrap>コメント</th>
+              <td width=220" colspan="2">
+                <%= h banner.comment %>
+              </td>
+            </tr>
+            <tr class="banner_content">
+              <th width="60" nowrap>表示期間</th>
+              <td width="190" colspan="2">
+                <%= get_expire_date(banner) if banner.expire_date %>
+              </td>
+            </tr>
+            <tr class="banner_content">
+              <th width="60" nowrap>クリック数</th>
+              <td width="100" align="right"><%= h banner.click_count %></td>
+              <th width="90" align="right" nowrap>
+               [<%= link_to '編集', edit_admin_banner_path(banner) %>]
+               [<%= link_to '削除', admin_banner_path(banner), :method => :delete, :confirm => "削除してもよろしいですか"%>]
+              </th>
+             </tr>
+           <% end %>
+         </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

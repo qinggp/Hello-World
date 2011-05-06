@@ -1,0 +1,3 @@
+<%=h @friend.name %>さんをトモダチから外してよろしいですか？<br/>
+[<%= link_to "削除", break_off_friend_path(@friend), :method => :delete %>]
+[<%= link_to "戻る", maintenance_friends_path %>]<br/>

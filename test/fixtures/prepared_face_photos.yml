@@ -1,0 +1,10 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: prepared_face_photos
+#
+#  id       :integer         not null, primary key
+#  name     :string(255)
+#  image    :string(255)
+#  position :integer
+#

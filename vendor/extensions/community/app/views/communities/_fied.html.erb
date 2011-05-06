@@ -1,0 +1,10 @@
+<% if @community.visibility_public? %>
+  <div class="navigation_title">
+    ■RSSフィード
+  </div>
+  <div class="news_data">
+    <%= link_to theme_image_tag("feed_rdf.gif"), index_feed_for_community_path(@community, :format => :rdf) %>
+    <%= link_to theme_image_tag("feed_rss.gif"), index_feed_for_community_path(@community, :format => :rss) %>
+    <%= link_to theme_image_tag("feed_atom.gif"), index_feed_for_community_path(@community, :format => :atom) %>
+  </div>
+<% end %>

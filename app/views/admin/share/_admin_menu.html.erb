@@ -1,0 +1,39 @@
+<center>
+  <div>
+    [ <%= link_to "トップ", admin_path %> ]
+    [ 
+    <%= link_to "ユーザ", admin_users_path %>|
+    <%= link_to "承認", index_for_approval_admin_users_path %>|
+    <%= link_to "招待", admin_invites_path %>|
+    <%= link_to "書込", search_top_admin_contents_path %>
+    ]
+    [ 
+    <%= link_to "SNS設定", admin_sns_configs_path %>
+    ]
+    [ 
+    <%= link_to "お知らせ", admin_announcements_path %>
+    ]
+    [ 
+    <%= link_to "ページ管理", admin_pages_path %>
+    ]
+    <% if Mars::Extension.instance.extension_enabled?(:banner) %>
+      [ 
+      <%= link_to "バナー管理", admin_banners_path %>
+      ]
+    <% end %>
+    [ 
+    カテゴリ
+    <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+      <%= link_to "ブログ", admin_blog_categories_path %>
+    <% end %>
+    <% if Mars::Extension.instance.extension_enabled?(:community) %>
+      | <%= link_to "コミュニティ", admin_community_categories_path %>
+    <% end %>
+    ]
+    <% if Mars::Extension.instance.extension_enabled?(:statistics) %>
+      [ 
+      <%= link_to "統計", admin_statistics_path %>
+      ]
+    <% end %>
+  </div>
+</center>

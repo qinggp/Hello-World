@@ -1,0 +1,16 @@
+<% events = @community.events.lastposts.find(:all, :limit => 5) %>
+<% unless events.size.zero? %>
+  ▽イベント最新書込一覧<br />
+  <% events.each do |event| %>
+    <%= display_news_line_format_mobile(
+                                        event.created_at,
+                                        link_to(h(event.title) + " (#{event.active_replies.size})", community_event_path(:community_id => @community.id, :id => event.id)),
+                                        link_to_user(event.author, h( @community.member_name(event.author) ))) %>
+    <br />
+  <% end %>
+  [<%= link_to("全て", community_threads_path(:community_id => @community.id, :types => ["CommunityEvent"])) %>]
+  <% if @community.event_createable?(current_user) %>
+    [<%= link_to("イベントの作成", new_community_event_path(:community_id => @community.id)) %>]
+  <% end %>
+  <hr size="1" noshade>
+<% end %>

@@ -1,0 +1,5 @@
+[<%= h Friendship.human_attribute_name("message") %>]<br/>
+<%= hbr @friendship.message %><br/>
+<%= f.hidden_field :message %>
+
+<%= render :partial => "/share/confirm_relation_mobile", :locals => {:f => f, :model_instance => @friendship} %>

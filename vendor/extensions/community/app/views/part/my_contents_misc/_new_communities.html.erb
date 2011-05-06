@@ -1,0 +1,25 @@
+<% communities = Community.created_at_gt(7.day.ago).not_secret.find(:all, :order => "created_at DESC", :limit => 5) %>
+<% if communities.empty?  %>
+  <div class="no_data content_box_bg_light">
+    新しいコミュニティができていないです。<br/>
+    <%= link_to("コミュニティを作り", search_communities_path) %>ましょう！<br/>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("new_user_misc") %>
+    新しいコミュニティ
+  </div>
+
+  <% display_open_colse_box(:id => "new_community_misc", :class => "base_data") do %>
+    <% communities.each do |c| %>
+      <div class="news_link">
+        <%= display_news_line_format(c.created_at,
+                                     link_to(h(c.name), community_path(c)),
+                                     h(c.community_category.name)) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      [ <%= link_to "全て", search_communities_path(:order => "communities.created_at", :order_modifier => "DESC") %> ]
+    </div>
+  <% end %>
+<% end %>

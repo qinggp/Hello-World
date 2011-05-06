@@ -1,0 +1,19 @@
+<% pending_users = Community.all_pending_users(current_user)  %>
+<% unless pending_users.empty?  %>
+  <div class="content_title_not_bold content_box_bg">
+    コミュニティ参加依頼
+  </div>
+  <div class="news_data">
+    <% pending_users.each do |pending_user| %>
+      <div class="news_link" align="left" style="color: red; font-weight: bold;">
+        <%= display_news_line_format(
+                                     pending_user.created_at,
+                                     link_to(h(pending_user.user.name), {:controller => :users, :action => :show, :id => pending_user.user}),
+                                     [link_to(h(pending_user.community.name) ,(community_path(pending_user.community))),
+                                      link_to("承認・拒否", show_application_community_path(pending_user.community, :pending_id => pending_user.id))]
+                                     ) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

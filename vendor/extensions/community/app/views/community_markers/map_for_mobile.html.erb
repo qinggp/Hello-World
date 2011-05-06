@@ -1,0 +1,18 @@
+<%= render :partial => "/share/static_map_viewer", :locals => {:hoge => "fuga", :url_options => {:community_map_category_id => params[:community_map_category_id]}} %>
+<br/>
+
+地図上に表示されている「<%= h @community_map_category.name %>」に属するマーカー。<br />
+<% label = "A" %>
+<% @records.each do |record| %>
+  <%= label %>
+  <%= link_to h(record.title), community_marker_path(:id => record, :community_id => @community) %>
+  ( <%= link_to("周辺地図", map_for_mobile_community_markers_path(:community_id => @community, :community_map_category_id => params[:community_map_category_id], :latitude => record.latitude, :longitude => record.longitude, :span_lat => Mars::GmapViewable::Mobile::DEFAULT_SPAN_LAT, :span_lng => Mars::GmapViewable::Mobile::DEFAULT_SPAN_LNG)) %> )
+  <% label.succ! %>
+  <br/>
+<% end %>
+
+<br/>
+<%= will_paginate_mobile(@records).untaint %>
+
+<hr size="1" noshade>
+<%= link_to "5.カテゴリ一覧へ戻る", list_category_community_markers_path(:community_id => @community), :accesskey => "5" %>

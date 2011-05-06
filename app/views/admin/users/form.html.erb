@@ -1,0 +1,22 @@
+<div align="right">
+  [<%= link_to "プロフィールの確認", user_path(@user) %>]
+</div>
+<% if @user.pending?  %>
+  <center>
+    <% display_round_box(:width => "540px") do %>
+      <% form_for @user, :url => dispatch_for_approval_admin_user_path(@user) do |f| %>
+        <div class="center">
+          <div>このユーザの登録が完了しております。登録情報を確かめ、承認処理をしてください。</div>
+          <div>[ 一言メッセージ ]</div>
+          <div><%= f.text_area :reason, :rows => 4, :cols => 40 %></div>
+          <div>
+            <%= f.submit "参加承認する", :name => "approve", :confirm => "参加を承認してよろしいですか？" %>
+            <%= f.submit "情報修正依頼", :name => "rewrite_request", :confirm => "登録情報修正依頼メールを送信します。よろしいですか？" %>
+            <%= f.submit "参加拒否する", :name => "reject", :confirm => "参加を承認拒否してよろしいですか？" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </center>
+<% end %>
+<%= render :partial => "/share/form" %>

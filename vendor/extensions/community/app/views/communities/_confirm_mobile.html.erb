@@ -1,0 +1,40 @@
+<b>--- <%= h form_title %> ---</b><br />
+
+[コミュニティ名]<br />
+<%= h @community.name %>
+<%= f.hidden_field :name %>
+<br /><br />
+
+[カテゴリ]<br />
+<%= h @community.community_category.name_with_parent %>
+<%= f.hidden_field :community_category_id %>
+<br /><br />
+
+[参加・公開条件]<br />
+<%= h t(:approval_required, :scope => [:community])[@community.approval_required] %>
+[ <%= h @community.describe_visibility %> ]
+<%= f.hidden_field :participation_and_visibility %>
+<br /><br />
+
+[説明文]<br />
+<%= auto_link(hbr(@community.comment)) { |text| truncate(text, 60) } %>
+<%= f.hidden_field :comment %>
+<br /><br />
+
+[トピック作成]<br />
+<%= h(t(:topic_createable_admin_only, :scope => :community)[@community.topic_createable_admin_only]) %>
+<%= f.hidden_field :topic_createable_admin_only %>
+<br /><br />
+
+[イベント作成]<br />
+<%= h(t(:event_createable_admin_only, :scope => :community)[@community.event_createable_admin_only]) %>
+<%= f.hidden_field :event_createable_admin_only %>
+<br /><br />
+
+[参加お知らせメール受信]<br />
+<%= h(t(:participation_notice, :scope => :community)[@community.participation_notice]) %>
+<%= f.hidden_field :participation_notice %>
+<br /><br />
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "confirm", :model => @community} %>

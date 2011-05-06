@@ -1,0 +1,29 @@
+<div class="content_box">
+  <div class="content_box_bg">
+    トモダチグループ
+  </div>
+  <div style="padding: 5px;">
+    <% if @groups.length.zero? %>
+      グループを追加してトモダチ一覧を見やすくしよう！[ <%= link_to("グループ管理", new_group_path) %> ]
+    <% else %>
+      <div>
+        [ <%= link_to("トモダチ全員", friends_path) %> ]
+        <div style="margin: 5px;">
+          ┗
+          <% @groups.each do |g| %>
+            [ <%= link_to_if(@group.try(:id) != g.id, h(g.name + "(#{g.friends.count})"), friends_path(:group_id => g.id)) %> ]
+          <% end %>
+        </div>
+        <div align="right">
+          <% if @group && !@group.friends.count.zero? %>
+            [ <%= link_to(theme_image_tag("mail_outbox.gif") + "グループメッセージ", new_message_group_path(@group, :receiver_ids => @group.friends.map(&:id))) %> ]
+          <% end %>
+          <% if @group %>
+            [ <%= link_to("メンバー管理", member_list_group_path(@group)) %> ]
+          <% end %>
+          [ <%= link_to("グループ管理", new_group_path) %> ]
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

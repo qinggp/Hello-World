@@ -1,0 +1,55 @@
+<div style="border-bottom:1px dotted gray;font-weight:bold;margin:10px;">
+  <a name="map_top">■クチコミマップ</a>
+</div>
+<div style="margin-left:15px;">
+  <%=h SnsConfig.title %>ユーザがお勧めのお店や場所を紹介します。<br/>
+  <% if logged_in? %>
+    あなたもクチコミブログを書いてクチコミを広めよう!→[<%= link_to "ブログを書く！", new_blog_entry_path %>]<span style="font-size:80%;">※カテゴリをクチコミ情報にしてください</span>
+  <% else %>
+    あなたも<%= h SnsConfig.title %>ユーザになってクチコミを広めよう! →[<%= link_to "#{h(SnsConfig.title)}への参加には松江SNSユーザの招待が必要です", page_path("about") %>]
+  <% end %>
+  <br/>
+  ※新着順に最大100件まで表示されます。<br/>
+</div>
+
+<div id="map_container">
+  <div id="map">Now Loading...</div>
+  <div id="list">
+    <% if @blog_entries.empty? -%>
+      クチコミ情報が登録されていません。
+    <% else -%>
+      <% @blog_entries.each_with_index do |blog_entry, index| -%>
+        <% list_name = index.even? ? "map_list_even" : "map_list_odd" %>
+        <div class="<%= list_name %>">
+          <div class="map_title"><a href="#map_top" onclick="GMapViewer.open_info_window(<%= blog_entry.id %>);"><%= h(blog_entry.title) %></a></div>
+          <div class="map_created_at"><%=h l(blog_entry.created_at.to_date, :format => :default_year_month_date) %>up</div>
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>
+<div id="rss_container">
+  <%= link_to theme_image_tag("feed_rdf.gif"), map_blog_entries_path(:format => :rdf) %>
+  <%= link_to theme_image_tag("feed_rss.gif"), map_blog_entries_path(:format => :rss) %>
+  <%= link_to theme_image_tag("feed_atom.gif"), map_blog_entries_path(:format => :atom) %>
+</div>
+<%= render :partial => "/share/google_map_script" %>
+<%= javascript_include_tag('gmap_viewer') %>
+<%= javascript_include_tag('blog/blog_entry_marker') %>
+<script type="text/javascript">
+  var marker = null;
+  <% @blog_entries.each do |entry| -%>
+    GMapViewer.markers.push(new BlogEntryMarker(
+      new GLatLng(<%=h entry.latitude.to_json %>, <%=h entry.longitude.to_json %>),
+    {
+      id : <%= entry.id.to_json %>,
+      title_link : <%= (link_to(h(entry.title), blog_entry_path(entry))).to_json %>,
+      body : <%= display_blog_entry_body(entry, :display_type => :br, :trancate_bytes => 200).to_json %>,
+      date : <%= h(l(entry.created_at.to_date, :format => :long)).to_json %>
+    }));
+  <% end  %>
+  GMapViewer.maps_load("map",
+                       {latitude : <%= SnsConfig.g_map_latitude %>,
+                        longitude : <%= SnsConfig.g_map_longitude %>,
+                        zoom : <%= SnsConfig.g_map_zoom %>});
+</script>

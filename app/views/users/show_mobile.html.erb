@@ -1,0 +1,15 @@
+ようこそ、<%=h current_user.name %>さん<br/>
+▽新着情報<br/>
+
+<hr size="2" noshade>
+
+<% Mars::UI.instance.mobile_main_menus.each do |link| %>
+▽<%= link.display(self) %><br/>
+<% end %>
+
+<hr size="1" noshade>
+
+<hr size="1" noshade>
+
+▽プロフィール<br/>
+▲<%= link_to "各種設定", preferences_path %><br/>

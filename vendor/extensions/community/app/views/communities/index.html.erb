@@ -1,0 +1,35 @@
+<center>
+  <% if current_user.same_user?(displayed_user) %>
+    <div align="right" style="margin: 5px;">
+      [ <%= link_to("グループ管理", new_community_group_path)%> ]
+      [ <%= link_to("コミュニティ管理", community_memberships_path) %> ]
+    </div>
+  <% end %>
+
+  <div id="community_list">
+    <div class="dotted_border">
+      <% if params[:role] == "admin" %>
+        <%= link_to(h(@user.name), :controller => :profiels) %>さんの管理コミュニティ一覧
+      <% else %>
+        <%= link_to(h(@user.name), :controller => :profiels) %>さんの参加コミュニティ一覧
+      <% end %>
+    </div>
+  </div>
+
+  <% display_round_box(:width => "650px", :white_bg => true) do %>
+      <% if params[:role] == "admin" %>
+        <%= render :partial => "admin_community_list" %>
+    <% else %>
+      <% if current_user.same_user?(displayed_user) %>
+        <%= render :partial => "community_group_list" %>
+      <% end %>
+      <%= render :partial => "community_list" %>
+    <% end %>
+  <% end %>
+  <div style="width: 620px;">
+    <div align="right">
+      <%= theme_image_tag("community/comm_owner.gif", :size => "30x12", :align => "middle") %>管理コミュニティ
+    </div>
+  </div>
+
+</center>

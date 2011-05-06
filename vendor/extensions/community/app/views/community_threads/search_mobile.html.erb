@@ -1,0 +1,27 @@
+<%= link_to h(@community.name), community_path(@community) %><br />
+<%= render :partial => "form_search_thread" %>
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@community_threads).untaint %>
+<% if @community_threads.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if @community_threads.total_entries.zero? %>
+  該当するトピックはありません。
+<% else %>
+  <% @community_threads.each do |thread| %>
+    [<%= thread.created_at.strftime("%m/%d") %>]
+    <%= link_to h(thread.title), thread.polymorphic_url_on_community(self) %>
+    (<%= h thread.active_replies.size %>)
+    [<%= h thread.class.human_name %>]
+    <br />
+  <% end %>
+<% end %>
+
+<% if @community_threads.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@community_threads).untaint %>
+
+<%= render :partial => "/share/community_footer" %>

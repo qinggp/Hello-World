@@ -1,0 +1,25 @@
+<% if @informations.empty?  %>
+  お知らせがありません。
+<% else %>
+
+  <% if @informations.total_pages > 1 %>
+    <%= will_paginate_mobile(@informations).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% @informations.each_with_index do |info, i|  %>
+    [<%= h l(info.created_at.to_date, :format => :default) %>]<br/>
+    <%= auto_link(br(add_session_query_on_inner_url(info.title))) { |text| truncate(strip_session_query(text), 60)}.untaint %>
+    <% if info.display_link_link? %>
+      → [<%= link_to "<b>詳細</b>", information_path(info) %>]
+    <% end %>
+    <% if i != @informations.size-1 %>
+      <hr size="1" noshade>
+    <% end %>
+  <% end %>
+
+  <% if @informations.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@informations).untaint %>
+  <% end %>
+<% end %>

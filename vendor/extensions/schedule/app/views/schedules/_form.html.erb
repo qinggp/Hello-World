@@ -1,0 +1,36 @@
+<tr>
+  <td class="content_table_title" colspan="2">スケジュール登録</td>
+</tr>
+<tr>
+  <th nowrap="">[予定日]<font color="red">※</font></th>
+  <td>
+    <%= f.date_select(:due_date, :start_year => Time.now.year-3, :end_year => Time.now.year + 3).untaint  %>
+  </td>
+</tr>
+<tr>
+  <th nowrap="">[予定時間]</th>
+  <td>
+    開始時間を有効にする<%= check_box_tag("enabled_start_time", "yes", @schedule.start_time) %>
+    <%= f.time_select :start_time, :time_separator => ":" %><br />
+    終了時間を有効にする<%= check_box_tag("enabled_end_time", "yes", @schedule.end_time) %><%= f.time_select :end_time, :time_separator => ":" %>
+  </td>
+</tr>
+<tr>
+  <th nowrap="">[タイトル]<font color="red">※</font></th>
+  <td><%= f.text_field :title, :size => 60 %>
+</tr>
+<tr>
+  <th nowrap="">[詳細]<font color="red">※</font></th>
+  <td><%= f.text_area :detail, :rows => 10, :cols => 50 %>
+</tr>
+<tr>
+  <th nowrap="">[公開/非公開]<font color="red">※</font></th>
+  <td>
+    <%= f.radio_button :public, true %><%= h(t(:public, :scope => [:schedule])[true]) %>
+    <%= f.radio_button :public, false %><%= h(t(:public, :scope => [:schedule])[false]) %>
+  </td>
+</tr>
+
+<% unless params[:due_date].blank? %>
+  <%= hidden_field_tag "due_date", params[:due_date] %>
+<% end %>

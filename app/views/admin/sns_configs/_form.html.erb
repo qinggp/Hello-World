@@ -1,0 +1,79 @@
+<tr>
+  <td class="content_table_title" colspan="2">SNS基本設定</td>
+</tr>
+<tr>
+  <th>SNS名<font color="red">※</font></th>
+  <td><%= f.text_field :title,:size => 40 %></td>
+</tr>
+<tr>
+  <th>概要<font color="red">※</font></th>
+  <td><%= f.text_area :outline,:cols => 50,:rows => 2 %><br />
+    <span style="font-size: 80%;">検索サイトに表示させたいキーワードを2,3個使用した全角100文字以内のサイト説明文を記入してください。</span>
+  </td>
+</tr>
+<tr>
+  <th>デザインテーマ<font color="red">※</font></th>
+  <td><%= f.select :sns_theme_id, SnsTheme.ascend_by_id.map{|a| [h(a.human_name), a.id]} %><br/>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">SNS各種設定</td>
+</tr>
+<tr>
+  <th>管理アドレス<font color="red">※</font></th>
+  <td><%= f.text_field :admin_mail_address, :size => 50, :style => "ime-mode: disabled;" %><br />
+    <span style="font-size: 80%;">
+      ※ユーザに送られる各種お知らせメールの差出人(From)に設定されます。<br/>
+      ※お問い合わせもこのアドレスへ届きます。検索サイトに表示させたいキーワードを2,3個使用した全角100文字以内のサイト説明文を記入してください。
+    </span>
+  </td>
+</tr>
+<tr>
+  <th>ユーザ登録方法<font color="red">※</font></th>
+  <td><%= f.select :entry_type, options_for_select([["招待制", false],["自由登録制", true]], @sns_config.entry_type) %></td>
+</tr>
+<tr>
+  <th>招待機能<font color="red">※</font></th>
+  <td><%= f.select :invite_type, options_for_select([["招待あり", false],["招待なし", true]], @sns_config.invite_type) %>
+    <span style="font-size: 80%;">※「招待制」で「招待なし」にした場合は管理者による招待のみ有効となります。</span>
+  </td>
+</tr>
+<tr>
+  <th>参加承認<font color="red">※</font></th>
+  <td><%= f.select :approval_type, select_options_for_const("SnsConfig", "APPROVAL_TYPES") %></td>
+</tr>
+<tr>
+  <th>ログイン画面<font color="red">※</font></th>
+  <td><%= f.select :login_display_type, options_for_select([["ログインフォーム", false],["ポータルタイプ", true]], @sns_config.login_display_type) %></td>
+</tr>
+<tr>
+  <th>関係性機能<font color="red">※</font></th>
+  <td><%= f.select :relation_flg, options_for_select([["有効", true],["無効", false]], @sns_config.relation_flg) %>
+    <span style="font-size: 80%;">※招待やトモダチ依頼の際の関係性入力機能を切り替えられます。</span>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">SNS拡張機能各種設定</td>
+</tr>
+<% Mars::UI.instance.admin_sns_extension_configs.each do |part| %>
+  <%= part.display(self, :locals => {:f => f, :view_type => :form}) %>
+<% end %>
+<tr>
+  <td class="content_table_title" colspan="2">地図表示設定</td>
+</tr>
+<tr>
+  <th>GoogleMaps<br />API_Key</th>
+  <td><%= f.text_field :g_map_api_key, :size => 60 %><br />
+    <span style="font-size: 80%;">※GoogleMapsを使用する際のAPI_Key [ <a href="http://www.google.com/apis/maps/signup.html" target="_blank">SignUp API_Key</a> ]</span>
+  </td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%= f.text_field :g_map_longitude, :size => 8, :id => 'longitude' %><%= f.text_field :g_map_latitude, :size => 8, :id => 'latitude' %>
+    <%= f.select :g_map_zoom, options_for_select(0..19, @sns_config.g_map_zoom), {}, :id => 'zoom' %>
+    <span style="font-size: 80%;">(0～19)</span>
+    <input type="button" value="座標値クリア" class="button_style" onclick="SnsConfigs.clear_coordinate_values()"/>
+    <input type="button" value="マップを見る" class="button_style" onclick="GMapSelector.open_map_window('<%= select_map_admin_sns_configs_url %>')"/>
+  </td>
+</tr>

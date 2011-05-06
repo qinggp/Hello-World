@@ -1,0 +1,13 @@
+<%
+  @back_link_template ||= "complete_back_link"
+%>
+
+<%= render :partial => "share/show_reply", :locals => {:reply => (@community_reply.parent || @community_reply.thread)} %>
+<hr size="1" noshade>
+
+<%= @message.gsub("\n", "<br/>") %><br/>
+
+<p align="center">
+- <%= render :partial => @back_link_template %> -
+</p>
+

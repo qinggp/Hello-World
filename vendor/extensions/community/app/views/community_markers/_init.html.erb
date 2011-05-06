@@ -1,0 +1,9 @@
+<%= theme_stylesheet_link_tag "community/community" -%>
+<%= theme_stylesheet_link_tag "community/community_markers" -%>
+<%= javascript_include_tag "gmap_selector" %>
+
+<% if action_name == "map" && @community.visibility_public? %>
+  <%= auto_discovery_link_tag :rss, map_community_markers_url(:format => :rdf), :title => h(@community.name)+" - コミュニティマップ(RSS1.0)" %>
+  <%= auto_discovery_link_tag :rss, map_community_markers_url(:format => :rss), :title => h(@community.name)+" - コミュニティマップ(RSS2.0)" %>
+  <%= auto_discovery_link_tag :atom, map_community_markers_url(:format => :atom), :title => h(@community.name)+" - コミュニティマップ(Atom1.0)" %>
+<% end %>

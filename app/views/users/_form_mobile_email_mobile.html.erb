@@ -1,0 +1,7 @@
+[<%=h User.human_attribute_name("mobile_email") %>]<br/>
+<%= text_field_tag "user[mobile_email_account_domain][account]", @user.mobile_email_account %>
+@
+<%= select_tag "user[mobile_email_account_domain][domain]", options_for_select([""] + CONFIG["mobile_domains"], @user.mobile_email_domain), :include_blank => true %>
+<br/>
+[<%=h User.human_attribute_name("current_password") %>]※<br/>
+<%= f.password_field :current_password, :value => "" %><br/>

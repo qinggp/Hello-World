@@ -1,0 +1,31 @@
+<% if current_user.same_user?(displayed_user) %>
+  <%= render :partial => "/share/my_community_mainte_link" %>
+  <hr size="1" noshade>
+<% end %>
+
+<% unless @community_groups.size.zero? %>
+  グループ一覧<br />
+  <%= link_to("参加コミュニティ全て", communities_path) %><br />
+  <% @community_groups.in_groups_of(2).each do |groups| %>
+    <% groups.each do |g| %>
+      <% break unless g %>
+      <%= link_to_if(@community_group.try(:id) != g.id, h(g.name + "(#{g.communities.count})"), communities_path(:community_group_id => g.id)) %>
+    <% end %>
+    <br />
+  <% end %>
+  <hr size="1" noshade>
+<% end %>
+
+<%= will_paginate_mobile(@communities).untaint %>
+<% if @communities.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+
+<% @communities.each do |community| %>
+  <%= link_to(h(community.name), community_path(community)) %>(<%= h community.members.count %>)<br />
+<% end %>
+
+<% if @communities.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@communities).untaint %>

@@ -1,0 +1,12 @@
+ja:
+  page_titles:
+    banners_title: バナー
+  activerecord:
+    models:
+      banner: バナー
+    attributes:
+      banner:
+        image: バナー画像
+        comment: コメント
+        link_url: リンク先
+

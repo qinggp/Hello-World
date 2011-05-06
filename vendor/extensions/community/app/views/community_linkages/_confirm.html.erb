@@ -1,0 +1,26 @@
+<% if @community_linkage.kind == "CommunityInnerLinkage" %>
+  <tr>
+    <td class="content_table_title" colspan="2">内部コミュニティリンク管理</td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(CommunityInnerLinkage, :link_id) %></th>
+    <td>
+      <%= h @community_linkage.inner_link.name %>
+      <%= f.hidden_field :link_id %>
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <td class="content_table_title" colspan="2">外部コミュニティリンク管理</td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(CommunityOuterLinkage, :rss_url) %></th>
+    <td>
+      <%= h @community_linkage.name %>
+      <%= f.hidden_field :rss_url %>
+    </td>
+  </tr>
+<% end %>
+
+<%= f.hidden_field :kind %>
+

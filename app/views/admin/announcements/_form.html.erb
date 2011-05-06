@@ -1,0 +1,44 @@
+    <tr>
+        <td class="content_table_title" colspan="2">お知らせ管理</td>
+    </tr>
+    <tr valign="middle" bgcolor="#FFFFFF">
+      <td colspan="2" class="comm">
+        <font size="2">※HTMLタグが使用できますが、タグの閉じ忘れに注意！！<br />※改行は自動的にされますので&lt;BR&gt;タグは必要ありません。</font>
+      </td>
+    </tr>
+    <tr>
+      <th>お知らせ<font color="red">※</font></th>
+      <td class="data" >
+        <%= f.text_area :title,:size => '40x20'  %>
+      </td>
+    </tr>
+    <tr>
+      <th>詳細</th>
+      <td class="data" >
+        <%= f.text_area :content %><br />
+        <%= f.select :display_link, select_options_for_const("Information", "DISPLAY_LINKS") %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>表示期間<font color="red"></font></th>
+      <td class="data" >
+                <%= date_select(:information,
+                        :expire_date,
+                        :use_month_numbers => true,
+                        :start_year => Date.today.strftime("%Y").to_i) %>
+      </td>
+    </tr>
+    <tr>
+
+      <th>表示種別<font color="red">※</font></th>
+      <td class="data" >
+        <%= f.select :display_type, select_options_for_const("Information", "DISPLAY_TYPES") %>
+      </td>
+    </tr>
+    <tr>
+      <th>公開範囲<font color="red">※</font></th>
+      <td class="data" >
+        <%= f.select :public_range, select_options_for_const("Information", "PUBLIC_RANGES") %>
+      </td>
+    </tr>

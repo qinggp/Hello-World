@@ -1,0 +1,17 @@
+<% @preference.schedule_preference ||= SchedulePreference.new  %>
+<% f.fields_for :schedule_preference do |bpf|  %>
+  <% if view_type == :form %>
+    [<%=h SchedulePreference.human_attribute_name("visibility") %>]<br />
+    <%=
+        bpf.select(:visibility, %w(friend_only member_only publiced).map do |name|
+          [t("schedule_preference.visibility_label.#{name}"),
+           SchedulePreference::VISIBILITIES[name.to_sym]]
+        end)
+    %>
+    <br/>
+  <% else %>
+    [<%=h SchedulePreference.human_attribute_name("visibility") %>]<br />
+    <%=h t("schedule_preference.visibility_label.#{@preference.schedule_preference.visibility_name}") %>
+    <%= bpf.hidden_field :visibility %><br />
+  <% end %>
+<% end %>

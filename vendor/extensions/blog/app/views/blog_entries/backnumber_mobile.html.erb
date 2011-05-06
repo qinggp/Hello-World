@@ -1,0 +1,7 @@
+<% last_entry = BlogEntry.by_visible(current_user).by_user(displayed_user).find(:last, :order => "created_at DESC")%>
+<% if last_entry %>
+  <%= display_backnumber_for_mobile(backnumber_dates(last_entry.created_at.to_date)) %>
+<% else %>
+  バックナンバーはありません。<br/>
+<% end %>
+<%= render "/share/footer_mobile" %>

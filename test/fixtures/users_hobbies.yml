@@ -1,0 +1,35 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: users_hobbies
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  hobby_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+sns_tarou_hobby_1:
+  user: sns_tarou
+  hobby_id: 1
+
+sns_tarou_hobby_2:
+  user: sns_tarou
+  hobby_id: 2
+
+sns_hanako_hobby_1:
+  user: sns_hanako
+  hobby_id: 1
+
+sns_hanako_hobby_3:
+  user: sns_hanako
+  hobby_id: 3
+
+sns_zirou_hobby_1:
+  user: sns_zirou
+  hobby_id: 1
+
+sns_zirou_hobby_4:
+  user: sns_zirou
+  hobby_id: 4

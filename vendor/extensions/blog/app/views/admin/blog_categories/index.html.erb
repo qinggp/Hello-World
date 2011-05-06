@@ -1,0 +1,21 @@
+  <center>
+      [<%= link_to '共通カテゴリ追加',new_admin_blog_category_path  %>]
+      <% display_round_box(:width => "650px", :white_bg => false) do %>
+        <% display_collection_box(@blog_categories, :collection_name => "現在の登録数", :checked_value => 5) do %>
+          <table id="blog_categories_content_table" align="center" >
+            <tr id="title">
+              <th><%= link_for_sort("カテゴリ名",{:order => "name"}) %></th>
+              <th nowrap><%= link_for_sort("作成者",{:order => "users.name"}) %></th>
+              <th></th>
+            </tr>
+            <% @blog_categories.each do |blog_category| %>
+              <tr id="data">
+                <td><%=h blog_category.name %></td>
+                <td nowrap><%=h !blog_category.user.nil? ? blog_category.user.name : ''%></td>
+                <td align="center" nowrap><%= link_to("編集",edit_admin_blog_category_path(blog_category.id)) %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+    </center>

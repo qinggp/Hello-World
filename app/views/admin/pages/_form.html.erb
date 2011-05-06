@@ -1,0 +1,24 @@
+<tr>
+  <td colspan="2" class="content_table_title">
+   <b>ページ管理</b>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>ID<font color="red">※</font></th>
+  <td><%= h @page.page_id %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>タイトル<font color="red"></font></th>
+  <td><%= h @page.title %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>本文<font color="red">※</font></th>
+  <td>
+    <%= f.text_area :body, :size => '60x20' %>
+    <span style="font-size:80%;"><br />
+      ※HTMLタグが使用できますが、タグの閉じ忘れに注意！！<br />
+      ※改行は自動的にされますので&lt;BR&gt;タグは必要ありません。</span>
+  </td>
+</tr>
+
+

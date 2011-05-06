@@ -1,0 +1,14 @@
+<% @preference.movie_preference ||= MoviePreference.new  %>
+<% f.fields_for :movie_preference do |mpf|  %>
+  <% if view_type == :form %>
+    [<%=h MoviePreference.human_attribute_name("default_visibility") %>]<br/>
+    <%= 
+       mpf.select(:default_visibility, 
+         select_options_for_const("MoviePreference", "VISIBILITIES", :name_space => "movie"))
+    %><br/>
+  <% else %>
+    [<%=h MoviePreference.human_attribute_name("default_visibility") %>]※<br/>
+    <%=h t("movie.movie_preference.visibility_label.#{@preference.movie_preference.default_visibility_name}") %>
+    <%= mpf.hidden_field :default_visibility %><br/>
+  <% end %>
+<% end %>

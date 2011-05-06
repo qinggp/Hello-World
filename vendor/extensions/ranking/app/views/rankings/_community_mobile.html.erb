@@ -1,0 +1,4 @@
+<% if community.count.to_i > 0 %>
+  [<%= h community_mobile_counter + 1%>位]
+  <%= link_to(h(community.name), community_path(community)) %>(<%= h community.count %>)<br />
+<% end %>

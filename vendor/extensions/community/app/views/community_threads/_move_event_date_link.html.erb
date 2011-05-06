@@ -1,0 +1,13 @@
+<%
+   previous_date = @start_date << 1
+   next_date = @start_date >> 1
+%>
+
+<% with_options(:types => ["CommunityEvent"]) do |opt| %>
+  [ <%= link_to("前月", opt.community_threads_path(:year => previous_date.year, :month => previous_date.month))   %> ]
+  [ <%= link_to("今月", opt.community_threads_path(:year => Date.today.year, :month => Date.today.month))   %> ]
+  [ <%= link_to("次月", opt.community_threads_path(:year => next_date.year, :month => next_date.month))   %> ]
+<% end %>
+<br />
+
+<%= h l(@start_date, :format => :year_month) %>

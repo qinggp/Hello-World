@@ -1,0 +1,7 @@
+<% link_to search_blog_entries_path, :title => "ブログ検索" do %>
+  <%= theme_image_tag("blog/search_blog_tab.gif",
+        :alt => "ブログ検索",
+        :onmouseover => "this.src=#{theme_image_path('blog/search_blog_tab_2.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('blog/search_blog_tab.gif').to_json}")
+  %>
+<% end %>

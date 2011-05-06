@@ -1,0 +1,29 @@
+<% display_round_box do %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= t('blog.new_blog_entry_index') %>
+  </div>
+
+  <% entries = blog_entries_by_rss_at_profile %>
+  <% if entries.empty?  %>
+    <div class="no_data">最近のブログ投稿はありません。</div>
+  <% else %>
+    <div class="news_data">
+      <% entries.take(10).each do |entry| %>
+        <div class="news_link">
+          <% if entry.imported_by_rss %>
+            <%= display_news_line_format(entry.created_at,
+                                         link_to(h(entry.title) + theme_image_tag("outlink.gif"), h(entry.url_to_article)),
+                                         link_to(displayed_user, h(displayed_user.name))) %>
+          <% else %>
+            <%= display_news_line_format(entry.created_at,
+                                         link_to(h(entry.title + "(#{entry.blog_comments.size})"), blog_entry_path(entry)),
+                                         link_to_user(entry.user, h(entry.user.name))) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="news_footer">
+      [<%= link_to "全て(#{entries.size})", index_for_user_user_blog_entries_path(displayed_user) %>]
+    </div>
+  <% end %>
+<% end %>

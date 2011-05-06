@@ -1,0 +1,20 @@
+<% unless @events.size.zero? %>
+  <div class="caption">
+    イベント最新書込一覧
+  </div>
+  <div class="news_data">
+    <div class="news_link" align="left">
+      <%= render(:partial => "link_to_thread", :collection => @events, :as => :thread, :locals => {:named_root => "community_event"}) %>
+    </div>
+    <div class="all_link">
+      [ <%= link_to("イベントカレンダー", show_calendar_community_events_path(:community_id => @community.id)) %> ]
+
+      <% if @community.event_createable?(current_user) %>
+        [
+        <%= theme_image_tag("community/comm_event.gif", :size => "12x12", :style => "vertical-align: middle;") %>
+        <%= link_to("イベントの作成", new_community_event_path(:community_id => @community.id)) %>
+        ]
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,51 @@
+sns_tarou_to_blog_entry_author_1:
+  user: sns_tarou
+  role: entry_author_to_visibility_public_entry
+
+sns_tarou_to_blog_entry_author_2:
+  user: sns_tarou
+  role: entry_author_to_visibility_member_only_entry
+
+sns_tarou_to_blog_entry_author_3:
+  user: sns_tarou
+  role: entry_author_to_visibility_friend_only_entry
+
+sns_tarou_to_blog_entry_author_4:
+  user: sns_tarou
+  role: entry_author_to_visibility_unpublic_entry
+
+sns_tarou_to_blog_entry_author_5:
+  user: sns_tarou
+  role: entry_author_to_comment_restraint_public_entry
+
+sns_tarou_to_blog_entry_author_6:
+  user: sns_tarou
+  role: entry_author_to_comment_restraint_member_only_entry
+
+sns_tarou_to_blog_entry_author_7:
+  user: sns_tarou
+  role: entry_author_to_comment_restraint_friend_only_entry
+
+sns_tarou_to_blog_entry_author_8:
+  user: sns_tarou
+  role: entry_author_to_comment_restraint_unpublic_entry
+
+sns_tarou_to_blog_entry_long_body:
+  user: sns_tarou
+  role: entry_author_to_long_body_entry
+
+sns_hanako_to_blog_entry_author_1:
+  user: sns_hanako
+  role: entry_author_to_user_friend_1_entry
+
+sns_zirou_to_blog_entry_author_1:
+  user: sns_zirou
+  role: entry_author_to_user_friend_1_entry
+
+sns_tarou_to_new_category_entry:
+  user: sns_tarou
+  role: entry_author_to_new_category_entry
+
+sns_tarou_to_tag_mix:
+  user: sns_tarou
+  role: entry_author_to_tag_mix

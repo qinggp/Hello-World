@@ -1,0 +1,19 @@
+<tr>
+  <td class="content_table_title" colspan="2">お気に入り編集</td>
+</tr>
+<tr>
+  <th>[<%=h Favorite.human_attribute_name("name") %>]※</th>
+  <td><%= f.text_field :name %></td>
+</tr>
+<tr>
+  <th>[<%=h Favorite.human_attribute_name("url") %>]※</th>
+  <td>
+    <%=h @favorite.url %>
+  </td>
+</tr>
+<tr>
+  <th>[<%=h Favorite.human_attribute_name("category") %>]※</th>
+  <td>
+    <%=h @favorite.category %>
+  </td>
+</tr>

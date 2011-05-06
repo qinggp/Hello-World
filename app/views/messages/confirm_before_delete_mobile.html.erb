@@ -1,0 +1,5 @@
+削除してよろしいですか？<br />
+[<%= link_to("削除する", delete_message_path(@message), :method => :put) %>]
+[<%= link_to("戻る", message_path(@message)) %>]
+
+<%= render :partial => "back_to_top" %>

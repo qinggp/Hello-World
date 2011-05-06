@@ -1,0 +1,20 @@
+※画像名をクリックすると選択できます。
+<center>
+  <table width="100%">
+    <% PreparedFacePhoto.find(:all, :order => "position ASC").in_groups_of(4).each do |photos| %>
+      <tr>
+        <% photos.each do |photo| %>
+          <td width="25%" style="text-align:center;">
+            <% if photo %>
+              <div>
+                <%= link_to_function display_face_photo(photo, :image_type => :medium), "Users.select_prepare_face(#{photo.id.to_s.to_json})" %>
+              </div>
+              <%= link_to_function h(photo.name), "Users.select_prepare_face(#{photo.id.to_s.to_json})" %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= button_to_function "閉じる", "Mars.window_close()" %>
+</center>

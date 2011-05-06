@@ -1,0 +1,7 @@
+<% link_to tracks_path, :title => "あしあと" do %>
+  <%= theme_image_tag "track/my_menu_track.gif", :id => "my_menu_track",
+      :alt => "あしあと",
+      :onmouseover => "$('my_menu_track').src=#{theme_image_path('track/my_menu_track_ov.gif').to_json}",
+      :onmouseout => "$('my_menu_track').src=#{theme_image_path('track/my_menu_track.gif').to_json}"
+  %>
+<% end %>

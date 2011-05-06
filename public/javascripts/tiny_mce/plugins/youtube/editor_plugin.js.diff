@@ -1,0 +1,124 @@
+diff --git a/public/javascripts/tiny_mce/plugins/youtube/editor_plugin.js b/public/javascripts/tiny_mce/plugins/youtube/editor_plugin.js
+index d8a6bb2..dbd04dc 100644
+--- a/public/javascripts/tiny_mce/plugins/youtube/editor_plugin.js
++++ b/public/javascripts/tiny_mce/plugins/youtube/editor_plugin.js
+@@ -111,69 +111,28 @@ var TinyMCE_YouTubePlugin = {
+ 				break;
+ 
+ 			case "insert_to_editor":
+-				var startPos = 0;
+-				var embedList = new Array();
+-
+-				// Fix the embed and object elements
+-				content = content.replace(new RegExp('<[ ]*embed','gi'),'<embed');
+-				content = content.replace(new RegExp('<[ ]*/embed[ ]*>','gi'),'</embed>');
+-				content = content.replace(new RegExp('<[ ]*object','gi'),'<object');
+-				content = content.replace(new RegExp('<[ ]*/object[ ]*>','gi'),'</object>');
+-
+-				// Parse all embed tags
+-				while ((startPos = content.indexOf('<embed', startPos+1)) != -1) {
+-					var endPos = content.indexOf('>', startPos);
+-					var attribs = TinyMCE_YouTubePlugin._parseAttributes(content.substring(startPos + 6, endPos));
+-					embedList[embedList.length] = attribs;
+-				}
+-
+-				// Parse all object tags and replace them with images from the embed data
+-				var index = 0;
+-				while ((startPos = content.indexOf('<object', startPos)) != -1) {
+-					if (index >= embedList.length)
+-						break;
++				var startPos = -1;
++                while ((startPos = content.indexOf("<EXT", startPos+1)) != -1 ||
++                      (startPos = content.indexOf("<ext", startPos+1)) != -1) {
++					var endPos = content.indexOf('/>', startPos);
++					var attribs = TinyMCE_MatsueMoviePlugin._parseAttributes(content.substring(startPos + 4, endPos));
+ 
+-					var attribs = embedList[index];
++					// Is not matsue movie, skip it
++					if (attribs['type'] != "youtube")
++						continue;
+ 
+-					// Find end of object
+-					endPos = content.indexOf('</object>', startPos);
+-					endPos += 9;
++					endPos += 2;
+ 
+-					// Insert image
++                    // Insert image
+ 					var contentAfter = content.substring(endPos);
+-					content = content.substring(0, startPos);
+-					content += '<img width="' + attribs["width"] + '" height="' + attribs["height"] + '"';
+-					content += ' src="' + (tinyMCE.getParam("theme_href") + '/images/spacer.gif') + '" title="' + attribs["src"] + '"';
+-					content += ' alt="' + attribs["src"] + '" class="mceItemYoutube" />' + content.substring(endPos);
+-					content += contentAfter;
+-					index++;
+-
+-					startPos++;
+-				}
++                    content = content.substring(0, startPos);
++                    content += '<img width="' + attribs["width"] + '" height="' + attribs["height"] + '"';
++                    content += ' src="' + (tinyMCE.getParam("theme_href") + '/images/spacer.gif') + '" title="' + attribs["data"] + '"';
++                    content += ' alt="' + attribs["data"] + '" class="mceItemYoutube" />';
++                    content += contentAfter;
+ 
+-				// Parse all embed tags and replace them with images from the embed data
+-				var index = 0;
+-				while ((startPos = content.indexOf('<embed', startPos)) != -1) {
+-					if (index >= embedList.length)
+-						break;
+-
+-					var attribs = embedList[index];
+-
+-					// Find end of embed
+-					endPos = content.indexOf('>', startPos);
+-					endPos += 9;
+-
+-					// Insert image
+-					var contentAfter = content.substring(endPos);
+-					content = content.substring(0, startPos);
+-					content += '<img width="' + attribs["width"] + '" height="' + attribs["height"] + '"';
+-					content += ' src="' + (tinyMCE.getParam("theme_href") + '/images/spacer.gif') + '" title="' + attribs["src"] + '"';
+-					content += ' alt="' + attribs["src"] + '" class="mceItemYoutube" />' + content.substring(endPos);
+-					content += contentAfter;
+-					index++;
+-
+-					startPos++;
+-				}
++                    startPos++;
++                }
+ 
+ 				break;
+ 
+@@ -192,13 +151,7 @@ var TinyMCE_YouTubePlugin = {
+ 					endPos += 2;
+ 
+ 					var embedHTML = '';
+-					var wmode = tinyMCE.getParam("youtube_wmode", "");
+-					var quality = tinyMCE.getParam("youtube_quality", "high");
+-					var menu = tinyMCE.getParam("youtube_menu", "false");
+-
+-					// Insert object + embed
+ 					var src = attribs["title"];
+-					var flash_mov = "";
+ 
+ 					if( src.indexOf("http://www.youtube.com/watch?v=") > -1 )
+ 						src = src.replace("http://www.youtube.com/watch?v=", "");
+@@ -211,13 +164,11 @@ var TinyMCE_YouTubePlugin = {
+ 					if( src.indexOf("http://www.youtube.com/v/") < 0 )
+ 						src = "http://www.youtube.com/v/"+src;
+ 
+-					flash_mov = src;
+-
+-					embedHTML += '<object';
+-					embedHTML += ' width="' + attribs["width"] + '" height="' + attribs["height"] + '">';
+-					embedHTML += '<param name="movie" value="' + flash_mov + '" />';
+-					embedHTML += '<param name="wmode" value="transparent" />';
+-					embedHTML += '<embed src="' + flash_mov + '" type="application/x-shockwave-flash" wmode="transparent" type="application/x-shockwave-flash" width="' + attribs["width"] + '" height="' + attribs["height"] + '"></embed></object>';
++                    embedHTML += '<EXT type="youtube"';
++                    embedHTML += ' data="' + src + '"';
++                    embedHTML += ' width="' + attribs["width"] + '"';
++                    embedHTML += ' height="' + attribs["height"] + '"';
++                    embedHTML += '/>';
+ 
+ 					// Insert embed/object chunk
+ 					chunkBefore = content.substring(0, startPos);

@@ -1,0 +1,10 @@
+<tr>
+  <td class="content_table_title" colspan="2">ブログカテゴリ</td>
+</tr>
+<tr>
+  <th nowrap>[<%=h BlogCategory.human_attribute_name("name") %>]<font color="red">※</font></th>
+  <td>
+    <%= h @blog_category.name %>
+    <%= f.hidden_field :name %>
+  </td>
+</tr>

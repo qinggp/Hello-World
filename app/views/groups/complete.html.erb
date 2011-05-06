@@ -1,0 +1,16 @@
+<%= render :partial => "header" %>
+
+<center>
+  <% display_round_box(:width => "310px", :height => "210px") do %>
+    <table style="width:100%;height:100%;">
+      <tr>
+        <td valign="middle" align="center">
+          <%=hbr @message %>
+          <br /><br />
+          [ <%= link_to("グループメンバー管理", member_list_group_path(params[:id])) %>]
+        </td>
+      </tr>
+    </table>
+  <% end %>
+- <%= link_to "戻る", new_group_path %> -
+</center>

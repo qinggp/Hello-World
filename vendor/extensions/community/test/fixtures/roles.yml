@@ -1,0 +1,55 @@
+community_curry_admin:
+  name: community_admin
+  authorizable: curry(Community)
+
+community_curry_general:
+  name: community_general
+  authorizable: curry(Community)
+
+community_ramen_admin:
+  name: community_admin
+  authorizable: ramen(Community)
+
+community_ramen_general:
+  name: community_general
+  authorizable: ramen(Community)
+
+community_boat_admin:
+  name: community_admin
+  authorizable: boat(Community)
+
+community_boat_general:
+  name: community_general
+  authorizable: boat(Community)
+
+community_curry_sub_admin:
+  name: community_sub_admin
+  authorizable: curry(Community)
+
+<% %w(admin sub_admin general).each_with_index do |role, i| %>
+community_official_normal_<%= role %>:
+  name: community_<%= role %>
+  authorizable: official_normal(Community)
+<% end %>
+
+<% %w(admin sub_admin general).each do |role| %>
+community_official_all_member_<%= role %>:
+  name: community_<%= role %>
+  authorizable: official_all_member(Community)
+<% end %>
+
+<% %w(admin sub_admin general).each do |role| %>
+community_official_admin_<%= role %>:
+  name: community_<%= role %>
+  authorizable: official_admin(Community)
+<% end %>
+
+<% %w(public public_and_approval_required member member_and_approval_required private secret).each do |community| %>
+community_<%= community %>_admin:
+  name: community_admin
+  authorizable: <%= community %>(Community)
+<% end %>
+
+hanako_role_admin:
+  name: community_admin
+  authorizable: hanako_admin(Community)

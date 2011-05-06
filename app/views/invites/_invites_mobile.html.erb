@@ -1,0 +1,18 @@
+<b>---招待中一覧---</b><br/>
+※招待状を送ってもなかなか参加されない場合は、招待状が"迷惑メール判定"されてしまっている可能性があります。<br/>
+念のため招待状再送後、確認の連絡をしてみましょう！<br/>
+※[メールソフトから再送]はブラウザ、メールソフトによって上手く表示されない場合がございます。<br/>
+
+<br/>  
+<% if @invites.empty? %>
+招待中の人はいません。<br/>
+<% else %>
+  <% @invites.each do |invite| %>
+    <%=h invite.email %>　
+    <%=h l(invite.created_at, :format => "default") %><br/>
+    [<%= link_to "フォームから再送", edit_invite_path(invite) %>]
+    [<%= mail_to(invite.email, "メールソフトから再送", :body => "[URL]\n" + h(new_user_url(:private_token => invite.private_token))) %>]
+    [<%= link_to "招待中止", confirm_before_destroy_invite_path(invite) %>]
+    <br/>  
+  <% end %>
+<% end %>

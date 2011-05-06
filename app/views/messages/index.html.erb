@@ -1,0 +1,51 @@
+<% search_options = {:unread => params[:unread],
+     :sender_id => params[:sender_id],
+     :keyword => params[:keyword]}
+%>
+
+<center>
+
+  <%= render(:partial => "navigation") %>
+
+  <% display_round_box(:width => "610px", :white_bg => false) do %>
+    <% form_tag(search_inbox_messages_path) do %>
+      <div style="text-align: right;">
+        <%= check_box_tag("unread", true, checked = !params[:unread].blank?) %>
+        未読のみ
+        <%= select_sender(current_user) %>
+        <%= text_field_tag("keyword", params[:keyword]) %>
+        <%= submit_tag("検索") %>
+      </div>
+    <% end %>
+
+    <% display_collection_box(@messages,
+                              :collection_name => "受信メッセージ",
+                              :checked_value => 20,
+                              :form => {:url_for_options => search_options,
+                                        :options => {:method => :post}}) do %>
+      <% form_tag(search_inbox_messages_path) do %>
+        <table class="content_table">
+          <tr>
+            <td style="background-color: #F9F9F4;" width="20"></td>
+            <td style="background-color: #F9F9F4;" width="20">
+              <input type="checkbox" onclick="Message.allCheck()" id="check_all"/>
+            </td>
+            <% with_options(search_options.merge(:default_order => Message.default_index_order,
+                                                 :per_page => params[:per_page],
+                                                 :page => params[:page])) do |view| %>
+
+              <td style="background-color: #F9F9F4;" width="80"><%= view.link_for_sort("受信日時", :order => "messages.created_at") %></td>
+              <td style="background-color: #F9F9F4;" width="100"><%= view.link_for_sort("差出人", :order => "users.name") %></td>
+              <td style="background-color: #F9F9F4;"><%= view.link_for_sort("件名", :order => "messages.subject") %></td>
+            <% end %>
+          </tr>
+          <%= render(:partial => "message_summary", :collection => @messages, :as => :message) %>
+        </table>
+        <%= hidden_field_tag(:order, params[:order]) %>
+        <%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+        <%= submit_tag("チェック分を削除", :name => :delete, :confirm => "削除してよろしいですか？") %>
+        <%= submit_tag("チェック分を既読", :name => :read, :confirm => "既読にします。よろしいですか？") %>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

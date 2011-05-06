@@ -1,0 +1,43 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_linkages
+#
+#  id           :integer         not null, primary key
+#  community_id :integer
+#  user_id      :integer
+#  link_id      :integer
+#  rss_url      :string(255)
+#  comment      :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  type         :string(255)
+#
+
+curry_to_matsuesns_curry_atom:
+  owner: curry
+  user: sns_tarou
+  inner_link:
+  rss_url: http://matsuesns.jp/bbs/feed/atom.php?bbs_id=127
+  type: CommunityOuterLinkage
+
+curry_to_matsuesns_curry_rss1.0:
+  owner: curry
+  user: sns_tarou
+  inner_link:
+  rss_url: http://matsuesns.jp/bbs/feed/rdf.php?bbs_id=127
+  type: CommunityOuterLinkage
+
+curry_to_matsuesns_curry_rss2.0:
+  owner: curry
+  user: sns_tarou
+  inner_link:
+  rss_url: http://matsuesns.jp/bbs/feed/rss.php?bbs_id=127
+  type: CommunityOuterLinkage
+
+curry_to_boat:
+  owner: curry
+  user: sns_tarou
+  inner_link: boat
+  rss_url:
+  type: CommunityInnerLinkage

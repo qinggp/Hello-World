@@ -1,0 +1,21 @@
+<%= render :partial => "header" %>
+<hr size="1" noshade>
+
+<%= render :partial => "/share/form" %>
+<hr size="1" noshade>
+
+<% if action_name == "new" || action_name == "create" %>
+  登録グループ一覧<br />
+
+  <% if @groups.count.zero? %>
+    登録がありません
+  <% else %>
+    <% @groups.each do |group| %>
+      <%= h(group.name + "(#{group.friends.count})") %><br />
+      [ <%= link_to("メンバー管理", member_list_group_path(group)) %> ]
+      [ <%= link_to("編集", edit_group_path(group)) %> ]
+      [ <%= link_to("削除", confirm_before_destroy_group_path(group)) %> ]
+      <br /><br />
+    <% end %>
+  <% end %>
+<% end %>

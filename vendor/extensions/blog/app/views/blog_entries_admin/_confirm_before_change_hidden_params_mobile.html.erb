@@ -1,0 +1,6 @@
+<%= f.hidden_field :visibility %>
+<%= f.hidden_field :comment_restraint %>
+<%= f.hidden_field :blog_category_id %>
+<% params[:checked_ids].each do |cid| %>
+  <%= hidden_field_tag "checked_ids[]", cid %>
+<% end %>

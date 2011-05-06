@@ -1,0 +1,46 @@
+<center>
+  <div style="margin: 10px; font-weight: bold;">
+    招待中一覧
+  </div>
+  <div style="margin: 3px; font-size: 80%;">
+    ※招待状を送ってもなかなか参加されない場合は、招待状が"迷惑メール判定"されてしまっている可能性があります。
+    <br/>
+    念のため招待状再送後、確認の連絡をしてみましょう！
+    <br/>
+    ※[メールソフトから再送]はブラウザ、メールソフトによって上手く表示されない場合がございます。
+  </div>
+  <% if @invites.empty? %>
+    <div>
+      招待中の人はいません。
+    </div>
+  <% else %>
+    <% display_round_box(:width => "660px") do %>
+      <table class="content_table">
+        <tr>
+          <% with_options(:default_order => Invite.default_index_order) do |view| %>
+            <th><%= view.link_for_sort(h(Invite.human_attribute_name(:email)), :order => "invites.email") %></th>
+            <th><%= view.link_for_sort(h(Invite.human_attribute_name(:created_at)), :order => "invites.created_at") %></th>
+            <th>招待状再送</th>
+            <th>　</th>
+          <% end %>
+        </tr>
+        <% @invites.each do |invite| %>
+          <tr>
+            <td><%=h invite.email %></td>
+            <td><%=h l(invite.created_at, :format => "default") %></td>
+            <td nowrap="">
+              <%= link_to "フォームから再送", edit_invite_path(invite) %>／
+              <%= mail_to(invite.email, "メールソフトから再送", :body => "[URL]\n" + h(new_user_url(:private_token => invite.private_token))) %>
+            </td>
+            <td>
+              <%= link_to "招待中止", invite_path(invite), :method => "delete", :confirm => "#{h(invite.email)}への招待を中止してよろしいですか？" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+    <div style="width: 600px; text-align: right;">
+      [ <%= link_to "招待中の全員に招待状を再送付", reinvite_all_invites_path, :confirm => "招待中の全員に招待状を再送付しますか？\n(#{current_user.login}から送信されます)" %> ]
+    </div>
+  <% end %>
+</center>

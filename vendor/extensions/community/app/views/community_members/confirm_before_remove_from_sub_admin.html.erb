@@ -1,0 +1,18 @@
+<%
+   community_and_member_params = {
+     :id => @member.id,
+     :community_id => @community.id
+   }
+%>
+
+<%= render(:partial => "share/header", :locals => {:community => @community}) %>
+<hr size="1" noshade>
+
+<%= h @member.name %>を「<%= h @community.name %>」の副管理人から解任していいですか？<br />
+
+[<%= link_to("解任する", remove_from_sub_admin_community_member_path(community_and_member_params)) %>]
+[<%= link_to("戻る", community_member_path(community_and_member_params)) %>]<br />
+<hr size="1" noshade>
+
+<%= link_to("コミュニティトップへ戻る", community_path(@community)) %>
+

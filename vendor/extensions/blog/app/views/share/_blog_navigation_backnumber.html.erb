@@ -1,0 +1,26 @@
+<% @backnumber_spread ||= false %>
+<% last_entry = BlogEntry.by_visible(current_user).by_user(@user).find(:last, :order => "created_at DESC")%>
+<table>
+  <% if last_entry %>
+    <% if @backnumber_spread %>
+      <% backnumber_dates(last_entry.created_at.to_date).each do |date| %>
+        <tr>
+          <td><%= link_to h(l(date, :format => :year_month)), index_for_user_user_blog_entries_path(@user, :date => {:year => date.year, :month => date.month}) %>（<%= backnumber_entry_count(date) %>）</td>
+        </tr>
+      <% end %>
+    <% else %>
+      <% backnumber_dates(Date.new(Date.today.year, 1)).each do |date| %>
+        <tr>
+          <td><%= link_to h(l(date, :format => :year_month)), index_for_user_user_blog_entries_path(@user, :date => {:year => date.year, :month => date.month}) %>（<%= backnumber_entry_count(date) %>）</td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><%= prev_year_backnumbers_link(last_entry.created_at.to_date) %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td>バックナンバーはありません。</td>
+    </tr>
+  <% end %>
+</table>

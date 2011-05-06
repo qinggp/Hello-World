@@ -1,0 +1,15 @@
+<%= h displayed_user.name %>さんのトモダチ一覧<br />
+<hr size="1" noshade>
+
+<% if displayed_user.same_user?(current_user) %>
+  <%= render :partial => "index_header_mobile" %>
+
+  トモダチグループ<br />
+  <%= link_to("トモダチ全員") %><br />
+  <% @groups.each do |group| %>
+    <%= link_to(h(group.name + "(#{group.friends.count})"), friends_path(:group_id => group.id)) %><br />
+  <% end %>
+  <hr size="1" noshade>
+<% end %>
+
+<%= render :partial => "friend_list" %>

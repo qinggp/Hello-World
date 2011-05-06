@@ -1,0 +1,17 @@
+<%= render :partial => "/share/mail_header" %>
+
+◆あなたの<%=h SnsConfig.title %>への参加が
+　先ほど <%= @approval_user_name %> により承認されましたので、ご連絡いたします。
+　以下のアドレスからログインして<%=h SnsConfig.title %>をお楽しみください。
+　<%= root_url(:host => CONFIG["host"]) %>
+<% unless @user.reason.blank?  %>
+———— < <%= @approval_user_name %> >からあなたへのメッセージ ———
+
+<%= h @user.reason %>
+
+—————————————————————————————
+<% end %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

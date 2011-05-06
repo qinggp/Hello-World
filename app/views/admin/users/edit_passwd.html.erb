@@ -1,0 +1,56 @@
+<center>
+  <% display_round_box(:width => "400px") do %>
+    <div class="no_data">
+      <% if request.ssl? %>
+        [<%= link_to "通常(http)フォームはこちら",  edit_passwd_admin_user_path(@user, :only_path => false, :protocol => "http://") %>]
+      <% else %>
+        [<%= theme_image_tag "ssl.gif" %><%= link_to "SSL(https)対応フォームはこちら",  edit_passwd_admin_user_path(@user, :only_path => false, :protocol => "https://") %>]
+      <% end %>
+    </div>
+  <% end %>
+</center>
+<%
+  form = form_params
+  display_round_box_opts ||= {:width => "660px"}
+%>
+<center>
+<%= form_notation %>
+
+<% display_round_box(display_round_box_opts) do %>
+  <% form_for(form[:model_instance], :url => form[:url], :html => {:method => :post, :multipart => form[:multipart], :name => form[:name]}) do |f| %>
+    <%= f.error_messages.untaint %>
+    <table class="content_table">
+      <tr   align="center" valign="middle" >
+        <th colspan="2">
+          <center>
+            <b>ユーザ情報変更</b>
+        </center>
+        </th>
+      </tr>
+      <tr>
+        <th nowrap valign="top">
+          メールアドレス<font color="red">※</font>
+        </th>
+        <td>
+          <%= f.text_field(:login, :style => "ime-mode: disabled;", :maxlength => "", :size => 40) %>
+        </td>
+      </tr>
+      <tr>
+        <th nowrap valign="top">
+          新しいパスワード
+        </th>
+        <td>
+          <%= f.password_field(:password, :maxlength => "", :size => "") %><br />
+          <%= f.password_field(:password_confirmation, :maxlength => "", :size => "") %>
+          <span style="font-size: 80%;">(確認のため再入力)</span><br/>
+          <span style="font-size: 80%;">※パスワード変更しない場合、入力の必要はありません。</span>
+        </td>
+      </tr>
+    </table>
+    <div class="content_box_bg" align="center">
+      <%= f.submit "次へ進む" %>
+      <%= f.submit "全てクリア", :name => :clear, :id => :input_info_clear %>
+    </div>
+  <% end %>
+<% end %>
+</center>

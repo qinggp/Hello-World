@@ -1,0 +1,25 @@
+<center>
+  <%= render :partial => "header" %>
+
+  <div style="margin-bottom: 10px;">
+    <% display_round_box(:width => "450px", :white_bg => false) do %>
+      <% form_for(@community_map_category, :url => confirm_form_params[:url], :html => {:method => confirm_form_params[:method]}) do |f| %>
+        <%= f.error_messages.untaint %>
+        マップカテゴリ管理：
+        <%= f.text_field :name, :size => 24 %>
+        <% if @community_map_category.new_record? %>
+          <%= f.submit "追加", :confirm => "追加してよろしいですか？" %>
+        <% else %>
+          <%= f.submit "更新", :confirm => "更新してよろしいですか？" %>
+        <% end %>
+      <% end %>
+      <% unless @community_map_category.new_record? %>
+  <% form_for(@community_map_category, :url => community_map_category_path(:id => @community_map_category, :community_id => params[:community_id]), :html => {:method => :delete}) do |f| %>
+    <%= f.submit "削除", :confirm => "このカテゴリ以下の書き込みは全て通常トピックとなります。よろしいですか？", :name => :destroy %>
+  <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= render :partial => "map_categories" %>
+</center>

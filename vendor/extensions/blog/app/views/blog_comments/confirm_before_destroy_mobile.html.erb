@@ -1,0 +1,7 @@
+<%= render :partial => "header_mobile" %>
+
+削除してよろしいですか？<br/>
+[<%= link_to "削除", blog_entry_blog_comment_path(@blog_entry, params[:id]), :method => :delete %>]
+[<%= link_to "戻る", blog_entry_path(@blog_entry) %>]<br/>
+
+<%= render :partial => "/share/footer_mobile" %>

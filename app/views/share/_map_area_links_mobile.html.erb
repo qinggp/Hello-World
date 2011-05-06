@@ -1,0 +1,10 @@
+<% default = {:span_lat => Mars::GmapViewable::Mobile::DEFAULT_SPAN_LAT,:span_lng => Mars::GmapViewable::Mobile::DEFAULT_SPAN_LNG} %>
+
+▽<%= link_to '松江市橋北地区', url_for({:action => :map_for_mobile, :latitude => 35.47190724598895, :longitude => 133.0632519721985}.merge(default))  %>
+<br/>
+▽<%= link_to '松江市橋南地区', url_for({:action => :map_for_mobile, :latitude => 35.455776082164796, :longitude => 133.06657791137695}.merge(default))  %>
+<br/>
+▽<%= link_to '松江市役所、松江宍道湖温泉駅周辺', url_for({:action => :map_for_mobile, :latitude => 35.46731115511406, :longitude => 133.04581761360168}.merge(default))  %>
+<br/>
+▽<%= link_to '島根県庁、島根県警周辺', url_for({:action => :map_for_mobile, :latitude => 35.46731115511406, :longitude => 133.04581761360168}.merge(default))  %>
+<br/>

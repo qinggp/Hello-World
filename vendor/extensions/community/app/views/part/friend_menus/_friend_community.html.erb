@@ -1,0 +1,7 @@
+<% link_to communities_path(:user_id => displayed_user.id), :title => "参加コミュニティ" do %>
+  <%= theme_image_tag "community/friend_menu_community.gif",
+      :alt => "参加コミュニティ",
+      :onmouseover => "this.src=#{theme_image_path('community/friend_menu_community_ov.gif').to_json}",
+      :onmouseout => "this.src=#{theme_image_path('community/friend_menu_community.gif').to_json}"
+  %>
+<% end %>

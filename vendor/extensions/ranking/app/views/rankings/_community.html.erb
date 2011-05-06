@@ -1,0 +1,15 @@
+<%
+  link = link_to(h(community.name), community_path(community))
+  count = community.count
+  rank = community_counter + 1
+  if rank == 1
+    if community.reload.image
+      link_in_image = link_to(theme_image_tag(show_unpublic_image_community_path(:id => community.id, :community_id => community.id, :image_type => "thumb")), community_path(community))
+    else
+      link_in_image = link_to(theme_image_tag("noimage.gif", :size => "100x100"), community_path(community))
+    end
+  end
+%>
+
+<%= display_ranking(rank, link, count, link_in_image).untaint %>
+

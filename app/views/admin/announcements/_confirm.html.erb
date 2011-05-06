@@ -1,0 +1,42 @@
+<tr>
+  <th>お知らせ<font color="red">※</font></th>
+  <td class="data" >
+    <%= @announcement.title.untaint.gsub("\n", "<br/>") %>
+    <%= f.hidden_field :title %>
+  </td>
+</tr>
+<tr>
+  <th>詳細</th>
+  <td class="data" >
+    <%= @announcement.content.untaint.gsub("\n", "<br/>") %><br />
+    <%= f.hidden_field :content %>
+  </td>
+</tr>
+<tr>
+  <th>詳細リンク</th>
+  <td>
+    <%= t("information.display_link_label.#{@announcement.display_link_name.to_s}") %>
+    <%= f.hidden_field :display_link %>
+  </td>
+</tr>
+<tr>
+  <th>表示期間</th>
+  <td>
+    <%= h @announcement.expire_date.strftime('%Y/%m/%d') %>
+    <%= f.hidden_field :expire_date %>
+  </td>
+</tr>
+<tr>
+  <th>表示種別</th>
+  <td>
+    <%= t("information.display_type_label.#{@announcement.display_type_name.to_s}") %>
+    <%= f.hidden_field :display_type %>
+  </td>
+</tr>
+<tr>
+  <th>公開範囲</th>
+  <td>
+    <%= t("information.public_range_label.#{@announcement.public_range_name.to_s}") %>
+    <%= f.hidden_field :public_range %>
+  </td>
+</tr>

@@ -1,0 +1,20 @@
+.admin_blog_entry_content_table {
+    border:2px solid #ECEBE1;
+    border-collapse:collapse;
+    width: 620px;
+    margin: 3px auto;
+}
+
+.admin_blog_entry_content_table TH {
+    border:1px solid #ECEBE1;
+    background-color:#F9F9F4;
+    padding:5px;
+    width: 100px;
+    white-space: nowrap
+}
+.admin_blog_entry_content_table TD {
+    border:1px solid #ECEBE1;
+    padding:5px;
+    background-color:#FFFFFF;
+    width: 520px;
+}

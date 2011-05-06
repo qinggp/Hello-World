@@ -1,0 +1,10 @@
+<%=
+   mars_calendar_mobile do |day|
+     html = []
+     @blog_entries_for_calender.find_all{|e| e.created_at.to_date == day }.each do |e|
+       html << (link_to(h(e.title), blog_entry_path(e)))
+     end
+
+     html
+   end
+%>

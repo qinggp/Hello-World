@@ -1,0 +1,36 @@
+<%= render :partial => "header" %>
+
+<center>
+  <%= render :partial => "/share/form", :locals => {:display_round_box_opts => {:width => "510px"}} %>
+
+  <% if %w(new create confirm_before_create).include?(action_name) %>
+    <div align="center" style="margin: 10px; font-weight: bold;">コミュニティグループ</div>
+
+    <% display_round_box(:width => "510px") do %>
+      <% if @community_groups.count.zero? %>
+        <div class="no_data">登録がありません</div>
+      <% else %>
+
+        <table class="content_table">
+          <tr>
+            <td style="background-color:#F9F9F4;" nowrap=""><%= link_for_sort("グループ名", :order => CommunityGroup.default_index_order) %></td>
+            <td style="background-color:#F9F9F4;" nowrap="">登録数</td>
+            <td style="background-color:#F9F9F4;" nowrap="">登録コミュニティ管理</td>
+            <td style="background-color:#F9F9F4;" nowrap="">編集</td>
+            <td style="background-color:#F9F9F4;" nowrap="">&nbsp;</td>
+          </tr>
+          <% @community_groups.each do |group| %>
+            <tr>
+              <td><%= h group.name %></td>
+              <td><%= h group.communities.count %></td>
+              <td><%= link_to("登録コミュニティ管理", community_list_community_group_path(group)) %></td>
+              <td><%= link_to("編集", edit_community_group_path(group)) %></td>
+              <td><%= link_to("削除", community_group_path(group), :method => :delete, :confirm => "削除してよろしいですか？") %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>
+

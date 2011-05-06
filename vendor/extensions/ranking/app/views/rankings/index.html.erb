@@ -1,0 +1,52 @@
+<center id="ranking">
+  <div class="page_title">「<%= t(:project_name) %>」<%= t(:ranking) %></div>
+
+  <div style="width: 730px; margin-top: 10px;">
+    <div style="float: left;">
+      <%
+        if params[:type] != "total"
+          class_name = "current_tab"
+          color = nil
+        else
+          class_name = "tab"
+          color = "#F9F9F4"
+        end
+        %>
+      <div class="<%= class_name %>">
+        <% display_round_box(:width => "364px", :white_bg => false, :top_only => true, :color => color) do %>
+          <div class="box_content">
+            <%= link_to("最新ランキング", rankings_path) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div style="float: right;">
+      <%
+        if params[:type] == "total"
+          class_name = "current_tab"
+          color = nil
+        else
+          class_name = "tab"
+          color = "#F9F9F4"
+        end
+        %>
+      <div class="<%= class_name %>">
+        <% display_round_box(:width => "364px", :white_bg => false, :top_only => true, :color => color)  do %>
+          <div class="box_content">
+            <%= link_to("総合ランキング", rankings_path(:type => "total")) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div style="clear: both;">
+      <% display_round_box(:width => "730px", :bottom_only => true) do %>
+        <% if params[:type] == "total" %>
+          <%= render :partial => "total_ranking" %>
+        <% else %>
+          <%= render :partial => "latest_ranking" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</center>

@@ -1,0 +1,8 @@
+<div id="blog_title_content_box">
+  <% display_round_box(:white_bg => false) do  %>
+    <div id="blog_title">
+      <%= link_to h(@user.preference.blog_preference.title), index_for_user_user_blog_entries_path(displayed_user) %>
+    </div>
+    <%= render :partial => "/share/blog_header_info" %>
+  <% end %>
+</div>

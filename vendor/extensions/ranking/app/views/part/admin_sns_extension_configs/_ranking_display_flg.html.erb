@@ -1,0 +1,14 @@
+<% if view_type == :form %>
+  <tr>
+    <th>ランキング表示<font color="red">※</font></th>
+    <td><%= f.select :ranking_display_flg, select_options_for_const("SnsConfig", "RANKING_DISPLAY_FLGS") %></td>
+  </tr>
+<% else %>
+  <tr>
+    <th>ランキング表示</th>
+    <td>
+      <%= t("sns_config.ranking_display_flg_label.#{@sns_config.ranking_display_flg_name.to_s}") %>
+      <%= f.hidden_field :ranking_display_flg %>
+    </td>
+  </tr>
+<% end %>

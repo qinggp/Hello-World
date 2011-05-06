@@ -1,0 +1,31 @@
+<b>--- ブログ投稿 ---</b><br/>
+<%= display_form_attr_name(BlogEntry, "created_at", :force_presence_mark => true) %><br/>
+<% if @blog_entry.visibility_unpubliced? %>
+  <%= f.datetime_select(:created_at).untaint %>
+<% else %>
+  <%= l(post_time_or_now(@blog_entry), :format => "default_minute") %>
+  <%= f.hidden_field :created_at %>
+<% end %>
+<br/>
+
+[カテゴリ]<%= font_coution '※' %><br/>
+<%= f.select :blog_category_id, categories_select_options %>
+<br/>
+
+[タイトル]<%= font_coution '※' %><br/>
+<%= f.text_field :title %><br/>
+
+[本文]<%= font_coution '※' %><br/>
+<%= f.text_area :body, :rows => 2, :cols => 20 %><br/>
+
+<b>--- 投稿別設定 ---</b><br/>
+
+[公開制限]<%= font_coution '※' %><br/>
+<%= restraint_select_for "visibility", f %><br/>
+
+[コメント制限]<%= font_coution '※'%><br/>
+<%= restraint_select_for "comment_restraint", f %>
+<br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "form", :model => @blog_entry} %>

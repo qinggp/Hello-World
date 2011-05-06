@@ -1,0 +1,25 @@
+<% display_round_box do %>
+  <div class="content_box_bg content_title_not_bold">
+    最近のコミュニティ投稿
+  </div>
+
+  <% comments = Community.comments_post(displayed_user, :vpublic_or_member_visibility => true, :limit => 10) %>
+  <% if comments.empty? %>
+    <div class="no_data">最近の投稿はありません。</div>
+  <% else %>
+    <div class="news_data">
+      <% comments.each do |comment| %>
+        <div class="news_link">
+            <% count = comment.class == CommunityReply ? comment.thread.active_replies.size : comment.active_replies.size %>
+            <% thread_id = comment.class == CommunityReply ? comment.thread.id : comment.id %>
+            <% controller = comment.class == CommunityReply ? comment.thread.class.to_s.underscore.pluralize : comment.class.to_s.underscore.pluralize %>
+            <%= display_news_line_format(comment.created_at,
+                                                 link_to(h(comment.title + " (#{count}) "), :controller => controller, :action => :show, :community_id => comment.community.id, :id => thread_id),
+                                                 link_to(h(comment.community.name), community_path(comment.community))) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+

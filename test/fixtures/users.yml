@@ -1,0 +1,269 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: users
+#
+#  id                        :integer         not null, primary key
+#  login                     :string(100)
+#  name                      :string(100)     default("")
+#  mobile_email              :string(100)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(40)
+#  remember_token_expires_at :datetime
+#  private_token             :string(10)
+#  birthday                  :date
+#  birthday_visibility       :integer
+#  openid_url                :string(255)
+#  admin                     :boolean
+#  mobile_ident              :string(100)
+#  last_real_name            :string(255)
+#  first_real_name           :string(255)
+#  real_name_visibility      :integer
+#  now_prefecture_id         :integer
+#  now_zipcode               :string(255)
+#  now_city                  :string(255)
+#  now_street                :text
+#  now_address_visibility    :integer
+#  face_photo_id             :integer
+#  face_photo_type           :string(255)
+#  gender                    :integer
+#  home_prefecture_id        :integer
+#  blood_type                :integer
+#  phone_number              :string(255)
+#  job_id                    :integer
+#  job_visibility            :integer
+#  affiliation               :string(255)
+#  affiliation_visibility    :integer
+#  message                   :text
+#  detail                    :text
+#  invitation_id             :integer
+#  logged_in_at              :datetime
+#  approval_state            :string(255)
+#  friends_count             :integer         default(0)
+#  sns_link_key              :string(255)
+#
+
+DEFAULTS: &DEFAULTS
+  mobile_email:                     default@example.com
+  salt:                      ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 # SHA1('1')
+  private_token:             ac3478d69a # SHA1('1')
+  crypted_password:          b2392c36c27866f6e9437ffe1fab14bbba0b6ebe # 'monkey'
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at:
+  remember_token:
+  birthday: <%= 20.years.ago.to_s :db %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  first_real_name: "SNS"
+  last_real_name: "松江"
+  real_name_visibility: <%= User::VISIBILITIES[:publiced] %>
+  now_prefecture_id: 1
+  now_zipcode: "690-0826"
+  now_city: "松江市"
+  now_street: "学園南2丁目12-5"
+  now_address_visibility: <%= User::VISIBILITIES[:publiced] %>
+  gender: <%= User::GENDERS[:male] %>
+  blood_type: <%= User::BLOOD_TYPES[:a] %>
+  home_prefecture_id: 1
+  phone_number: 000-0000-0000
+  job_id: 1
+  job_visibility: <%= User::VISIBILITIES[:publiced] %>
+  affiliation: "NaCl"
+  affiliation_visibility: <%= User::VISIBILITIES[:publiced] %>
+  message: "一言メッセージ"
+  detail: "自己紹介"
+  logged_in_at: <%= Time.now.to_s(:db) %>
+  approval_state: 'active'
+
+quentin:
+  <<: *DEFAULTS
+  id:                        1
+  login:                     quentin@example.com
+  mobile_email:              quentin@example.com
+  name:                      quentin
+  salt:                      1b6453892473a467d07372d45eb05abc2031647a # SHA1('0')
+  private_token:             1b64538924 # SHA1('0')
+  crypted_password:          17913f48d065e09fab37585b248ffc2142e8dd52 # 'monkey'
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at: <%= 1.days.from_now.to_s %>
+  remember_token:            c1dfd96eea8cc2b62785275bca38ac261256e278
+  birthday: <%= Date.civil(1970, 1, 2) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  logged_in_at: <%= 1.month.ago.to_s :db %>
+
+aaron:
+  <<: *DEFAULTS
+  id:                        2
+  login:                     aaron@example.com
+  mobile_email:                     aaron@example.com
+  name:                      aaron
+  salt:                      ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 # SHA1('1')
+  private_token:             ac3478d69a # SHA1('1')
+  crypted_password:          b2392c36c27866f6e9437ffe1fab14bbba0b6ebe # 'monkey'
+  created_at:                <%= 1.days.ago.to_s :db %>
+  remember_token_expires_at:
+  remember_token:
+  birthday: <%= Date.civil(1970, 1, 3) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  logged_in_at: <%= 1.month.ago.to_s :db %>
+
+old_password_holder:
+  <<: *DEFAULTS
+  id:                        3
+  login:                     old_password_holder@example.com
+  mobile_email:                     salty_dog@example.com
+  name:                      old_password_holder
+  salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  private_token:             7e3041ebc2
+  crypted_password:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at:                <%= 1.days.ago.to_s :db %>
+  birthday: <%= Date.civil(1970, 1, 4) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+
+sns_tarou:
+  <<: *DEFAULTS
+  login: sns_tarou@example.com
+  mobile_email: sns_tarou@mobile.com
+  name: SNS太郎
+  first_real_name: "太郎"
+  last_real_name: "松江"
+  birthday: <%= Date.civil(1980, 10, 20) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  openid_url: http://msnstest.openid.ne.jp/
+  # openid pass: msnstest
+  message: "SNS太郎一言メッセージ"
+  detail: "SNS太郎自己紹介"
+  now_prefecture_id: 32
+  home_prefecture_id: 32
+  now_city: "浜田市"
+  now_street: "旭町木田"
+  face_photo_id: 1
+  face_photo_type: PreparedFacePhoto
+  admin: true
+  logged_in_at: <%= 2.month.ago.to_s :db %>
+  friends_count: 2
+
+sns_zirou:
+  <<: *DEFAULTS
+  login: sns_zirou@example.com
+  mobile_email: sns_zirou@mobile.com
+  name: SNS次郎
+  birthday: <%= Date.civil(1972, 2, 29) %>
+  birthday_visibility: <%= User::VISIBILITIES[:friend_only] %>
+  logged_in_at: <%= 3.month.ago.to_s :db %>
+  friends_count: 7
+
+sns_hanako:
+  <<: *DEFAULTS
+  login: sns_hanako@example.com
+  mobile_email: sns_hanako@mobile.com
+  name: SNS花子
+  birthday: <%= Date.civil(1992, 3, 10) %>
+  birthday_visibility: <%= User::VISIBILITIES[:unpubliced] %>
+  logged_in_at: <%= 4.month.ago.to_s :db %>
+  gender: <%= User::GENDERS[:female] %>
+  friends_count: 1
+  detail: プロフィールは、メンバーにしかみれません
+
+alone:
+  <<: *DEFAULTS
+  login: alone@example.com
+  mobile_email: alone@mobile.com
+  name: トモダチのいないユーザ
+  birthday: <%= Date.civil(1963, 4, 1) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+
+sns_saburou:
+  <<: *DEFAULTS
+  login: sns_saburou@example.com
+  mobile_email: sns_saburou@mobile.com
+  name: SNS三郎
+  birthday: <%= Date.civil(1932, 10, 22) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+sns_sirou:
+  <<: *DEFAULTS
+  login: sns_sirou@example.com
+  mobile_email: sns_sirou@mobile.com
+  name: SNS四郎
+  birthday: <%= Date.civil(1979, 9, 16) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+sns_gorou:
+  <<: *DEFAULTS
+  login: sns_gorou@example.com
+  mobile_email: sns_gorou@mobile.com
+  name: SNS五郎
+  birthday: <%= Date.civil(1973, 3, 12) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+sns_rokurou:
+  <<: *DEFAULTS
+  login: sns_rokurou@example.com
+  mobile_email: sns_rokurou@mobile.com
+  name: SNS六郎
+  birthday: <%= Date.civil(1908, 11, 11) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+sns_sitirou:
+  <<: *DEFAULTS
+  login: sns_sitirou@example.com
+  mobile_email: sns_sitirou@mobile.com
+  name: SNS七郎
+  birthday: <%= Date.civil(1999, 12, 31) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+sns_hatirou:
+  <<: *DEFAULTS
+  login: sns_hatirou@example.com
+  mobile_email: sns_sitirou@mobile.com
+  name: SNS八郎
+  birthday: <%= Date.civil(1973, 3, 28) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  invitation: sns_zirou
+  friends_count: 1
+
+pending:
+  <<: *DEFAULTS
+  login: pending@example.com
+  mobile_email: not_approved_user@mobile.com
+  name: 承認待ちユーザ
+  birthday: <%= Date.civil(1999, 9, 9) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  approval_state: 'pending'
+
+pause:
+  <<: *DEFAULTS
+  login: pause@example.com
+  mobile_email: stop_user@mobile.com
+  name: 一時停止中待ちユーザ
+  birthday: <%= Date.civil(1999, 9, 9) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  approval_state: 'pause'
+
+invitation_user:
+  <<: *DEFAULTS
+  login: invitation_user@example.com
+  invitation: sns_tarou
+  approval_state: 'pending'
+
+female_user:
+  <<: *DEFAULTS
+  login: female@example.com
+  mobile_email: female@mobile.com
+  name: 女性のユーザ
+  birthday: <%= Date.civil(1990, 1, 1) %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  gender: 2

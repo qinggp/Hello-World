@@ -1,0 +1,31 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h SnsConfig.title %>を退会する</td>
+</tr>
+<tr>
+  <td colspan="2">
+    退会するとあなたの全ての情報がデータベースから削除されます。（削除後復活はできません）<br/>
+    ※なにか問題を抱えているようでしたら一度、招待者や<%= link_to "運営者へ相談", new_ask_path %>してみましょう。<br/>
+    ※あなたが作成したコミュニティの管理権は自動的に他の参加者に移りますが、あらかじめ信頼のある参加者への管理権の委譲をお勧めいたします。
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("current_password") %>※
+  </th>
+  <td>
+    <%= f.password_field :current_password, :value => "" %>
+  </td>
+</tr>
+<tr>
+  <td colspan="2">
+    差し支えのない範囲で結構ですので退会理由をお聞かせください。
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("leave_reason") %>※
+  </th>
+  <td>
+    <%= f.text_area :leave_reason, :rows => 5, :cols => 40 %>
+  </td>
+</tr>

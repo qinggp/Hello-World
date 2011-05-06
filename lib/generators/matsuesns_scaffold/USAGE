@@ -1,0 +1,12 @@
+Description:
+    MatsueSNS用のscaffoldです．
+    新しい機能を作成する際の土台作りに使用します．
+
+Example:
+    `./script/generate matsuesns_scaffold content`
+       モデル名 content で scaffold を実施します．
+
+    `./script/generate matsuesns_model post --exstension blog`
+       モデル名 content で scaffold を実施します．
+       出力されるコードは拡張機能側に配置されます．
+        

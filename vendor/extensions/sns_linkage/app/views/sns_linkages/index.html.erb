@@ -1,0 +1,75 @@
+<%
+  if action_name == "news"
+    left_tab_class = "current_tab"
+    left_color_class = "content_box_bg"
+    right_tab_class = "tab"
+    right_color_class = "content_box_bg_light"
+  else
+    right_tab_class = "current_tab"
+    right_color_class = "content_box_bg"
+    left_tab_class = "tab"
+    left_color_class = "content_box_bg_light"
+  end
+%>
+<center id="sns_linkage">
+  <div class="sns_linkage_title">
+    <%= theme_image_tag "sns_linkage/linkage.gif" %>
+    SNS連携機能
+  </div>
+  <div style="margin:5px;">[<%= link_to "連携サイト設定", new_sns_linkage_path %>]</div>
+  <div style="width: 630px; margin-top: 10px;">
+    <div style="float: left;">
+      <div class="<%= left_tab_class %>">
+        <% display_round_box(:width => "314px", :white_bg => false, :top_only => true, :color_class => left_color_class) do %>
+          <div class="box_content">
+            <%= link_to("新着情報", news_sns_linkages_path) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div style="float: right;">
+      <div class="<%= right_tab_class %>">
+        <% display_round_box(:width => "314px", :white_bg => false, :top_only => true, :color_class => right_color_class)  do %>
+          <div class="box_content">
+            <%= link_to("お知らせ", info_sns_linkages_path) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div style="clear: both;">
+      <% display_round_box(:width => "630px", :bottom_only => true) do %>
+        <div class="content_box_bg_light tab_notice">
+          ※ここでは新着順に10件のみ表示しています。データ取得のタイミングによっては最新でない場合もあります。<br/>
+          ※表示されている以上の新着情報を見たい場合は、各サイトに実際にログインして、ご覧ください。
+        </div>
+
+        <% if @sns_linkages.empty? %>
+          <div class="no_data">
+            取得できるデータがありませんでした。
+          </div>
+        <% else %>
+          <table class="content_table">
+            <% @sns_linkages.each do |sl| %>
+              <tr>
+                <td width="120px" style="text-align:center;">
+                  <% link_to sl.sns_link_data_image_link, :target => "_blank" do %>
+                    <%= theme_image_tag(sl.sns_link_data_image_url, :width => "76")  %><br/>
+                    <%= link_to sl.rss_channel.title, sl.rss_channel.link %>
+                  <% end %>
+                </td>
+                <td valign="top">
+                  <% if action_name == "news" %>
+                    <%= render :partial => "news", :locals => {:sns_linkage => sl} %>
+                  <% else %>
+                    <%= render :partial => "info", :locals => {:sns_linkage => sl} %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</center>

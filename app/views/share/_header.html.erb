@@ -1,0 +1,58 @@
+<div id="header">
+
+  <div id="sns_logo">
+    <% link_to(root_path) do %>
+      <%= theme_image_tag "title.jpg", :height => 148, :width => 400 %>
+    <% end %>
+  </div>
+
+  <div id="sns_status">
+    <div id="font_size">
+      <span title="表示文字サイズを変更できます。">文字サイズ：</span>
+      <%= link_to_function theme_image_tag("z_up.gif", :alt => "拡大"), "font_size_change('larger');return false" -%>
+      <%= link_to_function theme_image_tag("z_down.gif", :alt => "縮小"), "font_size_change('smaller');return false" -%>
+      <%= link_to_function theme_image_tag("z_none.gif", :alt => "元に戻す"), "font_size_change('default');return false" -%>
+    </div>
+
+    <% if logged_in? %>
+      <p style="margin-bottom:10px;"><%= "#{h current_user.name}さん、#{h SnsConfig.title}にようこそ！"%></p>
+    <% end %>
+
+    <div style="text-align: right; font-size:0.8em;">
+      <% if logged_in? %>
+        <div style="float:right;">
+          <% link_to logout_path do %>
+            <%= theme_image_tag "logout.gif",
+                  :onmouseover => "this.src=#{theme_image_path('logout_ov.gif').to_json}",
+                  :onmouseout => "this.src=#{theme_image_path('logout.gif').to_json}"
+            %>
+          <% end  %>
+        </div>
+      <% else %>
+        <div style="float:right;">
+          <% link_to login_path do %>
+            <%= theme_image_tag "login.gif",
+                  :onmouseover => "this.src=#{theme_image_path('login_ov.gif').to_json}",
+                  :onmouseout => "this.src=#{theme_image_path('login.gif').to_json}"
+            %>
+          <% end  %>
+        </div>
+      <% end %>
+      <% if CONFIG["ssl_enable"] %>
+        <div style="float:right; padding-right: 5px;">
+          <% if !logged_in? && SnsConfig.master_record.entry_type_free_registration? %>
+            <%= link_to "初めての方はまず登録を！", new_user_path %><br/>
+          <% end %>
+          <% if request.ssl? %>
+            <%= theme_image_tag "ssl.gif" %>HTTPSで閲覧中<br/>
+            <%= link_to "HTTPへ戻す", "http://" + request.host + request.request_uri %>
+          <% else %>
+            HTTPで閲覧中<br/>
+            <%= theme_image_tag "ssl.gif" %><%= link_to "SSL(HTTPS)で閲覧する", "https://" + request.host + request.request_uri %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+<div align="center">
+  <div class="schedule_title">
+    <%= link_to(h(@user.name), user_path(@user)) %>さんのスケジュール
+  </div>
+  <% display_round_box(:width => "710px") do %>
+    <div id="schedule_calendar">
+      <%= render(:partial => "schedule_calendar") %>
+    </div>
+  <% end %>
+
+  <div style="border-top: 1px dotted gray; margin: 4px; padding: 3px; width: 720px; text-align: right;">
+    <%= theme_image_tag("schedule/sche_new.gif", :align => "bottom") %>スケジュール登録
+    <%= theme_image_tag("schedule/sche_public.gif", :align => "bottom") %>公開スケジュール
+    <%= theme_image_tag("schedule/sche_private.gif", :align => "bottom") %>非公開スケジュール
+    <%= theme_image_tag("schedule/sche_event.gif", :align => "bottom") %>参加イベント
+    <%= theme_image_tag("schedule/sche_birthday.gif", :align => "bottom") %>トモダチ誕生日
+  </div>
+</div>

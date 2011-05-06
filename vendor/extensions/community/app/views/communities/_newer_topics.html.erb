@@ -1,0 +1,37 @@
+<% if @topics.size.zero? %>
+  <div>
+    <table align="center">
+      <tr>
+        <td nowrap="" align="center">現在トピックがありません。<br/>まずは<%= link_to("トピックを作成", new_community_topic_path(:community_id => @community.id)) %>しましょう。</td>
+      </tr>
+    </table>
+  </div>
+<% else %>
+  <div class="caption">
+    トピック最新書込一覧
+  </div>
+  <div class="news_data">
+    <div class="news_link" align="left">
+      <%= render(:partial => "link_to_thread", :collection => @topics, :as => :thread, :locals => {:named_root => "community_topic"}) %>
+    </div>
+
+    <div class="all_link">
+    [
+    <%= theme_image_tag("community/tree.gif", :size => "12x12", :style => "vertical-align: middle;") %>
+    <%= link_to("ツリー表示", show_comment_tree_community_threads_path(:community_id => @community)) %>
+    ]
+
+    [
+    <%= theme_image_tag("community/topic.gif", :size => "12x12", :style => "vertical-align: middle;") %>
+    <%= link_to("トピック一覧", search_community_threads_path(:community_id => @community.id)) %>
+    ]
+
+    <% if @community.topic_and_marker_createable?(current_user) %>
+      [
+      <%= theme_image_tag("community/comm_topic.gif", :size => "12x12", :style => "vertical-align: middle;") %>
+      <%= link_to("トピックの作成", new_community_topic_path(:community_id => @community.id)) %>
+      ]
+    <% end %>
+  </div>
+  </div>
+<% end %>

@@ -1,0 +1,82 @@
+<% search_options = {:types => params[:types],
+                     :keyword => params[:keyword]}
+%>
+
+
+<% display_round_box(:width => "600px", :white_bg => false) do %>
+  <% display_collection_box(threads,
+                            :collection_name => "トピック数",
+                            :width => "580px",
+                            :per_pages => [5, 10, 20, 50, 100],
+                            :checked_value => 10,
+                            :form => {:url_for_options => search_options,
+                                      :options => {:method => :post}}) do %>
+    <table class="content_table">
+      <tr>
+      <% with_options(search_options.merge(:default_order => "community_threads.lastposted_at DESC",
+                                           :per_page => params[:per_page],
+                                           :page => params[:page])) do |view| %>
+    <th>[ <%= view.link_for_sort("日付順", :order => "community_threads.created_at") %>] </th>
+    <th colspan="3">
+      [ <%= view.link_for_sort("最新投稿順", :order => "community_threads.lastposted_at") %> ]
+      [ <%= view.link_for_sort("投稿者順", :order => "users.name") %> ]
+    </th>
+  <% end %>
+      </tr>
+      <% threads.each do |thread| %>
+  <% rowspan = thread.kind == "CommunityEvent" ? 5 : 4 %>
+
+  <tr>
+    <td style="padding: 0px; height: 5px; background-color: #ECEBE1; border: none;" colspan="4"></td>
+  </tr>
+  <tr>
+    <td width="100" valign="top" style="background-color: #FFFFFF; text-align: center;" rowspan="<%= rowspan %>">
+
+            <%= h thread.created_at.strftime("%y年%m月%d日") %><br />
+            <%= h thread.created_at.strftime("%H:%M") %><br /><br />
+      [ 最新投稿日時 ]<br />
+            <%= h thread.lastposted_at.strftime("%y年%m月%d日 %H:%M") %>
+    </td>
+    <th nowrap="" width="60"><%=h thread.class.human_attribute_name(:title) %></th>
+    <td width="400" colspan="2">
+      <%= theme_image_tag(thread.icon_path, :align => "top") %>
+      <%= link_to h(thread.title), thread.polymorphic_url_on_community(self) %>
+      (<%= h thread.active_replies.size %>)
+    </td>
+  </tr>
+  <% if thread.kind == "CommunityEvent" %>
+    <tr>
+    <th nowrap="" width="60"><%=h thread.class.human_attribute_name(:event_date) %></th>
+    <td width="400" colspan="2"><%= h thread.event_date.strftime("%Y年%m月%d日") %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <th nowrap="" width="60">投稿者</th>
+    <td width="400" colspan="2">
+      <%= link_to_user thread.author, h(thread.community.member_name(thread.author)) %>
+    </td>
+  </tr>
+  <tr>
+    <th nowrap="" width="60"><%=h thread.class.human_attribute_name(:content)  %></th>
+    <td width="400" colspan="2">
+            <%= hbr thread.content %>
+            <%= render :partial => "share/attachments", :locals => {:model => thread}%>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" style="text-align: right;">
+      <% if thread.destroyable?(current_user) %>
+              [ <%= link_to("削除", thread.polymorphic_url_on_community(self), :method => :delete, :confirm => "削除してよろしいですか？") %> ]
+      <% end %>
+      <% if thread.editable?(current_user) %>
+              [ <%= link_to("修正", thread.polymorphic_url_on_community(self, :action => :edit)) %> ]
+      <% end %>
+            [ <%= link_to("全て (#{thread.active_replies.size})", thread.polymorphic_url_on_community(self)) %> ]
+    </td>
+  </tr>
+      <% end %>
+    </table>
+    <%= hidden_field_tag(:order, params[:order]) %>
+    <%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,60 @@
+ <center>
+  <% display_round_box(:width => "400px") do %>
+    <div class="no_data">
+      <% if request.ssl? %>
+        [<%= link_to "通常(http)フォームはこちら",  delete_admin_user_path(@user, :only_path => false, :protocol => "http://") %>]
+      <% else %>
+        [<%= theme_image_tag "ssl.gif" %><%= link_to "SSL(https)対応フォームはこちら",  delete_admin_user_path(@user, :only_path => false, :protocol => "https://") %>]
+      <% end %>
+    </div>
+  <% end %>
+</center>
+<%
+  form = form_params
+  display_round_box_opts ||= {:width => "660px"}
+%>
+<center>
+<%= form_notation %>
+
+<% display_round_box(display_round_box_opts) do %>
+  <% form_tag(form[:url], {:method => :post, :multipart => form[:multipart], :name => form[:name]}) do %>
+    <table class="content_table" align="center">
+      <tr align="center" valign="middle">
+        <th colspan="2">
+          <center>
+            <b>
+              <%= link_to(h("#{@user.name}(#{@user.full_real_name})"), user_path(current_user.id)) %>さんを強制退会します
+            </b>
+          </center>
+        </th>
+      </tr>
+      <tr valign="middle">
+        <td colspan="2">
+          <font size="2">
+            このユーザの全ての情報がデータベースから削除されます。
+            <br/>
+            ※このユーザが作成したコミュニティは自動的に他の参加者に管理権が移ります。
+          </font>
+        </td>
+      </tr>
+      <tr valign="middle">
+        <td colspan="2">
+          <font size="2">強制退会の理由をメモ書き程度に記入できます。</font>
+        </td>
+      </tr>
+      <tr>
+        <th  nowrap valign="top">
+          強制退会理由
+        </th>
+        <td>
+          <%= text_area(:memo, :reason, :rows => 5, :cols => 40) %>
+        </td>
+      </tr>
+    </table>
+    <div class="content_box_bg" align="center">
+      <%= submit_tag "次へ進む" %>
+      <%= submit_tag "全てクリア", :name => :clear, :id => :input_info_clear %>
+    </div>
+  <% end %>
+<% end %>
+</center>

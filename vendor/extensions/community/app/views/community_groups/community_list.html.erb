@@ -1,0 +1,29 @@
+<%= render :partial => "header" %>
+<center>
+  <%= render :partial => "/share/form", :locals => {:display_round_box_opts => {:width => "510px"}} %>
+
+  <div align="center" style="margin: 10px; font-weight: bold;">登録コミュニティ一覧</div>
+  <div align="center" style="margin: 5px;">※コミュニティを登録する場合は、コミュニティ上の[追加]ボタンを押して下さい。</div>
+
+  <% if @communities.total_entries.zero? %>
+    登録がありません
+  <% else %>
+    <% display_collection_box(@communities, :width => "490px", :collection_name => "コミュニティ数", :per_pages => [5, 10, 15, 20, 50, 100], :checked_value => 15) do %>
+      <% display_round_box(:width => "490px") do %>
+        <table id="groups" cellspacing="0" cellpadding="8" border="0" align="center">
+          <% @communities.in_groups_of(5) do |communities| %>
+            <tr>
+              <% communities.each do |community| %>
+                <% if community %>
+                  <%= display_community_on_group(community, @community_group)  %>
+                <% else %>
+                  <td align="center" width="80" valign="top" class="off_group"></td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

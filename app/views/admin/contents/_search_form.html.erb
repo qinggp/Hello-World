@@ -1,0 +1,19 @@
+<% checked_genre = nil unless checked_genre %>
+<% checked_type = nil unless checked_type %>
+
+<center>
+  <% display_round_box(:width => "410px", :white_bg => false) do %>
+    <% form_tag(search_top_admin_contents_path, :method => :get) do %>
+     <div align="center">
+        書込種別：<%= select_contents(Admin::ContentsController::GENRE, {:param_name => "genre", :checked_value => checked_genre.to_s}) %>
+        <%= select_contents(Admin::ContentsController::TYPE, {:param_name => "type", :checked_value => checked_type.to_s}) %><br />
+        ID：<%= text_field_tag(:search_id, @search_id, :size => 10 ) %>
+        <%= submit_tag("確認", :name => "search") %><br />
+        <% if  @communities && controller.params[:type] == "write"  %>
+          ないしょのみ表示<%= check_box_tag(:secret_view, '', @secret_view)%>
+        <% end %>
+      <% end %>
+     </div>
+  <% end %>
+</center>
+<div style="margin:10px; color:red; text-align:center;">※表示件数を多くすると処理が重くなり、サーバーに負荷がかかります。</div>

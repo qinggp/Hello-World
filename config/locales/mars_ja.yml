@@ -1,0 +1,382 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ja:
+  user_search_link: メンバー検索
+  project_name: 松江SNS
+  project_mobile_name: 松江SNSモバイル
+  admin_page_name: 管理画面
+  my_home: マイホーム
+  name_suffix: "{{value}}さん"
+  logout: ログアウト
+  Log in: ログイン
+  openid log in: OpenIDでログイン
+  login: アカウント名
+  password: パスワード
+  remember_me: 自動ログイン
+  show: 表示
+  back: 戻る
+  ok: OK
+  friend_home: トモダチホーム
+  preference_category:
+    notice: お知らせ設定
+    visibility: 公開範囲設定
+    my_home: マイホーム関連
+    blog: ブログ関連
+    messenger: メッセンジャー関連
+  preference:
+    home_layout_type_label:
+      default: 標準
+      mixi: mixi風
+    visibility_label:
+      friend_only: トモダチまで公開
+      member_only: 全体に公開
+      publiced: 外部にも公開
+    skype_mode_label:
+      call: 通話発信
+      chat: チャット送信
+      profile: プロフィール送信
+  user:
+    approval_state_label:
+      active: 承認済
+      pending: 承認待
+      pause: 一時停止
+    search_category_label:
+      e_mail: E-Mail
+      name: 名前
+      id: ID
+      no_invitation: 招待者不明
+    visibility_label:
+      publiced: 全体に公開
+      friend_only: トモダチまで
+      unpubliced: 非公開
+    gender_label:
+      male: 男
+      female: 女
+    blood_type_label:
+      a: A
+      b: B
+      o: O
+      ab: AB
+      none: 指定なし
+    error_repeatability_label:
+      'yes': "再現性がある（継続している）"
+      'no': "再現性がない（一回だけ発生した）"
+      unclear: わからない
+  friendship:
+    relation_label:
+      relative_or_lover: 肉親・恋人
+      good_friend_or_teacher: 親友・恩師
+      peer: 友人・同僚
+      acquaintance: 知人
+      nothing: これから
+    contact_frequency_label:
+      many: 頻繁
+      once_a_month: 月イチ
+      once_a_year: 年イチ
+      few: イマイチ
+      nothing: これから
+  sns_config:
+    entry_type_label:
+      invitation: 招待制
+      free_registration: 自由登録制
+    invite_type_label:
+      invite: 招待あり
+      no_invite: 招待なし
+    approval_type_label:
+      no_approval: 承認不要
+      approved_by_invitation: 招待者承認
+      approved_by_administrator: 管理者承認
+    login_display_type_label:
+      form_type: ログインフォーム
+      portal_type: ポータルタイプ
+    relation_flg_label:
+      enable: 有効
+      disable: 無効
+  information:
+    display_link_label:
+      link: 詳細へのリンクあり
+      no_link: 詳細へのリンクなし
+    display_type_label:
+      new: 最新のお知らせ
+      fixed: 固定のお知らせ
+      important: 重要なお知らせ
+      private: 非公開
+    public_range_label:
+      sns_only: SNS内部のみ
+      published_externally: 外部も公開
+      external_only: 外部のみ
+  invite:
+    mail_sender_me_label:
+      "true": 自分のアドレスを差出人にする
+      "false": ""
+
+  activerecord:
+    models:
+      user: ユーザ
+      preference: ユーザ設定
+      forgot password: パスワード再発行
+      face photo: 顔写真
+      prepare face photo: 顔写真
+      group: グループ
+      friendship: トモダチ紹介文
+      sns config: SNS基本設定
+      information: お知らせ管理
+      page: ページ管理
+      invite: 招待
+      message: メッセージ
+    attributes:
+      preference:
+        home_layout_type: マイホームレイアウト
+        yahoo_id: Yahoo ID
+        yahoo_id_visibility: Yahoo公開範囲
+        skype_id: Skype ID
+        skype_mode: Skype MODE
+        skype_id_visibility: Skype公開範囲
+        message_notice_acceptable: メッセージお知らせ
+      user:
+        openid_url: OpenIDのURL
+        approval_status: ユーザ状態
+        last_real_name: 名字
+        first_real_name: 名前
+        real_name_visibility: 本名公開範囲
+        name: ニックネーム
+        face_photo: 顔写真
+        gender: 性別
+        birthday: 誕生日
+        birthday_visibility: 誕生日公開範囲
+        blood_type: 血液型
+        now_zipcode: 現住所郵便番号
+        now_prefecture: 現住所県
+        now_city: 現住所市区町村
+        now_street: 現住所町名・番地
+        now_address_visibility: 現住所公開範囲
+        phone_number: 連絡先番号
+        home_prefecture: 出身地
+        hobbies: 趣味
+        job: 職業
+        job_visibility: 職業公開範囲
+        affiliation: 所属
+        affiliation_visibility: 所属公開範囲
+        message: メッセージ
+        detail: 自己紹介
+        invitation_id: 招待者
+        change_first_real_name: 変更後のお名前（名前）
+        change_last_real_name: 変更後のお名前（名字）
+        change_name_reason: 変更理由
+        current_password: 現在のパスワード
+        password: 新しいパスワード
+        password_confirmation: 新しいパスワード（確認用）
+        login: メールアドレス
+        leave_reason: 退会理由
+        mobile_email: 携帯メールアドレス
+        ask_body: お問い合わせ内容・要望事項
+        errored_at: 発生した日時
+        error_page_url: 発生したページのURL
+        error_repeatability: 再現性
+        error_message: 表示されたエラーメッセージ
+      forgot_password:
+        email: メールアドレス
+      group:
+        name: グループ名
+      friendship:
+        description: 紹介文
+        relation: 関係の深さ
+        contact_frequency: 接触の頻度
+        message: 一言メッセージ
+      sns_config:
+        title: SNS名
+        outline: 概要
+        admin_mail_address: 管理アドレス
+      information:
+        title: お知らせ
+      invite:
+        email: メールアドレス
+        body: メッセージ
+        mail_sender_me: 差出人アドレス
+        relation: 関係の深さ
+        contact_frequency: 接触の頻度
+        created_at: 招待日時
+      page:
+        body: 本文
+      message:
+        subject: 件名
+        body: 本文
+        sender_id: 宛先
+  date:
+    formats:
+      year_month: "%Y年%m月"
+      year_month_date: "%Y年%m月%d日"
+      month_date: "%m月%d日"
+      default_year_month_date: "%y/%m/%d"
+  time:
+    formats:
+      month_date: "%m月%d日"
+      year_month_date: "%Y年%m月%d日"
+      hour_minute_date: "%H時%M分"
+      default_minute: "%Y/%m/%d %H:%M"
+      default_year_month_date: "%y/%m/%d  %H:%M"
+      default_month_date: "%m/%d"
+
+  page_titles:
+    contents_title: 書き込み管理
+    pages_title: ページ管理
+    preferences_title: ユーザ設定
+    users_title: ユーザ
+    messages_title: メッセージ
+    sns_configs_title: SNS基本設定
+    announcements_title: お知らせ管理
+    messages:
+      index: メッセージ受信箱
+      search_inbox: メッセージ受信箱
+      search_outbox: メッセージ送信箱
+      confirm_before_delete: メッセージ削除確認
+      new: メッセージ送信
+      confirm_before_create: メッセージ送信確認
+      complete_after_create: メッセージ送信完了
+    defaults:
+      index: 一覧
+      show: 表示
+      edit: 編集
+      destroy: 削除
+      new: 新規作成
+      create: 新規作成
+      update: 編集
+      search: 検索
+      confirm_before_create: 新規作成
+      confirm_before_update: 編集
+      confirm_before_destroy: 削除確認
+      complete_after_create: 作成完了
+      complete_after_update: 編集完了
+      index_for_map: マップ表示地域一覧
+      show_calendar: カレンダー表示
+      search_top: 書き込み管理検索トップ
+      wrote_administration_face_photo: プロフィール画像管理
+      edit_passwd: パスワード編集
+      confirm_before_update_passwd: パスワード編集
+      delete: 削除
+      complete_after_destroy: 削除完了
+      image_management: 一覧
+    users:
+      search_index: 各種検索
+      news_index: 新着情報
+      edit_openid: OpenID情報登録・修正
+      confirm_before_update_openid: OpenID情報登録・修正
+      update_openid: OpenID情報登録・修正
+      open_id_authentication_for_update: OpenID情報登録・修正
+      complete_after_update_openid: OpenID情報登録・修正完了
+      search_zipcode: 郵便番号検索
+      prepared_face_photo_choices: 画像サンプル
+      edit_request_new_name: 名前変更依頼に関するお問い合わせ
+      confirm_before_request_new_name: 名前変更依頼に関するお問い合わせ
+      request_new_name: 名前変更依頼に関するお問い合わせ
+      complete_after_request_new_name: 名前変更依頼に関するお問い合わせ
+      edit: プロフィール編集
+      confirm_before_update: プロフィール編集
+      update: プロフィール編集
+      complete_after_update: プロフィール編集
+      search_member_form: メンバー検索
+      search_member: メンバー検索
+      edit_id_password: ユーザ情報
+      confirm_before_update_id_password: ユーザ情報
+      update_id_password: ユーザ情報
+      complete_after_update_id_password: ユーザ情報
+      edit_for_leave: 退会手続き
+      confirm_before_leave: 退会手続き
+      leave: 退会手続き
+      complete_after_leave: 退会手続き
+      edit_mobile_email: 携帯メール情報変更
+      confirm_before_update_mobile_email: 携帯メール情報変更
+      update_mobile_email: 携帯メール情報変更
+      complete_after_update_mobile_email: 携帯メール情報変更
+      edit_friend_description: 紹介文登録
+      update_friend_description: 紹介文登録
+      confirm_before_update_friend_description: 紹介文登録
+      complete_after_update_friend_description: 紹介文登録完了
+      confirm_before_clear_friend_description: 紹介文削除確認
+      complete_after_clear_friend_description: 紹介文削除完了
+      failed_new: 招待登録エラー
+      failed_new_invalid_url: 招待状URL不正
+      new: ユーザ登録
+      confirm_before_create: ユーザ登録
+      create: ユーザ登録
+      failed_deactive: 現在、管理者による参加承認待ちです
+      failed_deactive_by_pause: ユーザアカウント一時停止中
+      new_approve_friend: トモダチ申請承認
+      confirm_before_approve_friend: トモダチ申請承認
+      approve_friend: トモダチ申請承認
+      confirm_before_reject_friend_application: トモダチ申請削除
+      new_friend_application: トモダチ依頼
+      confirm_before_create_friend_application: トモダチ依頼
+      edit_mobile_ident: 簡単ログイン設定
+      complete_after_mobile_ident: 簡単ログイン設定
+    sessions:
+      new: ログイン
+      failed_login: ログインエラー
+    forgot_passwords:
+      new: パスワード再発行
+      create: パスワード再発行
+      reset: 新規パスワード設定
+      update_after_forgetting: 新規パスワード設定
+    groups_title: トモダチグループ
+    groups:
+      new: トモダチグループ
+      complete_after_destroy: グループ削除完了
+      member_list: トモダチグループ
+      new_message: グループメッセージ作成
+      confirm_before_create_message: グループメッセージ作成確認
+      complete_after_create_message: グループメッセージ作成完了
+      create_message: グループメッセージ作成
+    friends_title: トモダチ
+    friends:
+      maintenance: トモダチ管理
+      list_request: トモダチ依頼中一覧
+      new_message: トモダチ紹介
+      confirm_before_create_message: トモダチ紹介
+      create_message: トモダチ紹介
+      complete_after_create_message: トモダチ紹介
+      index_for_invite: 招待したトモダチ一覧
+      confirm_before_break_off: トモダチから外しますか？
+    informations_title: お知らせ
+    informations:
+      show: お知らせ
+      index: お知らせ
+      index_for_important: 重要なお知らせ
+    invites_title: トモダチ招待
+    invites:
+      new: トモダチ招待
+      edit: トモダチ招待
+      constitution: トモダチ招待規約
+    asks:
+      new: お問い合わせ
+      confirm_before_create: お問い合わせ
+      create: お問い合わせ
+      complete_after_create: お問い合わせ
+    admin:
+      users_title: ユーザ
+      users:
+        index_for_apporval: 承認待ユーザ一覧
+        edit: ユーザ情報編集
+        confirm_before_update: ユーザ情報編集
+        update: ユーザ情報編集
+        edit_passwd: 認証変更
+        confirm_before_update_passwd: 認証変更
+        update_passwd: 認証変更
+        delete: 強制退会
+        confirm_before_destroy: 強制退会
+        destroy: 強制退会
+        wrote_administration_face_photo: プロフィール画像管理
+      announcements_title: お知らせ
+      sns_configs_title: SNS設定
+      pages_title: 静的ページ
+      banners_title: バナー
+      contents_title: 書き込み
+      contents:
+        search_top: 書き込み管理検索トップ
+  open_id:
+    errors:
+      missing: "指定されたOpenIDは見つかりませんでした。もう一度OpenIDをお確かめの上、お試しください。"
+      invalid: "指定されたOpenIDは不正な値です。"
+      canceled: "OpenID認証はキャンセルされました。"
+      faild: "OpenID認証に失敗しました。"
+      setup_needed: "OpenID認証に必要な設定がされていません。ご自分のOpenIDに必要な設定を行ってください。"

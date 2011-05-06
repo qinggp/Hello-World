@@ -1,0 +1,9 @@
+<% form_tag(search_movies_path, :method => :get, :name => 'search') do %>
+  <%= text_field_tag(:query, params[:query], :size => 20) %>
+  <%= submit_tag('検索') %><br/>
+<% end %>
+
+<hr size="1" noshade>
+
+<%= render :partial => "movies_mobile" %>
+<%= render :partial => "footer_mobile" %>

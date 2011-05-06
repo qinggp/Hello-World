@@ -1,0 +1,38 @@
+<tr>
+  <td class="content_table_title" colspan="2">ユーザ登録</td>
+</tr>
+
+<% if SnsConfig.master_record.entry_type_free_registration? %>
+  <tr>
+    <th>
+      <%= display_form_attr_name(User, "login") %>
+    </th>
+    <td>
+      <%= f.text_field :login %>
+      ※このメールアドレスは公開されることはありません。
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>
+      <%= display_form_attr_name(User, "login") %>
+    </th>
+    <td>
+      <%= h @user.login %>
+      ※このメールアドレスは公開されることはありません。
+      <%= f.hidden_field :login %>
+      <%= hidden_field_tag :private_token, params[:private_token] %>
+    </td>
+  </tr>
+<% end %>
+
+<tr>
+  <th>
+    希望パスワード<%= font_coution '※' %>
+  </th>
+  <td>
+    <%= f.password_field :password, :value => "" %><br/>
+    <%= f.password_field :password_confirmation, :value => "" %>(確認のため再入力)<br/>
+    ※任意のパスワードを6～12文字の半角英数字で入力してください。  
+  </td>
+</tr>

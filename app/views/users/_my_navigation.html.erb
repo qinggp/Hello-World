@@ -1,0 +1,41 @@
+<div id="my_navigation">
+  <div id="my_navi">
+
+    <div>
+      <div class="username"><%= t(:name_suffix, :value => @user.name) %></div>
+      <table id="face_photo" width="240" cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+          <tr>
+            <td valign="middle" align="center">
+              <div id="pic">
+                <%= link_to_if @user.face_photo,
+                               display_face_photo(@user.face_photo, :no_photo_width => 100, :no_photo_height => 100),
+                               face_photo_path(@user.face_photo, :image_type => "")    %>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <% if action_name != "my_home" %>
+      <%= render :partial => "my_navigation_messenger" %>
+    <% end %>
+
+    <div>
+      <% if displayed_user.invitation %>
+        <div class="base_data">
+          <%= theme_image_tag "invite.png" %> 招待者 : <%= link_to_user displayed_user.invitation, h(displayed_user.invitation.name) %>さん
+        </div>
+      <% end %>
+      <div class="base_data" style="text-align:right;">
+        <div style="margin-bottom: 5px; text-align: center;"><%= display_relationship_user_to_user(current_user, displayed_user) %></div>
+        （最終ログイン：<%= displayed_user.logged_in_at_by_diff %>）
+      </div>
+    </div>
+
+    <% Mars::UI.instance.navigations.map do |part| %>
+      <%= part.display(self) %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div>
+  <% if @user.preference.visible_messenger?(current_user, :skype_id) %>
+    <% unless @user.preference.skype_id.blank?  %>
+      <!--
+         Skype 'ログイン状態' button
+         http://www.skype.com/go/skypebuttons
+        -->
+      <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+      <a href="skype:<%= h(@user.preference.skype_id) %>?<%= @user.preference.skype_mode.blank? ? 'call' : @user.preference.skype_mode_name %>">
+        <img src="http://mystatus.skype.com/bigclassic/<%= h(@user.preference.skype_id) %>" style="border: none;" width="114" height="25" alt="ログイン状態" />
+      </a>
+    <% end %>
+  <% end %>
+  <% if @user.preference.visible_messenger?(current_user, :yahoo_id) %>
+    <% unless @user.preference.yahoo_id.blank?  %>
+      <a href="http://edit.yahoo.co.jp/config/send_webmesg?.target=<%=h @user.preference.yahoo_id %>&amp;.src=pg">
+        <img width="64" height="16" border="0" alt="Yahoo!Messenger" src="http://opi.yahoo.co.jp/online?u=<%=h @user.preference.yahoo_id %>&amp;m=g&amp;t=1"/>
+      </a>      
+    <% end %>
+  <% end %>
+</div>

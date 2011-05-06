@@ -1,0 +1,36 @@
+.table   { width:700px;; border: 2px solid #ECEBE1; border-collapse: collapse; }
+.title   { border: 1px solid #ECEBE1; background-color:#F9F9F4; padding: 6px; }
+.comm    { border: 1px solid #ECEBE1; background-color:#FFFFFF; padding: 6px; }
+.koumoku { border: 1px solid #ECEBE1; background-color:#F9F9F4; width:70px;; color:#000000; font-weight:normal; padding: 6px; }
+.data    { border: 1px solid #ECEBE1; background-color:#FFFFFF; width:500px; padding: 6px; }
+.button-style{ width:100px; height:22px; border:1px solid gray; }
+.center_box{margin:0 auto;text-align:center;width:650px;}
+#blog_categories_content_table {
+  border-collapse:collapse;
+  width: 100%;
+  text-align: center;
+}
+
+/*table.blog_categories_content_table .content_table_title {
+  background-color:#F9F9F4;
+  border:1px solid #ECEBE1;
+  padding:6px;
+  text-align:center;
+  font-weight:bold;
+}*/
+
+#blog_categories_content_table th {
+  background-color:#F9F9F4;
+  border:1px solid #ECEBE1;
+  color:#000000;
+  font-weight:normal;
+  padding:6px;
+  text-align:left;
+}
+
+#blog_categories_content_table td {
+  text-align:left;
+  background-color:#FFFFFF;
+  border:1px solid #ECEBE1;
+  padding:6px;
+}

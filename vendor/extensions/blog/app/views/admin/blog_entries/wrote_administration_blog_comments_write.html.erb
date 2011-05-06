@@ -1,0 +1,46 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "blog_comments", :checked_type => "write" } %>
+<% form_tag({:action => :wrote_administration_blog_comments}, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "write") %>
+  <% display_collection_box(@blog_comments, :collection_name => "現在の登録数", :checked_value => 5) do %>
+    <% @blog_comments.each do |blog_comment| %>
+      <table class="admin_blog_entry_content_table" cellspacing="0" cellpadding="0" border="1" align="center" width="600">
+        <tr>
+          <th colspan="2" align="center">
+            [ ID:<%= h blog_comment.id %> ]
+            [ <%= link_to 'URL', blog_entry_path(blog_comment.blog_entry_id)  %> ]
+            [ <%= link_to '元ブログ', :action => :wrote_administration_blog_entries, :type => :write, :search_id => blog_comment.blog_entry_id %> ]
+          </th>
+        </tr>
+        <tr>
+          <th>日付</th>
+          <td><%= blog_comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th>記入者</th>
+          <td>
+            <% if blog_comment.anonymous? %>
+              h(blog_comment.comment_user_name)
+            <% else %>
+              <%= link_to(h(blog_comment.comment_user_name),
+                          user_path(blog_comment.user)) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= h blog_comment.blog_entry.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= hbr blog_comment.body %></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+

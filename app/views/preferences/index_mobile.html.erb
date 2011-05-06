@@ -1,0 +1,7 @@
+▽<%= link_to "設定変更", edit_preference_path(current_user.preference) %><br/>
+▽<%= mail_to FacePhotoReceiver.mars_receive_address(current_user), "プロフィール写真変更" %><br/>
+<%= emoticon_mail %>写真付きのメールを送信してください。(200KBまで)<br/>
+▽<%= link_to "ID、パスワード変更", edit_id_password_users_path %><br/>
+▽<%= link_to "携帯アドレス設定", edit_mobile_email_users_path %><br/>
+▽<%= link_to "退会手続きへ進む", edit_for_leave_users_path %><br/>
+▽<%= link_to "簡単ログイン", edit_mobile_ident_users_path %>

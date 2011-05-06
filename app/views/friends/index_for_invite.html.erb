@@ -1,0 +1,16 @@
+<center>
+  <%= render :partial => "index_header" %>
+
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to(h(displayed_user.name), user_path(displayed_user)) %>さんの招待したトモダチ一覧
+  </div>
+
+  <% display_round_box(:width => "620px", :white_bg => true) do %>
+    <%= render :partial => "invite_friend_list" %>
+  <% end %>
+  <div style="width: 620px;">
+    <div align="right">
+      <%= theme_image_tag("invite.png", :size => "16x16", :align => "middle") %>招待者
+    </div>
+  </div>
+</center>

@@ -1,0 +1,19 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h form_title %></td>
+</tr>
+<tr>
+  <th>[タイトル]</th>
+  <td>
+    <%= h @community_topic.title %>
+    <%= f.hidden_field :title %>
+  </td>
+</tr>
+<tr>
+  <th>[本文]</th>
+  <td>
+    <%= auto_link(hbr(@community_topic.content)){ |text| truncate(text, 60) } %>
+    <%= f.hidden_field :content %>
+  </td>
+</tr>
+
+<%= render :partial => "share/upload_confirm", :locals => {:model => @community_topic} %>

@@ -1,0 +1,54 @@
+<% if @blog_entries.empty? %>
+
+  <div align="center" style="padding:10px;">
+    登録がありません。
+  </div>
+
+<% else %>
+
+  <% display_collection_box(@blog_entries, :collection_name => "現在の登録数", :checked_value => 20, :class => "content_box_bg") do %>
+
+    <table class="content_table">
+      <tr>
+        <th><input id="check_all" type="checkbox" onclick="Blog.allCheck()"/></th>
+        <% with_options(:default_order => BlogEntry.default_index_order,
+                        :blog_entry => params["blog_entry"]) do |view| %>
+          <th><%= view.link_for_sort "日付", :order => "blog_entries.created_at" %></th>
+          <th><%= view.link_for_sort "タイトル", :order => "blog_entries.title" %></th>
+          <th><%= view.link_for_sort "カテゴリ", :order => "blog_categories.name" %></th>
+          <th>
+            <%= view.link_for_sort "閲覧数", :order => "blog_entries.access_count" %><br/>
+            <%= view.link_for_sort "コメント", :order => "blog_entries.blog_comments_count" %>
+          </th>
+          <th>
+            <%= view.link_for_sort "公開制限", :order => "blog_entries.visibility" %><br/>
+            <%= view.link_for_sort "コメント制限", :order => "blog_entries.comment_restraint" %>&nbsp;
+          </th>
+          <th></th>
+        <% end %>
+      </tr>
+  
+      <% @blog_entries.each do |entry| %>
+        <tr>
+          <td rowspan="2"><%= check_box_tag "checked_ids[]", entry.id, params[:checked_ids].try(:include? ,entry.id), {:id => "checked_id_" + entry.id.to_s} %></td>
+          <td rowspan="2"><%=h l(entry.created_at, :format => :default) %></td>
+          <td rowspan="2"><%= link_to(h(entry.title), blog_entry_path(entry)) %></td>
+          <td rowspan="2"><%= link_to(h(entry.blog_category.name),
+               index_for_user_user_blog_entries_path(entry.user,
+                 :blog_category_id => entry.blog_category_id
+             )) -%></td>
+          <td><%=h entry.access_count %></td>
+          <td><%= t("blog.blog_entry.visibility_label.#{h(entry.visibility_name)}") %></td>
+          <td rowspan="2">
+            ［<%= link_to("編集", edit_blog_entry_path(entry)) %>］<br/>
+            ［<%= link_to("削除", blog_entry_path(entry), :method => :delete, :confirm => '削除してよろしいですか？') %>］
+          </td>
+        </tr>
+        <tr>
+          <td><%= entry.blog_comments.size %></td>
+          <td><%= t("blog.blog_entry.comment_restraint_label.#{h(entry.comment_restraint_name)}") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

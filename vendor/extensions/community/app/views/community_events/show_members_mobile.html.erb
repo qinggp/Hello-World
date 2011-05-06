@@ -1,0 +1,30 @@
+<%= link_to(h(@community.name), community_path(@community)) %> の <%= link_to(h(@community_event.title), community_event_path(:id => @community_event, :community_id => @community.id)) %> のメンバーリスト
+<hr size="1" noshade>
+
+<% if @community_event.author?(current_user) %>
+  <%= link_to("イベント参加者へメッセージを送信", new_message_community_member_message_path(:id => @community.id, :event_id => @community_event.id)) %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if @members.total_entries.zero? %>
+  参加者はいません。
+<% else %>
+
+  <% if @members.total_pages > 1 %>
+    <%= will_paginate_mobile(@members).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% @members.each do |member| %>
+    <%= link_to_user member, h( @community.member_name(member)) %>さん（<%= h member.friends_count %>）
+    <% if current_user && !current_user.same_user?(member) %>
+      <%= link_to emoticon_mail, new_message_path(:individually => 1, :receiver_id => member.id) %>
+    <% end %>
+    <br />
+  <% end %>
+
+  <% if @members.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@members).untaint %>
+  <% end %>
+<% end %>

@@ -1,0 +1,71 @@
+<div style="width: 600px; text-align: right;">
+  [
+  <%= link_to(h(t(community_reply.thread.kind.underscore.to_sym, :scope => [:activerecord, :models])) + "トップへ戻る", community_reply.thread.polymorphic_url_on_community(self)) %>
+  ]
+</div>
+
+<% if @community_reply.thread.kind == "CommunityEvent" %>
+  <% if params[:event_member] == "cancel" %>
+    キャンセルするにあたって一言お願いします。.
+  <% elsif params[:event_member] == "entry" %>
+    参加するにあたって一言お願いします。
+  <% end %>
+<% end %>
+
+<% display_round_box(:width => "600px") do %>
+  <table class="content_table">
+    <% if community_reply.thread.kind == "CommunityEvent" && !community_reply.parent %>
+      <tr>
+        <th nowrap="">イベント名</th>
+        <td><%= h thread.title %></td>
+      </tr>
+      <tr>
+        <th nowrap="">作成者</th>
+        <td><%= h  community.member_name(thread.author) %></td>
+      </tr>
+      <tr>
+        <th nowrap="">開催日</th>
+        <td>
+          <%= h thread.event_date.strftime("%Y年%m月%d日") %>
+          <%= h thread.event_date_note %>
+        </td>
+      </tr>
+      <tr>
+        <th nowrap="">開催場所</th>
+        <td><%= h thread.place %></td>
+      </tr>
+      <tr>
+        <th nowrap="">詳細</th>
+        <td>
+          <%= hbr thread.content %>
+          <%= render :partial => "share/attachments", :locals => {:model => thread} %>
+        </td>
+      </tr>
+      <tr>
+        <th nowrap="">参加人数</th>
+        <td><%= h community_reply.thread.participations.size %>名</td>
+      </tr>
+    <% else %>
+      <% reply_to = community_reply.parent ? community_reply.parent : thread %>
+      <tr>
+        <th nowrap="">投稿日</th>
+        <td><%= h reply_to.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+      </tr>
+      <tr>
+        <th nowrap="">タイトル</th>
+        <td><%= h reply_to.title %></td>
+      </tr>
+      <tr>
+        <th nowrap="">投稿者</th>
+        <td><%= link_to_user(reply_to.author, h( community.member_name(reply_to.author) ))  %></td>
+      </tr>
+      <tr>
+        <th nowrap="">本文</th>
+        <td>
+          <%= hbr reply_to.content %>
+          <%= render :partial => "share/attachments", :locals => {:model => reply_to} %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

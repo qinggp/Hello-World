@@ -1,0 +1,168 @@
+<div class="center_box" style="width: 610px;">
+  <% unless logged_in? %>
+    外部にも公開されているコミュニティが閲覧できます。 <br/>
+    <%= link_to theme_image_tag("feed_rdf.gif"), index_feed_communities_path(:format => :rdf) %>
+    <%= link_to theme_image_tag("feed_rss.gif"), index_feed_communities_path(:format => :rss) %>
+    <%= link_to theme_image_tag("feed_atom.gif"), index_feed_communities_path(:format => :atom) %>
+    <br/>
+  <% end %>
+
+  <% display_round_box(:width => "610px") do %>
+    <div>
+      <table cellspacing="5" cellpadding="0" align="center" style="width: 600px;">
+        <tr>
+          <td width="70" valign="top">▼キーワード</td>
+          <td>
+            <% form_tag(search_communities_path) do %> <%=
+                                                          text_field_tag("keyword", params[:keyword]) %> カテゴリ：
+              <%= select_tag("community_category_id",
+                             options_for_select_using_category_serach(params[:community_category_id])) %>
+              <%= submit_tag("検索") %>
+            <% end %>
+            <% if logged_in? %>
+              <div>→[ <%=
+                         link_to("新規作成", new_community_path) %> ] (同じネタの
+                コミュニティがないか確認してね)
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="2">
+            <hr noshade="" size="1" />
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">▼カテゴリ</td>
+          <td>
+            <table>
+              <% CommunityCategory.root.each do |root| %>
+                <tr>
+                  <td width="60"><%= h root.name %>＞</td>
+                  <td width="440">
+                    <% root.children.each do |c| %>
+                      [ <%= link_to(h(c.name),
+                                    search_communities_path(:community_category_id => c.id))
+                            %> ]
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+        <% if logged_in?  && !@official_communities.size.zero? %>
+          <tr>
+            <td valign="top" colspan="2">
+              <hr noshade="" size="1" />
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">▼公認<br />コミュニティ</td>
+            <td>
+              <table cellspacing="0" cellpadding="0" border="0" width="500">
+                <tr>
+                  <% @official_communities.in_groups_of(6).each do |communities| %>
+                    <% communities.each do |community| %>
+                      <td style="width: 70px;">
+                        <% if community %>
+                          <%= display_community_on_table(community, :image_type => "thumb", :width => 60) %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  <% end %>
+                </tr>
+              </table>
+              <div style="text-align: right; margin-top: 3px;">
+                [ <%= link_to("全て(#{@official_communities.size})", search_communities_path(:type => "official")) %> ]
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
+
+<div class="center_box" style="width: 610px; margin-top: 15px;">
+  <% display_round_box(:width => "610px", :white_bg => false) do %>
+    <% display_collection_box(@communities,
+                              :width => "600px",
+                              :collection_name => "現在の登録数",
+                              :checked_value => 10,
+                              :form => {:url_for_options => {:keyword => params[:keyword],
+                                          :community_category_id => params[:community_category_id],
+                                          :order => params[:order],
+                                          :order_modifier => params[:order_modifier]},
+                                        :options => {:method => :post}} ) do %>
+
+      <div class="search_box">
+        <table id="search_result" align="center">
+          <tr>
+            <td align="center" colspan="5">
+              <%= render :partial => "community_order_link" %>
+            </td>
+          </tr>
+          <% @communities.each do |community| %>
+            <tr>
+              <td style="height: 5px; background-color: #ECEBE1;" colspan="5"></td>
+            </tr>
+            <tr>
+              <td align="center" width="120" style="background-color: rgb(255, 255, 255);" rowspan="5">
+                <% link_to(community_path(community)) do %>
+                  <%= theme_image_tag(community_image_path(community, "medium"), :width => 100) %>
+                <% end %>
+              </td>
+              <td nowrap="" class="content_box_bg" width="100">コミュニティ名</td>
+              <td width="380" style="background-color: rgb(255, 255, 255);" colspan="3">
+                <%= link_to(h(community.name), community_path(community)) %>
+                <% if community.official? %>
+                  <%= theme_image_tag("invite.png", :size => "16x16", :align => "middle", :style => "vertical-align: top;") %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td nowrap="" width="100" style="background-color: #F9F9F4;">
+                紹介文
+              </td>
+              <td width="500" style="background-color: rgb(255, 255, 255);" colspan="3">
+                <div style="overflow: auto;">
+                  <%= hbr community.comment %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td nowrap="" width="100" style="background-color: #F9F9F4;">書き込み数</td>
+              <td width="280" style="background-color: rgb(255, 255, 255);">
+                <%= topic_image(community, :number => true) %>
+                <%= event_image(community, :number => true) %>
+                <%= marker_image(community, :number => true) %>
+              </td>
+              <td nowrap="" width="80" style="background-color: #F9F9F4;">メンバー数</td>
+              <td width="140" style="background-color: rgb(255, 255, 255);"><%= h community.members.size %>人</td>
+            </tr>
+            <tr>
+              <td nowrap="" width="100" style="background-color: #F9F9F4;">参加・公開条件</td>
+              <td width="280" style="background-color: rgb(255, 255, 255);">
+                <%= h Community.describe_participation_and_visibility(community.approval_required, community.visibility) %>
+              </td>
+              <td nowrap="" width="80" style="background-color: #F9F9F4;">最終投稿日</td>
+              <td width="140" style="background-color: rgb(255, 255, 255);">
+                <%= h(l(community.lastposted_at, :format => :default_year_month_date)) %>
+              </td>
+            </tr>
+            <tr>
+              <td nowrap="" width="100" style="background-color: #F9F9F4;">カテゴリ</td>
+              <td width="360" style="background-color: rgb(255, 255, 255);" colspan="2"><%= h community.community_category.name %></td>
+              <td align="center" width="140" style="background-color: #F9F9F4;">
+                <% link_to(community_path(community)) do %>
+                  <%= theme_image_tag("syousai.gif", :size => "60x16", :alt => "詳細", :border => 0) %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+</div>

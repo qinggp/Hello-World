@@ -1,0 +1,11 @@
+<% @preference.blog_preference ||= BlogPreference.new  %>
+<% f.fields_for :blog_preference do |bpf|  %>
+  <% if view_type == :form %>
+    [<%=h BlogPreference.human_attribute_name("comment_notice_acceptable") %>]※<br/>
+    <%= bpf.select :comment_notice_acceptable, [["受け取る", :true], ["受け取らない", :false]] %><br/>
+  <% else %>
+    [<%=h BlogPreference.human_attribute_name("comment_notice_acceptable") %>]<br/>
+    <%=h @preference.blog_preference.comment_notice_acceptable ? "受け取る" : "受け取らない" %><br/>
+    <%= bpf.hidden_field :comment_notice_acceptable %>
+  <% end %>
+<% end %>

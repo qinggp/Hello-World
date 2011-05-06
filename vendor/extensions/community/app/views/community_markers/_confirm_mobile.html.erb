@@ -1,0 +1,20 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityMarker, "title") %><br />
+<%= h @community_marker.title %>
+<%= f.hidden_field :title %>
+<br />
+
+<%= display_form_attr_name(CommunityMarker, "content") %><br />
+<%= auto_link(hbr(@community_marker.content)) { |text| truncate(text, 60) } %>
+<%= f.hidden_field :content %>
+<br />
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "confirm", :model => @community_marker} %>
+<br />
+
+<%= display_form_attr_name(CommunityMarker, "community_map_category_id") %><br />
+<%= h @community_marker.map_category.name %>
+<%= f.hidden_field :community_map_category_id %>
+<br />

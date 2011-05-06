@@ -1,0 +1,31 @@
+<tr>
+  <td class="content_table_title" colspan="2">名前変更依頼</td>
+</tr>
+<tr>
+  <td colspan="2">
+    名前を変更される場合は、お手数ですが以下のフォームにてご依頼ください。<br/>
+    後ほど管理者により変更いたします。
+  </td>
+</tr>
+<tr>
+  <th>現在のお名前</th>
+  <td>
+    <%= h @user.full_real_name %>
+  </td>
+</tr>
+<tr>
+  <th>変更後のお名前※</th>
+  <td>
+    <%= f.text_field :change_last_real_name, :size => 6 %>
+    <%= f.text_field :change_first_real_name, :size => 6 %>
+    <br/>
+    ※必ず本名を記載してください。日本国籍の場合は、漢字表記でお願いします。
+  </td>
+</tr>
+<tr>
+  <th><%= h User.human_attribute_name("change_name_reason") %></th>
+  <td>
+    <%= f.text_area :change_name_reason, :rows => 5, :cols => 50 %>
+  </td>
+</tr>
+

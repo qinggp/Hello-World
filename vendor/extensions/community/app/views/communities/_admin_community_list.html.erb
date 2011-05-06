@@ -1,0 +1,29 @@
+<div class="content_box">
+  <% if @communities.empty? %>
+    <table align="center">
+      <tr>
+        <td nowrap="" align="center">現在管理コミュニティはありません。<br />
+          <% if current_user.same_user?(displayed_user) %>
+            <%= link_to("興味あることでコミュニティを作ってみよう！", search_communities_path) %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  <% else %>
+    <% display_collection_box(@communities, :collection_name => "コミュニティ管理数", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 30, :width => "640px", :class => "content_box_bg") do %>
+      <table width="640" cellspacing="0" cellpadding="8" border="0" align="center">
+        <% @communities.in_groups_of(6) do |communities| %>
+          <tr>
+            <% communities.each do |community| %>
+              <td class="new_link" align="center" width="80" valign="top">
+                <% if community %>
+                  <%= display_community_on_table(community, :width => 76, :admin => @user.admin?) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+</div>

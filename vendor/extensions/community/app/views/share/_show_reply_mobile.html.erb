@@ -1,0 +1,19 @@
+[<%= h(l(reply.created_at, :format => :default_year_month_date))%>]<br />
+<%= link_to_user reply.author, h( @community.member_name(reply.author)) %><br />
+
+<%= h reply.title %>
+<br />
+------
+<br />
+<%= auto_link(hbr(add_session_query_on_inner_url(reply.content))) { |text| truncate(strip_session_query(text), 60) } %>
+<% reply.sorted_attachments.each_with_index do |a, i| %>
+  <% if i == 0 %>
+    <br />
+  <% end %>
+  <%
+    original_attachment_path = url_for_attachment(a)
+    attachment_path = url_for_attachment(a, :image_type => "thumb")
+    %>
+  <%= display_attachment_file(a, :original_attachment_path => original_attachment_path, :attachment_path => attachment_path) %>
+<% end %>
+

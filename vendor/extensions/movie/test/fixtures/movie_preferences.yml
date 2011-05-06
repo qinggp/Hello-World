@@ -1,0 +1,42 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: movie_preferences
+#
+#  id                 :integer         not null, primary key
+#  preference_id      :integer
+#  default_visibility :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
+DEFAULTS: &DEFAULTS
+  default_visibility: <%= MoviePreference::VISIBILITIES[:friend_only] %>
+
+quentin_preference:
+  preference: quentin_preference
+  <<: *DEFAULTS
+
+aaron_preference:
+  preference: aaron_preference
+  <<: *DEFAULTS
+
+old_password_holder_preference:
+  preference: old_password_holder_preference
+  <<: *DEFAULTS
+
+sns_tarou_preference:
+  preference: sns_tarou_preference
+  <<: *DEFAULTS
+
+sns_zirou_preference:
+  preference: sns_zirou_preference
+  <<: *DEFAULTS
+
+sns_hanako_preference:
+  preference: sns_hanako_preference
+  <<: *DEFAULTS
+
+alone_preference:
+  preference: alone_preference
+  <<: *DEFAULTS

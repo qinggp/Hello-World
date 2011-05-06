@@ -1,0 +1,27 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: roles_users
+#
+#  user_id    :integer
+#  role_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+sns_tarou_to_hanako:
+  user: sns_tarou
+  role: frind_to_sns_hanako
+
+sns_hanako_to_tarou:
+  user: sns_hanako
+  role: frind_to_sns_tarou
+
+sns_tarou_to_zirou:
+  user: sns_tarou
+  role: frind_to_sns_zirou
+
+sns_zirou_to_tarou:
+  user: sns_zirou
+  role: frind_to_sns_tarou
+

@@ -1,0 +1,17 @@
+<b>--- コミュニティ紹介メッセージ送信確認 ---</b><br/>
+
+[紹介先]<br />
+<% @receivers.each do |r| %>
+  <%= h r.name %><br />
+<% end %>
+<% params[:receiver_ids].each do |id| %>
+  <%= hidden_field_tag "receiver_ids[]", id %>
+<% end %>
+
+[メッセージ]<%= font_coution("※") %><br/>
+<%= h @message.body %><br />
+<%= f.hidden_field(:body) %>
+
+<%= f.hidden_field :subject %>
+<%= hidden_field_tag("id", @community.id) %>
+

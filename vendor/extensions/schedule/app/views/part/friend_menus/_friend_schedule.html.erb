@@ -1,0 +1,7 @@
+<% link_to show_calendar_schedules_path(:user_id => displayed_user.id), :title => "スケジュールを見る" do %>
+  <%= theme_image_tag "schedule/friend_menu_schedule.gif",
+      :alt => "スケジュールを見る",
+      :onmouseover => "this.src=#{theme_image_path('schedule/friend_menu_schedule_ov.gif').to_json}",
+      :onmouseout => "this.src=#{theme_image_path('schedule/friend_menu_schedule.gif').to_json}"
+  %>
+<% end %>

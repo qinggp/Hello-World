@@ -1,0 +1,19 @@
+<%=
+   mars_calendar_mobile(:date_url => {:action => :show_list, :user_id => @user.id}) do |cur|
+     html = []
+     @schedules.find_all{|s| s.due_date == cur}.each do |schedule|
+       html << (link_to(h(schedule.title), schedule_path(schedule)) + "(#{t('schedule.public')[schedule.public]})")
+     end
+
+     @friends.find_all{|f| f.birthday?(cur)}.each do |friend|
+       html << (link_to(h(friend.name), user_path(friend)) + "(誕生日)")
+     end
+
+     @events.find_all{|e| e.event_date == cur}.each do |event|
+       html << (link_to(h(event.title), community_event_path(:community_id => event.community_id, :id => event.id)) + "(イベント)")
+     end
+
+     html
+   end
+%>
+

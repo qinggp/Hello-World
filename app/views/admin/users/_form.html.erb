@@ -1,0 +1,194 @@
+<tr>
+  <td class="content_table_title" colspan="2">
+    <b>
+      プロフィール管理<br/>
+      <font color="red">*** 管理者権限で編集中 ***</font>
+    </b>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("approval_status")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.select :approval_state, User.select_options_for_approval_state(:active, :pending, :pause) %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [名前]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.text_field :last_real_name, :size => 6 %>
+    <%= f.text_field :first_real_name, :size => 6 %>
+    <%= f.select :real_name_visibility, User.select_options_for_visibilities(:unpubliced, :friend_only, :publiced) %>
+    <br/>
+    <span style="font-size: 80%;">※必ず本名を記載してください。日本国籍の場合は、漢字表記でお願いします。</span>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("name")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.text_field :name, :id => "nickname" %>
+    <%= button_to_function "重複チェック", "Users.nickname_unique_check(#{nickname_unique_check_users_url.to_json}, $('nickname').value)" %>
+    <span style="font-size: 80%;">※このサイト内で使用される名前です。</span>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("face_photo")  %>]
+  </th>
+  <td>
+    <% if @user.face_photo_uploaded? %>
+      <% fields_for "user[photo_attributes][#{@user.face_photo.fields_for_name}]", @user.face_photo do |fp| %>
+        <%= form_attachment_image(fp, @user) %>
+      <% end %>
+    <% end %>
+    <% fields_for "user[photo_attributes][face_photo_attributes]" do |fp| %>
+      <%= fp.file_field :image %>
+      <% if @user.face_photo_uploaded? %>
+        <%= fp.check_box :_delete, {}, "1", ""  %>
+        <%= fp.label :_delte, "削除" %>
+      <% end %>
+      <div style="font-size: 80%;">（添付可能拡張子：.jpg/.jpeg/.png）</div>
+    <% end %>
+    <% unless @user.face_photo_uploaded? %>
+      ※写真や画像がない場合はこちらの画像を選択できます。
+      <% fields_for "user[photo_attributes][prepared_face_photo_attributes]" do |fpp|  %>
+        <%= fpp.select :id, PreparedFacePhoto.select_options, {:include_blank => true}, :id => "select_prepared_photo" %>
+      <% end %>
+      →[<%= link_to_function "画像サンプル", <<-JS
+                Mars.open_window(#{prepared_face_photo_choices_users_path.to_json},
+                                "prepared_face_photo_choices_users", {})
+              JS
+         %>]
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("gender")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <% [:male, :female].each do |key| %>
+      <%= f.radio_button :gender, User::GENDERS[key] %>
+      <%= f.label "gender_#{User::GENDERS[key]}", t("user.gender_label.#{key}") %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("birthday")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <% now = Time.now %>
+    <%= f.date_select(:birthday, :start_year => now.year-100, :end_year => now.year).untaint  %>
+    <%= f.select :birthday_visibility, User.select_options_for_visibilities(:unpubliced, :friend_only, :publiced) %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("blood_type")  %>]
+  </th>
+  <td>
+    <% [:a, :b, :o, :ab].each do |key| %>
+      <%= f.radio_button :blood_type, User::BLOOD_TYPES[key] %>
+      <%= f.label "blood_type_#{User::BLOOD_TYPES[key]}", t("user.blood_type_label.#{key}") %>
+    <% end %>
+    <%= f.radio_button :blood_type, nil %>
+    <%= f.label "blood_type", t("user.blood_type_label.none") %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [現住所]<font color="red">※</font>
+  </th>
+  <td>
+    〒<%= f.text_field :now_zipcode, :size => 8, :maxlength => 8, :id => :now_zipcode %><span style="font-size: 80%;">例：670-0061→</span>
+    <%= button_to_function "郵便番号検索", <<-JS
+                Mars.open_window(#{search_zipcode_users_url.to_json} + "?zipcode=" + $('now_zipcode').value,
+                                "prepared_face_photo_choices_users", {})
+              JS
+    %>
+    <br/>
+    <%= f.select :now_prefecture_id, Prefecture.select_options, {}, :id => :select_now_prefecture %><span style="font-size: 80%;">市区町村：</span>
+    <%= f.text_field :now_city, :size => 10, :id => :now_city %><span style="font-size: 80%;">例：姫路市</span><br/>
+    <span style="font-size: 80%;">町名・番地：</span><%= f.text_field :now_street, :size => 50, :id => :now_street %>
+    <span style="font-size: 80%;">例：西今宿3-6-3<br/>※町域・番地情報は必須項目ですが公開はされません。</span><br/>
+    <%= f.select :now_address_visibility, User.select_options_for_visibilities(:unpubliced, :friend_only, :publiced) %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("phone_number")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.text_field :phone_number %><span style="font-size: 80%;">（携帯可）例：079-295-2700<br/>※非公開となります。</span>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("home_prefecture")  %>]
+  </th>
+  <td>
+    <%= f.select :home_prefecture_id, Prefecture.select_options, :include_blank => true %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("hobbies")  %>]
+  </th>
+  <td>
+    <%= hobby_checkboxes %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("job")  %>]
+  </th>
+  <td>
+    <%= f.select :job_id, Job.select_options, :include_blank => true %>
+    <%= f.select :job_visibility, User.select_options_for_visibilities(:unpubliced, :friend_only, :publiced) %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("affiliation")  %>]
+  </th>
+  <td>
+    <%= f.text_field :affiliation %>
+    <%= f.select :affiliation_visibility, User.select_options_for_visibilities(:unpubliced, :friend_only, :publiced) %>
+    <br/>
+    <span style="font-size: 80%;">※会社名や学校名・団体名をご記入ください。</span>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("message")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.text_area :message, :rows => 2, :cols => 40 %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("detail")  %>]<font color="red">※</font>
+  </th>
+  <td>
+    <%= f.text_area :detail, :rows => 10, :cols => 40 %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("invitation_id")  %>]
+  </th>
+  <td>
+    <% if @user.invitation %>
+      <%= link_to h(@user.invitation.name), edit_admin_user_path(@user.invitation_id) %>
+    <% end %>
+    <span style="font-size: 80%;">さん・No:</span>
+    <%= f.text_field :invitation_id, :maxlength => "", :size => "6" %>
+  </td>
+</tr>

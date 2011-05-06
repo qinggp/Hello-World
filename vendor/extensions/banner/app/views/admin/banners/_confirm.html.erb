@@ -1,0 +1,31 @@
+<tr valign="middle" align="center" bgcolor="#F9F9F4">
+  <td colspan="2" class="content_table_title">
+    <b>バナー管理</b>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>バナー</th>
+  <td>
+    <%= admin_confirm_banner_image(@banner) %>
+    <%= f.hidden_field :image_temp %>
+    <% if params[:banner][:delete_image] %>
+      <%= hidden_field_tag("banner[delete_image]", 1) %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th  valign="top" nowrap>リンク先</th>
+  <td><%= h @banner.link_url %></td>
+      <%= f.hidden_field :link_url %>
+</tr>
+<tr>
+  <th  valign="top" nowrap>コメント</th>
+  <td><%= h @banner.comment %></td>
+      <%= f.hidden_field :comment%>
+</tr>
+<tr>
+  <th valign="top" nowrap>表示期間</th>
+  <td><%= @banner.expire_date.strftime('%Y/%m/%d') if @banner.expire_date %></td>
+      <%= f.hidden_field :expire_date %>
+</tr>
+    

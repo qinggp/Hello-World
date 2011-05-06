@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="../../../../../css/rss/feedAtom.xsl" media="screen" type="text/xsl"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="0.3" xml:lang="utf-8">  
+  <title>テスト</title>  
+  <link rel="alternate" type="text/html" href="http://matsuesns.jp"/>  
+  <modified>2009-12-14T10:07:13+09:00</modified>  
+  <author>
+    <name>test</name>
+  </author>  
+  <tagline>テスト</tagline>  
+  <generator url="http://www.exblog.jp/">Blog</generator>  
+  <link rel="start" href="http://rss.exblog.jp/rss/exblog/nekomaster/atom.xml" type="application/rss+xml"/>  
+  <entry> 
+    <title>テスト日記</title>  
+    <link rel="alternate" type="text/html" href="http://matsuesns.jp/12495641/"/>  
+    <id>http://matsuesns.jp/12495641/</id>  
+    <issued>2009-12-14T10:07:13+09:00</issued>  
+    <modified>2009-12-14T10:07:13+09:00</modified>  
+    <created>2009-12-14T10:07:13+09:00</created>  
+    <author> 
+      <name>goroneko_orz</name> 
+    </author>  
+    <dc:subject>テスト</dc:subject>  
+    <content mode="escaped" type="text/html" xml:lang="utf-8"><![CDATA[ 
+Mars テスト             
+        ]]></content> 
+  </entry>  
+</feed>

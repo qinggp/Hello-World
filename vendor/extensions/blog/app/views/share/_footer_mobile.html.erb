@@ -1,0 +1,4 @@
+<% user_id ||= @user.try(:id) %>
+
+<hr size="1" noshade>
+<%= link_to "#{emoticon_5}ブログトップへ戻る", index_for_user_user_blog_entries_path(user_id), :accesskey => "5" %>

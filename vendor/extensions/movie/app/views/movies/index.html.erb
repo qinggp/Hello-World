@@ -1,0 +1,88 @@
+<div id="movie_content">
+
+  <!-- 検索フォーム -->
+  <div style="margin: 10px 5px 10px 10px;">
+    <% display_round_box(:width => "710px") do %>
+      <div class="content_box_bg">
+        ■ムービー検索
+      </div>
+      <div style="padding:10px;">
+        <% form_tag({ :action => 'search' }, :method => :get, :style => 'margin:0;') do %>
+          <%= text_field_tag(:query, nil, :size => 40) %>
+          <%= submit_tag('検索', :class => 'button_style') %><br/>
+          タイトル、本文より検索を行います。
+        <% end -%>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- ムービー一覧 -->
+  <div>
+    <div>
+      <div style="float:left;">
+        <!-- 新着ムービー -->
+        <div id="recent_movies" class="center-box" style="margin:10px; margin-right: 5px;">
+          <%= render(:partial => 'recent_movies') %>
+        </div>
+      </div>
+      <div style="float:right;">
+        <div id="my_movies" class="center-box-orange" style="margin:10px; margin-left: 5px;">
+          <% if @user -%>
+            <%= render(:partial => 'movies') %>
+          <% else -%>
+            <% display_round_box(:width => "350", :color => "#FFE7B5") do %>
+              <div class="content_box_title">
+                <div style="background-color: #FFE7B5;">■ログインしていません</div>
+              </div>
+              <div style="padding: 30px;">
+                ムービー情報の編集は、ログイン後に行えます。<br>
+                <br>
+                <%= link_to('ログインする', login_path) %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- ボーダーライン -->
+    <div style="clear:both; border-bottom: 1px dotted gray; width: 710px; text-align:center; margin:11px;margin-top:0;margin-bottom:0;"></div>
+
+    <!-- マップを見るボタン -->
+    <div class="map_button_container">
+      <% unless SnsConfig.g_map_api_key.blank? -%>
+        <% form_tag(:action => 'map') do %>
+          <%= submit_tag('マップをみる', :class => 'button_style', :style => 'width: 120px;') %>
+        <% end %>
+      <% end -%>
+    </div>
+
+    <!-- 本日のムービー -->
+    <div style="margin: 10px;">
+      <% display_round_box(:width => "710px") do %>
+        <div class="content_box_bg">
+          ■本日<%= Date.today.strftime('%Y年%m月%d日のムービー') %>
+        </div>
+        <div style="padding:10px;">
+          <% if @todays_movies.empty? -%>
+            本日のムービーはありません。
+          <% else -%>
+            <% @todays_movies.each do |m| -%>
+              [&nbsp;<%= link_to(theme_image_tag('flag.png', :alt => '本日のムービー', :border => 0) + "#{h(m.title)}", :action => 'show', :id => m) %>&nbsp;]<br/>
+            <% end -%>
+          <% end -%>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- ムービーカレンダー -->
+
+    <div class="center-box" style="margin:10px;">
+      <% display_round_box(:width => "710px") do %>
+        <div id="calendar">
+          <%= render(:partial => 'calendar') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

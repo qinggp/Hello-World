@@ -1,0 +1,69 @@
+<tr>
+  <td class="content_table_title" colspan="2">イベント追加</td>
+</tr>
+<tr>
+  <th>[イベント名]</th>
+  <td>
+    <%= h @community_event.title %>
+    <%= f.hidden_field :title %>
+  </td>
+</tr>
+<tr>
+  <th>[開催日]</th>
+  <td>
+    <%= h @community_event.event_date.strftime("%Y/%m/%d") %>
+    <%= f.hidden_field :event_date %>
+  </td>
+</tr>
+<tr>
+  <th>[備考]</th>
+  <td>
+    <%= h @community_event.event_date_note %>
+    <%= f.hidden_field :event_date_note %>
+  </td>
+</tr>
+<tr>
+  <th>[開催場所]</th>
+  <td>
+    <%= h @community_event.place %>
+    <%= f.hidden_field :place %>
+  </td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%= h @community_event.longitude %>
+    <%= f.hidden_field :longitude %>
+  </td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%= h @community_event.latitude %>
+    <%= f.hidden_field :latitude %>
+  </td>
+</tr>
+<tr>
+  <th>[マップズーム]</th>
+  <td>
+    <%= h @community_event.zoom %>
+    <%= f.hidden_field :zoom %>
+  </td>
+</tr>
+<tr>
+  <th>[詳細]</th>
+  <td>
+    <%= auto_link(hbr(@community_event.content)) { |text| truncate(text, 60) } %>
+    <%= f.hidden_field :content %>
+  </td>
+</tr>
+
+<%= render :partial => "share/upload_confirm", :locals => {:model => @community_event} %>
+
+<tr>
+  <th>[イベント公開範囲]</th>
+  <td>
+    <%= h t(:public, :scope => [:community_event])[@community_event.public] %>
+    <%= f.hidden_field :public  %>
+  </td>
+</tr>

@@ -1,0 +1,32 @@
+<% blog_comments = @blog_comments.nil? ? @blog_entry.blog_comments : @blog_comments %>
+
+<div class="blog_entry_sub_title">
+  <a name="<%= blog_comment_anchor_name %>"></a>
+  コメント（<%= blog_comments.size %>）
+</div>
+
+<% if blog_comments.empty? %>
+  <div class="blog_comments_not_found">
+    コメントはありません。
+  </div>
+<% else %>
+  <div class="blog_comments_order">
+    [<%= link_for_sort "日付順", :controller => :blog_entries, :action => :show, :id => @blog_entry.id, :order => "blog_comments.created_at", :default_order => BlogComment.default_index_order, :anchor => blog_comment_anchor_name %>]
+  </div>
+
+  <% blog_comments.each do |comment| %>
+    <div class="blog_comment_body">
+      <%= auto_link(hbr comment.body) %>
+    </div>
+    <div class="blog_comment_info">
+      <%= display_blog_comment_user_name(comment) %>｜
+      <%= l(comment.created_at, :format => :default_minute) %>｜
+      <% if comment.editable?(current_user)  %>
+        [ <%= link_to("編集", edit_blog_entry_blog_comment_path(@blog_entry, comment, :anchor => "blog_comment")) %> ]｜
+      <% end %>
+      <% if comment.deletable?(current_user)  %>
+        [ <%= link_to("削除", blog_entry_blog_comment_path(@blog_entry, comment), :method => :delete, :confirm => '削除してよろしいですか？') %>］
+      <% end %>
+    </div>
+  <% end  %>
+<% end  %>

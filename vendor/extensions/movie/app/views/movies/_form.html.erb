@@ -1,0 +1,58 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h @title %></td>
+</tr>
+<tr>
+  <th>タイトル<span style="color: red;">※</span></th>
+  <td>
+    <%= f.text_field(:title, :size => 50) %>
+  </td>
+</tr>
+<tr>
+  <th>本文</th>
+  <td><%= f.text_area(:body, :rows => 5, :cols => 35) %></td>
+</tr>
+<tr>
+  <th>カレンダー日付</th>
+  <td><%= f.text_field(:start_date, :size => 20) %> 〜 <%= f.text_field(:end_date, :size => 20) %><br/>
+    <span style="font-size: 0.8em;">
+      yyyy/mm/ddの形式で記入して下さい。例; 2008/09/01<br/>
+      <span style="color: red;">
+        入力した日付でカレンダーに登録されます。
+      </span>
+    </span>
+  </td>
+</tr>
+<tr>
+  <th>公開先<span style="color: red;">※</span></th>
+  <td>
+    <%= f.select(:visibility, visibility_options) %>
+  </td>
+</tr>
+<tr>
+  <% if @movie.new_record? -%>
+    <th>ムービーファイル<span style="color: red;">※</span></th>
+    <td>
+      <%= file_field_tag(:movie_file, :size => 30) %>
+      <div style="font-size: 0.8em;">
+        <ul>
+          <li>最大ファイルサイズ <%=h Movie::MAX_SIZE_OF_MOVIE_FILE %> バイト(約 <%=h number_with_precision(Movie::MAX_SIZE_OF_MOVIE_FILE_MEGA, :precision => 1) %> MB)</li>
+          <li>許可拡張子<br/> <%=h MoviesController::ALLOWED_EXTENSIONS.join(', ') %></li>
+        </ul>
+      </div>
+    </td>
+  <% else -%>
+    <th>サムネイル</th>
+    <td><%= theme_image_tag(thumbnail_movie_url(@movie)) %></td>
+  <% end -%>
+</tr>
+<tr>
+  <th>地図登録</th>
+  <td style="text-align:left;">
+    <%= f.text_field(:longitude, :size => 8, :id => :longitude) %>
+    <%= f.text_field(:latitude, :size => 8, :id => :latitude) %>
+    <%= f.text_field(:zoom, :size => 2, :id => :zoom) %>
+    <span style="font-size: 0.8em;">(0〜19)</span>
+    <input type="button" value="座標値クリア" class="button_style" onclick="GMapSelector.clear_coordinate_values()"/>
+    <input type="button" value="マップを見る" class="button_style" onclick="GMapSelector.open_map_window('<%= select_map_movies_url %>')"/>
+  </td>
+</tr>

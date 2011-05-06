@@ -1,0 +1,85 @@
+#login_base {
+  position:relative;
+}
+#login_bg {
+  background-image:url(../images/login_top.gif);
+  height:380px;
+  width: 420px;
+}
+#login_form {
+  left:435px;
+  position:absolute;
+  top:40px;
+  width:280px;
+}
+.login_title {
+  color:gray;
+  font-size:9px;
+  margin:3px;
+  text-align:center;
+}
+#login_msg {
+  color:gray;
+  font-size:9px;
+  margin:3px;
+  text-align:center;
+}
+.login_form_title {
+  color:gray;
+  margin-left:24px;
+}
+#login {
+  border:1px solid #139913;
+  ime-mode:disabled;
+  width:220px;
+}
+#password {
+  border:1px solid #139913;
+  ime-mode:disabled;
+  width:220px;
+}
+#openid_url {
+  border:1px solid #139913;
+  ime-mode:disabled;
+  width:220px;
+}
+#login_from_exe {
+  margin:5px 5px 5px 92px;
+}
+#login_from_submit {
+  border:1px solid gray;
+  height:22px;
+  width:80px;
+}
+#login_from_autologin {
+  color:gray;
+  font-size:10px;
+}
+#login_footer_link {
+  font-size:10px;
+  text-align:center;
+}
+.info_bar {
+  border-top:8px solid #00C600;
+  margin:0;
+  padding:0;
+}
+.info_midashi {
+  border-bottom:1px solid #00C600;
+  border-left:15px solid #00C600;
+  padding:3px;
+}
+.info_data {
+  line-height:1.4;
+  padding:3px 3px 3px 10px;
+}
+.info_link {
+  border-top:1px dotted gray;
+  margin:5px 5px 4px 4px;
+  padding-top:3px;
+  text-align:right;
+}
+
+#secure_login_information, #nonsecure_login_information{
+  text-align: center;
+}

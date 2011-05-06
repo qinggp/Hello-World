@@ -1,0 +1,39 @@
+<% if displayed_user %>
+  <% sns_linkages = SnsLinkage.by_enableds(displayed_user.id) %>
+  <% unless sns_linkages.empty? %>
+    <div class="navigation_content">
+      <div class="content_box_bg navigation_content_title" style="font-weight:bold;text-align:center;">
+        連携サイト
+      </div>
+      <% display_open_colse_box(:id => "my_navigation_sns_linkage", :class => "news_data content_box_inner_box") do %>
+        <table>
+          <% sns_linkages.in_groups_of(3).each do |group| %>
+            <tr>
+              <% group.each do |sl| %>
+                <td class="news_link">
+                  <% if sl  %>
+                    <% link_to(sl.sns_link_data_image_link, :target => "_blank") do %>
+                      <%= theme_image_tag sl.sns_link_data_image_url, :width => "76", :border => "0" %><br/>
+                      <%= sl.rss_channel.title %>
+                    <% end %>
+                  <% end %>
+                <td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <% if action_name == "my_home" %>
+          <div class="all_link">
+            [ <%= link_to "設定", new_sns_linkage_path %> ]
+            [ <%= link_to "新着一覧", news_sns_linkages_path %> ]
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div align="right">
+      <div style="margin-bottom: 5px; cursor: pointer;">
+        <%= display_open_colse_box_button("my_navigation_sns_linkage") %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

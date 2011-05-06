@@ -1,0 +1,17 @@
+<center>
+  <%= theme_image_tag mobile_thumbnail_movie_path(@movie) %>
+</center>
+<br/>
+[ﾀｲﾄﾙ]※<br/>
+<%=h @movie.title %>
+<%= f.hidden_field :title %>
+<br/>
+[ｺﾒﾝﾄ]<br/>
+<%=hbr @movie.body %>
+<%= f.hidden_field :body %><br/>
+[公開先]<br/>
+<%=h @movie.visibility_to_s %>
+<%= f.hidden_field :visibility %><br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "confirm", :model => @movie} %>

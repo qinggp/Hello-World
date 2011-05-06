@@ -1,0 +1,53 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_event_members
+#
+#  id                 :integer         not null, primary key
+#  user_id            :integer
+#  community_event_id :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
+curry_event_author:
+  user: sns_tarou
+  community_event: curry_event
+
+curry_event_first_participation:
+  user: sns_hanako
+  community_event: curry_event
+
+curry_event_second_participation:
+  user: sns_zirou
+  community_event: curry_event
+
+boat_evnet_author:
+  user: sns_tarou
+  community_event: boat_event
+
+boat_evnet_first_participation:
+  user: sns_hanako
+  community_event: boat_event
+
+curry_event_on_today_author:
+  user: sns_tarou
+  community_event: curry_event_on_today
+
+official_normal_event_author:
+  user: sns_tarou
+  community_event: official_normal_event
+
+official_all_member_event_author:
+  user: sns_tarou
+  community_event: official_all_member_event
+
+official_admin_event_author:
+  user: sns_tarou
+  community_event: official_admin_event
+
+<% %w(public member private secret).each do |community| %>
+<%= community %>_event_author:
+  user: sns_tarou
+  community_event: <%= community %>_event
+<% end %>

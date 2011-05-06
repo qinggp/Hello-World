@@ -1,0 +1,22 @@
+<%
+  attention_style = "font-size: 120%; font-weight: bold;"
+%>
+
+<% display_round_box(:width => "450px", :white_bg => true)  do %>
+  <div style="padding: 6px 0px; text-align: center;">
+    <% content_tag(:span, :style => (inbox? ? attention_style : "")) do %>
+      <% link_to(messages_path) do %>
+        <%= theme_image_tag("mail_inbox.gif", :style => "vertical-align: middle;") %>受信箱
+      <% end %>
+    <% end %>
+    <% content_tag(:span, :style => (outbox? ? attention_style : "")) do %>
+      <% link_to(search_outbox_messages_path) do %>
+        <%= theme_image_tag("mail_outbox.gif", :style => "vertical-align: middle;") %>送信箱
+      <% end %>
+    <% end %>
+    <% link_to(new_message_path) do %>
+      <%= theme_image_tag("mail_close.gif", :style => "vertical-align: top;") %>新規作成
+    <% end %>
+  </div>
+<% end %>
+<div style="margin-bottom: 10px;"></div>

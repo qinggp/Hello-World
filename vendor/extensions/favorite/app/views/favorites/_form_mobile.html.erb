@@ -1,0 +1,10 @@
+<b>--- お気に入り投稿 ---</b><br/>
+
+[<%=h Favorite.human_attribute_name("name") %>]※<br/>
+<%= f.text_field :name %><br/>
+
+[<%=h Favorite.human_attribute_name("url") %>]※<br/>
+<%=h @favorite.url %><br/>
+
+[<%=h Favorite.human_attribute_name("category") %>]※<br/>
+<%=h @favorite.category %><br/>

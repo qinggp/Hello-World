@@ -1,0 +1,24 @@
+<div style="text-align: center;">[紹介文を書く]</div>
+<div style="margin-left: 20px; text-align: left; margin-top: 5px;">
+  <%= h displayed_user.name %>さんの紹介文を作成します。
+</div>
+<div style="margin-left: 20px; padding-bottom: 10px;">
+  <% form_for(:friendship, :url => update_friend_description_user_path(displayed_user), :html => {:method => :put}) do |f| %>
+    <% display_round_box(:width => "490px") do %>
+      <%= f.error_messages.untaint %>
+      <table class="content_table" style="width: 480px;">
+        <tr>
+          <th><%= h Friendship.human_attribute_name("description") %><%= font_coution("※") %></th>
+          <td><%= f.text_area :description, :rows => 4, :cols => 40  %></td>
+        </tr>
+        <%= render :partial => "/share/form_relation", :locals => {:f => f} %>
+      </table>
+    <% end %>
+    <div align="center">
+      <%= f.submit("送信", :confirm => "紹介文を送信してよろしいですか？") %>
+    </div>
+    <div align="right">
+      [ <%= link_to("この紹介文を削除する", clear_friend_description_user_path(displayed_user), :method => :put, :confirm => "紹介文を削除します。よろしいですか？") %> ]
+    </div>
+  <% end %>
+</div>

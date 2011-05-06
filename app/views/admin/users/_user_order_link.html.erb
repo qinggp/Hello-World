@@ -1,0 +1,19 @@
+<% with_options(:default_order => "users.created_at DESC") do |view| %>
+  <th nowrap=""><%= view.link_for_sort "ID", :order => "users.id" %></th>
+  <th nowrap="">
+    名前（<%= view.link_for_sort "ニックネーム", :order => "users.name" %>)
+      / ユーザ名(E-mail) 
+  </th>
+  <th nowrap="">
+    <%= view.link_for_sort "招待者", :order => "users.invitation_id" %> / 
+    <%= view.link_for_sort "連絡先", :order => "users.phone_number" %>
+  </th>
+  <th nowrap="">
+    <%= view.link_for_sort "性別", :order => "users.gender" %> / 
+    誕生日
+  </th>
+  <th nowrap="">
+    <%= view.link_for_sort "登録日", :order => "users.created_at" %> /
+    <%= view.link_for_sort "最終ログイン", :order => "users.logged_in_at" %>
+  </th>
+<% end %>

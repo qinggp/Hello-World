@@ -1,0 +1,29 @@
+﻿◆コミュニティ
+
+<hr size="2" noshade>
+<% form_tag(search_communities_path) do %>
+  <%= text_field_tag("keyword", params[:keyword]) %>
+  <%= select_tag("community_category_id", options_for_select_using_category_serach(params[:community_category_id])) %>
+  <%= submit_tag("検索") %>
+<% end %>
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@communities).untaint %>
+<% if @communities.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+
+<% @communities.each_with_index do |community, i| %>
+  <%= link_to("▼", "##{i + 1}", :name => i) %>
+  <%= link_to(h(community.name), community_path(community)) %><br />
+  <%= h community.members.count %>人 / <%= h community.topics.size %>件 <br />
+  紹介文： <%= h(truncate(community.comment, 100)) %><br />
+  カテゴリ： <%= h(community.community_category.name) %> <br />
+  [<%= link_to("詳細", community_path(community)) %>]
+  <hr size="1" noshade>
+<% end %>
+
+<% if @communities.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@communities).untaint %>

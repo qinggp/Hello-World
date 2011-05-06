@@ -1,0 +1,18 @@
+<%= h @community.name %><br />
+管理人：<%= link_to_user(@community_admin, h(@community_admin.name)) %>さん<br />
+<hr size="1" noshade>
+
+<%= link_to_user(@pending.user, h(@pending.user.name)) %>さんがこのコミュニティ「<%= h(@community.name) %>」への参加を希望しています。<br /><br />
+管理人から参加にあたって一言（任意）<br />
+<% form_tag(approve_or_reject_community_path(:id => @community.id, :pending_id => @pending.id)) do %>
+  <%= text_area_tag(:message, {}, {:rows => 4, :cols => 40}) %><br />
+  <%= submit_tag("承認する", :name => "approve") %>
+  <%= submit_tag("拒否する", :name => "reject") %>
+<% end %>
+<div style="font-size:80%;">
+  ※拒否の場合は一言の記入時のみ非承認通知メールで送信されます。<br />
+  お断りする理由をお知らせしたい場合にご記入ください。
+</div>
+<hr size="1" noshade>
+
+<%= link_to("コミュニティトップへ戻る", community_path(@community)) %>

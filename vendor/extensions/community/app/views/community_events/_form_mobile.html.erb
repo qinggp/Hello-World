@@ -1,0 +1,24 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityEvent, "title") %><br />
+<%= f.text_field :title %><br />
+
+<%= display_form_attr_name(CommunityEvent, "event_date") %><br />
+<%= f.date_select(:event_date, :start_year => Time.now.year-1, :end_year => Time.now.year + 1).untaint  %><br />
+
+<%= display_form_attr_name(CommunityEvent, "event_date_note") %><br />
+<%= f.text_field :event_date_note %><br />
+
+<%= display_form_attr_name(CommunityEvent, "place") %><br />
+<%= f.text_field :place %><br />
+
+<%= display_form_attr_name(CommunityEvent, "content") %><br />
+<%= f.text_area :content, :rows => 2, :cols => 20 %><br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "form", :model => @community_event} %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "public") %><br />
+<%= f.select :public, CommunityEvent.select_options_for_publivcs(:yes, :no) %>
+

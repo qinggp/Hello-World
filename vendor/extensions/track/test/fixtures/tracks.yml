@@ -1,0 +1,95 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: tracks
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  visitor_id :integer
+#  page_type  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+<% 100.times do |n| %>
+hanako_visit_tarou_<%= n %>:
+  user: sns_tarou
+  visitor: sns_hanako
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+<% 100.times do |n| %>
+zirou_vist_tarou_<%= n %>:
+  user: sns_tarou
+  visitor: sns_zirou
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+<% 10.times do |n| %>
+hanako_vist_zirou_<%= n %>:
+  user: sns_zirou
+  visitor: sns_hanako
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+<% 10.times do |n| %>
+tarou_vist_zirou_<%= n %>:
+  user: sns_zirou
+  visitor: sns_tarou
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+<% 10.times do |n| %>
+tarou_vist_hanako_<%= n %>:
+  user: sns_hanako
+  visitor: sns_tarou
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+<% 10.times do |n| %>
+zirou_vist_hanako_<%= n %>:
+  user: sns_hanako
+  visitor: sns_zirou
+  created_at: <%= n.days.ago.to_s :db %>
+  page_type: <%= Track.page_type(:profile) %>
+<% end %>
+
+zirou_vist_saburou_1:
+  user: sns_saburou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_sirou_1:
+  user: sns_sirou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_gorou_1:
+  user: sns_gorou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_rokurou_1:
+  user: sns_rokurou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_sitirou_1:
+  user: sns_sitirou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_hatirou_1:
+  user: sns_hatirou
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>
+
+zirou_vist_pending_1:
+  user: pending
+  visitor: sns_zirou
+  page_type: <%= Track.page_type(:profile) %>

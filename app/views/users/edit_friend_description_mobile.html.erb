@@ -1,0 +1,4 @@
+<b>--- <%= h @friendship.friend.name %>さんの紹介文作成 ---</b><br /><br />
+
+<%= render :partial => "/share/form", :locals => {:partial_template => "form_friend_description", :form_params => {:model_instance => @friendship, :url => confirm_before_update_friend_description_user_path(params[:id])}} %>
+

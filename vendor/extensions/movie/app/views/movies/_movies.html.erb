@@ -1,0 +1,74 @@
+<% display_round_box(:width => "350px", :color => "#FFE7B5") do %>
+  <div style="background-color: #FFE7B5">
+    <% form_tag(new_movie_path, :method => :get, :style => 'margin-top:0px;margin-bottom:0px;') do %>
+      <table style="width: 100%; margin-bottom: 4px;" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td style="padding:0px;" valign="middle">
+            ■<%= link_to_username(@user) %>さんの登録ムービー<br/>
+            <% if @user.movie_uploadable? -%>
+              <% if Mars::Movie::ResourceLoader['application']['movie_limited'] -%>
+                (残り<%=h number_to_human_size(@user.remaining_disk_size) %>登録できます)
+              <% end %>
+          </td>
+          <td style="text-align: right; padding: 0px;" valign="middle">
+            <%= submit_tag('ムービーを登録', :class => 'button_style') %>
+            <% else %>
+              (<span style="color:red;">容量オーバーです。不要な動画を削除してください</span>)
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+
+  <div>
+    <% if @movies.size == 0 -%>
+      <div style="padding: 10px;">
+        登録ムービーはありません。
+      </div>
+    <% else -%>
+      <% @movies.each do |movie| -%>
+        <table class="my_movie" cellspacing="0" cellpadding="0">
+          <tr>
+            <td rowspan="4" style="width: 70px; text-align: center;">
+              <%= link_to_if(movie.playable?(@user),
+                             theme_image_tag(thumbnail_movie_url(movie)), movie_path(movie)) %>
+            </td>
+            <td class="my_movie_caption">タイトル</td><td><%= h(movie.title) %></td>
+          </tr>
+          <tr><td class="my_movie_caption">本文</td><td><%= truncate(h(movie.body), :limit => 20, :ommision => '…') %>
+              [<%= link_to_if(movie.playable?(@user), '続きを読む', movie_path(movie)) %>]</td></tr>
+          <tr><td class="my_movie_caption">投稿日</td><td><%= movie.created_at.strftime('%Y/%m/%d') %></td></tr>
+          <tr><td class="my_movie_caption">&nbsp;</td><td style="text-align: right;">
+              [ <%= link_to("削除", movie_path(movie), :method => :delete, :confirm => '本当に削除してもよろしいですか？') %> ]
+              <% if movie.convert_status != Movie::CONVERT_STATUSES[:error] -%>
+                [ <%= link_to('編集', edit_movie_path(movie)) %> ] 
+              <% end -%>
+            </td></tr>
+        </table>
+      <% end -%>
+    <% end -%>
+  </div>
+
+  <div style="text-align: center; background-color:#FFE7B5;">
+    <% if @movies.total_pages >= 1 -%>
+      <% form_remote_tag(:update => 'my_movies',
+                         :url => {:action => 'update_my_movies'}, :html => {:style => 'margin:0;'}) do %>
+        <%= select_tag(:per_page, options_for_select([5, 10, 20, 50, 100].collect {|c| ["#{c}件", c]}, @movies.per_page)) %>
+        <%= select_tag(:page, options_for_select((1..@movies.total_pages).to_a.collect {|p| ["#{p}ページ", p]}, @movies.current_page)) %>
+        <%= submit_tag('表示', :class => 'button_style') %>
+      <% end %>
+      [<%= link_to_remote_for_page_numbers(@movies,
+                                           :update => 'my_movies',
+                                           :action => 'update_my_movies') %>]<br/>
+      [<%= link_to_remote_for_prev_page(@movies,
+                                        :label => '前のページ',
+                                        :update => 'my_movies',
+                                        :action => 'update_my_movies') %>]
+      [<%= link_to_remote_for_next_page(@movies,
+                                        :label => '次のページ',
+                                        :update => 'my_movies',
+                                        :action => 'update_my_movies') %>]
+    <% end -%>
+  </div>
+<% end %>

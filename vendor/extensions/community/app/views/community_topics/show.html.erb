@@ -1,0 +1,42 @@
+<center>
+  <%= render :partial => "share/thread_header", :locals => {:thread => @community_topic} %>
+
+  <% display_round_box(:width => "600px") do %>
+    <table class="content_table">
+      <tr>
+        <td valign="top" rowspan="7" width="100" style="text-align: center;">
+          <%= h @community_topic.created_at.strftime("%Y年%m月%d日") %>
+          <br />
+          <%= h @community_topic.created_at.strftime("%H:%M") %>
+          <div style="font-size:80%;">
+            <br />
+            [ 最新投稿日時 ]
+            <br />
+            <%= h @community_topic.lastposted_at.strftime("%y年%m月%d日 %H:%M") %>
+          </div>
+        </td>
+        <th nowrap="" width="60">タイトル</th>
+        <td width="440"><%= h @community_topic.title %></td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">投稿者</th>
+        <td width="440"><%= link_to_user(@community_topic.author, h( @community.member_name(@community_topic.author))) %></td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">本文</th>
+        <td width="440">
+          <%= auto_link(hbr(@community_topic.content)){ |text| truncate(text, 60) } %><br />
+          <%= render :partial => "share/attachments", :locals => {:model => @community_topic}%>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: right;">
+          <%= render :partial => "share/links_for_thread", :locals => {:thread => @community_topic} %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+  <div style="margin-top: 15px;"></div>
+  <a name="res"></a>
+  <%= render(:partial => "share/list_reply", :locals => {:replies => @replies, :thread => @community_topic, :named_root => "community_topic", :community => @community}) %>
+</center>

@@ -1,0 +1,13 @@
+<% if CONFIG["ssl_enable"] %>
+  <center>
+    <% display_round_box(:width => "400px") do %>
+      <div class="no_data">
+        <% if request.ssl? %>
+          [<%= link_to "通常(http)フォームはこちら", http_link %>]
+        <% else %>
+          [<%= theme_image_tag "ssl.gif" %><%= link_to "SSL(https)対応フォームはこちら", https_link %>]
+        <% end %>
+      </div>
+    <% end %>
+  </center>
+<% end %>

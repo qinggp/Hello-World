@@ -1,0 +1,15 @@
+ja:
+  track: あしあと
+
+  page_titles:
+    tracks_title: あしあと
+
+  activerecord:
+    models:
+      track: あしあと
+      track_preference: あしあと設定
+    attributes:
+      track:
+        page_type: ページタイプ
+      track_preference:
+        notification_track_count: あしあとお知らせ

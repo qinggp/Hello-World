@@ -1,0 +1,14 @@
+<%
+list =
+[{:name => "登録日順", :kind => Admin::BannersController::CREATED_AT},
+{:name => "クリック順", :kind => Admin::BannersController::CLICK_COUNT},
+{:name => "表示期間順", :kind => Admin::BannersController::EXPIRE_DATE}]
+%>
+<% list.each do |parameter| %>
+[
+  <% parameter_for_order_link(parameter[:kind]) do |order_param| %>
+    <%= link_to(parameter[:name], admin_banners_path(order_param.merge(paginate_parameter))) %>
+  <% end %>
+]
+<% end %>
+

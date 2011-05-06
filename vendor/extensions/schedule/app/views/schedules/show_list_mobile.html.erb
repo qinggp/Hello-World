@@ -1,0 +1,11 @@
+<%= @date.strftime("%Y年%m月%d日") %>のスケジュール一覧
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@schedules).untaint %>
+<hr size="1" noshade>
+
+<% @schedules.each do |schedule| %>
+  <%= render(:partial => "schedule", :locals => {:schedule => schedule}) %>
+<% end %>
+
+<%= will_paginate_mobile(@schedules).untaint %>

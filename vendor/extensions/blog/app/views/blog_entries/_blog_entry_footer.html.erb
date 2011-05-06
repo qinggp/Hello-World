@@ -1,0 +1,28 @@
+<% blog_entry ||= @blog_entry  %>
+
+<% if blog_entry.imported_by_rss %>
+  <div class="blog_entry_border">
+    ｜外部ブログ｜<%= link_to(h(blog_entry.rss_title), h(blog_entry.rss_url)) %>｜
+    <%=h l(blog_entry.created_at, :format => :default_minute) %>
+  </div>
+  <div class="blog_entry_visibility">
+    公開範囲：[ 外部公開 ]
+  </div>
+<% else %>
+  <div class="blog_entry_border">
+    ｜閲覧数：<%= blog_entry.access_count %> ｜
+    <%= link_for_category(blog_entry) %>｜
+    <%= link_to("コメント（#{blog_entry.blog_comments.size}）", blog_entry_path(blog_entry, :anchor => blog_comment_anchor_name)) %>｜
+    <%= l(blog_entry.created_at, :format => :default_minute) %>
+    <% if current_user.try(:id) == blog_entry.user_id %>
+      ｜［<%= link_to("削除", blog_entry_path(blog_entry), :method => :delete, :confirm => '削除してよろしいですか？') %>］
+        ［<%= link_to("編集", edit_blog_entry_path(blog_entry)) %>］
+    <% end %>
+  </div>
+  <div class="blog_entry_visibility">
+    公開範囲：[ <%= t("blog.blog_entry.visibility_label.#{blog_entry.visibility_name}") %> ]
+    <% unless blog_entry.comment_restraint_publiced? %>
+      ｜コメント制限：[ <%= t("blog.blog_entry.comment_restraint_label.#{blog_entry.comment_restraint_name}") %> ]
+    <% end %>
+  </div>
+<% end %>

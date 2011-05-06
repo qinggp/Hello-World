@@ -1,0 +1,4 @@
+<% if access.count.to_i > 0 %>
+  [<%= h access_mobile_counter + 1%>位]
+  <%= link_to(h(access.user.name), user_path(access.user)) %>(<%= h access.count %>)<br />
+<% end %>

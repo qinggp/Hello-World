@@ -1,0 +1,59 @@
+ <center>
+  <% display_round_box(:width => "400px") do %>
+    <div class="no_data">
+      <% if request.ssl? %>
+        [<%= link_to "通常(http)フォームはこちら",  confirm_before_update_passwd_admin_user_path(@user, :only_path => false, :protocol => "http://") %>]
+      <% else %>
+        [<%= theme_image_tag "ssl.gif" %><%= link_to "SSL(https)対応フォームはこちら",  confirm_before_update_passwd_admin_user_path(@user, :only_path => false, :protocol => "https://") %>]
+      <% end %>
+    </div>
+  <% end %>
+</center>
+<%
+ form  = confirm_form_params
+ display_round_box_opts ||= {:width => "660px"}
+%>
+
+<center>
+  <div>
+    <%= confirm_notation %>
+  </div>
+  <% display_round_box(display_round_box_opts) do %>
+    <% form_for(form[:model_instance], :url => form[:url], :html => {:method => form[:method]}) do |f| %>
+      <table class="content_table">
+        <tr   align="center" valign="middle" >
+          <th colspan="2">
+            <center>
+              <b>ユーザ情報変更</b>
+          </center>
+          </th>
+        </tr>
+        <tr>
+          <th nowrap valign="top">
+            メールアドレス<font color="red">※</font>
+          </th>
+          <td>
+            <%=h @user.login %>
+            <%= f.hidden_field(:login) %>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap valign="top">
+            新しいパスワード
+          </th>
+          <td>
+            <% unless @user.password.blank? %>
+              <%=h @user.password.gsub(/./, "*") %>
+              <%= f.hidden_field(:password) %>
+              <%= f.hidden_field(:password_confirmation) %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+      <div class="content_box_bg" align="center">
+        <%= f.submit '送信する' %>
+        <%= f.submit '入力画面へ戻る', :name => "cancel" %>
+      </div>
+    <% end %>
+  <% end %>
+</center>

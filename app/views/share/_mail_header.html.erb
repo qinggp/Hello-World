@@ -1,0 +1,3 @@
+<% salutation ||= @user ? "#{h(@user.name)}さん、こんにちわ。" : "こんにちわ" -%>
+<%= h salutation %>
+<%=h SnsConfig.title %>からのお知らせです。

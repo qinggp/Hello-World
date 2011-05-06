@@ -1,0 +1,37 @@
+<div class="content_box">
+  <% if @friends.empty? %>
+    <div class="content_box_bg" style="width:100%;height:5px;">
+    </div>
+    <div class="no_data">
+      今のところ誰も招待していません。
+    </div>
+  <% else %>
+    <% display_collection_box(@friends, :collection_name => "招待したトモダチ数", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 30, :width => "610px", :class => "content_box_bg") do %>
+      <table>
+        <td align="center" colspan="6">
+          <% with_options(:default_order => User.default_index_order,
+                          :per_page => params[:per_page],
+                          :page => params[:page]) do |view| %>
+            [ <%= view.link_for_sort("ログイン順", :order => "users.logged_in_at") %>  ]
+            [ <%= view.link_for_sort("トモダチ日付順", :order => "friendships.created_at") %>  ]
+            [ <%= view.link_for_sort("名前順", :order => "users.name") %> ]
+            [ <%= view.link_for_sort("トモダチ数順", :order => "users.friends_count") %> ]
+          <% end %>
+        </td>
+        <% @friends.in_groups_of(6) do |friends| %>
+          <tr>
+            <% friends.each do |friend| %>
+              <td class="new_link" align="center" width="80" valign="top">
+                <% if friend %>
+                  <%= display_face_photo_on_table(friend, :width => 76, :enabled_friend_count => true, :inviter => displayed_user.invitation?(friend)) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <%= hidden_field_tag(:order, params[:order]) %>
+      <%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+    <% end %>
+  <% end %>
+</div>

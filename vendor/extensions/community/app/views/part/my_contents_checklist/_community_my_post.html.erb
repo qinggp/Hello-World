@@ -1,0 +1,33 @@
+<%
+  limit = news_show_option_count_select_value("community_my_post_checklist").to_i
+  days_ago = news_show_option_span_select_value("community_my_post_checklist").to_i
+  my_post_comments = Community.comments_post(current_user, :limit => limit, :days_ago => days_ago)
+%>
+
+<% if my_post_comments.empty?  %>
+  <div class="no_data content_box_bg_light">
+    最近<%= link_to "コミュニティ", communities_path %>に投稿していません。 <br/>
+    <%= display_news_show_option_selects("community_my_post_checklist") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("community_my_post_checklist") %>
+    最新コミュニティ投稿
+  </div>
+
+  <% display_open_colse_box(:id => "community_my_post_checklist", :class => "base_data") do %>
+    <% my_post_comments.each do |c| %>
+      <div class="news_link">
+        <% thread = (c.class == CommunityReply ? c.thread : c) %>
+        <%= display_news_line_format(c.created_at,
+                                     link_to(h("#{c.title} (#{thread.active_replies.size})"), thread.polymorphic_url_on_community(self)),
+                                     link_to(h(c.community.name), community_path(c.community))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div align="left">
+        <%= display_news_show_option_selects("community_my_post_checklist") %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

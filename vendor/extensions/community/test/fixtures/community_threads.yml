@@ -1,0 +1,410 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_threads
+#
+#  id                        :integer         not null, primary key
+#  title                     :string(255)
+#  content                   :text
+#  event_date                :date
+#  event_date_note           :string(255)
+#  place                     :string(255)
+#  latitude                  :decimal(9, 6)
+#  longitude                 :decimal(9, 6)
+#  zoom                      :integer
+#  user_id                   :integer
+#  community_id              :integer
+#  public                    :boolean
+#  community_map_category_id :integer
+#  type                      :string(255)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  lastposted_at             :datetime
+#
+
+curry_topic:
+  title: カレーの話題
+  content: みんなでカレーの話題で盛り上がります
+  author: sns_tarou
+  community: curry
+  type: CommunityTopic
+  created_at: <%= 5.days.ago.to_s :db  %>
+  lastposted_at: <%= 1.days.ago.to_s :db %>
+
+boat_topic:
+  title: ボートの話題
+  content: みんなでボートの話題で盛り上がります
+  author: sns_tarou
+  community: boat
+  type: CommunityTopic
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+curry_shop_marker1:
+  title: おいしいカレーのお店
+  content: ここはおいしいよ
+  author: sns_tarou
+  community: curry
+  longitude: 133.039112
+  latitude: 35.499810
+  zoom: 14
+  map_category: curry_shop
+  type: CommunityMarker
+  created_at: <%= 4.days.ago.to_s :db  %>
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+curry_shop_marker2:
+  title: おいしくないカレーのお店
+  content: これは…
+  author: sns_tarou
+  community: curry
+  longitude: 132.528076
+  latitude: 35.337534
+  zoom: 14
+  map_category: curry_shop
+  type: CommunityMarker
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+curry_friend_marker1:
+  title: カレーのトモダチ
+  content: カレーのトモダチ紹介
+  author: sns_tarou
+  community: curry
+  longitude: 132.039112
+  latitude: 36.499810
+  zoom: 14
+  map_category: curry_friend
+  type: CommunityMarker
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+boat_marker:
+  title: 急流下り
+  content: ここはすごい
+  author: sns_tarou
+  community: boat
+  longitude: 133.039112
+  latitude: 35.499810
+  zoom: 14
+  map_category: boat_point
+  type: CommunityMarker
+  lastposted_at: <%= 3.days.ago.to_s :db %>
+
+curry_event:
+  title: カレーパーティー
+  content: みんなでカレーパーティをします
+  author: sns_tarou
+  community: curry
+  event_date: <%= Date.civil(2009, 8, 10)  %>
+  event_date_note: 雨天決行
+  place: 宍道湖
+  public: true
+  longitude: 133.039112
+  latitude: 35.499810
+  zoom: 14
+  type: CommunityEvent
+  created_at: <%= 20.days.ago.to_s :db  %>
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+boat_event:
+  title: 今日はボート
+  content: みんなで転覆します
+  author: sns_tarou
+  community: boat
+  event_date: <%= Date.today  %>
+  event_date_note: 雨天中止
+  place: 宍道湖
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+curry_event_on_today:
+  title: 本日開催イベント！
+  content: 決まってないです
+  author: sns_tarou
+  community: curry
+  event_date: <%= Date.today  %>
+  event_date_note: 一日中やってます
+  place: お城周辺
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+ramen_event_on_today:
+  title: 本日開催イベント！
+  content: ラーメン部の本日開催イベント
+  author: sns_tarou
+  community: ramen
+  event_date: <%= Date.today  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+ramen_event_on_today_public:
+  title: 本日開催イベント！（全体公開）
+  content: ラーメン部の本日開催イベント
+  author: sns_tarou
+  community: ramen
+  event_date: <%= Date.today  %>
+  event_date_note: 特になし
+  place: 駅
+  public: true
+  type: CommunityEvent
+  lastposted_at: <%= 2.days.ago.to_s :db %>
+
+official_normal_topic:
+  title: 公認コミュニティのトピック。
+  content: 公認コミュニティのトピックとなります。
+  author: sns_tarou
+  community: official_normal
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_normal_event:
+  title: 公認コミュニティのイベント。
+  content: 公認コミュニティのイベントとなります。
+  author: sns_tarou
+  community: official_normal
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_normal_marker:
+  title: 公認コミュニティのマーカー。
+  content: 公認コミュニティのマーカーとなります。
+  author: sns_tarou
+  community: official_normal
+  longitude: 133.039112
+  latitude: 35.499810
+  zoom: 14
+  map_category: boat_point
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_all_member_topic:
+  title: 公認コミュニティ（全員）のトピック。
+  content: 公認コミュニティ（全員）のトピックとなります。
+  author: sns_tarou
+  community: official_all_member
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_all_member_event:
+  title: 公認コミュニティ（全員）のイベント。
+  content: 公認コミュニティ（全員）のイベントとなります。
+  author: sns_tarou
+  community: official_all_member
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_all_member_marker:
+  title: 公認コミュニティ（全員）のマーカー。
+  content: 公認コミュニティ（全員）のマーカーとなります。
+  author: sns_tarou
+  community: official_all_member
+  longitude: 134.039112
+  latitude: 37.499810
+  zoom: 14
+  map_category: official_all_member_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_admin_topic:
+  title: 公認コミュニティ（管理人）のトピック。
+  content: 公認コミュニティ（管理人）のトピックとなります。
+  author: sns_tarou
+  community: official_admin
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_admin_event:
+  title: 公認コミュニティ（管理人）のイベント。
+  content: 公認コミュニティ（管理人）のイベントとなります。
+  author: sns_tarou
+  community: official_admin
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+official_admin_marker:
+  title: 公認コミュニティ（管理人）のマーカー。
+  content: 公認コミュニティ（管理人）のマーカーとなります。
+  author: sns_tarou
+  community: official_admin
+  longitude: 134.339112
+  latitude: 37.829810
+  zoom: 14
+  map_category: official_admin_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+secret_topic:
+  title: ないしょのコミュニティのトピック。
+  content: ないしょのコミュニティのトピックとなります。
+  author: sns_tarou
+  community: secret
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+secret_event:
+  title: ないしょのコミュニティのイベント。
+  content: ないしょのコミュニティのイベントとなります。
+  author: sns_tarou
+  community: secret
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+secret_marker:
+  title: ないしょのコミュニティのマーカー。
+  content: ないしょのコミュニティのマーカーとなります。
+  author: sns_tarou
+  community: secret
+  longitude: 133.139112
+  latitude: 36.629810
+  zoom: 14
+  map_category: secret_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+private_topic:
+  title: 非公開のコミュニティのトピック。
+  content: 非公開のコミュニティのトピックとなりす。
+  author: sns_tarou
+  community: private
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+private_event:
+  title: 非公開のコミュニティのイベント。
+  content: 非公開のコミュニティのイベントとなりす。
+  author: sns_tarou
+  community: private
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+private_marker:
+  title: 非公開のコミュニティのマーカー
+  content: 非公開のコミュニティのマーカーとなりす。
+  author: sns_tarou
+  community: private
+  longitude: 134.539112
+  latitude: 37.319810
+  zoom: 14
+  map_category: private_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+public_topic:
+  title: 外部公開のコミュニティのトピック
+  content: 外部公開コミュニティのトピックとなりす。
+  author: sns_tarou
+  community: public
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+public_event:
+  title: 外部公開のコミュニティのイベント。
+  content: 外部公開のコミュニティのイベントとなりす。
+  author: sns_tarou
+  community: public
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+public_marker:
+  title: 外部公開のコミュニティのマーカー
+  content: 外部公開のコミュニティのマーカーとなりす。
+  author: sns_tarou
+  community: public
+  longitude: 134.559112
+  latitude: 37.339810
+  zoom: 14
+  map_category: public_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+member_topic:
+  title: 全体公開のコミュニティのトピック
+  content: 全体公開コミュニティのトピックとなりす。
+  author: sns_tarou
+  community: member
+  type: CommunityTopic
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+member_event:
+  title: 全体公開のコミュニティのイベント。
+  content: 全体公開のコミュニティのイベントとなりす。
+  author: sns_tarou
+  community: member
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: false
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+member_marker:
+  title: 全体公開のコミュニティのマーカー
+  content: 全体公開のコミュニティのマーカーとなりす。
+  author: sns_tarou
+  community: member
+  longitude: 134.259112
+  latitude: 38.039810
+  zoom: 14
+  map_category: member_category
+  type: CommunityMarker
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+on_calendar_for_outer:
+  title: ログインしていなくてもカレンダーに表示されるイベントです
+  content: コミュニティが外部公開で、イベント自体が公開設定の場合のみみれます。
+  author: sns_tarou
+  community: public
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: true
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+secret_event_on_public:
+  title: ないしょのコミュニティのイベント（公開）。
+  content: 公開のイベントですが、ないしょなのでカレンダーにはでてきせん。
+  author: sns_tarou
+  community: secret
+  event_date: <%= Date.yesterday  %>
+  event_date_note: 特になし
+  place: 駅
+  public: true
+  type: CommunityEvent
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+
+hanako_create_topic:
+  title: 花子さんが作成したトピックです
+  content: 花子さんが作成しました。
+  author: sns_hanako
+  community: curry
+  type: CommunityTopic
+  created_at: <%= 5.days.ago.to_s :db  %>
+  lastposted_at: <%= 1.days.ago.to_s :db %>

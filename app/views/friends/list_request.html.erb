@@ -1,0 +1,38 @@
+<center>
+  <%= render :partial => "index_header" %>
+
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to(h(current_user.name), user_path(current_user)) %>さんのトモダチ依頼中一覧
+  </div>
+
+<% if @friendships.empty? %>
+  <div class="no_data">
+    今のところ誰にもトモダチ依頼していません。
+  </div>   
+<% else %>
+  <% display_round_box(:width => "610px", :white_bg => false) do %>
+    <% display_collection_box(@friendships, :width => "600px", :collection_name => "トモダチ依頼中", :per_pages => [5, 10, 20, 50, 100], :checked_value => 20) do %>
+      <table class="content_table">
+        <tr>
+          <% with_options(:default_order => Friendship.default_index_order,
+        :per_page => params[:per_page],
+        :page => params[:page]) do |view| %>
+      <th>
+        <%= view.link_for_sort("トモダチ依頼日", :order => "friendships.created_at") %>
+      </th>
+      <th>
+        <%= view.link_for_sort("名前", :order => "users.name") %>
+      </th>
+    <% end %>
+  </tr>
+  <% @friendships.each do |friendship| %>
+    <tr>
+      <td><%= l(friendship.created_at, :format => :default_year_month_date) %></td>
+      <td><%= link_to h(friendship.friend.name), user_path(friendship.friend) %></td>
+    </tr>
+  <% end %>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+</center>

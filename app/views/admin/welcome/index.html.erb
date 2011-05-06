@@ -1,0 +1,65 @@
+<center>
+  <% display_round_box(:width => "410px") do %>
+    <table class="content_table">
+      <tr>
+        <td class="content_table_title" colspan="2">SNS投稿</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "ユーザ管理", admin_users_path %></b></th>
+        <td>サイト内のユーザの管理が出来ます。</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "承認待ユーザ管理", index_for_approval_admin_users_path %></b></th>
+        <td>承認待ちのユーザの管理が出来ます。</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "招待ユーザ管理", admin_invites_path %></b></th>
+        <td>サイトへ招待ユーザの管理が出来ます。</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "書き込み管理", search_top_admin_contents_path %></b></th>
+        <td>サイト内に書き込まれたファイル管理が出来ます（例：ブログ記事など）。</td>
+      </tr>
+      <tr>
+        <td class="content_table_title" colspan="2">SNS設定</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "SNS管理", admin_sns_configs_path %></b></th>
+        <td>サイトの全般的な設定を行います。</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "お知らせ管理", admin_announcements_path %></b></th>
+        <td>サイト内のマイホームに表示されるお知らせの管理が出来ます。</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "静的ページ管理", admin_pages_path %></b></th>
+        <td>静的ページの管理を行います。</td>
+      </tr>
+      <% if Mars::Extension.instance.extension_enabled?(:banner) %>
+        <tr>
+          <th><b><%= link_to "バナー管理", admin_banners_path %></b></th>
+          <td>登録バナーの管理を行います。</td>
+        </tr>
+      <% end %>
+      <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+        <tr>
+          <th><b><%= link_to "ブログカテゴリ", admin_blog_categories_path %></b></th>
+          <td>ブログのカテゴリを管理できます。</td>
+        </tr>
+      <% end %>
+      <% if Mars::Extension.instance.extension_enabled?(:community) %>
+        <tr>
+          <th><b><%= link_to "コミュニティカテゴリ", admin_community_categories_path %></b></th>
+          <td>コミュニティのカテゴリを管理できます。</td>
+        </tr>
+      <% end %>
+      <tr>
+        <td class="content_table_title" colspan="2">SNS情報</td>
+      </tr>
+      <tr>
+        <th><b><%= link_to "統計データ", admin_statistics_path %></b></th>
+        <td>このサイトの統計データです。</td>
+      </tr>
+    </table>
+  <% end %>
+</center>

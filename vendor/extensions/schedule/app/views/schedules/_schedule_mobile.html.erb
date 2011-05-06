@@ -1,0 +1,20 @@
+<%
+  case schedule.object_type
+  when "Schedule"
+    title = schedule.title
+    url = schedule_path(schedule)
+    detail = schedule.detail
+  when "CommunityEvent"
+    title = schedule.title
+    url = community_event_path(:community_id => schedule.community_id, :id => schedule.id)
+    detail = schedule.detail
+  when "User"
+    title = schedule.title + "さん"
+    url = user_path(schedule)
+    detail = age(params[:date], schedule.date).to_s + "歳の誕生日"
+  end
+%>
+
+<%= link_to(h(schedule.title), url) %><br />
+<%= hbr(truncate(detail, 100)) %>
+<hr size="1" noshade>

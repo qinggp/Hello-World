@@ -1,0 +1,59 @@
+  <div class="title">■コミュニティ詳細</div>
+  <% display_round_box(:color => "#ECEBE1", :width => "490px") do %>
+  <table>
+    <tr>
+      <th>コミュニティ</th>
+      <td><%= h @community.name %></td>
+    </tr>
+    <tr>
+      <th>開設日</th>
+      <td>
+        <%= h @community.created_at.strftime("%Y年%m月%d日") %>
+        (開設から<%= h @community.elapsed_days %>日目)
+      </td>
+    </tr>
+    <tr>
+      <th>管理人</th>
+      <td><%= link_to_user(@community_admin, h(@community.member_name(@community_admin))) %></td>
+    </tr>
+    <tr>
+      <th>カテゴリ</th>
+      <td><%= h @community.community_category.name %></td>
+    </tr>
+    <tr>
+      <th>メンバー数</th>
+      <td><%= h @community.members.count %>人</td>
+    </tr>
+    <tr>
+      <th>参加・公開条件</th>
+      <td>
+        <%= h t(:approval_required, :scope => [:community])[@community.approval_required] %>
+        [ <%= h t(:visibility, :scope => [:community])[@community.visibility_name] %> ]
+        (※<%= h @community.describe_note_of_visibility %>)
+      </td>
+    </tr>
+    <% if @community.show_real_name? %>
+      <tr>
+        <th>実名表示</th>
+        <td><%= font_coution("※参加者同士は全ての名前表示が実名となります") %></td>
+      </tr>
+    <% end %>
+    <% if @community.topic_and_marker_createable_admin_only? || @community.event_createable_admin_only? %>
+      <tr>
+        <th>作成制限</th>
+        <td>
+          <% if @community.topic_and_marker_createable_admin_only? %>
+            <%= font_red("※トピックおよびマーカーの作成が制限されています") %><br />
+          <% end %>
+          <% if @community.event_createable_admin_only? %>
+            <%= font_red("※イベントの作成が制限されています") %>
+          <% end %>
+        </td>
+    <% end %>
+    </tr>
+    <tr>
+      <th>紹介文</th>
+      <td><%= auto_link(hbr(@community.comment)) { |text| truncate(text, 60) } %></td>
+    </tr>
+  </table>
+  <% end %>

@@ -1,0 +1,31 @@
+development:
+  adapter: postgresql
+  database: mars_development
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+  
+test:
+  adapter: postgresql
+  database: mars_test
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+  
+performance:
+  adapter: postgresql
+  database: mars_performance
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+  
+production:
+  adapter: postgresql
+  database: mars_production
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432

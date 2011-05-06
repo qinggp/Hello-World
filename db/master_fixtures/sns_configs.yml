@@ -1,0 +1,17 @@
+config:
+  id: 1
+  title: mars
+  outline: テスト
+  admin_mail_address: test@example.com
+  g_map_api_key: ABQIAAAAT7BAB0HmamUw6MTv7FvlDxS9uKTJxQLdmloLcAdNDmNhkJgO0hTAHLFKaG3BEnvJXJLrrznoOuIAuA
+  g_map_longitude: 133.050721
+  g_map_latitude: 35.47507
+  g_map_zoom: 11
+  entry_type: <%= SnsConfig::ENTRY_TYPES[:invitation] %>
+  invite_type: <%= SnsConfig::INVITE_TYPES[:invite] %>
+  approval_type: <%= SnsConfig::APPROVAL_TYPES[:no_approval] %>
+  login_display_type: <%= SnsConfig::LOGIN_DISPLAY_TYPES[:portal_type] %>
+  blog_default_open_range: <%= SnsConfig::BLOG_DEFAULT_OPEN_RANGES[:to_friends] %>
+  relation_flg: <%= SnsConfig::RELATION_FLGS[:enable] %>
+  ranking_display_flg: <%= SnsConfig::RANKING_DISPLAY_FLGS[:view] %>
+  sns_theme_id: 1

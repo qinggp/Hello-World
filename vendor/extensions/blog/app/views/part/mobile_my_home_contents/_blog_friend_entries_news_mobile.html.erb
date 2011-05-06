@@ -1,0 +1,16 @@
+<% entries = BlogEntry.by_new_blog_entry_displayed_for_user(current_user).
+      by_visible_for_user(current_user, false).recents(10, 14.day.ago) %>
+<% unless entries.empty? %>
+  <hr size="1" noshade>
+  ◆<a name="new_friend_blog">ブログ新着情報</a><br/>
+  <% entries.each do |entry| %>
+    <%= display_news_line_format_mobile(
+                                        entry.created_at,
+                                        link_to(h(entry.title), blog_entry_path(entry)),
+                                        [entry.blog_comments_count,
+                                         link_to(h(entry.user.name), user_path(entry.user))]
+                                        ) %>
+    <br/>
+  <% end %>
+  [<%= link_to "全て", search_for_friends_blog_entries_path %>]
+<% end %>

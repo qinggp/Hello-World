@@ -1,0 +1,7 @@
+<% link_to(edit_preference_path(current_user.preference), :title => "設定変更") do %>
+    <%= theme_image_tag "my_menu_edit_preference.gif",
+        :alt => "設定変更",
+        :onmouseover => "this.src=#{theme_image_path('my_menu_edit_preference_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('my_menu_edit_preference.gif').to_json}"
+    %>
+<% end %>

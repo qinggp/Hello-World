@@ -1,0 +1,29 @@
+ja:
+  failure: エラー
+
+  page_titles:
+    movies_title: ムービー
+    movies:
+      about_packet: パケット料金の目安
+      failure_not_found: ムービーが見つかりません
+      failure_upload: ファイルのアップロードに失敗しました
+
+  movie:
+    movie_preference:
+      visibility_label:
+        unpubliced: 非公開
+        friend_only: トモダチのみ
+        member_only: メンバーのみ
+        publiced: 外部公開
+  preference_category:
+    movie: ムービー関連
+  activerecord:
+    models:
+      movie: ムービー
+      movie_preference: ムービー関連設定
+    attributes:
+      movie:
+        title: タイトル
+        visibility: 公開先
+      movie_preference:
+        default_visibility: 標準ムービー公開範囲

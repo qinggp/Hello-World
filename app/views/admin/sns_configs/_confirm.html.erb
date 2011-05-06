@@ -1,0 +1,107 @@
+<tr>
+  <td class="content_table_title" colspan="2">SNS基本設定</td>
+</tr>
+<tr>
+  <th>SNS名</th>
+  <td>
+      <%=h @sns_config.title %>
+      <%= f.hidden_field :title %>
+  </td>
+
+</tr>
+<tr>
+  <th>概要</th>
+  <td>
+      <%=h @sns_config.outline %>
+      <%= f.hidden_field :outline %>
+  </td>
+</tr>
+<tr>
+  <th>デザインテーマ</th>
+  <td>
+    <%=h @sns_config.sns_theme.human_name %>
+    <%= f.hidden_field :sns_theme_id %>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">SNS各種設定</td>
+</tr>
+<tr>
+  <th>管理アドレス</th>
+  <td>
+    <%=h @sns_config.admin_mail_address %>
+    <%= f.hidden_field :admin_mail_address %>
+  </td>
+</tr>
+<tr>
+  <th>ユーザ登録方法</th>
+  <td>
+    <%= t("sns_config.entry_type_label.#{@sns_config.entry_type_name.to_s}") %>
+    <%= f.hidden_field :entry_type %>
+  </td>
+</tr>
+<tr>
+  <th>招待機能</th>
+  <td>
+    <%= t("sns_config.invite_type_label.#{@sns_config.invite_type_name.to_s}") %>
+    <%= f.hidden_field :invite_type %>
+  </td>
+</tr>
+<tr>
+  <th>参加承認</th>
+  <td>
+    <%= t("sns_config.approval_type_label.#{@sns_config.approval_type_name.to_s}") %>
+    <%= f.hidden_field :approval_type %>
+  </td>
+</tr>
+<tr>
+  <th>ログイン画面</th>
+  <td>
+    <%= t("sns_config.login_display_type_label.#{@sns_config.login_display_type_name.to_s}") %>
+    <%= f.hidden_field :login_display_type %>
+  </td>
+</tr>
+<tr>
+  <th>関係性機能</th>
+  <td>
+    <%= t("sns_config.relation_flg_label.#{@sns_config.relation_flg_name.to_s}") %>
+    <%= f.hidden_field :relation_flg %>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">SNS拡張機能各種設定</td>
+</tr>
+<% Mars::UI.instance.admin_sns_extension_configs.each do |part| %>
+  <%= part.display(self, :locals => {:f => f, :view_type => :confirm}) %>
+<% end %>
+<tr>
+  <td class="content_table_title" colspan="2">地図表示設定</td>
+</tr>
+<tr>
+  <th>GoogleMaps<br />API_Key</th>
+  <td>
+    <%=h @sns_config.g_map_api_key %>
+    <%= f.hidden_field :g_map_api_key %>
+  </td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%=h @sns_config.g_map_longitude %>
+    <%= f.hidden_field :g_map_longitude %>
+  </td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%=h @sns_config.g_map_latitude %>
+    <%= f.hidden_field :g_map_latitude %>
+  </td>
+</tr>
+<tr>
+  <th>[マップズーム]</th>
+  <td>
+    <%=h @sns_config.g_map_zoom %>
+    <%= f.hidden_field :g_map_zoom %>
+  </td>
+</tr>

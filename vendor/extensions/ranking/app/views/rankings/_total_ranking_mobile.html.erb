@@ -1,0 +1,25 @@
+<% if RankingExtension.instance.extension_enabled?(:track) %>
+  総アクセス数<br />
+  <%= render :partial => "access", :collection => @access_ranking, :as => :access %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if RankingExtension.instance.extension_enabled?(:community) %>
+  コミュニティ参加人数</br />
+  <%= render :partial => "community", :collection => @member_count_ranking, :as => :community %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if RankingExtension.instance.extension_enabled?(:blog) %>
+  ブログ総数(トモダチのみ公開も含む)<br />
+  <%= render :partial => "user", :collection => @blog_entry_ranking, :as => :user %>
+  <hr size="1" noshade>
+<% end %>
+
+トモダチ数<br />
+<%= render :partial => "user", :collection => @friend_count_ranking, :as => :user %>
+<hr size="1" noshade>
+
+招待した人が多いメンバー<br />
+<%= render :partial => "user", :collection => @invitation_count_ranking, :as => :user %>
+<hr size="1" noshade>

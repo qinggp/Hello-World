@@ -1,0 +1,35 @@
+# ブログ情報
+# RSS 2.0
+carwings = (action_name == "map")
+xml.instruct!
+ 
+mars_rss2_feed_layout(xml,
+                      :title => @xml_title,
+                      :link => @xml_link,
+                      :description => @xml_title,
+                      :carwings => carwings) do |xml|
+  @blog_entries.each do |b|
+    xml.item do |item|
+      item.title(h(b.title))
+      item.link(blog_entry_url(b))
+      item.description(normalize_text_for_feed(
+           strip_tags(display_blog_entry_body(b, :display_type => :raw))))
+      item.comments(blog_entry_url(b, :anchor => "blog_comment"))
+      item.guid(blog_entry_url(b))
+      item.pubDate(b.created_at.to_formatted_s(:rfc822))
+      item.category(b.blog_category.name)
+      item.tag!("content:encoded") do
+        item.cdata!(normalize_text_for_feed(display_blog_entry_body(b, :display_type => :raw)))
+      end
+      if carwings
+        item.tag!("carwings:readtitle", h(b.title))
+        item.tag!("carwings:lat", h(b.latitude))
+        item.tag!("carwings:lon", h(b.longitude))
+        item.tag!("carwings:link", blog_entry_url(b))
+        item.tag!("carwings:data") do
+          item.cdata!(mars_rss2_carwings_data(b.title + "(クチコミ)"))
+        end
+      end
+    end
+  end
+end

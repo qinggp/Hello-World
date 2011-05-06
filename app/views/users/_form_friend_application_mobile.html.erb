@@ -1,0 +1,14 @@
+<%=h displayed_user.name %>さんとは既に友人・知人ですか？<br/>
+一言メッセージを送信し、承諾を受けてください。<br/>
+※交流の無い方へいきなりトモダチ依頼を送るのは、失礼になる場合もあります。<br/>
+十分に確認して、トモダチ依頼を行ってください。<br/>
+<% relationship_describe = display_relationship_user_to_user(current_user, displayed_user) %>
+<% unless relationship_describe.blank? %>
+  このユーザとのサイト内の関係性 ＝ <%= relationship_describe %><br/>
+<% end %>
+<br/>
+
+[<%= h Friendship.human_attribute_name("message") %>]<br/>
+<%= f.text_area :message, :rows => 4, :cols => 40  %><br/>
+
+<%= render :partial => "/share/form_relation_mobile", :locals => {:f => f} %>

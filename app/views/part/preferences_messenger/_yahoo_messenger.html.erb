@@ -1,0 +1,32 @@
+<% if view_type == :form  %>
+  <tr>
+    <th>[<%=h Preference.human_attribute_name("yahoo_id") %>]</th>
+    <td>
+      <%= f.text_field :yahoo_id %>
+      <%= f.select :yahoo_id_visibility,
+                   select_options_for_const("Preference", "VISIBILITIES")
+      %>
+      <br/>
+      ※Yahoo!メッセンジャーに関しては [ <%= link_to "こちら", "http://messenger.yahoo.co.jp/" %> ]をご覧ください。
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("yahoo_id") %>]
+    </th>
+    <td>
+      <%=h @preference.yahoo_id  %>
+      <%= f.hidden_field :yahoo_id %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("yahoo_id_visibility") %>]
+    </th>
+    <td>
+      <%= display_label_name("preference.visibility_label", @preference.yahoo_id_visibility_name) %>
+      <%= f.hidden_field :yahoo_id_visibility %>
+    </td>
+  </tr>
+<% end %>

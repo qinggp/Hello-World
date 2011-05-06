@@ -1,0 +1,119 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: messages
+#
+#  id                  :integer         not null, primary key
+#  sender_id           :integer
+#  receiver_id         :integer
+#  subject             :string(255)
+#  body                :text
+#  unread              :boolean
+#  deleted_by_sender   :boolean
+#  deleted_by_receiver :boolean
+#  replied             :boolean
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+
+DEFAULTS: &DEFAULTS
+  sender: sns_tarou
+  unread: false
+  deleted_by_sender: false
+  deleted_by_receiver: false
+
+tarou_to_hanako:
+  <<: *DEFAULTS
+  receiver: sns_hanako
+  subject: 太郎から花子へ
+  body: このメールは太郎から花子へ送られました。
+
+tarou_to_zirou:
+  <<: *DEFAULTS
+  receiver: sns_zirou
+  subject: 太郎から次郎へ
+  body: このメールは太郎から次郎へ送られました
+
+read_message_by_hanako:
+  receiver: sns_hanako
+  subject: 太郎から花子へ（未読）
+  body: このメールは花子はまだ読んでいません
+  unread: true
+  <<: *DEFAULTS
+
+read_message_by_zirou:
+  receiver: sns_zirou
+  subject: 太郎から次郎へ（既読）
+  body: このメールは次郎はまだ読んでいません
+  unread: true
+  <<: *DEFAULTS
+
+deleted_by_receiver_hanako:
+  receiver: sns_hanako
+  subject: 花子が削除しました
+  body: このメールは受信者である花子が削除しました
+  deleted_by_receiver: true
+  <<: *DEFAULTS
+
+deleted_by_receiver_zirou:
+  receiver: sns_zirou
+  subject: 次郎が削除しました
+  body: このメールは受信者である次郎が削除しました
+  deleted_by_receiver: true
+  <<: *DEFAULTS
+
+hanako_received_message_last_month:
+  receiver: sns_hanako
+  subject: 一ヶ月前のメール
+  body: これは花子が受信した一ヶ月前のメールです
+  created_at: <%= Date.today.months_ago 1  %>
+  <<: *DEFAULTS
+
+hanako_received_message_last_two_weeks:
+  receiver: sns_hanako
+  subject: 2週間前のメール
+  body: これは花子が受信した2週間前のメールです
+  created_at: <%= Date.today - 14  %>
+  <<: *DEFAULTS
+
+hanako_received_message_last_week:
+  receiver: sns_hanako
+  subject: 1週間前のメール
+  body: これは花子が受信した1週間前前のメールです
+  created_at: <%= Date.today - 7  %>
+  <<: *DEFAULTS
+
+hanako_received_message_yesterday:
+  receiver: sns_hanako
+  subject: 昨日のメール
+  body: これは花子が受信した昨日のメールです
+  created_at: <%= Date.today - 1  %>
+  <<: *DEFAULTS
+
+zirou_to_tarou:
+  sender: sns_zirou
+  receiver: sns_tarou
+  unread: true
+  subject: 次郎から太郎へ
+  body: これは次郎さんから太郎さんへのメールです
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+hanako_to_tarou:
+  sender: sns_hanako
+  receiver: sns_tarou
+  unread: true
+  subject: 花子から太郎へ
+  body: これは花子さんから太郎さんへのメールです
+  created_at: <%= 2.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+reply_mail:
+  sender: sns_hanako
+  receiver: sns_tarou
+  subject: 花子から太郎への返信メール
+  body: これは花子さんから太郎さんへの返信メールです
+  created_at: <%= 2.day.ago.to_s(:db) %>
+  replied: true
+  unread: true
+  <<: *DEFAULTS

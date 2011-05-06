@@ -1,0 +1,25 @@
+<% if @community_linkage.kind == "CommunityInnerLinkage" %>
+  <tr>
+    <td class="content_table_title" colspan="2">内部コミュニティリンク管理</td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(CommunityInnerLinkage, :link_id) %></th>
+    <td>
+      <%= f.text_field :link_id %>
+      <span style="font-size: 80%;">※サイト内のコミュニティID(/community/xxxのxxxの部分)を入力してください。</span>
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <td class="content_table_title" colspan="2">外部コミュニティリンク管理</td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(CommunityOuterLinkage, :rss_url) %></th>
+    <td>
+      <%= f.text_field :rss_url, :size => 60 %>
+      <span style="font-size: 80%;">※外部サイトのコミュニティRSS配信のURLを入力してください。</span>
+    </td>
+  </tr>
+<% end %>
+
+<%= f.hidden_field :kind %>

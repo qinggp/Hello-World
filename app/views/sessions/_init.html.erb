@@ -1,0 +1,14 @@
+<%= theme_stylesheet_link_tag 'myhome' %>
+<%= theme_stylesheet_link_tag 'login' %>
+<% if action_name == "new" %>
+  <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+    <%= auto_discovery_link_tag :rss, index_feed_blog_entries_url(:format => :rdf), :title => h(SnsConfig.title)+"新着ブログ(RSS1.0)" %>
+    <%= auto_discovery_link_tag :rss, index_feed_blog_entries_url(:format => :rss), :title => h(SnsConfig.title)+"新着ブログ(RSS2.0)" %>
+    <%= auto_discovery_link_tag :atom, index_feed_blog_entries_url(:format => :atom), :title => h(SnsConfig.title)+"新着ブログ(Atom1.0)" %>
+  <% end %>
+  <% if Mars::Extension.instance.extension_enabled?(:community) %>
+    <%= auto_discovery_link_tag :rss, index_feed_communities_url(:format => :rdf), :title => h(SnsConfig.title)+"新着コミュニティトピック(RSS1.0)" %>
+    <%= auto_discovery_link_tag :rss, index_feed_communities_url(:format => :rss), :title => h(SnsConfig.title)+"新着コミュニティトピック(RSS2.0)" %>
+    <%= auto_discovery_link_tag :atom, index_feed_communities_url(:format => :atom), :title => h(SnsConfig.title)+"新着コミュニティトピック(Atom1.0)" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,54 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: pages
+#
+#  id         :integer         not null, primary key
+#  page_id    :string(255)
+#  title      :text
+#  body       :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+about:
+  page_id: about
+  title: このサイトについて
+  body: |
+    松江SNSは、松江に興味のある方を中心に信頼と連携の地域SNSです。
+    使い方は色々。
+member_rules:
+  page_id: member_rules
+  title: 会員規約
+  body: |
+    「松江版地域ＳＮＳ」会員規約
+privacy:
+  page_id: privacy
+  title: プライバシーポリシー
+  body: |
+   「松江版地域ＳＮＳ」に関するプライバシーポリシー
+   「松江版地域ＳＮＳ運営協議会」は「松江版地域ＳＮＳ」をご利用になる方（以下「利用者」といいます。）のプライバシーを尊重し、利用者の個人情報（以下の定義に従います。）の管理に細心の注意を払い、これを取り扱うものとします。
+    １．個人情報
+    個人情報とは、利用者個人に関する情報であって、その情報を構成する氏名、住所、電話番号、メールアドレス、勤務先、生年月日その他の書き込み等により利用者個人を識別できるものも個人情報に含まれます。
+privacy2:
+  page_id: privacy2
+  title: 個人情報の取扱
+  body: プライバシーポリシーをご覧ください
+rules:
+  page_id: rules
+  title: 利用規約
+  body:  「松江版地域ＳＮＳ」利用規約
+entrance:
+  page_id: entrance
+  title: 使い方
+  body:  「松江版地域ＳＮＳ」使い方
+
+#test
+test:
+  page_id: tester
+  title: title
+  body: body
+
+
+
+

@@ -1,0 +1,30 @@
+<div style="text-align:center; margin:5px;">
+  [ <%= link_to '新規お知らせ',:action => :new %> ]<br /><br />
+</div>
+
+<div style="text-align:center; margin:5px;">
+  [ 重要なお知らせ ]<br />※通常のお知らせとは別枠で表示されます。
+</div>
+<% if @announcements_important %>
+  <%= render :partial => "information_list", :locals => {:announcement => @announcements_important,:paginated => @paginated_important, :opt => {:order => :order_important, :order_modifier => :order_modifier_important, :select_page => :select_page_important, :per_page => :per_page_important}} %>
+<% else  %>
+データがありません
+<% end %>
+
+<div style="margin:10px; text-align:center;">
+  [ 最新のお知らせ ]<br />※マイホーム表示は新着5件
+</div>
+<% if @announcements_new %>
+  <%= render :partial => "information_list", :locals => {:announcement => @announcements_new,:paginated => @paginated_new, :opt => {:order => :order_new, :order_modifier => :order_modifier_new, :select_page => :select_page_new, :per_page => :per_page_new}} %>
+<% else %>
+データがありません
+<% end %>
+
+<div style="margin:10px; text-align:center;">
+  [ 固定のお知らせ ]<br />※新着数にかかわらず必ず表示されます。
+</div>
+<% if @announcements_fixed %>
+  <%= render :partial => "information_list", :locals => {:announcement => @announcements_fixed,:paginated => nil, :opt => {:order => :order_fixed, :order_modifier => :order_modifier_fixed}} %>
+<% else %>
+  データがありません
+<% end %>

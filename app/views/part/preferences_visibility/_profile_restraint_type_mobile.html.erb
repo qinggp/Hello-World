@@ -1,0 +1,21 @@
+<% if view_type == :form  %>
+  [<%=h Preference.human_attribute_name("profile_restraint_type") %>]
+  <br />
+  プロフィールを外部に公開しますか？
+  <%= f.radio_button :profile_restraint_type, :false  %>
+  <%= f.label :profile_restraint_type_public, 'する'  %>
+  <%= f.radio_button :profile_restraint_type, :true %>
+  <%= f.label :profile_restraint_type_member, 'しない' %>
+  <br />
+  <span style="font-size: 80%;">
+    ※プロフィールの各項目にも公開範囲が存在します。
+    <%= link_to "プロフィールの編集", edit_user_path(current_user) %>から設定して下さい。
+  </span>
+  <br />
+<% else %>
+  [<%=h Preference.human_attribute_name("profile_restraint_type") %>]
+  <br />
+  <%=h @preference.profile_restraint_type ? "外部に公開しない" : "外部にも公開" %>
+  <%= f.hidden_field :profile_restraint_type %>
+  <br />
+<% end %>

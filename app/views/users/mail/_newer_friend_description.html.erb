@@ -1,0 +1,17 @@
+<%= render :partial => "/share/mail_header" %>
+
+◆ <%= h current_user.name %>さんからの紹介文を掲載しました。
+ 紹介文の内容を確認するには以下のURLをクリックしてください。
+
+◇紹介文を確認する
+<%= h list_description_user_friends_url(:user_id => @user.id) %>
+
+◆ あなたも、<%= h current_user.name %>さんの紹介文を書いて、
+ 他のトモダチに<%= h current_user.name %>さんを紹介しましょう！
+
+◇紹介文を書く
+<%= h edit_friend_description_user_url(current_user) %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

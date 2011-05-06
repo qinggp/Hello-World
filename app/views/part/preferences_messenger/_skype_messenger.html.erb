@@ -1,0 +1,54 @@
+<% if view_type == :form  %>
+  <tr>
+    <td colspan="2">
+      各メッセンジャーのIDや状態をプロフィールページに表示できます。<br/>
+      メッセンジャーの入手・設定・操作方法等は各サイトをご覧ください。<br/>
+    </td>
+  </tr>
+  <tr>
+    <th>[<%=h Preference.human_attribute_name("skype_id") %>]</th>
+    <td>
+      <%= f.text_field :skype_id %>
+      <%= f.select :skype_mode,
+                   select_options_for_const("Preference", "SKYPE_MODES"),
+                   :include_blank => true
+       %>
+      <br/>
+      <%= f.select :skype_id_visibility,
+                   select_options_for_const("Preference", "VISIBILITIES")
+       %>
+      <br/>
+      ※Skypeに関しては [ <%= link_to "こちら", "http://www.skype.com/intl/ja/" %> ]をご覧ください。
+      <br/>
+      ※ログイン状態を表示するには [ <%= link_to "こちら", "http://www.skype.com/intl/ja/share/buttons/status.html" %> ]をご覧ください。
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("skype_id") %>]
+    </th>
+    <td>
+      <%=h @preference.skype_id %>
+      <%= f.hidden_field :skype_id %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("skype_id_visibility") %>]
+    </th>
+    <td>
+      <%= display_label_name("preference.visibility_label", @preference.skype_id_visibility_name) %>
+      <%= f.hidden_field :skype_id_visibility %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("skype_mode") %>]
+    </th>
+    <td>
+      <%= display_label_name("preference.skype_mode_label", @preference.skype_mode_name) %>
+      <%= f.hidden_field :skype_mode %>
+    </td>
+  </tr>
+<% end %>

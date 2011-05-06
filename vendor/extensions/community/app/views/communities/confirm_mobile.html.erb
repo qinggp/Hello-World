@@ -1,0 +1,5 @@
+<%= render(:partial => "/share/confirm_mobile") %>
+
+<% unless @community.new_record? %>
+  <%= render :partial => "/share/community_footer" %>
+<% end %>

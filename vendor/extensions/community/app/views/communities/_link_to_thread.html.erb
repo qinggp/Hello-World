@@ -1,0 +1,4 @@
+<%= display_news_line_format thread.lastposted_at,
+                             link_to( h(thread.title + " (#{thread.active_replies.size})"),  send(named_root + "_path",:community_id => @community.id, :id => thread.id )),
+                             h(@community.member_name(thread.author)) %>
+<br />

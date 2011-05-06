@@ -1,0 +1,35 @@
+<span>
+  <% link_to(favorites_path, :accesskey => '6', :title => "お気に入り") do %>
+    <%= theme_image_tag "favorite/my_menu_favorite.gif",
+        :alt => "お気に入り",
+        :onmouseover => "this.src=#{theme_image_path('favorite/my_menu_favorite_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('favorite/my_menu_favorite.gif').to_json}"
+    %>
+  <% end %>
+  <% if @favoritable_action %>
+    <% if @favorite %>
+      <%= link_to(
+            theme_image_tag(
+              "favorite/favorited.gif",
+              :alt => "お気に入り削除",
+              :onmouseover => "this.src=#{theme_image_path('favorite/favorited_ov.gif').to_json}",
+              :onmouseout => "this.src=#{theme_image_path('favorite/favorited.gif').to_json}"
+            ),
+            favorite_path(@favorite, :back_url => @favorite.url),
+            :method => :delete, :confirm => "このページのお気に入りを削除してよろしいですか？", :title => "お気に入り削除")
+      %>
+    <% else %>
+      <%= link_to(
+            theme_image_tag(
+              "favorite/favorite.gif",
+              :alt => "お気に入り追加",
+              :onmouseover => "this.src=#{theme_image_path('favorite/favorite_ov.gif').to_json}",
+              :onmouseout => "this.src=#{theme_image_path('favorite/favorite.gif').to_json}"
+            ),
+            favorites_path(:favorite => {:name => h(page_title), :url => request.request_uri,
+                           :category => @favorite_category}),
+            :method => :post, :confirm => "このページをお気に入りに追加してよろしいですか？", :title => "お気に入り追加")
+      %>
+    <% end %>
+  <% end %>
+</span>

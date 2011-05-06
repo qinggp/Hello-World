@@ -1,0 +1,47 @@
+<% display_round_box(:width => "350px", :color => "#ECEBE1") do %>
+  <div class="content_box_title">
+    <div style="background-color: #ECEBE1;">■新着ムービー</div>
+  </div>
+  <div>
+    <% if @recent_movies.size == 0 -%>
+      <div style="padding:10px;">
+        新着ムービーはありません。
+      </div>
+    <% else -%>
+      <% @recent_movies.each do |movie| -%>
+        <table class="recent_movie" cellspacing="0" cellpadding="0">
+          <tr>
+            <td rowspan="3" style="width: 70px; text-align: center;">
+              <%= link_to(theme_image_tag(thumbnail_movie_url(movie)), movie_path(movie)) %>
+            </td>
+            <td class="recent_movie_caption">タイトル</td><td><%= h(movie.title) %></td>
+          </tr>
+          <tr><td class="recent_movie_caption">本文</td><td><%= truncate(h(movie.body), :limit => 20, :ommision => '…') %>
+              [<%= link_to('続きを読む', movie_path(movie)) %>]</td></tr>
+          <tr><td class="recent_movie_caption">投稿者</td><td><%= link_to_username(movie.user) %>さん</td></tr>
+        </table>
+      <% end -%>
+    <% end -%>
+  </div>
+  <div style="text-align: center; background-color: #ECEBE1;">
+    <% if @recent_movies.total_pages >= 1 -%>
+      <% form_remote_tag(:update => 'recent_movies',
+                         :url => {:action => 'update_recent_movies'}, :html => {:style => 'margin:0;'}) do %>
+        <%= select_tag(:per_page, options_for_select([5, 10, 20, 50, 100].collect {|c| ["#{c}件", c]}, @recent_movies.per_page)) %>
+        <%= select_tag(:page, options_for_select((1..@recent_movies.total_pages).to_a.collect {|p| ["#{p}ページ", p]}, @recent_movies.current_page)) %>
+        <%= submit_tag('表示', :class => 'button_style') %>
+      <% end %>
+      [<%= link_to_remote_for_page_numbers(@recent_movies,
+                                           :update => 'recent_movies',
+                                           :action => 'update_recent_movies') %>]<br/>
+      [<%= link_to_remote_for_prev_page(@recent_movies,
+                                        :label => '前のページ',
+                                        :update => 'recent_movies',
+                                        :action => 'update_recent_movies') %>]
+      [<%= link_to_remote_for_next_page(@recent_movies,
+                                        :label => '次のページ',
+                                        :update => 'recent_movies',
+                                        :action => 'update_recent_movies') %>]
+    <% end -%>
+  </div>
+<% end %>

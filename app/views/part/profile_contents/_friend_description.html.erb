@@ -1,0 +1,33 @@
+<% display_round_box do %>
+  <div class="content_box_bg content_title_not_bold">
+    トモダチからの紹介文
+  </div>
+
+  <% friendships = Friendship.approved_is(true).friend_id_is(displayed_user.id).description_not_null.descend_by_updated_at.find(:all, :include => [:user]) %>
+  <% if friendships.empty? %>
+    <div class="no_data">紹介文はありません。</div>
+  <% else %>
+    <table class="content_table">
+      <% friendships.each do |friendship| %>
+        <tr>
+          <td class="news_link" width="76" valign="top" style="text-align:center;">
+            <div>
+              <%= display_face_photo(friendship.user.face_photo, :image_type => "medium", :width => 50)%>
+            </div>
+            <div>
+              <%= link_to_user friendship.user, h(friendship.user.name_with_suffix) %>
+            </div>
+          </td>
+          <td valign="top">
+            <%= hbr friendship.description %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="news_footer" style="border-top: none;">
+      [ <%= link_to "全て(#{friendships.count})", list_description_user_friends_path(:user_id => displayed_user.id) %> ]
+    </div>
+  <% end %>
+<% end %>
+
+

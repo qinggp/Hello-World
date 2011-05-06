@@ -1,0 +1,38 @@
+<%= render :partial => "/share/my_community_mainte_link" %>
+<hr size="1" noshade>
+
+<%= h current_user.name %>さんの参加コミュニティ一覧<br />
+<hr size="1" noshade>
+
+<% if @communities.total_entries.zero? %>
+  参加コミュニティはありません。
+<% else %>
+  <% if @communities.total_pages > 1 %>
+    <%= will_paginate_mobile(@communities).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+  
+  <% @communities.each do |community| %>
+    <%= link_to h(community.name), community_path(community) %><br />
+    [最新書き込み表示設定]<br />
+    <% if community.new_comment_displayed?(current_user) %>
+      現在は最新書き込み表示中<br />
+      <%= link_to("非表示にする", change_new_comment_displayed_community_membership_path(community)) %>
+    <% else %>
+      現在は最新書き込み非表示中<br />
+      <%= link_to("表示する", change_new_comment_displayed_community_membership_path(community)) %>
+    <% end %>
+    <br />
+
+    [書き込み通知メール設定]<br />
+    <% if community.comment_notice_acceptable?(current_user) %>
+      現在はメール通知します<br />
+      <%= link_to("通知しない", change_comment_notice_acceptable_community_membership_path(community)) %>
+    <% else %>
+      現在はメール通知しません<br />
+      <%= link_to("通知する", change_comment_notice_acceptable_community_membership_path(community)) %>
+    <% end %>
+    <hr size="1" noshade>
+  <% end %>
+<% end %>
+

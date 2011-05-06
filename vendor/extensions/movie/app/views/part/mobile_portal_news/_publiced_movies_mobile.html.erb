@@ -1,0 +1,13 @@
+<% movies = Movie.visibility_is(MoviePreference::VISIBILITIES[:publiced]).find(:all, :limit => 5, :order => "created_at desc") %>
+<hr size="1" noshade>
+<% if movies.empty?  %>
+  現在最新ムービーはありません。
+<% else %>
+  <a name="movie_news">▽ムービー新着情報</a><br/>
+    <% movies.each do |movie| %>
+      <%= display_news_line_format_mobile(movie.created_at,
+                                   link_to(h(movie.title), movie_path(movie)),
+                                   link_to_user(movie.user,  h(movie.user.name))) %>
+      <br/>
+    <% end %>
+<% end %>

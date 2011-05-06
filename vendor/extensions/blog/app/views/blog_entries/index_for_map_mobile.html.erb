@@ -1,0 +1,19 @@
+クチコミマップ新着
+
+<hr size="1" noshade>
+
+<% @blog_entries.each_with_index do |entry, i| %>
+  <a name="<%= i %>" href="#<%= i+1 %>">▼</a>
+  <%=h l(entry.created_at, :format => :default_minute) %><br/>
+  <%= link_to(h(entry.title), blog_entry_path(entry)) %>(<%= entry.blog_comments.size %>)<br/>
+<% end %>
+
+<%= will_paginate_mobile(@blog_entries).untaint %>
+
+<hr size="1" noshade>
+
+クチコミマップ表示地域一覧
+
+<hr size="1" noshade>
+
+<%= render "/share/map_area_links_mobile" %>

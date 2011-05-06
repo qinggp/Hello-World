@@ -1,0 +1,11 @@
+<%
+  link = link_to(h(blog_entry.title), blog_entry_path(blog_entry))
+  count = blog_entry.count
+  rank = blog_entry_counter + 1
+  if rank == 1
+    link_in_image = link_to(display_face_photo(blog_entry.user.face_photo, :width => "100"), blog_entry_path(blog_entry))
+  end
+%>
+
+<%= display_ranking(rank, link, count, link_in_image).untaint %>
+

@@ -1,0 +1,88 @@
+<%= h @community.name %><br />
+管理人：<%= link_to_user(@community_admin, h( @community.member_name(@community_admin))) %>さん<br />
+<hr size="1" noshade>
+
+<% if @community.visibility_private? && !@community.member?(@current_user) %>
+  <% if !@community.pending?(@user) %>
+  このコミュニティは非公開になっております。<br />
+  コミュニティに参加すれば閲覧できるようになります。<br />
+  このコミュニティに参加されますか？<br />
+  [ <%= link_to("コミュニティに参加", confirm_before_apply_community_path(@community)) %> ]<br />
+  <% else %>
+    参加申請中
+  <% end %>
+  <hr size="1" noshade>
+
+<% else %>
+  ▽<%= link_to("新着情報", "#new_list") %><br />
+  ▽<%= link_to("コミュニティ詳細", show_detail_community_path(@community)) %><br />
+  ▽<%= link_to("トピック一覧", community_threads_path(:community_id => @community.id)) %><br />
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    ⇒<%= link_to("トピック作成", new_community_topic_path(:community_id => @community.id)) %>
+    <br />
+  <% end %>
+
+
+  ▽<%= link_to("イベント一覧", community_threads_path(:community_id => @community.id, :types => ["CommunityEvent"])) %><br />
+  <% if @community.event_createable?(current_user) %>
+    ⇒<%= link_to("イベント作成", new_community_event_path(:community_id => @community.id)) %>
+    <br />
+  <% end %>
+
+  ▽<%= link_to("マーカー一覧", community_threads_path(:community_id => @community.id, :types => ["CommunityMarker"])) %><br />
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    ⇒<%= link_to("マーカー作成", new_community_marker_path(:community_id => @community.id)) %>
+    <br />
+  <% end %>
+
+  ▽<%= link_to("トピック検索", search_community_threads_path(:community_id => @community.id)) %><br />
+
+  <% if logged_in? %>
+    ▽<%= link_to("メンバーリスト", show_members_community_path(@community)) %><br />
+    ▽<%= link_to("トモダチに紹介", new_message_community_path(@community)) %><br />
+  <% end %>
+
+  ▽<%= link_to("コミュニティマップ", list_category_community_markers_path(:community_id => @community)) %><br />
+  <% if @community.admin?(@current_user) %>
+    ▽<%= link_to("設定変更", edit_community_path(@community)) %><br />
+  <% end %>
+  <% if @community.admin?(@current_user) || @community.sub_admin?(@current_user) %>
+    ▽<%= link_to("コミュニティマップカテゴリ管理", new_community_map_category_path(:community_id => @community)) %><br />
+    ▽<%= link_to("コミュニティリンク管理", index_for_admin_community_linkages_path(:community_id => @community)) %><br />
+  <% end %>
+
+  <% if @current_user && @community.pending?(@current_user) %>
+    ▽参加依頼中
+  <% elsif @community.member?(@current_user) && !@community.admin?(@current_user) %>
+    ▽<%= link_to("このコミュニティを退会", confirm_before_cancel_community_path(@community)) %><br />
+  <% elsif !@community.admin?(@current_user) && @current_user%>
+    ▽<%= link_to("このコミュニティに参加", confirm_before_apply_community_path(@community)) %><br />
+  <% end %>
+  <hr size="1" noshade>
+
+  ■新着情報リスト
+  <hr size="1" noshade>
+  <a name="new_list"></a>
+
+  <!-- コミュニティへの参加依頼一覧　-->
+  <%= render :partial => "newer_approvals" %>
+
+  <!-- 現在開催中のイベント情報一覧　-->
+  <%= render :partial => "now_events" %>
+
+  <!-- トピック最新書込一覧　-->
+  <%= render :partial => "newer_topics" %>
+
+  <!-- イベント最新書込一覧 　-->
+  <%= render :partial => "newer_events" %>
+
+  <!-- マップ最新書込一覧　-->
+  <%= render :partial => "newer_markers" %>
+
+  <!-- 新着投稿一覧 -->
+  <%= render :partial => "newer_posts" %>
+
+  <!-- コミュニティリンク新着一覧 -->
+  <%= render :partial => "newer_linkages" %>
+
+<% end %>

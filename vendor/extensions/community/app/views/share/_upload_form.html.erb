@@ -1,0 +1,21 @@
+<tr>
+  <th>[添付]</th>
+  <td>
+    <% model.sorted_attachments.each_with_index do |attachment, i| %>
+      <% fields_for "#{model.class.to_s.underscore}[attachments_attributes]", attachment, :index => (i+1) do |f_ba|  %>
+        <div>
+          <%= form_attachment_image(attachment) %>
+          <%= f_ba.file_field :image  %>
+          <%= f_ba.hidden_field :position %>
+          <% unless attachment.new_record? %>
+            <%= f_ba.check_box :_delete, {}, "1" %>削除
+            <%= f_ba.hidden_field :id %>
+          <% end %>
+          <br/>
+          <span style="font-size: 90%; text-align: left;">（添付可能拡張子：.jpg/.jpeg/.png/.gif/.txt/.csv/.pdf/.doc/.xls/.ppt/.zip/.lzh）</span>
+        </div>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+

@@ -1,0 +1,206 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: blog_entries
+#
+#  id                  :integer         not null, primary key
+#  user_id             :integer
+#  title               :string(255)
+#  body                :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  body_format         :string(255)
+#  visibility          :integer
+#  comment_restraint   :integer
+#  blog_category_id    :integer
+#  access_count        :integer         default(0)
+#  longitude           :decimal(9, 6)
+#  latitude            :decimal(9, 6)
+#  zoom                :integer
+#  blog_comments_count :integer         default(0)
+#
+
+DEFAULTS: &DEFAULTS
+  user: sns_tarou
+  blog_category_id: 2
+  body: 本文
+  access_count: 1
+
+visibility_public_entry:
+  title: 全体公開日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 7
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+visibility_member_only_entry:
+  title: メンバのみ公開日記
+  visibility: <%= BlogPreference::VISIBILITIES[:member_only] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+visibility_friend_only_entry:
+  title: トモダチのみ公開日記
+  visibility: <%= BlogPreference::VISIBILITIES[:friend_only] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+visibility_unpublic_entry:
+  title: 非公開日記
+  visibility: <%= BlogPreference::VISIBILITIES[:unpubliced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+comment_restraint_public_entry:
+  title: 誰でもコメント可能日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+comment_restraint_member_only_entry:
+  title: メンバのみコメント可能日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:member_only] %>
+  blog_comments_count: 1
+  created_at: <%= Time.mktime(2008, 1) %>
+  <<: *DEFAULTS
+
+comment_restraint_friend_only_entry:
+  title: トモダチのみコメント可能日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:friend_only] %>
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+comment_restraint_unpublic_entry:
+  title: コメント受け付けない日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:unpubliced] %>
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+user_friend_1_entry:
+  user: sns_zirou
+  title: 次郎日記１
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+user_friend_2_entry:
+  user: sns_hanako
+  title: 花子日記１
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+user_friend_3_entry:
+  user: sns_hanako
+  title: トモダチのみ閲覧可能日記
+  visibility: <%= BlogPreference::VISIBILITIES[:friend_only] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:friend_only] %>
+  created_at: <%= 2.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+long_body_entry:
+  title: 本文が長い日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  body: |
+    <i>項目1</i>
+    <i>項目2</i>
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+    あああああああああああああああああああああああああ
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 1
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+new_category_entry:
+  title: ユーザが指定したカテゴリ
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  blog_comments_count: 0
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  blog_category: ruby
+  <<: *DEFAULTS
+
+tag_mix:
+  title: 様々なタグを使った日記
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  blog_comments_count: 0
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  body: |
+   <EXT type="youtube" data="http://www.youtube.com/watch?v=ix2DeCzuckc">
+   <PIC no="1">PIC1
+   <b>bbbbb</b>
+   <i>iiiii</i>
+   <u>uuuuu</u>
+   <font size="130%" color="red">130%のred</font>
+   <hr>
+   hr
+   <PIC no="">
+  <<: *DEFAULTS
+
+visibility_public_entry_for_pause:
+  title: 一時停止中のユーザのブログ
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  comment_restraint: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= rand(3).to_i.day.ago.to_s(:db) %>
+  user: pause
+  <<: *DEFAULTS

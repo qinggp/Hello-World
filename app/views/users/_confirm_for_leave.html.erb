@@ -1,0 +1,21 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h SnsConfig.title %>を退会する</td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("current_password") %>※
+  </th>
+  <td>
+    <%= not_print_password(@user.current_password) %>
+    <%= f.hidden_field :current_password %>
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("leave_reason") %>※
+  </th>
+  <td>
+    <%=hbr @user.leave_reason %>
+    <%= f.hidden_field :leave_reason %>
+  </td>
+</tr>

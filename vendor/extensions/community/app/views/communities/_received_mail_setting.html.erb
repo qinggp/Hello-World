@@ -1,0 +1,27 @@
+<% if @community.member?(current_user) %>
+  <div style="margin-top: 20px;">
+    <% display_round_box do %>
+      <div class="content_box_bg_light">
+        <div class="content_title">■コミュニティ書き込みメール</div>
+      </div>
+
+      <div class="content_body" align="left">
+        <div style="font-size: 80%;">
+          (コミュニティに書き込みがあるとメールを送信します)
+        </div>
+        <% form_for(@membership, :url => update_comment_notice_acceptable_community_path(@community), :html => {:method => :post}) do |f| %>
+          PC：
+          <%= f.radio_button :comment_notice_acceptable, true %>受け取る
+          <%= f.radio_button :comment_notice_acceptable, false %>受け取らない
+          <% unless current_user.mobile_email.blank? %>
+            <br />
+            携帯：
+            <%= f.radio_button :comment_notice_acceptable_for_mobile, true %>受け取る
+            <%= f.radio_button :comment_notice_acceptable_for_mobile, false %>受け取らない
+          <% end %>
+          <div align="right"><%= f.submit "変更" %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

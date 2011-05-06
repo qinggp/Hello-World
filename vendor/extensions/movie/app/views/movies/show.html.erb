@@ -1,0 +1,48 @@
+<div style="margin: 10px;">
+  <% display_round_box(:width => "710px") do %>
+    <div class="content_box_title">
+      <div style="background-color: #F9F9F4;"><%= h(@movie.title) %></div>
+    </div>
+    <div class="content_box_bg" style="text-align: right; padding-top:5px;">
+      公開範囲：[<%= font_coution(h(@movie.visibility_to_s)) %>][<%= link_to('ムービートップへ戻る', movies_path) %>]
+    </div>
+    <table class="content_table">
+      <tr>
+        <td style="width: 410px;">
+          <div id="flashcontent">
+            ここに Flash が表示されます。
+          </div>
+          <script type="text/javascript">
+            var so = new SWFObject("<%= javascript_path('movie/swf/mediaplayer.swf') %>",
+            "<%= h SnsConfig.title %>", "400", "340", "7");
+            so.addParam("allowfullscreen", "true");
+            so.addVariable("width", "400");
+            so.addVariable("height", "320");
+            so.addVariable("file", "<%= flash_file_movie_path(@movie, :file => "movie.flv") %>");
+            so.write("flashcontent");
+          </script>
+        </td>
+        <td style="vertical-align: top;">
+          <table class="content_table">
+            <tr>
+              <th>投稿者</th>
+              <td><%= link_to_username(@movie.user) %>さん</td>
+            </tr>
+            <tr>
+              <th>本文</th>
+              <td><%= simple_format(h(@movie.body)) %></td>
+            </tr>
+            <tr>
+              <th>投稿日時</th>
+              <td><%= @movie.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+            </tr>
+            <tr>
+              <th>ブログ貼付ID</th>
+              <td><%= @movie.id %></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

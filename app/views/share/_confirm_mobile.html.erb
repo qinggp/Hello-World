@@ -1,0 +1,17 @@
+<%
+  partial_template ||= "confirm"
+ form  = confirm_form_params
+ display_round_box_opts ||= {:width => "660px"}
+%>
+
+<%= mobile_confirm_notation %>
+
+<% form_for(form[:model_instance], :url => form[:url], :html => {:method => form[:method]}) do |f| %>
+
+  <%= render :partial => partial_template, :locals => {:f => f} %>
+
+  <br/>
+  <%= f.submit '送信する' %>
+  <%= f.submit '戻る', :name => "cancel" %>
+
+<% end %>

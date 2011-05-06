@@ -1,0 +1,24 @@
+<%
+  @calendar_year ||= Date.today.year
+  @calendar_month ||= Date.today.month
+  calendar_date = Date.civil(@calendar_year, @calendar_month)
+  year_of_prev_month = (calendar_date << 1).year
+  prev_month = (calendar_date << 1).month
+  year_of_next_month = (calendar_date >> 1).year
+  next_month = (calendar_date >> 1).month
+  url ||= {:action => :show_calendar}
+  user_id ||= nil
+%>
+
+<% form_tag(url, :method => :get) do %>
+  <%= select_year(@calendar_year) %>年
+  <%= select_month(@calendar_month, :use_month_numbers => true) %>月
+  <%= hidden_field_tag("user_id", user_id) %>
+  <%= submit_tag("表示") %><br />
+
+  <%= link_to("先月", url.merge(:date => {:year => year_of_prev_month, :month => prev_month})) %>
+  <%= link_to("次月", url.merge(:date => {:year => year_of_next_month, :month => next_month})) %>
+  <hr size="1" noshade>
+<% end %>
+
+<%= render(:partial => "calendar_mobile") %>

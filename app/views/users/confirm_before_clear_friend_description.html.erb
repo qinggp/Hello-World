@@ -1,0 +1,5 @@
+<%= h displayed_user.name %>さんの紹介文を削除します。<br />
+よろしいですか？<br />
+
+[ <%= link_to("削除", clear_friend_description_user_path(params[:id]), :method => :put) %> ]
+[ <%= link_to("戻る", :back) %> ]

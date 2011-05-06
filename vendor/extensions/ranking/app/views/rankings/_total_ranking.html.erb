@@ -1,0 +1,66 @@
+<table class="content_table">
+  <tr class="ranking_title">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <th>総アクセス数Top<%= h @limit %></th>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <th>参加人数Top<%= h @limit %></th>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <th>ブロガーTop<%= h @limit %></th>
+    <% end %>
+    <th>トモダチ数Top<%= h @limit %></th>
+    <th>招待貢献Top<%= h @limit %></th>
+  </tr>
+
+  <tr class="ranking_data">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <td valign="top">
+        <div class="ranking_msg">これまでのアクセス総数のTop<%= h @limit %>です。</div>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <div class="ranking_msg">コミュニティ参加人数のTop<%= h @limit %>です。</div>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <td valign="top">
+        <div class="ranking_msg">
+          ブログ総数のTop<%= h @limit %>です。<br />
+          <span style="font-size: 80%;">(トモダチのみ公開も含む総数)</span>
+        </div>
+      </td>
+    <% end %>
+    <td valign="top">
+      <div class="ranking_msg">トモダチ数のTop<%= h @limit %>です。</div>
+    </td>
+    <td valign="top">
+      <div class="ranking_msg">これまで招待した人が多いメンバーのTop<%= h @limit %>です。</div>
+    </td>
+  </tr>
+
+  <tr class="ranking_data">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <td valign="top">
+        <%= render :partial => "access",  :collection => @access_ranking, :as => :access %>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <%= render :partial => "community", :collection => @member_count_ranking, :as => :community %>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <td valign="top">
+        <%= render :partial => "user", :collection => @blog_entry_ranking, :as => :user %>
+      </td>
+    <% end %>
+    <td valign="top">
+      <%= render :partial => "user", :collection => @friend_count_ranking, :as => :user %>
+    </td>
+    <td valign="top">
+      <%= render :partial => "user", :collection => @invitation_count_ranking, :as => :user %>
+    </td>
+  </tr>
+</table>

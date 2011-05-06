@@ -1,0 +1,21 @@
+<center>
+  <div class="community_title" style="width: 620px;">
+    <%= link_to(h(@community.name), community_path(@community))  %>
+  </div>
+
+  <% if @community_reply.new_record? %>
+    <%= render(:partial => "reply_to", :locals => {:thread => @thread, :community => @community, :community_reply => @community_reply}) %>
+  <% end %>
+</center>
+
+<div style="margin-top: 20px;">
+  <%= render :partial => "/share/confirm" %>
+</div>
+
+<% if @community_reply.new_record? %>
+  <center>
+    <div style="margin-top: 20px;">
+      <%= render :partial => "share/comment_tree_for_reply", :locals => {:parent_id => @community_reply.parent_id, :thread => @thread} %>
+    </div>
+  </center>
+<% end %>

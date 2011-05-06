@@ -1,0 +1,11 @@
+<% if @community.approval_required? && (@community.admin?(@current_user) || @community.sub_admin?(@current_user)) && !@community.pending_users.count.zero? %>
+  ▽コミュニティ参加依頼
+  <% PendingCommunityUser.by_community(@community).pending_only.each do |pending| %>
+    <br />
+    [<%= h pending.created_at.strftime("%m/%d") %>]
+    <%= link_to_user(pending.user, h(pending.user.name)) %>
+    (<%= link_to("承認・拒否", show_application_community_path(:id => @community.id, :pending_id => pending.id)) %>)
+  <% end %>
+  <br />
+  <hr size="1" noshade>
+<% end %>

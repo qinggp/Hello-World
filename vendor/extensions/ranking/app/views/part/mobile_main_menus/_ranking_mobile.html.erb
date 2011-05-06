@@ -1,0 +1,3 @@
+<% if logged_in? && SnsConfig.ranking_display_flg %>
+  ▽<%= link_to "ランキング", rankings_path %><br/>
+<% end %>

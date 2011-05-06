@@ -1,0 +1,5 @@
+<% if params[:id] %>
+  <%= link_to "戻る", community_path(:id => params[:id]) %>
+<% else %>
+  <%= link_to "戻る", communities_path %>
+<% end %>

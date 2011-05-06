@@ -1,0 +1,20 @@
+<% relationship_describe = display_relationship_user_to_user(current_user, displayed_user) %>
+<% unless relationship_describe.blank? %>
+  [このユーザとのサイト内の関係性]<br/>
+  <%= relationship_describe %><br/><br/>
+<% end %>
+<% unless @friendship.message.blank? %>
+  [あなたへのメッセージ]<br/>
+  <%= hbr @friendship.message %>
+  <br/>
+  <br/>
+<% end %>
+<%= h displayed_user.name %>さんがトモダチを希望しています。<br/>
+直接の友人・知人でない人からのリクエストは、承認されなくても構いません。<br/>
+まったく交流のない異性からのリクエストは、拒否を選ぶことをおすすめします。<br/>
+拒否された場合、相手にその旨がメールされることもありませんので、ご心配はいりません。 <br/>
+
+[<%= h Friendship.human_attribute_name("message") %>]<br/>
+<%= f.text_area :message, :rows => 4, :cols => 40  %><br/>
+
+<%= render :partial => "/share/form_relation_mobile", :locals => {:f => f} %>

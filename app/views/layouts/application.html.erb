@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="content-style-type" content="text/css"/>
+    <meta name="robots" content="noarchive"/>
+    <meta name="Keywords" content="地域SNS,OpenSNP,<%=h SnsConfig.title %>"/>
+    <meta name="Description" content="<%=h SnsConfig.outline %>"/>
+    <title> <%= [h(SnsConfig.title), page_title].compact.join('::')  + error_title %></title>
+    <%= stylesheet_link_tag theme_stylesheet_path('application'), theme_stylesheet_path('mini_calendar'), :cache => theme_stylesheet_path("cache_default") %>
+    <%= javascript_include_tag 'prototype', 'application', 'font_size_change', :cache => "cache_default" %>
+    <%= render :partial => 'init' %>
+  </head>
+  <body>
+
+    <div id="container">
+      <div id="container_bg">
+        <div id="container_inner">
+          <div id="container_navi">
+            <%= render :partial => "/share/invisible_text" %>
+
+            <%= render :partial => "/share/header" %>
+
+            <%= render :partial => "/share/main_menu" %>
+
+            <%= render :partial => "/share/my_menu" %>
+
+            <%= render :partial => "/share/friend_menu" %>
+
+            <%= yield :menu_for_extension %>
+
+            <%= render :partial => "/share/main_search" %>
+
+            <p id="HONBUN" class="acc">
+              <%= link_to 'コンテンツホームへ', controller.contents_home_path, {:accesskey => 8} %>
+            </p>
+          </div>
+
+          <%= render :partial => "/share/flash_error" %>
+
+          <%= yield %>
+
+          <%= render :partial => "/share/footer" %>
+        </div>
+      </div>
+    </div>
+
+    <div id="ajax-indicator" style="display:none;"><span>ロード中...</span></div>
+
+  </body>
+</html>

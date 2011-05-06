@@ -1,0 +1,51 @@
+entry_author_to_visibility_public_entry:
+  name: "blog_entry_author"
+  authorizable: visibility_public_entry(BlogEntry)
+
+entry_author_to_visibility_member_only_entry:
+  name: "blog_entry_author"
+  authorizable: visibility_member_only_entry(BlogEntry)
+
+entry_author_to_visibility_friend_only_entry:
+  name: "blog_entry_author"
+  authorizable: visibility_friend_only_entry(BlogEntry)
+
+entry_author_to_visibility_unpublic_entry:
+  name: "blog_entry_author"
+  authorizable: visibility_unpublic_entry(BlogEntry)
+
+entry_author_to_comment_restraint_public_entry:
+  name: "blog_entry_author"
+  authorizable: comment_restraint_public_entry(BlogEntry)
+
+entry_author_to_comment_restraint_member_only_entry:
+  name: "blog_entry_author"
+  authorizable: comment_restraint_member_only_entry(BlogEntry)
+
+entry_author_to_comment_restraint_friend_only_entry:
+  name: "blog_entry_author"
+  authorizable: comment_restraint_friend_only_entry(BlogEntry)
+
+entry_author_to_comment_restraint_unpublic_entry:
+  name: "blog_entry_author"
+  authorizable: comment_restraint_unpublic_entry(BlogEntry)
+
+entry_author_to_user_friend_1_entry:
+  name: "blog_entry_author"
+  authorizable: user_friend_1_entry(BlogEntry)
+
+entry_author_to_user_friend_2_entry:
+  name: "blog_entry_author"
+  authorizable: user_friend_2_entry(BlogEntry)
+
+entry_author_to_long_body_entry:
+  name: "blog_entry_author"
+  authorizable: long_body_entry(BlogEntry)
+
+entry_author_to_new_category_entry:
+  name: "blog_entry_author"
+  authorizable: new_category_entry(BlogEntry)
+
+entry_author_to_tag_mix:
+  name: "blog_entry_author"
+  authorizable: tag_mix(BlogEntry)

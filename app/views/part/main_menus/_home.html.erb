@@ -1,0 +1,7 @@
+<% link_to(root_path, :title => "ホーム") do %>
+  <%= theme_image_tag "home_top_tab.gif",
+        :alt => "ホーム",
+        :onmouseover => "this.src=#{theme_image_path('home_top_tab_2.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('home_top_tab.gif').to_json}"
+  %>
+<% end %>

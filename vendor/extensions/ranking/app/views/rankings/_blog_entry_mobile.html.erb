@@ -1,0 +1,4 @@
+<% if blog_entry.count.to_i > 0 %>
+  [<%= h blog_entry_mobile_counter + 1%>位]
+  <%= link_to(h(blog_entry.title), blog_entry_path(blog_entry)) %>(<%= h blog_entry.count %>)<br />
+<% end %>

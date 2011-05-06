@@ -1,0 +1,7 @@
+[メッセージの宛先]<br />
+<%= display_face_photo(@message.receiver.face_photo, :image_type => :thumb) %>
+<%= link_to(h(@message.receiver.name), user_path(@message.receiver)) %><br />
+
+<%= render :partial => "/share/form" %>
+
+<%= render :partial => "back_to_top" %>

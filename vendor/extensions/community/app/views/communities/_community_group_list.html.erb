@@ -1,0 +1,29 @@
+<div class="content_box">
+  <div class="content_box_bg">
+    コミュニティグループ
+  </div>
+  <div style="padding: 5px;">
+    <% if @community_groups.size.zero? %>
+      グループを追加してコミュニティ一覧を見やすくしよう！
+      [ <%= link_to("グループ管理", new_community_group_path) %> ]
+    <% else %>
+      <div>
+        [ <%= link_to("参加コミュニティ全て", communities_path) %> ]
+  <div style="margin: 5px;">
+          ┗
+          <% @community_groups.each do |g| %>
+            [ <%= link_to_if(@community_group.try(:id) != g.id, h(g.name + "(#{g.communities.count})"), communities_path(:community_group_id => g.id)) %> ]
+          <% end %>
+        </div>
+        <div align="right">
+          <% if @community_group %>
+            [ <%= link_to("登録管理", community_list_community_group_path(@community_group)) %> ]
+          <% end %>
+          [ <%= link_to("グループ編集", new_community_group_path) %> ]
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+    

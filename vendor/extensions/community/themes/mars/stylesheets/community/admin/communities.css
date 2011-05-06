@@ -1,0 +1,51 @@
+.admin_community_content_table {
+    border:2px solid #ECEBE1;
+    border-collapse:collapse;
+    width: 620px;
+    margin: 3px auto;
+}
+
+.admin_community_content_table TH {
+    border:1px solid #ECEBE1;
+    background-color:#F9F9F4;
+    padding:5px;
+    width: 100px;
+    white-space: nowrap
+}
+.admin_community_content_table TD {
+    border:1px solid #ECEBE1;
+    padding:5px;
+    background-color:#FFFFFF;
+    width: 520px;
+}
+.edit_admin_community_table {
+    width:600px;
+    border: 2px solid #ECEBE1;
+    border-collapse: collapse;
+}
+
+.edit_admin_community_table TH {
+    border: 1px solid #ECEBE1;
+    background-color:#F9F9F4;
+    width:100px;
+    color:#000000;
+    font-weight:normal;
+    padding: 6px;
+}
+
+.edit_admin_community_table TD   {
+    border: 1px solid #ECEBE1;
+    background-color:#FFFFFF;
+    width:500px;
+    padding: 6px;
+}
+
+.attention {
+  color: red;
+}
+.confirmation_message{
+  font-weight: bold;
+  background-color: #F9F9F4;
+  border: 1px solid #ECEBE1;
+  padding: 6px;
+}

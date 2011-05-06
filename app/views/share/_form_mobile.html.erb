@@ -1,0 +1,16 @@
+<%
+  partial_template ||= "form"
+  form = form_params
+  display_round_box_opts ||= {:width => "660px"}
+%>
+
+<%= mobile_form_notation %>
+
+<% form_for(form[:model_instance], :url => form[:url], :html => {:method => :post}) do |f| %>
+  <%= template_error_messages_for(form[:model_instance]) %>
+  <%= render :partial => partial_template, :locals => {:f => f} %>
+  <br/>
+
+  <%= f.submit '次へ進む' %>
+  <%= f.submit '全てクリア', :name => :clear %>
+<% end %>

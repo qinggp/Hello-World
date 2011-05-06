@@ -1,0 +1,95 @@
+<% if @blog_entries.empty? %>
+
+<div align="center" style="padding:10px;">
+  キーワード「<%=h params[:keyword] %>」ではマッチしませんでした。
+</div>
+
+<% else %>
+
+  <% display_collection_box(@blog_entries,
+                            :collection_name => "現在の登録数",
+                            :checked_value => 10,
+                            :class => "content_box_bg",
+                            :form => {:url_for_options => {:keyword => params[:keyword]},
+                                      :options => {:method => :post}}) do %>
+    <div class="title content_box_bg_light" align="center">
+      <% with_options(:default_order => BlogEntry.default_index_order, :keyword => params[:keyword]) do |view| %>
+        [ <%= view.link_for_sort("最新投稿順", :order => "blog_entries.created_at") %> ]
+        [ <%= view.link_for_sort("投稿者名順", :order => "users.name") %> ]
+        [ <%= view.link_for_sort("カテゴリ", :order => "blog_categories.name") %> ]
+        [ <%= view.link_for_sort("閲覧数順", :order => "blog_entries.access_count") %> ]
+      <% end %>
+    </div>
+
+    <table id="search_result" align="center" class="content_table">
+      <% @blog_entries.each do |entry| %>
+        <tr>
+          <td style="padding: 0px; height: 5px; background-color: #ECEBE1; border: none;" colspan="5"></td>
+        </tr>
+        <tr>
+          <td rowspan="4" width="120px" style="text-align:center;">
+            <% if entry.blog_attachments.blank? || !entry.visible?(current_user) %>
+              <%= link_to display_face_photo(entry.user.face_photo, :no_photo_width => 100, :no_photo_height => 100), blog_entry_path(entry) %>
+            <% else  %>
+              <%=
+                 display_attachment_file(entry.blog_attachments.first,
+                     :attachment_path => show_unpublic_image_blog_entry_path(entry,
+                                           :blog_attachment_id => entry.blog_attachments.first.id,
+                                           :image_type => "medium"),
+                     :original_attachment_path => blog_entry_path(entry))
+               %>
+            <% end %>
+          </td>
+          <th width="100">タイトル</th>
+          <td width="380" colspan="3">
+            <%= link_to(h(entry.title), blog_entry_path(entry)) %>
+            （<%= entry.blog_comments.size %>）
+          </td>
+        </tr>
+        <tr>
+          <th width="100">
+            本文
+          </th>
+          <td width="500" colspan="3">
+            <% if entry.visible?(current_user) %>
+              <div style="overflow: auto;">
+                <%= display_blog_entry_body(entry, :display_type => :summary, :allowed_tags => %w(div a br b strong i em u), :trancate_bytes => 200) %>
+                <% if entry.map_viewable? %>
+                  <div>
+                    <%= theme_image_tag "map_pin.png" %>[地図情報有り]
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div style="color: gray;">
+                このブログはトモダチにならないと閲覧できません。<br/>
+                <%= link_to "トモダチ依頼", new_friend_application_user_path(entry.user) %>をしてみましょう。
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th width="100">投稿者</th>
+          <td width="280">
+            <%= link_to_user entry.user, h(entry.user.name) %>
+          </td>
+          <th width="80">投稿日時</th>
+          <td width="140">
+            <%=h l(entry.created_at, :format => :default_year_month_date) %>
+          </td>
+        </tr>
+        <tr>
+          <th width="100">カテゴリ</th>
+          <td width="360" colspan="2">
+            <%= h entry.blog_category.name %>
+          </td>
+          <th width="80" style="text-align:center;">
+            <% link_to(blog_entry_path(entry)) do %>
+              <%= theme_image_tag("syousai.gif", :size => "60x16", :alt => "詳細", :border => 0) %>
+            <% end %>
+          </th>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

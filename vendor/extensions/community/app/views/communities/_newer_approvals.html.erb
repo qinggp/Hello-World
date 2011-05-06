@@ -1,0 +1,20 @@
+<% if @community.approval_required? && (@community.admin?(current_user) || @community.sub_admin?(current_user)) && !@community.pending_users.empty?  %>
+  <div class="caption">
+    コミュニティ参加依頼
+  </div>
+  <div class="news_data">
+    <% @community.pending_users.each do |user| %>
+      <div class="news_link" align="left" style="color: red; font-weight: bold;">
+        <% pending = PendingCommunityUser.by_pending_user(user).by_community(@community).first  %>
+        ◇<%= h pending.created_at.strftime("%m月%d日") %>…
+        <%= link_to(h(pending.user.name), {:controller => :users, :action => :show, :id => @user}) %>
+        <span class="name_link" style="font-size: 80%;">
+          (
+          <%= link_to("承認・拒否", show_application_community_path(@community, :pending_id => pending.id)) %>
+          )
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

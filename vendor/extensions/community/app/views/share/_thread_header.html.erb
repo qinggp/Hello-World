@@ -1,0 +1,12 @@
+<div class="community_title" style="width: 620px;">
+  <%= link_to(h(@community.name), community_path(@community))  %>
+</div>
+<div style="width: 600px; text-align: right;">
+  [
+  <a href="#res">コメント表示</a>
+  ]
+  [
+  <%= theme_image_tag("community/tree.gif", :size => "12x12", :style => "vertical-align: middle;") %>
+  <%= link_to("ツリー表示", show_comment_tree_specified_thread_community_thread_path(:id => thread))  %>
+  ]
+</div>

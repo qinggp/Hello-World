@@ -1,0 +1,15 @@
+<%= render :partial => "/share/static_map_viewer" %>
+<br/>
+<% label = "A" %>
+<% @records.each do |record| %>
+  <%= label %>
+  <%= link_to h(record.title), blog_entry_path(record) %>
+  <% label.succ! %>
+  <br/>
+<% end %>
+
+<br/>
+<%= will_paginate_mobile(@records).untaint %>
+
+<hr size="1" noshade>
+<%= link_to "5.表示地域一覧へ戻る", index_for_map_blog_entries_path, :accesskey => "5" %>

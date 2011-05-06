@@ -1,0 +1,25 @@
+<% users = User.created_at_gt(7.day.ago).find(:all, :order => "created_at DESC", :limit => 5) %>
+<% if users.empty?  %>
+  <div class="no_data content_box_bg_light">
+    新しいメンバーはいません。<br/>
+    誰か<%= link_to "招待", new_invite_path %>しましょう<br/>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("new_user_misc") %>
+    新しいメンバー
+  </div>
+
+  <% display_open_colse_box(:id => "new_user_misc", :class => "base_data") do %>
+    <% users.each do |u| %>
+      <div class="news_link">
+        <%= display_news_line_format(u.created_at,
+                                     link_to(h(u.name + "さん"), user_path(u)),
+                                     link_to(h(u.name), user_path(u))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      [ <%= link_to "全て", search_member_users_path(:order => "users.created_at", :order_modifier => "DESC") %> ]
+    </div>
+  <% end %>
+<% end %>

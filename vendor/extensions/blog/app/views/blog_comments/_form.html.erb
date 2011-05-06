@@ -1,0 +1,41 @@
+<%
+  @blog_comment ||= BlogComment.new
+  urls = blog_comments_confirm_urls(@blog_comment)
+%>
+
+<center>
+  <div>
+    ※は必須項目です。
+  </div>
+  <% display_round_box(:width => "460px") do %>
+    <% form_for(@blog_comment, :url => urls[:form], :html => {:method => :post}) do |f| %>
+      <%= template_error_messages_for(@blog_comment) %>
+      <table class="content_table">
+        <tr>
+          <td class="content_table_title" colspan="2"><%= display_blog_comment_form_name(@blog_comment) %></td>
+        </tr>
+        <% if current_user == nil %>
+          <tr>
+            <th>名前<%= font_coution '※' %></th>
+            <td><%= f.text_field :user_name %></td>
+          </tr>
+          <tr>
+            <th>E-Mail</th>
+            <td>
+              <%= f.text_field :email %>
+              <br/>※このブログの著者にのみ公開されます。
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <th>コメント<%= font_coution '※' %></th>
+          <td><%= f.text_area :body , :rows => 5, :cols => 40 %></td>
+        </tr>
+      </table>
+      <div class="content_box_bg" align="center">
+        <%= f.submit '次へ進む' %>
+        <%= f.submit '全てクリア', :confirm => "入力内容をクリアしてよろしいですか？", :name => :clear %>
+      </div>
+    <% end %>
+  <% end %>
+</center>

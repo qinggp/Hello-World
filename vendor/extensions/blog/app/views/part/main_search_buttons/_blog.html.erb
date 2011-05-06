@@ -1,0 +1,6 @@
+<%= link_to_function(
+      theme_image_tag("blog/search_blog.gif",
+        :onmouseover => "this.src=#{theme_image_path('blog/search_blog_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('blog/search_blog.gif').to_json}"),
+    "return Mars.home_search_submit(this, #{search_blog_entries_path.to_json})")
+%>

@@ -1,0 +1,27 @@
+<div style="text-align: center;">[トモダチ依頼]</div>
+<div style="margin-left: 20px; text-align: left; margin-top: 5px;">
+ <%=h displayed_user.name %>さんとは既に友人・知人ですか？<br/>
+一言メッセージを送信し、承諾を受けてください。<br/>
+※交流の無い方へいきなりトモダチ依頼を送るのは、失礼になる場合もあります。<br/>
+十分に確認して、トモダチ依頼を行ってください。<br/>
+<% relationship_describe = display_relationship_user_to_user(current_user, displayed_user) %>
+<% unless relationship_describe.blank? %>
+  このユーザとのサイト内の関係性 ＝ <%= relationship_describe %><br/>
+<% end %>
+</div>
+<div style="margin-left: 20px; padding-bottom: 10px;">
+  <% form_for(@friendship, :url => create_friend_application_user_path(displayed_user)) do |f| %>
+    <% display_round_box(:width => "490px") do %>
+      <table class="content_table" style="width: 480px;">
+        <tr>
+          <th><%= h Friendship.human_attribute_name("message") %></th>
+          <td><%= f.text_area :message, :rows => 4, :cols => 40  %></td>
+        </tr>
+        <%= render :partial => "/share/form_relation", :locals => {:f => f} %>
+      </table>
+    <% end %>
+    <div align="center">
+      <%= f.submit("トモダチ依頼", :confirm => "トモダチ依頼してよろしいですか？") %>
+    </div>
+  <% end %>
+</div>

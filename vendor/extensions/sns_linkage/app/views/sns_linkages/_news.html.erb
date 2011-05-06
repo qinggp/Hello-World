@@ -1,0 +1,13 @@
+<% if sns_linkage.sns_link_news_data  %>
+  <% groups = sns_link_data_groups_by_category(sns_linkage.sns_link_news_data.channel.items) %>
+  <% groups.keys.each do |category| %>
+    <div class="category">
+      ■<%= h category %>
+    </div>
+    <% groups[category].each do |item| %>
+      <div class="news_link">
+        <%= display_news_line_format(Time.parse(item.pubDate.to_s).to_date, link_to(item.title.untaint, h(item.link), :target => "_blank"), h(item.author)) %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

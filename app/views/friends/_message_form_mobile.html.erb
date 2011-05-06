@@ -1,0 +1,12 @@
+<b>--- <%=h displayed_user.name %>さんをトモダチに紹介する ---</b><br/>
+
+<% friends = current_user.friends.select{|friend| !displayed_user.friend_user?(friend) && displayed_user != friend } %>
+[紹介先]<br />
+<%= check_box_for_receivers(friends) %>
+<br />
+
+[紹介文]<%= font_coution("※") %><br/>
+<%= f.text_area :body, :rows => 3, :cols => 20 %><br/>
+
+<%= f.hidden_field(:subject, :value => "#{h(current_user.name)}さんからトモダチ紹介メッセージが届いています") %>
+<%= hidden_field_tag("id", displayed_user.id) %>

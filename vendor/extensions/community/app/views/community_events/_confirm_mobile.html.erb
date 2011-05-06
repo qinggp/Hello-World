@@ -1,0 +1,35 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityEvent, "title") %><br />
+<%= h @community_event.title %>
+<%= f.hidden_field :title %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "event_date") %><br />
+<%= h l(@community_event.event_date, :format => :default_year_month_date) %>
+<%= f.hidden_field :event_date %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "event_date_note") %><br />
+<%= h @community_event.event_date_note %>
+<%= f.hidden_field :event_date_note %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "place") %><br />
+<%= h @community_event.place %>
+<%= f.hidden_field :place %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "content") %><br />
+<%= auto_link(hbr(@community_event.content)) { |text| truncate(text, 60) } %>
+<%= f.hidden_field :content %>
+<br />
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "confirm", :model => @community_event} %>
+<br />
+
+<%= display_form_attr_name(CommunityEvent, "public") %><br />
+<%= h t("community_event.public")[@community_event.public] %>
+<%= f.hidden_field :public %>
+<br />

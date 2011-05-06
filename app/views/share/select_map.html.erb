@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-style-type" content="text/css"/>
+    <meta name="robots" content="noarchive"/>
+    <meta name="Keywords" content="地域SNS,OpenSNP,<%= SnsConfig.title %>"/>
+    <meta name="Description" content="<%= SnsConfig.outline %>"/>
+    <title><%= t(:project_name) %>::地図座標選択</title>
+    <%= theme_stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag('gmap_selector') %>
+  </head>
+  <body style="margin:5px;" onload="GMapSelector.maps_load()">
+    <form style="margin:0px;">
+      <div align="center">
+        <div id="map" style="width:400px;height:300px;margin:5px;border:1px solid gray;"></div>
+        <div>
+          <input type="text" name="lng" id="lng" size="8" value="<%=h @longitude %>" disabled="disabled"/>
+          <input type="text" name="lat" id="lat" size="8" value="<%=h @latitude %>" disabled="disabled"/>
+          <input type="text" name="zoom" id="zoom" size="2" value="<%=h @zoom %>" disabled="disabled"/>
+          <input type="button" value="座標値送信" onclick="GMapSelector.send_coordinate_values();" style="width:100px;height:22px;border:1px solid gray;"/>
+          &nbsp;
+          <input type="button" value="閉じる" onclick="Mars.window_close();" style="width:60px;height:22px;border:1px solid gray;"/>
+        </div>
+        <div>
+          <input type="text" name="address" id="address" size="42"/>
+          <input type="button" value="住所検索" onclick="GMapSelector.geocoding(this.form.address.value); return false" style="width:100px;height:22px;border:1px solid gray;"/>
+          <div id="choice_list" style="margin:5px;display:none;"></div>
+        </div>
+        <div style="font-size:10px;">
+          ※地図をドラッグするとマップが移動し、ダブルクリックするとその場所が地図の中心になります。<br/>
+          ※表示場所が決まりましたら、座標値送信ボタンを押してください。
+        </div>
+      </div>
+    </form>
+    <%= render :partial => "/share/google_map_script" %>
+  </body>
+</html>

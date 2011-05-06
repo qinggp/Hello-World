@@ -1,0 +1,76 @@
+<tr>
+  <td class="content_table_title" colspan="2">
+    <b>
+      <%= h form_title %><br />
+      <%= font_coution("*** 管理者権限で編集中 ***")%>
+    </b>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[コミュニティ名]<span class="attention">※</span></th>
+  <td><%= h @community.name %></td>
+  <%= f.hidden_field :name %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[作成者]</th>
+  <td><%= h @community_admin.name %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[コミュニティ区分]<span class="attention">※</span></th>
+  <td><%= h(t(:official_label, :scope => [:community])[Community::OFFICIALS.invert[@community.official]]) %></td>
+  <%= f.hidden_field :official %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[公開初期化処理]</th>
+  <td>
+    <% unless params[:initialization_official].blank? %>
+       公認化初期処理を行う
+    <% end %>
+  </td>
+  <%= hidden_field_tag :initialization_official, params[:initialization_official] %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[名前表示区分]<span class="attention">※</span></th>
+  <td><%= h(t(:show_real_name, :scope => [:community])[@community.show_real_name]) %></td>
+  <%= f.hidden_field:show_real_name %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[参加・公開条件]<span class="attention">※</span></th>
+  <td>
+    <%= h(t(:approval_required, :scope => [:community])[@community.approval_required]) %>
+    [ <%= h @community.describe_visibility %> ]
+  </td>
+  <%= f.hidden_field :participation_and_visibility %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[トピック作成]<span class="attention">※</span></th>
+  <td><%= h(t(:topic_createable_admin_only, :scope => :community)[@community.topic_createable_admin_only]) %></td>
+  <%= f.hidden_field :topic_createable_admin_only %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[イベント作成]<span class="attention">※</span></th>
+  <td><%= h(t(:event_createable_admin_only, :scope => :community)[@community.event_createable_admin_only]) %></td>
+  <%= f.hidden_field :event_createable_admin_only %>
+</tr>
+<tr>
+
+  <th valign="top" nowrap>[カテゴリ]<span class="attention">※</span></th>
+  <td><%= h @community.community_category.name_with_parent %></td>
+  <%= f.hidden_field :community_category_id  %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[説明文]<span class="attention">※</span></th>
+  <td><%= h @community.comment%></td>
+  <%= f.hidden_field :comment %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[写真]</th>
+  <td>
+    <%= admin_confirm_community_image(@community) %>
+    <%= f.hidden_field :image_temp %>
+    <% if params[:community][:delete_image] %>
+      <%= hidden_field_tag("community[delete_image]", 1) %>
+    <% end %>
+  </td>
+</tr>
+

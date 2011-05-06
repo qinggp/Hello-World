@@ -1,0 +1,3 @@
+削除してよろしいですか？<br/>
+[<%= link_to "削除", user_blog_category_path(:id => params[:id], :user_id => params[:user_id]), :method => :delete %>]
+[<%= link_to "戻る", new_user_blog_category_path(:user_id => params[:user_id]) %>]<br/>

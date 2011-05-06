@@ -1,0 +1,13 @@
+<%= render :partial => "/share/mail_header" %>
+
+<%= @user.name %>さんが招待された <%= @invite_user.name_and_full_real_name %>さん の
+<%= SnsConfig.title %>への参加が完了しました。
+
+<%= @invite_user.name_and_full_real_name %>さんのプロフィールを見るには以下の
+URLをクリックしてください。
+
+<%= user_url(@invite_user, :host => CONFIG["host"]) %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

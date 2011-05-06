@@ -1,0 +1,44 @@
+<% if @community.topic_and_marker_createable?(current_user) %>
+  [ <%= link_to("トピック作成", new_community_topic_path(:community_id => @community.id)) %> ]
+  [ <%= link_to("マーカー作成", new_community_marker_path(:community_id => @community.id)) %> ]
+<% end %>
+<% if @community.event_createable?(current_user) %>
+  [ <%= link_to("イベント作成", new_community_event_path(:community_id => @community.id)) %> ]
+<% end %>
+<hr size="1" noshade>
+
+
+<% if @thread_class == CommunityEvent %>
+  <%= render :partial => "move_event_date_link" %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if @community_threads.total_pages > 1 %>
+  <%= will_paginate_mobile(@community_threads).untaint %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if @community_threads.total_entries.zero? %>
+  登録がありません
+<% else %>
+  <% @community_threads.each_with_index do |thread, index| %>
+    <a href="#<%= index + 1%>" name="<%= index %>">▼</a>
+    [<%= h l(thread.created_at, :format => :default_year_month_date) %>]
+    <br />
+    <%= link_to(h(thread.title), thread.polymorphic_url_on_community(self)) %>
+    (<%= h thread.active_replies.size %>)
+    <hr size="1" noshade>
+  <% end %>
+<% end %>
+
+<% if @community_threads.total_pages > 1 %>
+  <hr size="1" noshade>
+  <%= will_paginate_mobile(@community_threads).untaint %>
+<% end %>
+
+<% if @thread_class == CommunityEvent %>
+  <hr size="1" noshade>
+  <%= render :partial => "move_event_date_link" %>
+<% end %>
+
+<%= render :partial => "share/community_footer" %>

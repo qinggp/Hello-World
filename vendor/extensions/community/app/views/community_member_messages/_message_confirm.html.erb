@@ -1,0 +1,25 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h @model_class.human_name %>参加者にメッセージを送る</td>
+</tr>
+<tr>
+  <th>[宛先]</th>
+  <td>
+    <% @receivers.each do |r| %>
+      <%= h @community.member_name(r) %><br />
+    <% end %>
+    <% params[:receiver_ids].each do |id| %>
+      <%= hidden_field_tag "receiver_ids[]", id %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>[メッセージ]</th>
+  <td><%= hbr @message.body %></td>
+  <%= f.hidden_field :body %>
+</tr>
+
+<%= f.hidden_field :subject %>
+<%= hidden_field_tag("id", @community.id) %>
+<% if @event %>
+  <%= hidden_field_tag("event_id", @event.id) %>
+<% end %>

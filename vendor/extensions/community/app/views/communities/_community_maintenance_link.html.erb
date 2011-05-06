@@ -1,0 +1,15 @@
+  <div class="all_link">
+    [
+    <%= link_to("メンバー管理", community_members_path(:community_id => @community)) %>
+    ]
+    [
+    <%= link_to("コミュニティリンク管理", index_for_admin_community_linkages_path(:community_id => @community)) %>
+    ]
+    [
+    <%= link_to("マップカテゴリ管理", new_community_map_category_path(:community_id => @community.id)) %>
+    ]
+    [
+    <%= link_to("コミュニティ設定変更", :action => :edit, :id => @community) %>
+    ]
+  </div>
+

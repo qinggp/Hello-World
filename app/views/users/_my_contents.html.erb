@@ -1,0 +1,18 @@
+<div id="my_contents">
+  <% Mars::UI.instance.my_contents_sequences.each do |name|  %>
+    <% next if Mars::UI.instance.my_contents[name].empty?  %>
+    <%= theme_image_tag("home_bar_#{name}.gif", :size => "490x20") %>
+    <% display_open_colse_box(:id => "my_contents_" + name.to_s, :class => "") do %>
+      <% display_round_box do %>
+        <%= 
+            Mars::UI.instance.my_contents[name].map do |part|
+              part.display(self)
+            end.join("\n")
+        %>
+      <% end %>
+    <% end %>
+    <div style="text-align: right; margin-right: 15px; cursor: pointer;">
+      <%= display_open_colse_box_button("my_contents_" + name.to_s) %>
+    </div>
+  <% end %>
+</div>

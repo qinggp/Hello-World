@@ -1,0 +1,10 @@
+<% unless @events_on_today.blank? %>
+  <div class="caption">
+    本日開催のイベント
+  </div>
+  <div class="news_data">
+    <div class="news_link" align="left">
+      <%=  render(:partial => "link_to_thread", :collection => @events_on_today, :as => :thread, :locals => {:named_root => "community_event"}) %>
+    </div>
+  </div>
+<% end %>

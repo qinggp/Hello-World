@@ -1,0 +1,36 @@
+<tr>
+  <td class="content_table_title" colspan="2">トモダチにこのコミュニティを紹介する</td>
+</tr>
+<tr>
+  <td colspan="2">紹介したいトモダチを選択し、メッセージを入力して下さい。</td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[紹介先]<%= font_coution("※") %></th>
+  <td>
+    <input type="checkbox" onclick="Message.allCheck()" id="check_all"/>全員チェック
+    <div>
+      <% current_user.friends.select{|friend| !@community.member?(friend)}.in_groups_of(6) do |friends| %>
+        <table width="96%">
+          <tr>
+            <% friends.each do |friend| %>
+              <td width="16%" style="border: none;">
+                <% if friend %>
+                  <%= check_box_tag("receiver_ids[]", friend.id,
+                                    params[:receiver_ids].try(:include?, (friend.id.to_s))) %>
+                  <%= link_to h(friend.name), user_path(friend) %>
+                <% end %>
+               </td>
+             <% end %>
+           </tr>
+        </table>
+      <% end %>
+    </div>
+  </td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[メッセージ]<%= font_coution("※") %></th>
+  <td><%= f.text_area :body, :rows => 10, :cols => 50 %></td>
+</tr>
+
+<%= hidden_field_tag("id", @community.id) %>
+<%= hidden_field_tag("message[subject]", subject_for_invite_friend) %>

@@ -1,0 +1,28 @@
+<%= render :partial => "/share/my_community_mainte_link" %>
+<hr size="1" noshade>
+
+<% if @communities.size.zero? %>
+  所属しているコミュニティがありません
+<% else %>
+  <%= will_paginate_mobile(@communities).untaint %>
+  <% if @communities.total_pages > 1 %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% @communities.each do |community| %>
+    <%= link_to h(community.name), community_path(community) %>
+    <% if @community_group.has_community?(community) %>
+      [ <%= link_to("解除",
+                    remove_community_community_group_path(@community_group, :community_id => community.id)) %> ]
+    <% else %>
+      [ <%= link_to("追加",
+                    add_community_community_group_path(@community_group, :community_id => community.id)) %> ]
+    <% end %>
+    <br />
+  <% end %>
+
+  <% if @communities.total_pages > 1 %>
+    <hr size="1" noshade>
+  <% end %>
+  <%= will_paginate_mobile(@communities).untaint %>
+<% end %>

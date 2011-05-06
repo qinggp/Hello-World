@@ -1,0 +1,17 @@
+<%= render :partial => "/share/mail_header" %>
+
+
+◆あなたの「<%= h current_user.name %>さん」へのトモダチ依頼が、
+　先ほど承認されましたので、ご連絡いたします。
+
+<% unless @friendship.message.blank? %>
+―――― < <%=h current_user.name %>さん >からあなたへのメッセージ ―――
+
+<%= h @friendship.message %>
+
+―――――――――――――――――――――――――――――
+<% end %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

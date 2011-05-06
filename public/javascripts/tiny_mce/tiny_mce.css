@@ -1,0 +1,7 @@
+BODY.mceContentBody {
+	background-color: #FFFFFF;
+	font-size: 12px;
+	line-height:1.5;
+	padding:3px;
+}
+.mceContentBody P { margin:0px; padding:0px; }

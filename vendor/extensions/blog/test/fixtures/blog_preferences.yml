@@ -1,0 +1,63 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: blog_preferences
+#
+#  id                        :integer         not null, primary key
+#  preference_id             :integer
+#  visibility                :integer
+#  title                     :string(255)
+#  basic_color               :integer
+#  comment_notice_acceptable :boolean
+#  created_at                :datetime
+#  updated_at                :datetime
+#  email_post_visibility     :integer
+#  rss_url                   :string(255)
+#  wyswyg_editor             :boolean
+#
+
+DEFAULTS: &DEFAULTS
+  visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+  title: "XXのブログ"
+  basic_color: <%= BlogPreference::BASIC_COLORS[:green] %>
+  comment_notice_acceptable: true
+  email_post_visibility: <%= BlogPreference::VISIBILITIES[:publiced] %>
+
+quentin_preference:
+  preference: quentin_preference
+  title: "quentinのブログ"
+  <<: *DEFAULTS
+
+aaron_preference:
+  preference: aaron_preference
+  title: "aaronのブログ"
+  <<: *DEFAULTS
+
+old_password_holder_preference:
+  preference: old_password_holder_preference
+  <<: *DEFAULTS
+
+sns_tarou_preference:
+  preference: sns_tarou_preference
+  title: "SNS太郎のブログ"
+  <<: *DEFAULTS
+
+sns_zirou_preference:
+  preference: sns_zirou_preference
+  title: "SNS次郎のブログ"
+  <<: *DEFAULTS
+
+sns_hanako_preference:
+  preference: sns_hanako_preference
+  title: "SNS花子のブログ"
+  <<: *DEFAULTS
+
+alone_preference:
+  preference: alone_preference
+  title: "孤独のブログ"
+  <<: *DEFAULTS
+
+pause_preference:
+  preference: pause_preference
+  title: "一時停止のブログ"
+  <<: *DEFAULTS

@@ -1,0 +1,21 @@
+ようこそ、<%=h current_user.name %>さん<br/>
+
+▽<a href="#new_list">新着情報</a><br/>
+<% Mars::UI.instance.mobile_my_home_contents_navigations.each do |link| %>
+  <%= link.display(self) %><br/>
+<% end %>
+
+<hr size="2" noshade>
+
+<% Mars::UI.instance.mobile_main_menus.each do |link| %>
+<%= link.display(self) %>
+<% end %>
+
+<a name="new_list"></a>
+<% Mars::UI.instance.mobile_my_home_contents.each do |part| %>
+<%= part.display(self) %>
+<% end %>
+
+<hr size="1" noshade>
+▽<%= link_to "プロフィール", user_path(current_user) %><br/>
+▲<%= link_to "各種設定", preferences_path %><br/>

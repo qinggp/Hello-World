@@ -1,0 +1,80 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: preferences
+#
+#  id                        :integer         not null, primary key
+#  user_id                   :integer
+#  home_layout_type          :integer
+#  created_at                :datetime
+#  updated_at                :datetime
+#  skype_id                  :string(255)
+#  skype_id_visibility       :integer
+#  skype_mode                :integer
+#  yahoo_id                  :string(255)
+#  yahoo_id_visibility       :integer
+#  message_notice_acceptable :boolean         default(TRUE)
+#
+
+DEFAULTS: &DEFAULTS
+  home_layout_type: <%= Preference::HOME_LAYOUT_TYPES[:default] %>
+  skype_id: echo123
+  skype_id_visibility: <%= Preference::VISIBILITIES[:publiced] %>
+  skype_mode: <%= Preference::SKYPE_MODES[:profile] %>
+  yahoo_id: test
+  yahoo_id_visibility: <%= Preference::VISIBILITIES[:publiced] %>
+  profile_restraint_type: <%= Preference::PROFILE_RESTRAINT_TYPES[:public] %>
+
+quentin_preference:
+  user: quentin
+  <<: *DEFAULTS
+
+aaron_preference:
+  user: aaron
+  <<: *DEFAULTS
+
+old_password_holder_preference:
+  user: old_password_holder
+  <<: *DEFAULTS
+
+sns_tarou_preference:
+  user: sns_tarou
+  <<: *DEFAULTS
+
+sns_zirou_preference:
+  user: sns_zirou
+  <<: *DEFAULTS
+
+sns_hanako_preference:
+  <<: *DEFAULTS
+  user: sns_hanako
+  profile_restraint_type: <%= Preference::PROFILE_RESTRAINT_TYPES[:member] %>
+
+alone_preference:
+  user: alone
+  <<: *DEFAULTS
+
+sns_saburou_preference:
+  user: sns_saburou
+  <<: *DEFAULTS
+
+sns_sirou_preference:
+  user: sns_sirou
+  <<: *DEFAULTS
+
+sns_gorou_preference:
+  user: sns_gorou
+  <<: *DEFAULTS
+
+sns_rokurou_preference:
+  user: sns_rokurou
+  <<: *DEFAULTS
+
+sns_sitirou_preference:
+  user: sns_sitirou
+  <<: *DEFAULTS
+
+pause_preference:
+  user: pause
+  <<: *DEFAULTS
+

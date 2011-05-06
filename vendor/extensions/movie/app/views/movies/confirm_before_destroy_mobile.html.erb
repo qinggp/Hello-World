@@ -1,0 +1,9 @@
+<% movie = Movie.find(params[:id]) %>
+<center>
+  <%= theme_image_tag mobile_thumbnail_movie_path(movie) %>
+</center>
+このムービーを削除しますか？<br/>
+[<%= link_to "削除", movie_path(:id => params[:id]), :method => :delete %>]
+[<%= link_to "戻る", my_show_movie_path(:id => params[:id]) %>]<br/>
+
+<%= render :partial => "footer_mobile" %>

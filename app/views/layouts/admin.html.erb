@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title> <%= [h(SnsConfig.title), "管理", page_title].compact.join('::') + error_title %></title>
+    <%= theme_stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag :defaults %>
+    <%= render :partial => 'init' %>
+  </head>
+  <body>
+
+    <div id="container">
+      <div id="container_bg">
+        <div id="container_inner">
+          <div id="container_navi">
+            <%= render :partial => "/share/header" %>
+            <%= render :partial => "/share/main_menu" %>
+            <%= render :partial => "/admin/share/admin_menu" %>
+          </div>
+
+          <%= yield %>
+
+          <%= render :partial => "/share/footer" %>
+        </div>
+      </div>
+    </div>
+
+    <div id="ajax-indicator" style="display:none;"><span>ロード中...</span></div>
+
+  </body>
+</html>

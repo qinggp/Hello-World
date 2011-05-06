@@ -1,0 +1,58 @@
+sns_tarou_has_admin_to_curry:
+  user: sns_tarou
+  role: community_curry_admin
+
+sns_hanako_has_general_to_curry:
+  user: sns_hanako
+  role: community_curry_general
+
+sns_tarou_has_admin_to_ramen:
+  user: sns_tarou
+  role: community_ramen_admin
+
+sns_zirou_has_general_to_ramen:
+  user: sns_zirou
+  role: community_ramen_general
+
+sns_tarou_has_admin_to_boat:
+  user: sns_tarou
+  role: community_boat_admin
+
+sns_zirou_has_sub_admin_to_curry:
+  user: sns_zirou
+  role: community_curry_sub_admin
+
+sns_zirou_has_general_to_boat:
+  user: sns_zirou
+  role: community_boat_general
+
+sns_tarou_has_admin_to_official_normal:
+  user: sns_tarou
+  role: community_official_normal_admin
+
+sns_tarou_has_admin_to_official_all_member:
+  user: sns_tarou
+  role: community_official_all_member_admin
+
+sns_hanako_has_sub_admin_to_official_all_member:
+  user: sns_hanako
+  role: community_official_all_member_sub_admin
+
+sns_zirou_has_general_to_official_all_member:
+  user: sns_zirou
+  role: community_official_all_member_general
+
+sns_tarou_has_admin_to_official_admin:
+  user: sns_tarou
+  role: community_official_admin_admin
+
+<% %w(public public_and_approval_required member member_and_approval_required private secret).each do |community| %>
+sns_tarou_has_admin_to_<%= community %>_admin:
+  user: sns_tarou
+  role: community_<%= community %>_admin
+<% end %>
+
+hanako_admin:
+  user: sns_hanako
+  role: hanako_role_admin
+

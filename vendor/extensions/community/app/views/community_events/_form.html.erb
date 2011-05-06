@@ -1,0 +1,45 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h form_title %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[イベント名]<span class="attention">※</span></th>
+  <td><%= f.text_field :title, :size => 50 %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[開催日]<span class="attention">※</span></th>
+  <td>
+    <%= f.date_select(:event_date, :start_year => Time.now.year-1, :end_year => Time.now.year + 1).untaint  %>
+    <%= f.text_field :event_date_note, :size => 50 %>
+    <span style="font-size: 80%;">(備考)</span>
+  </td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[開催場所]<span class="attention">※</span>
+  </th>
+  <td>
+    <%= f.text_field :place, :size => 50 %>
+    <span style="font-size: 80%;"><br />
+      --- 地図表示 ---
+      <br />
+    </span>
+    <%= f.text_field(:longitude, :size => 8, :id => :longitude) %>
+    <%= f.text_field(:latitude, :size => 8, :id => :latitude) %>
+    <%= f.text_field(:zoom, :size => 2, :id => :zoom) %>
+    <span style="font-size: 0.8em;">(0〜19)</span>
+    <input type="button" value="座標値クリア" class="button_style" onclick="GMapSelector.clear_coordinate_values()"/>
+    <input type="button" value="マップを見る" class="button_style" onclick="GMapSelector.open_map_window('<%= select_map_communities_url %>')"/>
+  </td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[詳細]<span class="attention">※</span></th>
+  <td><%= f.text_area :content, :rows => 10, :cols => 50 %></td>
+</tr>
+<%= render :partial => "share/upload_form", :locals => {:model => @community_event} %>
+<tr>
+  <th nowrap="" valign="top">[イベント公開範囲]<span class="attention">※</span></th>
+  <td>
+    <%= f.radio_button :public, true %>全体に公開
+    <%= f.radio_button :public, false %>コミュニティにのみ公開
+    <span style="font-size: 80%;"><br/>※「全体に公開」にすると<%= link_to("イベントカレンダー", show_calendar_community_events_path) %>に表示されます。<br/>※非公開コミュニティの場合は選択肢にかかわらず表示されません。</span>
+  </td>
+</tr>

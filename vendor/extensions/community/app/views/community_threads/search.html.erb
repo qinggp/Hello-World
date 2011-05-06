@@ -1,0 +1,24 @@
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to h(@community.name), community_path(@community) %>のトピック一覧
+  </div>
+
+  <% display_round_box(:color => "#ECEBE1", :width => "490px") do %>
+    <div style="text-align: center; padding: 6px;">
+      <% if @community.some_thread_createable?(current_user) %>
+        <%= render(:partial => "/share/links_to_post") %>
+      <% end %>
+      <%= render(:partial => "form_search_thread") %>
+    </div>
+  <% end %>
+
+  <div style="margin-top:10px;">
+    <div style="width: 600px; text-align: right;">
+      [
+      <%= theme_image_tag("community/tree.gif", :style => "vertical-align: middle;") %>
+      <%= link_to("ツリー表示", show_comment_tree_community_threads_path(:community_id => @community)) %>
+      ]
+    </div>
+    <%= render :partial => "share/list_thread", :locals => {:threads => @community_threads}%>
+  </div>
+</center>

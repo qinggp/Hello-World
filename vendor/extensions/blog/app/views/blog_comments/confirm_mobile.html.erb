@@ -1,0 +1,33 @@
+<%= render :partial => "header_mobile" %>
+
+<%
+  urls = blog_comments_save_urls(@blog_comment)
+%>
+
+※送信内容を確認し、必ず[ 送信する ]ボタンをクリックして送信を完了してください。<br/>
+※送信内容を保存する場合はこのページを印刷、または保存してください。<br/>
+<% form_for([@blog_entry, @blog_comment], :url => urls[:form], :html => {:method => urls[:method]}) do |f| %>
+  <b>コメント送信</b><br/>
+  <% if current_user == nil %>
+    名前<br/>
+    <%=h @blog_comment.user_name %>
+    <%= f.hidden_field :user_name %>
+    <br/>
+    E-Mail<br/>
+    <%=h @blog_comment.email %>
+    <%= f.hidden_field :email %>
+    <br/>
+  <% end %>
+  [コメント]<br/>
+  <%= hbr @blog_comment.body %>
+  <%= f.hidden_field :body %>
+  <br/>
+  <%= f.hidden_field :blog_entry_id %>
+  <%= f.submit '送信する' %>
+  <%= f.submit '戻る', :name => "cancel" %>
+  <br/>
+  <br/>
+  [<%= link_to "記事へ戻る", blog_entry_path(@blog_entry) %>]
+<% end %>
+
+<%= render :partial => "/share/footer_mobile" %>

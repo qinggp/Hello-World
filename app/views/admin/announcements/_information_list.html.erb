@@ -1,0 +1,69 @@
+<div class="center_box">
+  <center>
+  <% display_round_box(:width => "660px", :white_bg => false) do %>
+    <table width="600px" border="0" cellspacing="0" cellpadding="2" align="center">
+      <tr>
+        <% if paginated %>
+        <td width="33%" align="left">現在の登録数は<%= announcement.total_entries  %>件です。</td>
+        <td width="33%" align="center">
+          <%= will_paginate(announcement,{:previous_label => "",:next_label => "",:outer_window => 0,:param_name => opt[:select_page],:params => params_for_announcements_list()}) %>
+        </td>
+        <td width="33%" align="right">
+          <%= will_paginate(announcement, :previous_label => '[前のページ]', :next_label => '[次のページ]', :page_links => false , :param_name => opt[:select_page], :params => params_for_announcements_list()) %>
+        </td>
+        <% else %>
+          <td width="33%" align="left">現在の登録数は全<%= announcement.size %>件です。</td>
+          <td width="33%" align="center"></td>
+          <td width="33%" align="right"></td>
+        <% end %>
+      </tr>
+    </table>
+    <table id="announcements_content_table" align="center">
+    <tr id="title">
+      <th nowrap><%= link_for_sort_announcements('登録日',{opt[:order] => 'created_at',:default_order => "DESC"},{:order => opt[:order], :order_modifier => opt[:order_modifier]}) %></th>
+      <th nowrap><%= link_for_sort_announcements('表示期間',{opt[:order] => 'expire_date',:default_order => "DESC"},{:order => opt[:order], :order_modifier => opt[:order_modifier]}) %></th>
+      <th nowrap>タイトル</th>
+      <th></th>
+    </tr>
+    <% announcement.each do |i| %>
+      <tr id="data">
+        <td nowrap><%= i.created_at.strftime('%Y/%m/%d') %></td>
+        <td nowrap><%= i.expire_date.strftime('%Y/%m/%d') %></td>
+        <td><%= i.title.untaint.gsub("\n", "<br/>") %></td>
+        <td nowrap><%= link_to '編集',edit_admin_announcement_path(i)%></td>
+      </tr>
+     <% end %>
+    </table>
+
+    <table cellspacing="0" border="0" align="center" style="width: 100%; text-align: left;">
+
+    <%#*<table width="600px" border="0" cellspacing="0" align="center">%>
+      <tr>
+        <td width="33%" align="left">
+          <% if !opt[:per_page].nil? -%>
+            <% form_tag(admin_announcements_path,:method => :get) do -%>
+              <%= hidden_field_for_per_page() %>
+              <% if paginated -%>
+                <%= select_per_page([],{:param_name => opt[:per_page].to_s, :checked_value => params[opt[:per_page]]}) %><%= select_page(announcement.total_pages,{:param_name => opt[:select_page].to_s}) %><%= submit_tag '表示' %>
+              <% else -%>
+                <%= select_per_page([],{:param_name => opt[:per_page].to_s,:checked_value => 5 }) %><%= select_page(1,{:param_name => opt[:select_page].to_s}) %><%= submit_tag '表示' %>
+              <% end -%>
+            <% end -%>
+          <% end %>
+        </td>
+        <% if paginated -%>
+          <td width="33%" align="center">
+            <%= will_paginate(announcement,{:previous_label => "",:next_label => "",:outer_window => 0,:param_name => opt[:select_page],:params => params_for_announcements_list()}) %>
+          </td>
+          <td width="33%" align="right">
+            <%= will_paginate(announcement, :previous_label => '[前のページ]', :next_label => '[次のページ]', :page_links => false , :param_name => opt[:select_page], :params => params_for_announcements_list()) %>
+          </td>
+        <% else -%>
+          <td width="33%" align="center"></td>
+          <td width="33%" align="right"></td>
+        <% end -%>
+      </tr>
+    </table>
+    <% end %>
+  </center>
+</div>

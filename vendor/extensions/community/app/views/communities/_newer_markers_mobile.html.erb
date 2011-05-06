@@ -1,0 +1,17 @@
+<% markers = @community.markers.lastposts.find(:all, :limit => 5) %>
+<% unless markers.size.zero? %>
+  ▽マップ最新書込一覧<br />
+  <% markers.each do |marker| %>
+    <%= display_news_line_format_mobile(
+                                        marker.created_at,
+                                        link_to(h(marker.title) + " (#{marker.active_replies.size})", community_marker_path(:community_id => @community.id, :id => marker.id)),
+                                        link_to_user(marker.author, h(@community.member_name(marker.author)))) %>
+    <br />
+  <% end %>
+  [<%= link_to("全て", community_threads_path(:community_id => @community.id, :types => ["CommunityMarker"])) %>]
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    [<%= link_to("マーカーの作成", new_community_marker_path(:community_id => @community.id)) %>]
+  <% end %>
+  <hr size="1" noshade>
+<% end %>
+

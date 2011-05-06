@@ -1,0 +1,70 @@
+<a href="#2" name="1">▼</a>
+<% if thread.kind == "CommunityEvent" %>
+  <%= h thread.title %>
+  <br />
+  [<%= l(thread.created_at, :format => :default_year_month_date) %>]
+  <%= link_to_user(thread.author, h( @community.member_name(thread.author))) %>
+  <br />
+
+  <%= h CommunityEvent.human_attribute_name("event_date") %>：
+  <%= h l(thread.event_date, :format => :year_month_date) %>
+  （<%= h thread.event_date_note %>）
+  <br />
+
+  <%= h CommunityEvent.human_attribute_name("place") %>：
+  <%= h thread.place %>
+<% else %>
+  [<%= l(thread.created_at, :format => :default_year_month_date) %>]
+  <br />
+
+  <%= link_to_user(thread.author, h( @community.member_name(thread.author))) %>
+  <br />
+
+  <%= h thread.title %>
+<% end %>
+<br />
+------
+<br />
+<%= auto_link(hbr(add_session_query_on_inner_url(thread.content))){ |text| truncate(strip_session_query(text), 60) } %>
+<% thread.sorted_attachments.each_with_index do |a, i| %>
+  <% if i == 0 %>
+    <br />
+  <% end %>
+  <%= display_attachment_file(a, :image_type => "thumb") %>
+<% end %>
+
+<% if thread.kind != "CommunityTopic" %>
+  <br />
+  <% if map = static_map_for_mobile(thread.latitude, thread.longitude, thread.zoom) %>
+    [地図]<br/>
+    <%= theme_image_tag map.to_s %>
+  <% end  %>
+<% end  %>
+<br />
+
+<%= render :partial => "share/links_for_thread", :locals => {:thread => thread} %>
+<hr size="1" noshade>
+
+<% if @replies.total_entries.zero? %>
+  返信書き込みはありません。
+<% else %>
+  <% if @replies.total_pages > 1 %>
+    <%= will_paginate_mobile(@replies).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <%  @replies.each_with_index do |reply, index| %>
+    <a href="#<%= index + 3 %>" name="<%= index + 2 %>">▼</a>
+    <%= render :partial => "share/show_reply", :locals => {:reply => reply}  %>
+    <br />
+    <%= render :partial => "share/links_for_reply", :locals => {:reply => reply} %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% if @replies.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@replies).untaint %>
+  <% end %>
+<% end %>
+
+<%= render :partial => "share/community_footer" %>

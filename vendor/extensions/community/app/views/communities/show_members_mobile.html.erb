@@ -1,0 +1,29 @@
+<%= link_to(h(@community.name), community_path(@community)) %> のメンバーリスト
+<hr size="1" noshade>
+
+<% if @community.member_message_senderable?(current_user) %>
+  <%= link_to("メンバーへメッセージを送信", new_message_community_member_message_path(@community)) %>
+  <hr size="1" noshade>
+<% end %>
+
+
+<%= will_paginate_mobile(@members).untaint %>
+<% if @members.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+
+<% @members.each do |member| %>
+  <%= link_to_user(member, h(@community.member_name(member))) %>さん(<%= h(member.friends.count)%>)
+  <% if @community.manageable?(@current_user,member) %>
+    [<%= link_to("管理ページへ", community_member_path(:id => member.id, :community_id => @community.id)) %>]
+  <% end %>
+  <br />
+<% end %>
+<hr size="1" noshade>
+
+<% if @members.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@members).untaint %>
+
+<%= link_to("コミュニティトップへ戻る", community_path(@community)) %>

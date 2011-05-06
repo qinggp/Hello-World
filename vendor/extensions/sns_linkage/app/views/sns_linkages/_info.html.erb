@@ -1,0 +1,16 @@
+<% if sns_linkage.sns_link_info_data  %>
+  <% groups = sns_link_data_groups_by_category(sns_linkage.sns_link_info_data.channel.items) %>
+  <% groups.keys.each do |category| %>
+    <div class="category">
+      ■<%= h category %>
+    </div>
+    <% groups[category].each do |item| %>
+      <div class="news_link">
+        <%= item.title.untaint %>
+        <% unless item.link.blank? %>
+          →[<%= link_to "詳細", item.link, :target => "_blank" %>]<%= theme_image_tag "outlink.gif" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

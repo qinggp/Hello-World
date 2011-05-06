@@ -1,0 +1,33 @@
+<% @blog_entry ||= BlogEntry.new %>
+<% form_for(@blog_entry, :url => search_user_blog_entries_admin_url(@user.id)) do |f| %>
+  カテゴリ：<%= f.select(:blog_category_id, categories_select_options, :include_blank => true) %>
+  <br/>
+  公開制限：
+  <%= f.select(:visibility,
+        @user.preference.blog_preference.selectable_visibilities.map do |n, v|
+          [t("blog.blog_entry.visibility_label.#{n}"), v]
+        end,
+        :include_blank => true
+      ) %>
+  <br/>
+  コメント制限：
+  <%= f.select(:comment_restraint,
+        @user.preference.blog_preference.selectable_visibilities.map do |n, v|
+          [t("blog.blog_entry.comment_restraint_label.#{n}"), v]
+        end,
+        :include_blank => true
+      ) %>
+  <br/>
+  <%= f.submit "表示", :name => "index" %>
+  <br/>
+  <%= f.submit "選択項目一括変更", :name => "update_checked" %>
+  <%= f.submit "選択項目一括削除", :name => "destroy_checked" %>
+  <br/>
+  <%= f.submit "全選択", :name => "all_checked" %>
+  <%= f.submit "選択解除", :name => "all_unchecked" %>
+  <br/>
+  <br/>
+  <%= render :partial => "blog_entries_mobile" %>
+<% end %>
+
+<%= render :partial => "/share/footer_mobile" %>

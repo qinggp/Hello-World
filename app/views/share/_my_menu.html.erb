@@ -1,0 +1,9 @@
+<% if logged_in? && current_user.active?  %>
+    <ul id="my_menu">
+      <% Mars::UI.instance.my_menus.each_with_index do |part, i| %>
+        <li class="<%= "first" if i == 0 %>">
+          <%= part.display(self) %>
+        </li>
+      <% end %>
+    </ul>
+<% end %>

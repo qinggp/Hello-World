@@ -1,0 +1,7 @@
+<% if displayed_user.same_user?(current_user) %>
+  <div align="right" style="margin: 5px;">
+    [ <%= link_to("トモダチ依頼中一覧", list_request_friends_path) %> ]
+    [ <%= link_to("グループ管理", new_group_path) %> ] 
+    [ <%= link_to("トモダチ管理", maintenance_friends_path) %> ]
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<% topics = @community.topics.lastposts.find(:all, :limit => 5) %>
+<% if topics.size.zero? %>
+  現在トピックがありません。
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    <br />
+    まずは<%= link_to "トピックを作成", new_community_topic_path(:community_id => @community.id) %>しましょう。
+  <% end %>
+<% else %>
+  ▽トピック最新書込一覧<br />
+  <% topics.each do |topic| %>
+    <%= display_news_line_format_mobile(
+                                        topic.created_at,
+                                        link_to(h(topic.title) + " (#{topic.active_replies.size})", community_topic_path(:community_id => @community.id, :id => topic.id)),
+                                        link_to_user(topic.author, h( @community.member_name(topic.author) ))) %>
+    <br />
+  <% end %>
+  [<%= link_to("全て", community_threads_path(:community_id => @community.id)) %>]
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    [<%= link_to("トピックの作成", new_community_topic_path(:community_id => @community.id)) %>]
+  <% end %>
+<% end %>
+<hr size="1" noshade>

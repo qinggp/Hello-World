@@ -1,0 +1,69 @@
+<table class="content_table">
+  <tr class="ranking_title">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <th>アクセス数Top<%= h @limit %></th>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <th>盛り上がりTop<%= h @limit %></th>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <th>人気ブログTop<%= h @limit %></th>
+    <% end %>
+    <th>トモダチ増Top<%= h @limit %></th>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <th>参加人数Top<%= h @limit %></th>
+    <% end %>
+  </tr>
+
+  <tr class="ranking_data">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <td valign="top">
+        <div class="ranking_msg">昨日アクセスが多かったメンバーのTop<%= h @limit %>です。</div>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <div class="ranking_msg">昨日一番盛り上がったコミュニティのTop<%= h @limit %>です。</div>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <td valign="top">
+        <div class="ranking_msg">最近人気のブログTop<%= h @limit %>です。(全体・外部公開のみ)</div>
+      </td>
+    <% end %>
+    <td valign="top">
+      <div class="ranking_msg">最近トモダチが増えたメンバーの<%= h @limit %>です。</div>
+    </td>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <div class="ranking_msg">最近参加の多いコミュニティのTop<%= h @limit %>です。</div>
+      </td>
+    <% end %>
+  </tr>
+
+  <tr class="ranking_data">
+    <% if RankingExtension.instance.extension_enabled?(:track) %>
+      <td valign="top">
+        <%= render :partial => "access",  :collection => @latest_accesses_ranking, :as => :access %>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <%= render :partial => "community", :collection => @latest_community_comments_ranking, :as => :community %>
+      </td>
+    <% end %>
+    <% if RankingExtension.instance.extension_enabled?(:blog) %>
+      <td valign="top">
+        <%= render :partial => "blog_entry", :collection => @latest_popular_blog_ranking, :as => :blog_entry %>
+      </td>
+    <% end %>
+    <td valign="top">
+      <%= render :partial => "user", :collection => @latest_friend_count_ranking, :as => :user %>
+    </td>
+    <% if RankingExtension.instance.extension_enabled?(:community) %>
+      <td valign="top">
+        <%= render :partial => "community", :collection => @latest_member_count_ranking, :as => :community %>
+      </td>
+    <% end %>
+  </tr>
+</table>

@@ -1,0 +1,24 @@
+<% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+  <%= render :partial => "link_for_admin" %>
+<% end %>
+
+<center>
+  <%= render :partial => "community_linkage_title" %>
+
+  <% display_round_box(:width => "610px", :white_bg => false) do %>
+    <% display_collection_box(@community_linkages, :width => "600px", :collection_name => "現在の登録数は", :per_pages => [5, 10, 20, 50, 100], :checked_value => 20) do %>
+      <table width="100%", style="background-color:#FFFFFF;">
+  <% @community_linkages.in_groups_of(5) do |linkages| %>
+    <tr>
+      <% linkages.each do |linkage| %>
+              <td class="new_link" align="center" width="76" valign="top">
+    <% if linkage %>
+      <%= display_community_link_on_table(linkage, self, :width => "76") %>
+    <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+      </table>
+    <% end %>
+  <% end %>
+</center>

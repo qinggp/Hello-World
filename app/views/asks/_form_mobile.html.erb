@@ -1,0 +1,31 @@
+<b>--- お問い合わせ・要望事項 ---</b><br/>
+お問い合わせ状況やご質問内容によって、お返事を差し上げるのにお時間がかかってしまう場合がございます。要望事項については、全てのご要望に応じられるとは限りませんが、検討させていただきます。<br/>
+記入漏れや情報が不足していますと、迅速で的確な対応が難しくなりますので、できるだけ詳しい状況をご記入ください。<br/>
+
+[お名前]<%= font_coution('※') %><br/>
+<%= f.text_field :last_real_name, :size => 5 %>
+<%= f.text_field :first_real_name, :size => 5 %>
+<br/>
+
+<%= display_form_attr_name(User, "login") %><br/>
+<%= f.text_field :login, :size => 50 %><br/>
+
+<%= display_form_attr_name(User, "ask_body", :force_presence_mark => true) %><br/>
+<%= f.text_area :ask_body, :rows => 2, :cols => 50 %><br/>
+</tr>
+
+<% if logged_in? %>
+  <b>システム不具合・エラー状況</b><br/>
+  もしシステムの不具合やエラーが表示された場合は、以下の内容を出来るだけ詳しくご記入ください。<br/>
+  <%= display_form_attr_name(User, "errored_at") %><br/>
+  <%= f.text_field :errored_at %><br/>
+
+  <%= display_form_attr_name(User, "error_page_url") %><br/>
+  <%= f.text_field :error_page_url %><br/>
+
+  <%= display_form_attr_name(User, "error_repeatability") %><br/>
+  <%= f.select :error_repeatability, select_options_for_const("User", "ERROR_REPEATABILITIES"), :include_blank => true %><br/>
+
+  <%= display_form_attr_name(User, "error_message") %><br/>
+  <%= f.text_area :error_message, :rows => 5, :cols => 50 %><br/>
+<% end %>

@@ -1,0 +1,10 @@
+<script language="javascript">
+<!--
+function map_cls(){ document.getElementById("community_event_longitude").value="";document.getElementById("community_event_latitude").value="";document.getElementById("community_event_zoom").value=""; }
+function map_win(lng, lat, zoom){ window.open ("/communities/open_map?lng="+lng+"&lat="+lat+"&zoom="+zoom+"&model=community_event", "map_win", "width=500,height=400,top=100,left=450,scrollbars=no"); }
+-->
+</script>
+
+<%= render(:partial => "/share/community_header") %>
+
+<%= render(:partial => "/share/form") %>

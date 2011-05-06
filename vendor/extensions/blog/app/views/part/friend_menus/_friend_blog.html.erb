@@ -1,0 +1,7 @@
+<% link_to index_for_user_user_blog_entries_path(displayed_user), :title => "ブログを見る" do %>
+  <%= theme_image_tag "blog/friend_menu_blog.gif",
+      :alt => "ブログを見る",
+      :onmouseover => "this.src=#{theme_image_path('blog/friend_menu_blog_ov.gif').to_json}",
+      :onmouseout => "this.src=#{theme_image_path('blog/friend_menu_blog.gif').to_json}"
+  %>
+<% end %>

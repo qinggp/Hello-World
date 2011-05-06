@@ -1,0 +1,52 @@
+<center>
+  <%= render :partial => "share/thread_header", :locals => {:thread => @community_event} %>
+
+  <% display_round_box(:width => "600px") do %>
+    <table class="content_table">
+      <tr>
+        <td valign="top" rowspan="7" width="100" style="text-align: center;">
+          <%= h @community_event.created_at.strftime("%Y年%m月%d日") %><br />
+          <%= h @community_event.created_at.strftime("%H:%M") %>
+        </td>
+        <th nowrap="" width="60">イベント名</th>
+        <td width="440"><%= h @community_event.title %></td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">作成者</th>
+        <td width="440"><%= link_to_user(@community_event.author, h( @community.member_name(@community_event.author))) %></td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">開催日</th>
+        <td width="440"><%= h @community_event.event_date.strftime("%Y年%m月%d日") %> <%= h @community_event.event_date_note %></td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">開催場所</th>
+        <td width="440">
+          <%= h @community_event.place %>
+          <%= render :partial => "share/map_view", :locals => {:thread => @community_event} %>
+        </td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">詳細</th>
+        <td width="440">
+          <%= auto_link(hbr(@community_event.content)) { |text| truncate(text, 60) } %>
+          <%= render :partial => "share/attachments", :locals => {:model => @community_event}%>
+        </td>
+      </tr>
+      <tr>
+        <th nowrap="" width="60">参加人数</th>
+        <td width="440">
+          <%= @community_event.community_event_members.size %>名
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: right;">
+          <%= render :partial => "share/links_for_thread", :locals => {:thread => @community_event} %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+  <div style="margin-top: 15px;"></div>
+  <a name="res"></a>
+  <%= render(:partial => "share/list_reply", :locals => {:replies => @replies, :thread => @community_event, :named_root => "community_event", :community => @community}) %>
+</center>

@@ -1,0 +1,22 @@
+<% display_round_box do %>
+  <div class="content_box_bg content_title_not_bold">
+    最近のコメント投稿
+  </div>
+
+  <% comments = BlogComment.recents_my_comment(displayed_user, current_user, 10) %>
+  <% if comments.empty?  %>
+    <div class="no_data">
+      最近のコメント投稿はありません。
+    </div>
+  <% else %>
+    <div class="news_data">
+      <% comments.each do |comment| %>
+        <div class="news_link">
+          <%= display_news_line_format(comment.created_at,
+                link_to(h(comment.title), blog_entry_path(comment.blog_entry_id, :anchor => "blog_comment")),
+                link_to_user(comment.user, h(comment.name))) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

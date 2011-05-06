@@ -1,0 +1,41 @@
+<b>--- <%= h form_title %> ---</b><br />
+
+[コミュニティ名]※<br />
+<%= f.text_field :name %><br /><br />
+
+[カテゴリ]※<br />
+<%= f.select(:community_category_id, options_for_select_with_community_categories(@community.community_category_id)) %><br /><br />
+
+[参加・公開条件]※<br />
+<%= f.select(:participation_and_visibility, options_for_select(Community.participation_and_visibility_list_for_select)) %><br />
+
+<font color="red" size="1">
+  ※[全体公開]はメンバー全員に公開されます。
+  <br/>
+  ※[外部公開]は非ログインユーザ(インターネット上)にも公開されます。ご注意ください。
+  <br/>
+  ※[非公開]はコミュニティ参加メンバーのみに公開されます。
+</font>
+<br /><br />
+
+[説明文]※<br />
+<%= f.text_area :comment, :rows => 4, :cols => 30 %><br /><br />
+
+[トピック作成]※<font color="red" size="1">※マーカーも含みます。</font><br />
+<%= f.radio_button(:topic_createable_admin_only, false)  %><%= h(t(:topic_createable_admin_only, :scope => :community)[false]) %>
+<%= f.radio_button(:topic_createable_admin_only, true)  %><%= h(t(:topic_createable_admin_only, :scope => :community)[true]) %>
+<br /><br />
+
+[イベント作成]※<br />
+<%= f.radio_button(:event_createable_admin_only, false)  %><%= h(t(:event_createable_admin_only, :scope => :community)[false]) %>
+<%= f.radio_button(:event_createable_admin_only, true)  %><%= h(t(:event_createable_admin_only, :scope => :community)[true]) %>
+<br /><br />
+
+[参加お知らせメール受信]※<br />
+<%= f.radio_button(:participation_notice, true)  %><%= h(t(:participation_notice, :scope => :community)[true]) %>
+<%= f.radio_button(:participation_notice, false)  %><%= h(t(:participation_notice, :scope => :community)[false]) %>
+<br /><br />
+
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "form", :model => @community} %>

@@ -1,0 +1,32 @@
+<center>
+  <div style="margin: 10px; font-weight: bold;">登録カテゴリ一覧</div>
+  <% display_round_box(:width => "510px") do %>
+    <table class="content_table">
+      <% if @blog_categories.empty? %>
+        <tr>
+          <td style="text-align: center;">登録がありません。</td>
+        </tr>
+      <% else %>
+        <tr>
+          <th>
+            <%= link_for_sort h(BlogCategory.human_attribute_name("name")),
+                    :order => "blog_categories.name" %>
+          </th>
+          <th>投稿数</th>
+          <th>編集</th>
+          <th>削除</th>
+        </tr>
+        <% @blog_categories.each do |category| %>
+          <tr>
+            <td><%= h category.name %></td>
+            <td><%= category.blog_entries.size %></td>
+            <td><%= link_to "編集", edit_user_blog_category_path(current_user, category) %></td>
+            <td><%= link_to "削除", user_blog_category_path(current_user, category),
+                      :confirm => "削除後、このカテゴリ以下の投稿は全て「日記」に変更されます。よろしいですか？",
+                      :method => :delete %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% end %>
+</center>

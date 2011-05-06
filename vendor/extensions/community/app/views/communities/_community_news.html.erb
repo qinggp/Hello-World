@@ -1,0 +1,42 @@
+<div class="title">■新着情報リスト</div>
+<% display_round_box do %>
+  <%= render(:partial => "newer_approvals") %>
+  <%= render(:partial => "now_events") %>
+  <%= render(:partial => "newer_topics") %>
+  <%= render(:partial => "newer_events") %>
+  <%= render(:partial => "newer_markers") %>
+<% end %>
+
+<div style="margin-top:15px;">
+  <% display_round_box do %>
+    <% threads_and_comments = @community.threads_and_comments_order_by_post(20)%>
+    <% unless threads_and_comments.size.zero? %>
+      <div class="caption">
+        最新投稿
+      </div>
+      <div class="news_data">
+        <% threads_and_comments.each do |t| %>
+          <div class="news_link" align="left">
+            <%= display_news_line_format(t.created_at,
+                                         link_to(h(t.title), polymorphic_url_on_creating_reply(t)),
+                                         h(@community.member_name(t.author))) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="caption">
+      新規参加メンバー
+    </div>
+    <div class="news_data">
+      <% CommunityMembership.by_community(@community).descend_by_created_at.all(:limit => 10).each do |membership|  %>
+        <div class="news_link" align="left">
+          <% user = membership.user %>
+          <%= display_news_line_format(membership.created_at,
+                                       link_to_user(user, h(@community.member_name(user))),
+                                       h(l(membership.created_at, :format => "hour_minute_date"))) %>
+
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

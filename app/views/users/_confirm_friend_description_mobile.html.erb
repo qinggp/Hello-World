@@ -1,0 +1,5 @@
+[<%= h Friendship.human_attribute_name("description") %>]<%= font_coution("※") %><br />
+<%= hbr @friendship.description %><br />
+<%= f.hidden_field :description %>
+
+<%= render :partial => "/share/confirm_relation_mobile", :locals => {:f => f, :model_instance => @friendship} %>

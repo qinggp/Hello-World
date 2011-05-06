@@ -1,0 +1,6 @@
+[<%=h User.human_attribute_name("mobile_email") %>]<br/>
+<%=h @user.mobile_email  %><br/>
+<%= f.hidden_field :mobile_email %>
+[<%=h User.human_attribute_name("current_password") %>]※<br/>
+<%= not_print_password(@user.current_password) %><br/>
+<%= f.hidden_field :current_password %>

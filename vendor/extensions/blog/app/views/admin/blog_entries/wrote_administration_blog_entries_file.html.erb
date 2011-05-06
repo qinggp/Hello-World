@@ -1,0 +1,35 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "blog_entries", :checked_type => "file" } %>
+<% form_tag({:action => :wrote_administration_blog_entries}, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "file") %>
+  <% display_collection_box(@blog_attachments,
+                            :collection_name => "現在の登録数",
+                            :checked_value => 10) do %>
+  <% if @blog_attachments %>
+    <table border="0" align="center" width="660" style="border-collapse: collapse;">
+      <tr>
+        <% @blog_attachments.each_with_index do |blog_attachment, index| %>
+          <% if index >= 5 && index % 5 == 1 %>
+            </tr><tr>
+          <% end %>
+          <td height="100" align="center" width="110" valign="top" style="border: 1px solid gray; padding: 2px;">
+            <div style="padding: 2px;">
+              [<%= link_to 'URL', :action => :wrote_administration_blog_entries, :type => 'write', :search_id => blog_attachment.blog_entry_id %>]
+              [<%= link_to '削除', admin_blog_attachment_destroy_admin_blog_entry_path(blog_attachment), :method => :delete,  :confirm => '本当に削除しますか？' %>]<br/>
+              <%= blog_attachment.blog_entry.updated_at.strftime('%y/%m/%d %H:%M:%S') if blog_attachment.blog_entry %><br/>
+            </div>
+            <div>
+              <%= display_attachment(blog_attachment) if blog_attachment.blog_entry  %>
+            </div>
+          </td>
+        <% end %>
+        <% (6 - @blog_attachments.size % 6).times do %>
+          <td width="100px">&nbsp;</td>
+        <% end %>
+      </tr>
+    </table>
+    <% end %>
+  <% end %>
+<% end %>

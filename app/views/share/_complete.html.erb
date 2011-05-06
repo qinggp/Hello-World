@@ -1,0 +1,13 @@
+<%
+  @back_link_template ||= "complete_back_link"
+%>
+<center>
+  <% display_round_box(:width => "310px", :height => "210px") do %>
+    <table style="width:100%;height:100%;">
+      <tr>
+        <td valign="middle" align="center"><%= @message.gsub("\n", "<br/>") %></td>
+      </tr>
+    </table>
+  <% end %>
+- <%= render :partial => @back_link_template %> -
+</center>

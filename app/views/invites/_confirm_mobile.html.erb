@@ -1,0 +1,14 @@
+<b>--- トモダチ招待 ---</b><br/>
+[<%=h Invite.human_attribute_name(:email) %>]<br/>
+<%=h @invite.email %><br/>
+<%= f.hidden_field :email %>
+
+[<%=h Invite.human_attribute_name(:body) %>]<br/>
+<%= hbr @invite.body %><br/>
+<%= f.hidden_field :body %>
+
+[<%=h Invite.human_attribute_name(:mail_sender_me) %>]<br/>
+<%= h t("invite.mail_sender_me_label.#{@invite.mail_sender_me?}") %><br/>
+<%= f.hidden_field :mail_sender_me %>
+
+<%= render :partial => "/share/confirm_relation_mobile", :locals => {:f => f, :model_instance => @invite} %>

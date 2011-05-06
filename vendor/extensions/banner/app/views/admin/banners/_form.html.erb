@@ -1,0 +1,39 @@
+<tr>
+  <td colspan="2" class="content_table_title">
+   <b>バナー管理</b>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>バナー<font color="red">※</font></th>
+  <td>
+    <% if !@banner.new_record? && @banner.image %>
+      <%= show_edit_form_banner(@banner) %>
+      <% if File.extname(@banner.image) == ".gif" %>
+        <br /><%= admin_form_attachment_file(@banner) %>
+      <% end %>
+      <br />
+    <% end %>
+    <%= file_column_field("banner", "image", :size => 40) %><br />
+    <span style="font-size:90%;">（添付可能拡張子：.swf/.gif）</span>
+    <span style="font-size:80%;">※バナーサイズは横：300px・縦：60px以内</span>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>リンク先</th>
+  <td><%= f.text_field :link_url, :size => 60 %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>コメント<font color="red">※</font></th>
+  <td><%= f.text_field :comment, :size => 60 %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>表示期間</th>
+  <td>
+    <%= date_select(:banner,
+                      :expire_date,
+                      :use_month_numbers => true,
+                      :start_year => Date.today.strftime("%Y").to_i) %>
+    &nbsp;表示期間を設定しない<%= check_box_tag(:not_set_expire, '', @not_set_expire) %>
+
+  </td>
+</tr>

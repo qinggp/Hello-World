@@ -1,0 +1,35 @@
+ja:
+  my_schedule: スケジュール
+  schedule:
+    public:
+      yes: 公開
+      no: 非公開
+  schedule_preference:
+      visibility_label:
+        friend_only: トモダチまで公開
+        member_only: 内部に公開
+        publiced: 外部にも公開
+
+  page_titles:
+    schedules_title: スケジュール
+    schedules:
+      show_calendar: スケジュール表示
+      show_list: スケジュール一覧表示
+
+  activerecord:
+    models:
+      schedule: スケジュール
+      schedule_preference: スケジュール設定
+    attributes:
+      schedule:
+        due_date: 予定日
+        due_date_before_type_cast: 予定日
+        title: タイトル
+        detail: 詳細
+        public: 公開設定
+        start_time: 予定開始時間
+        end_time: 予定終了時間
+        start_time_before_type_cast: 予定開始時間
+        end_time_before_type_cast: 予定終了時間
+      schedule_preference:
+        visibility: スケジュール公開範囲

@@ -1,0 +1,43 @@
+<% blog_comments = @blog_comments.nil? ? @blog_entry.blog_comments : @blog_comments %>
+
+<hr size="1" noshade>
+▽<%= link_to "コメントを書く", new_blog_entry_blog_comment_path(@blog_entry) %><br/>
+<a name="<%= blog_comment_anchor_name %>">◇コメント（<%= @blog_entry.blog_comments.size %>）</a><br/>
+
+<% if blog_comments.empty? %>
+  コメントはありません。
+<% else %>
+
+  <div align="right">
+    [<%= link_for_sort "日付順", :controller => :blog_entries, :action => :show, :id => @blog_entry.id, :order => "blog_comments.created_at", :default_order => BlogComment.default_index_order, :anchor => blog_comment_anchor_name %>]
+  </div>
+
+  <% if blog_comments.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(blog_comments).untaint %>
+  <% end %>
+
+  <% blog_comments.each_with_index do |comment, i| %>
+    <hr size="1" noshade>
+    <a name="<%= i %>" href="#<%= i+1 %>">▼</a>
+    <%= l(comment.created_at, :format => :default_minute) %>
+
+    <% if comment.editable?(current_user)  %>
+      [<%= link_to("編集", edit_blog_entry_blog_comment_path(@blog_entry, comment, :anchor => "blog_comment")) %>]
+    <% end %>
+    <% if comment.deletable?(current_user)  %>
+      [<%= link_to("削除", confirm_before_destroy_blog_entry_blog_comment_path(@blog_entry, comment)) %>］
+    <% end %>
+
+    <br/>
+
+    <%= display_blog_comment_user_name(comment) %><br/>
+
+    <%= auto_link(hbr add_session_query_on_inner_url(comment.body)) { |text| truncate(strip_session_query(text), 60) } %>
+  <% end  %>
+
+  <% if blog_comments.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(blog_comments).untaint %>
+  <% end %>
+<% end  %>

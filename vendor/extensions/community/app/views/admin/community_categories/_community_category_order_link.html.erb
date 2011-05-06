@@ -1,0 +1,17 @@
+<%
+list =
+[{:name => category_type, :kind => Admin::CommunityCategoriesController::NAME}]
+%>
+<% list.each do |parameter| %>
+<th nowrap>
+<%  if parameter[:name] == "カテゴリ名"%>
+<% parameter_for_order_link(parameter[:kind]) do |order_param| %>
+    <%= link_to(parameter[:name], admin_community_categories_path(order_param.merge(paginate_parameter))) %>
+  <% end %>
+<% else %>
+<% parameter_for_order_link(parameter[:kind]) do |order_param| %>
+    <%= link_to(parameter[:name], sub_category_list_admin_community_category_path(order_param.merge(paginate_parameter))) %>
+  <% end %>
+<%  end %>
+</th>
+<% end %>

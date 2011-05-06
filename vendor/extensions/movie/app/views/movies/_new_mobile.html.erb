@@ -1,0 +1,25 @@
+ﾑｰﾋﾞｰはﾒｰﾙにﾑｰﾋﾞｰを添付して送信してください。 <br/>
+<ul>
+  <li>
+    ﾑｰﾋﾞｰ送信にかかるﾊﾟｹｯﾄ料はﾕｰｻﾞｰ負担となります。<br/>
+    →<%= link_to 'ﾊﾟｹｯﾄ料金の目安について', about_packet_movies_path %>
+  </li>
+  <li>
+    ﾑｰﾋﾞｰ送信後は<%= link_to "ﾑｰﾋﾞｰﾄｯﾌ", movies_path %>ﾟか<%= link_to "ﾎｰﾑ", root_path %>へお戻りください。
+  </li>
+  <li>
+    登録したﾑｰﾋﾞｰの情報はﾊﾟｿｺﾝで編集ができます。
+  </li>
+  <li>
+    ムービーの公開設定を<%= link_to 'こちら', edit_preference_path(@user.preference) %>から変更することができます
+  </li>
+</ul>
+<center>
+<% if @user.movie_uploadable? || !Mars::Movie::ResourceLoader['application']['movie_limited'] %>
+  <%= mail_to_for_mobile MovieMailManager.mars_receive_address(@user), "ﾑｰﾋﾞｰをｱｯﾌﾟﾛｰﾄﾞする", :subject => "ムービータイトル", :body => "ムービーコメント" %><br/>
+<% end %>
+<% if Mars::Movie::ResourceLoader['application']['movie_limited']  %>
+  (残り <%=h number_to_human_size(@user.remaining_disk_size) %> 登録できます)<br/>
+<% end %>
+(現在の設定: <%= h t("movie.movie_preference.visibility_label." + @user.preference.movie_preference.default_visibility_name.to_s) %>)
+</center>

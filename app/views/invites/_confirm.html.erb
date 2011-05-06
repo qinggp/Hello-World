@@ -1,0 +1,26 @@
+<tr>
+  <td class="content_table_title" colspan="2">トモダチを招待する</td>
+</tr>
+<tr>
+  <th><%=h Invite.human_attribute_name(:email) %>※</th>
+  <td>
+    <%=h @invite.email %>
+    <%= f.hidden_field :email %>
+  </td>
+</tr>
+<tr>
+  <th><%=h Invite.human_attribute_name(:body) %></th>
+  <td>
+    <%= hbr @invite.body %>
+    <%= f.hidden_field :body %>
+  </td>
+</tr>
+<tr>
+  <th><%=h Invite.human_attribute_name(:mail_sender_me) %></th>
+  <td>
+    <%= h t("invite.mail_sender_me_label.#{@invite.mail_sender_me?}") %>
+    <%= f.hidden_field :mail_sender_me %>
+  </td>
+</tr>
+
+<%= render :partial => "/share/confirm_relation", :locals => {:f => f, :model_instance => @invite} %>

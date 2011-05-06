@@ -1,0 +1,29 @@
+▼<%=h @blog_entry.title %>
+<hr size="1" noshade>
+
+<div align="right">
+  [<%= link_to_user @user, h(@user.name) %>]
+  [<%=h l(@blog_entry.created_at.to_date, :format => :default_year_month_date) %>]
+</div>
+
+<%= display_blog_entry_body(@blog_entry, :display_type => :normal) %>
+<br/>
+
+<% if map = static_map_for_mobile(@blog_entry.latitude, @blog_entry.longitude, @blog_entry.zoom) %>
+  [地図]<br/>
+  <%= theme_image_tag map.to_s %>
+<% end  %>
+
+
+<div align="right">
+  [<%= link_for_category(@blog_entry) %>]
+  [<%= t("blog.blog_entry.visibility_label.#{@blog_entry.visibility_name.to_s}") %>]<br/>
+  <% if current_user.try(:id) == @blog_entry.user_id %>
+    [<%= link_to("編集", edit_blog_entry_path(@blog_entry)) %>]
+    [<%= link_to("削除", confirm_before_destroy_blog_entry_path(@blog_entry)) %>]
+  <% end %>
+</div>
+
+<%= render :partial => "/blog_comments/blog_comments" %>
+
+<%= render :partial => "/share/footer_mobile" %>

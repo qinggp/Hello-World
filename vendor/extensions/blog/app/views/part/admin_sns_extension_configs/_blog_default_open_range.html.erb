@@ -1,0 +1,16 @@
+<% if view_type == :form %>
+  <tr>
+    <th>ブログ公開範囲<font color="red">※</font></th>
+    <td><%= f.select :blog_default_open_range, select_options_for_const("SnsConfig", "BLOG_DEFAULT_OPEN_RANGES") %>
+      <span style="font-size: 80%;">※新規登録ユーザのデフォルト値</span>
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>ブログ公開範囲</th>
+    <td>
+      <%= t("sns_config.blog_default_open_range_label.#{@sns_config.blog_default_open_range_name.to_s}") %>
+      <%= f.hidden_field :blog_default_open_range %>
+    </td>
+  </tr>
+<% end %>

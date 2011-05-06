@@ -1,0 +1,9 @@
+<% blog_entry ||= @blog_entry  %>
+
+<% if blog_entry.imported_by_rss %>
+  <div class="blog_entry_title"><%= link_to(h(blog_entry.title), blog_entry.url_to_article) %></div>
+  <div class="blog_entry_date"><%=h l(blog_entry.created_at.to_date, :format => :long) %></div>
+<% else %>
+  <div class="blog_entry_title"><%= link_to(h(blog_entry.title), blog_entry_path(blog_entry)) %></div>
+  <div class="blog_entry_date"><%=h l(blog_entry.created_at.to_date, :format => :long) %></div>
+<% end %>

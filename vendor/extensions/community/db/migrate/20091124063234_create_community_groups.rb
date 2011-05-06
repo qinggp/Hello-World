@@ -1,0 +1,14 @@
+class CreateCommunityGroups < ActiveRecord::Migration
+  def self.up
+    create_table :community_groups do |t|
+      t.integer :user_id
+      t.string :name
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :community_groups
+  end
+end

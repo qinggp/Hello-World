@@ -1,0 +1,31 @@
+<center>
+  <% display_round_box(:width => "660px") do %>
+    <center>
+      <div class="content_title content_box_bg_light" style="text-align:center;">
+        ログイン情報変更
+      </div>
+      <div class="content_title" style="text-align:center;">
+        [<%= link_to "ログインユーザ名(E-Mail)・パスワードの変更", edit_id_password_users_path %>]<br/>
+        [<%= link_to "携帯メールアドレスの登録・変更", edit_mobile_email_users_path %>]<br/>
+        [<%= link_to "OpenID情報の登録・変更", edit_openid_users_path %>]<br/>
+        <% if Mars::Extension.instance.extension_enabled?(:sns_linkage) %>
+          [<%= theme_image_tag "sns_linkage/linkage.gif" %><%= link_to "SNS連携設定", new_sns_linkage_path %>]<br/>
+        <% end %>
+      </div>
+    </center>
+  <% end %>
+</center>
+<%= render :partial => "/share/form" %>
+
+<br/>
+
+<center>
+  <% display_round_box(:width => "660px") do %>
+    <div class="content_title content_box_bg" style="text-align:center;">
+      <%= h SnsConfig.title %>を退会する
+    </div>
+    <div class="no_data">
+      [ <%= link_to "退会手続きへ進む", edit_for_leave_users_path %> ]
+    </div>
+  <% end %>
+</center>

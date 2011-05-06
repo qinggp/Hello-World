@@ -1,0 +1,6 @@
+<%= render :partial => "/share/ssl_form_link",
+           :locals => {:https_link => edit_user_path(current_user, :only_path => false, :protocol => "https://"),
+                       :http_link => edit_user_path(current_user, :only_path => false, :protocol => "http://")}
+%>
+
+<%= render :partial => "/share/confirm" %>

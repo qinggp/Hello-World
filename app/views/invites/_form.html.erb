@@ -1,0 +1,52 @@
+<tr>
+  <td class="content_table_title" colspan="2">トモダチを招待する</td>
+</tr>
+<tr>
+  <td colspan="2" style="text-align:center;">
+    招待するにあたり、以下の内容を必ずお読みください。 <br/>
+    <div style="border: 1px solid gray; padding: 3px; width: 96%; height: 100px; overflow-y: scroll; overflow-x: visible; text-align: left; line-height: 1.6;">
+      「<%=h SnsConfig.title %>」は、一般のソーシャル・ネットワーキング・サービス(SNS)とは違い、ネットワークの信頼性の確保を大変重要に考えています。安心安全なサイト運営を行うために新しい仲間をネットワークに迎える「トモダチ招待」において、メンバーの皆様には下記のようなお願いをしています。
+      <br/>
+      ①実在性の確保
+      <br/>
+      　実際に存在する人物であり、登録の際に「本名（非公開選択可）・住所(非公開)・連絡先（非公開）」を正確に入力した方。
+      <br/>
+      ②信頼性の確保
+      <br/>
+      　コミュニティ活動の推進を考える方で、紹介者が信頼している方。
+      <br/>
+      ③後見人（スポンサー）制度
+      <br/>
+      　紹介した人が後見人となって、指導や助言を行う。トラブルが起こった場合には、協力して解決にあたる。
+      <br/>
+      ④参加年齢制限
+      <br/>
+      　会員登録をしようとする年度の4月1日時点で18歳に達していない方は、会員になることができません。
+      <br/>
+      ご面倒でも、このルールは例外なく必ず守って頂き、サイトの健全な成長にご支援よろしくお願いします。 
+    </div>
+  </td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(Invite, :email) %></th>
+  <td>
+    <%= f.text_field :email %><br/>
+※招待したい友人・知人のメールアドレスを入力してください。<br/>
+※携帯電話からの登録はできませんので、パソコン用のメールアドレスでご招待ください。<br/>
+  </td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(Invite, :body) %></th>
+  <td>
+    <%= f.text_area :body, :rows => 4, :cols => 40 %>
+  </td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(Invite, :mail_sender_me) %></th>
+  <td>
+    <%= f. check_box :mail_sender_me, {}, true, nil %>
+    <%= f.label :mail_sender_me,  "自分のアドレスを差出人にする" %>
+    ※通常は <%=h SnsConfig.admin_mail_address %> から送信されます。
+  </td>
+</tr>
+<%= render :partial => "/share/form_relation", :locals => {:f => f} %>

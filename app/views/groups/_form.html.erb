@@ -1,0 +1,17 @@
+<tr>
+  <td class="content_table_title" colspan="2">トモダチグループ</td>
+</tr>
+<tr>
+  <td colspan="2">グループ分けすることによって、一覧を見やすくカスタマイズすることができます</td>
+</tr>
+<tr>
+  <th>[<%=h Group.human_attribute_name("name") %>]<%= font_coution "※" %></th>
+  <td><%= f.text_field :name, :maxlength => 20 %></td>
+</tr>
+<% if action_name == "member_list" %>
+  <%= hidden_field_tag "back_to", "member_list" %>
+<% end %>
+<% if params[:back_to] %>
+  <%= hidden_field_tag "back_to", params[:back_to] %>
+<% end %>
+

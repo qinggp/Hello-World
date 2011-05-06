@@ -1,0 +1,166 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: communities
+#
+#  id                          :integer         not null, primary key
+#  name                        :string(255)
+#  comment                     :text
+#  latitude                    :decimal(9, 6)
+#  longitude                   :decimal(9, 6)
+#  zoom                        :integer
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  image                       :string(255)
+#  community_category_id       :integer
+#  approval_required           :boolean
+#  visibility                  :integer
+#  topic_createable_admin_only :boolean
+#  event_createable_admin_only :boolean
+#  participation_notice        :boolean
+#  show_real_name              :boolean
+#  official                    :integer         default(1)
+#  lastposted_at               :datetime
+#
+
+DEFAULTS: &DEFAULTS
+  community_category_id: 27
+  visibility: <%= Community::VISIBILITIES[:public] %>
+  approval_required: false
+  topic_createable_admin_only: false
+  event_createable_admin_only: false
+  participation_notice: false
+  lastposted_at: <%= 5.days.ago.to_s :db %>
+  members_count: 1
+  topics_count: 1
+  markers_count: 1
+  events_count: 1
+
+curry:
+  name: カレー部
+  comment: カレーの話題で満載です
+  community_category_id: 21
+  visibility: <%= Community::VISIBILITIES[:member] %>
+  approval_required: false
+  topic_createable_admin_only: false
+  event_createable_admin_only: false
+  participation_notice: true
+  latitude: 35.475140
+  longitude: 133.051043
+  zoom: 7
+  lastposted_at: <%= 1.days.ago.to_s :db %>
+  members_count: 3
+  topics_count: 1
+  markers_count: 3
+  events_count: 2
+
+ramen:
+  name: ラーメン部
+  comment: 毎日ラーメンです
+  community_category_id: 21
+  visibility: <%= Community::VISIBILITIES[:member] %>
+  approval_required: false
+  topic_createable_admin_only: false
+  event_createable_admin_only: false
+  participation_notice: true
+  lastposted_at: <%= 1.days.ago.to_s :db %>
+  members_count: 2
+  topics_count: 0
+  markers_count: 0
+  events_count: 2
+
+boat:
+  name: ボート部
+  comment: ボートが大好きです
+  community_category_id: 8
+  visibility: <%= Community::VISIBILITIES[:public] %>
+  visibility: 3
+  approval_required: true
+  topic_createable_admin_only: true
+  event_createable_admin_only: true
+  participation_notice: false
+  lastposted_at: <%= 1.days.ago.to_s :db %>
+  members_count: 2
+  topics_count: 1
+  markers_count: 1
+  events_count: 1
+
+official_normal:
+  <<: *DEFAULTS
+  name: 【公認コミュニティ】
+  comment: これは公認コミュニティです
+  official: <%= Community::OFFICIALS[:normal] %>
+  members_count: 1
+
+official_all_member:
+  <<: *DEFAULTS
+  name: 【公認コミュニティ（全員）】
+  comment: これは公認コミュニティ（全員）です
+  official: <%= Community::OFFICIALS[:all_member] %>
+  members_count: 3
+
+official_admin:
+  <<: *DEFAULTS
+  name: 【公認コミュニティ（管理人）】
+  comment: これは公認コミュニティ（管理人）です
+  official: <%= Community::OFFICIALS[:admin_only] %>
+  members_count: 1
+
+secret:
+  name: ないしょのコミュニティ
+  comment: このコミュニティはないしょです
+  community_category_id: 27
+  visibility: <%= Community::VISIBILITIES[:secret] %>
+  approval_required: true
+  topic_createable_admin_only: true
+  event_createable_admin_only: true
+  participation_notice: true
+  lastposted_at: <%= 3.days.ago.to_s :db %>
+  members_count: 1
+
+private:
+  name: 非公開のコミュニティ
+  comment: このコミュニティは非公開のです
+  community_category_id: 27
+  visibility: <%= Community::VISIBILITIES[:private] %>
+  approval_required: true
+  topic_createable_admin_only: true
+  event_createable_admin_only: true
+  participation_notice: true
+  lastposted_at: <%= 7.days.ago.to_s :db %>
+  members_count: 1
+
+public:
+  <<: *DEFAULTS
+  name: 外部公開で誰でも参加できるコミュニティ
+  comment: このコミュニティは外部公開で誰でも参加できます
+  visibility: <%= Community::VISIBILITIES[:public] %>
+
+public_and_approval_required:
+  <<: *DEFAULTS
+  name: 外部公開で承認必要のコミュニティ
+  comment: このコミュニティは外部公開で参加には承認が必要です
+  visibility: <%= Community::VISIBILITIES[:public] %>
+  approval_required: true
+
+member:
+  <<: *DEFAULTS
+  name: 全体公開で誰でも参加できるコミュニティ（実名表示）
+  comment: このコミュニティは全体公開で誰でも参加できます。また、実名が表示されます。
+  visibility: <%= Community::VISIBILITIES[:member] %>
+  show_real_name: true
+
+member_and_approval_required:
+  <<: *DEFAULTS
+  name: 全体公開で承認必要のコミュニティ
+  comment: このコミュニティは全体公開で参加には承認が必要です
+  visibility: <%= Community::VISIBILITIES[:member] %>
+  approval_required: true
+
+hanako_admin:
+  <<: *DEFAULTS
+  name: 花子さんが管理人です
+  comment: このコミュニティは花子さんが管理人を勤めます。
+  topics_count: 0
+  markers_count: 0
+  events_count: 0

@@ -1,0 +1,34 @@
+<br/>
+<center>
+  <% form_for(:user, :url => { :action => 'update_after_forgetting' }) do |f| %>
+    <% display_round_box(:width => "610px") do %>
+      <%= f.error_messages.untaint %>
+      <div class="content_title content_box_bg" style="padding: 5px; text-align: center;">
+        新規パスワード設定
+      </div>
+
+      <center>
+        <p>新しいパスワードを入力してください。</p>
+
+        <table>
+          <tr>
+            <td>新規パスワード</td>
+            <td><%= f.password_field :password %></td>
+          </tr>
+          <tr>
+            <td>確認のため再入力</td>
+            <td><%= f.password_field :password_confirmation %></td>
+          </tr>
+        </table>
+
+        <p>
+          <%= hidden_field_tag :reset_code, params[:reset_code] %>
+          <%= f.submit "登録" %>
+        </p>
+        ー<%= link_to "ログインページへ戻る", login_path %>ー
+        <br/>
+        <br/>
+        <center>
+    <% end %>
+  <% end %>
+</center>

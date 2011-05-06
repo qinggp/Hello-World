@@ -1,0 +1,6 @@
+選択した項目を一括変更しますか？<br/>
+<% form_for(@blog_entry, :url => update_checked_user_blog_entries_admin_path(@user)) do |f| %>
+  <%= render :partial => "confirm_before_change_hidden_params_mobile", :locals => {:f => f} %>
+  <%= f.submit "一括変更" %><br/>
+  [<%= link_to "戻る", user_blog_entries_admin_index_path(:user_id => params[:user_id]) %>]<br/>
+<% end %>

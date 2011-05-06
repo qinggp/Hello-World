@@ -1,0 +1,65 @@
+    <div id="my_navigation">
+      <div id="my_navi">
+        <div>
+          <div class="username"><%= h SnsConfig.title %>へログイン</div>
+          <% display_round_box(:width => "250px") do %>
+            <table width="240" cellspacing="0" cellpadding="0" border="0">
+              <tbody>
+                <tr>
+                  <td height="214" valign="middle" align="center">
+                    <br/>
+                    <div class="login_title">[ ログインアカウントを入力してください ]</div>
+                    <% form_tag session_path, :style => "margin: 0px;" do -%>
+                      <div style="text-align: left; margin-left: 12px;">ユーザ名(E-Mail)</div>
+                      <div><%= text_field_tag 'login', @login %></div>
+                      <div style="text-align: left; margin-left: 12px;">パスワード</div>
+                      <div><%= password_field_tag 'password', nil %></div>
+                      <div id="login_from_autologin">
+                        <%= check_box_tag 'remember_me', '1', @remember_me %>
+                        <%= label_tag 'remember_me', t('remember_me') %>
+                      </div>
+                      <div><%= submit_tag t('Log in') %></div>
+                    <% end %>
+                    <% form_tag session_path, :style => "margin: 0px; padding-top: 3px;" do -%>
+                      <div class="login_title">[ もしくは、OpenIDを入力してください ]</div>
+                      <div style="text-align: left; margin-left: 12px;">OpenID</div>
+                      <div><%= text_field_tag 'openid_url' %></div>
+                      <div id="login_from_autologin">
+                        <%= check_box_tag 'remember_me', '1', @remember_me %>
+                        <%= label_tag 'remember_me', t('remember_me') %>
+                      </div>
+                      <div><%= submit_tag t('openid log in') %></div>
+                    <% end %>
+                    <% if CONFIG["ssl_enable"] %>
+                      <% if request.ssl? %>
+                        <div><%= font_note("ログイン情報は暗号化されています") %></div>
+                      <% else %>
+                        <div><%= font_coution("ログイン情報は暗号化されていません") %></div>
+                      <% end %>
+                    <% end %>
+
+                    <% if CONFIG["ssl_enable"] %>
+                      <% if request.ssl? %>
+                        <div><%= link_to("HTTPログイン", root_path(:only_path => false, :protocol => "http://")) %></div>
+                      <% else %>
+                        <div><%= theme_image_tag "ssl.gif" %><%= link_to("こちら（HTTPS）でログインしてください", root_path(:only_path => false, :protocol => "https://")) %></div>
+                      <% end %>
+                    <% end %>
+
+                    <div>
+                      [<%= link_to "新規ユーザ登録", new_user_path %>]
+                    </div>
+                    <div>[<%= link_to "パスワードを忘れた方はこちら", forgot_password_path  %>]</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+
+        <% Mars::UI.instance.portal_navigations.map do |part| %>
+         <%= part.display(self) %>
+        <% end %>
+
+      </div>
+    </div>

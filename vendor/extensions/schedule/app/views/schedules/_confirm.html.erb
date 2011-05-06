@@ -1,0 +1,44 @@
+<tr>
+  <td class="content_table_title" colspan="2">スケジュール登録</td>
+</tr>
+<tr>
+  <th nowrap="">[予定日]</th>
+  <td><%= h l(@schedule.due_date, :default => :year_month_date) %>
+  <%= f.hidden_field :due_date %>
+</tr>
+<tr>
+  <th nowrap="">[予定開始時間]</th>
+  <td>
+     <% if @schedule.start_time %>
+       <%= h l(@schedule.start_time, :format => :hour_minute_date) %>
+     <% end %>
+  </td>
+  <%= f.hidden_field :start_time %>
+</tr>
+<tr>
+  <th nowrap="">[予定終了時間]</th>
+  <td>
+     <% if @schedule.end_time %>
+       <%= h l(@schedule.end_time, :format => :hour_minute_date) %>
+     <% end %>
+  </td>
+  <%= f.hidden_field :end_time %>
+</tr>
+<tr>
+  <th nowrap="">[タイトル]</th>
+  <td><%= h @schedule.title %></td>
+  <%= f.hidden_field :title %>
+</tr>
+<tr>
+  <th nowrap="">[詳細]</th>
+  <td><%= hbr @schedule.detail %></td>
+  <%= f.hidden_field :detail %>
+</tr>
+<tr>
+  <th nowrap="">[公開/非公開]</th>
+  <td><%= h(t(:public, :scope => [:schedule])[@schedule.public]) %></td>
+  <%= f.hidden_field :public %>
+</tr>
+
+<%= hidden_field_tag "enabled_start_time" %>
+<%= hidden_field_tag "enabled_end_time" %>

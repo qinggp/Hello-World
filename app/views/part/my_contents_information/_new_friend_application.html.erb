@@ -1,0 +1,16 @@
+<% friendships = Friendship.by_applied_to_user(current_user).descend_by_created_at %>
+<% unless friendships.empty? %>
+  <div class="content_title_not_bold content_box_bg">
+    トモダチ依頼
+  </div>
+
+  <div class="base_data">
+    <% friendships.each do |friendship| %>
+      <div class="news_link" align="left" style="color: red; font-weight: bold;">
+        <%= display_news_line_format(friendship.created_at,
+                                     link_to(h(friendship.user.name), user_path(friendship.user_id)),
+                                     link_to("承認・拒否", user_path(friendship.user_id))) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

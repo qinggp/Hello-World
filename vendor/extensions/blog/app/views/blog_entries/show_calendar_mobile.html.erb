@@ -1,0 +1,10 @@
+<%= @calendar_year %>年<%= @calendar_month %>月のブログ記事<br/>
+<hr size="1" noshade>
+
+<%= render(:partial => "/share/calendar") %>
+
+<hr size="1" noshade>
+
+<%= link_to "バックナンバへ戻る", backnumber_mobile_user_blog_entries_path(:user_id => @user.id) %>
+
+<%= render "/share/footer_mobile" %>

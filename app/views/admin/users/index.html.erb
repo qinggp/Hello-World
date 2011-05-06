@@ -1,0 +1,62 @@
+<% pagination_params = {:per_page => params[:per_page], :page => params[:page]} %>
+<div class="center-box">
+  <center>
+    <div style="padding-bottom: 10px;"
+      <% display_round_box(:width => "400px", :white_bg => false) do %>
+        <% form_tag(url_for, :style => "margin: 0px; text-align: center;", :method => :get) do %>
+            <%= select_tag(:search_category, select_options_for_admin_search_category(:e_mail, :name, :id, :no_invitation)) %>
+            <%= text_field_tag(:keyword, params[:keyword], :size => 30)  %><br />
+            <%= submit_tag("検索") %>
+        <% end %>
+      <% end %>
+    </div>
+  </center>
+</div>
+<div class="center-box">
+  <center>
+    <% display_round_box(:width => "720px", :white_bg => false) do %>
+      <% form_tag(admin_users_path,:method => :get) do %>
+        <% display_collection_box(@users, :collection_name => "現在の登録数", :checked_value => 20) do %>
+          <%= hidden_field_tag("search_category", params[:search_category]) %>
+          <%= hidden_field_tag("keyword", params[:keyword]) %>
+          <table class="content_table">
+            <tr>
+              <%= render :partial => 'user_order_link', :locals => {:pagination_params => pagination_params} %>
+              <th nowrap width="80">&nbsp;</th>
+            </tr>
+            <% @users.each do |user|  %>
+              <tr>
+                <td rowspan="2"  align="right">
+                  <%= link_to(user.id, user_path(user.id)) %>
+                  <% unless user.active? %>
+                    <div style="font-size: 80%;">[<%=h t("user.approval_state_label.#{user.approval_state}") %>]</div>
+                  <% end %>
+                </td>
+                <td ><%=h " #{user.full_real_name}（#{user.name}）" %></td>
+                <td>
+                  <% if user.invitation %>
+                    <%= user.invitation_id %>
+                    <%= link_to(h(user.invitation.name), user_path(user.invitation_id)) %>
+                  <% end %>
+                </td>
+                <td><%=h t("user.gender_label.#{user.gender_name}") %></td>
+                <td ><%= user.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+                <td rowspan="2" nowrap>
+                  [<%= link_to('情報編集',edit_admin_user_path(user.id))  %>]<br />
+                  [<%= link_to('認証変更',edit_passwd_admin_user_path(user.id)) %>]<br />
+                  [<%= link_to('強制退会',delete_admin_user_path(user.id))  %>]
+                </td>
+              </tr>
+              <tr>
+                <td><%= link_to(h(user.login), h("mailto:#{user.login}")) %></td>
+                <td><%= h user.phone_number %></td>
+                <td><%=h user.birthday.strftime("%Y/%m/%d") %></td>
+                <td><%= h user.logged_in_at.strftime("%Y/%m/%d %H:%M") %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %>
+  </center>
+</div>

@@ -1,0 +1,19 @@
+.statistics_table{
+    width: 470px;
+    border: 2px solid #ECEBE1;
+    border-collapse: collapse;
+}
+.statistics_table TD {
+ background-color: #ffffff;
+ padding: 3px;
+ border: 1px solid #ECEBE1; 
+}
+.statistics_table TH {
+    width: 140px;
+    font-weight: bold;
+    color: #000000;
+    background-color: #F9F9F4;
+    padding: 4px;
+    border: 1px solid #ECEBE1; }
+.statistics_title A{ color:#000000; }
+

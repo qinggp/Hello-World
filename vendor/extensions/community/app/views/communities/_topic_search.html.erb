@@ -1,0 +1,12 @@
+<div class="content_box_bg_light">
+  <div class="content_title">■トピック検索</div>
+</div>
+
+<div class="content_body" align="left">
+  <% form_tag(search_community_threads_path(:community_id => @community.id)) do %>
+    <%= text_field_tag :keyword, nil, :size => 20 %><br />
+    <%= submit_tag "検索" %>
+  <% end %>
+  ※タイトル・本文より検索を行います。 
+</div>
+

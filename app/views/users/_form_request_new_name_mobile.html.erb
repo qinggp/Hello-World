@@ -1,0 +1,15 @@
+[現在のお名前]
+<br/>
+<%= h @user.full_real_name %>
+<br/>
+
+[変更後のお名前]※
+<br/>
+<%= f.text_field :change_last_real_name, :size => 6 %>
+<%= f.text_field :change_first_real_name, :size => 6 %>
+<br/>
+
+[<%= h User.human_attribute_name("change_name_reason") %>]
+<br/>
+<%= f.text_area :change_name_reason, :rows => 3, :cols => 20 %>
+<br/>

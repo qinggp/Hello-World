@@ -1,0 +1,19 @@
+<center>
+  <div align="right" style="margin: 5px;">
+    [ <%= link_to("グループ管理", new_community_group_path) %> ]
+    [ <%= link_to("コミュニティ管理", community_memberships_path) %> ]
+  </div>
+
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to(h(current_user.name), user_path(current_user)) %>さんの参加コミュニティ一覧
+  </div>
+
+  <% display_round_box(:width => "620px", :white_bg => true) do %>
+    <%= render :partial => "community_list" %>
+  <% end %>
+  <div style="width: 620px;">
+    <div align="right">
+      <%= theme_image_tag("community/comm_owner.gif", :size => "30x12", :align => "middle") %>管理コミュニティ
+    </div>
+  </div>
+</center>

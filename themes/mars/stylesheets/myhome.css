@@ -1,0 +1,108 @@
+.title {
+  border-bottom: 1px dotted gray;
+  margin: 4px;
+  font-weight: bold;
+}
+.username {
+  margin: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+.midashi {
+  background-color: #ECEBE1;
+  padding: 3px;
+}
+.midashi img {
+  cursor: pointer;
+  vertical-align: middle;
+}
+.news_data {
+  width: auto;
+/*  border: 1px solid #ECEBE1; */
+  background-color: #FFFFFF;
+  padding: 3px;
+  line-height: 1.5;
+}
+.news_link A {
+  text-decoration: none;
+}
+.news_link A:hover {
+  text-decoration: underline;
+}
+.name_link A {
+  color: #000000;
+  text-decoration: none;
+}
+.all_link {
+  border-top: 1px dotted gray;
+  text-align: right;
+  margin: 4px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding-top: 3px;
+}
+.submit {
+  width: 80px;
+  height: 22px;
+  border: 1px solid gray;
+}
+#pic IMG {
+  border: 5px solid #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+#myhome_search {
+  width: 740px;
+  height: 26px;
+  margin: 5px 0px;
+  padding: 0px;
+  text-align: center;
+  background-image: url('../images/search_bar.gif');
+  background-repeat: no-repeat;
+}
+
+#friend_list {
+  margin: 5px 0px;
+}
+.friend_list {
+  width: 80px;
+  margin: 5px 0px;
+  padding: 0px;
+  text-align: center;
+  float: left;
+}
+.friend_name {
+  width: 78px;
+}
+
+#comm_list {
+  margin: 5px 0px;
+}
+
+#my_container {
+  position: relative;
+  width: 745px;
+  margin: 5px auto 0 auto;
+  text-align: center;
+}
+#my_contents {
+  width: 490px;
+  float: left;
+}
+#my_navigation {
+  width: 240px;
+  float: right;
+}
+
+#myhome {
+  text-align: center;
+  word-break: break-all;
+}
+#mynavi {
+  padding: 0px;
+}
+#mymain {
+  padding: 0px;
+  width: 500px;
+}
+

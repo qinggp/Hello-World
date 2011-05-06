@@ -1,0 +1,18 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_reply_attachments
+#
+#  id                 :integer         not null, primary key
+#  image              :string(255)
+#  position           :integer
+#  community_reply_id :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
+# one:
+#   column: value
+#
+# two:
+#   column: value

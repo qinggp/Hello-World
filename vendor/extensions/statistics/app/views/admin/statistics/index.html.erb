@@ -1,0 +1,70 @@
+<center>
+  <% display_round_box(:width => '480px',:white_bg => false) do %>
+    <table class="content_table">
+      <tr>
+        <th nowrap="nowrap">登録ユーザ数 ※</th>
+        <td><%= @users %>名<br />
+          (承認待<%= @approval_waiting_users %>名・停止中<%= @paused_users %>名)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">アクティブユーザ数</th>
+        <td><%= @today_logins %>名 （本日ログイン数）<br />
+          <%= @logins_within_one_week %>名 （最終ログイン1週間以内）<br /><%= @logins_within_one_month %>名 （最終ログイン1ヶ月以内）</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">招待中ユーザ数</th>
+        <td><%= @invited_user %>件 (<%= @users_invited_users %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">トモダチリンク総数</th>
+        <td>有効数：<%= @friends %>件<br />依頼中：<%= @friends_request %>件</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">紹介文書き込み数 ※</th>
+        <td><%= @friend_description  %>件</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">コミュニティ数 ※</th>
+        <td><%= @communities %>件 (<%= @community_admins %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">コミュニティトピック数 ※</th>
+        <td><%= @community_topics %>件 (<%= @community_topics_user %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">コミュニティ返信数 ※</th>
+        <td><%= @community_replies %>件 (<%= @community_replies_user %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">コミュニティイベント数 ※</th>
+        <td><%= @community_events %>件 (<%= @community_events_user %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">ブログ数 ※</th>
+        <td><%= @blog_entries %>件 (<%= @blog_entries_user %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">ブログコメント数 ※</th>
+        <td><%= @blog_comments %>件 (<%= @blog_comments_user %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">メッセージ数 ※</th>
+        <td><%= @messages %>件 (<%= @message_sender_users %>人)</td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">男女比率</th>
+        <td>男：<%= @man_user %>名 / 女：<%= @woman_user %>名 </td>
+      </tr>
+      <tr>
+        <th nowrap="nowrap">平均年齢</th>
+        <td><%= h @user_age_average %>歳</td>
+      </tr>
+    </table>
+    <% form_tag(admin_statistics_path, {:method => :get}) do %>
+      集計期間指定：<%= date_select(:statistics, :start_at, {:default => @start_at, :use_month_numbers => true}) %>
+                〜<%= date_select(:statistics, :end_at, {:default => @end_at, :use_month_numbers => true} ) %>
+      <%= submit_tag "表示" %><br />
+      <center>※の項目が集計期間対象です</center>
+    <% end %>
+  <% end %>
+</center>

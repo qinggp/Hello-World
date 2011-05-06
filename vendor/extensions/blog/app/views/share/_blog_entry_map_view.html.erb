@@ -1,0 +1,26 @@
+<% if blog_entry.map_viewable? %>
+  <div>
+    <div id="map" style="width:400px;height:300px; margin-bottom:10px; margin-left:3px; border:1px solid gray; margin-top: 10px;">
+      Now Loading...
+    </div>
+  </div>
+  <%= render :partial => "/share/google_map_script" %>
+  <%= javascript_include_tag('gmap_viewer') %>
+  <%= javascript_include_tag('blog/blog_entry_marker') %>
+  <script type="text/javascript">
+    var marker = null;
+    GMapViewer.markers.push(new BlogEntryMarker(
+      new GLatLng(<%=h blog_entry.latitude.to_json %>, <%=h blog_entry.longitude.to_json %>),
+    {
+      id : <%= blog_entry.id.to_json %>,
+      title_link : <%= (h(blog_entry.title)).to_json %>,
+      body : "",
+      date : <%= h(l(blog_entry.created_at.to_date, :format => :long)).to_json %>
+    }));
+    GMapViewer.maps_load_for_view("map",
+                         {latitude : <%= blog_entry.latitude %>,
+                          longitude : <%= blog_entry.longitude %>,
+                          zoom : <%= blog_entry.zoom %>});
+    GEvent.trigger(GMapViewer.markers[0].marker, 'click');
+  </script>
+<% end %>

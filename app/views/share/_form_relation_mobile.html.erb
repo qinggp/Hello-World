@@ -1,0 +1,16 @@
+<% if SnsConfig.relation_flg %>
+  <br/><b>相手との現実の関係を「直感的」に選んで下さい。</b><br/>
+  <%= h Friendship.human_attribute_name("relation") %><%= font_coution("※") %><br/>
+  <% select_options_for_const("Friendship", "RELATIONS").each do |label, v| %>
+    <%= f.radio_button :relation, v %>
+    <%= f.label "relation_#{v}", label %>
+  <% end %>
+  <br/>
+
+  <%= h Friendship.human_attribute_name("contact_frequency") %><%= font_coution("※") %><br/>
+  <% select_options_for_const("Friendship", "CONTACT_FREQUENCIES").each do |label, v| %>
+    <%= f.radio_button :contact_frequency, v %>
+    <%= f.label "contact_frequency_#{v}", label %>
+  <% end %>
+  <br/>
+<% end %>

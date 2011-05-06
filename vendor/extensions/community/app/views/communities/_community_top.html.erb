@@ -1,0 +1,24 @@
+<% if logged_in? %>
+  <% if params[:action] == "confirm_before_apply" || params[:action] == "confirm_before_cancel" || params[:action] == "show_application" %>
+    <% display_round_box(:width => "490px") do %>
+      <div class="base_data" style="text-align:center">
+        <%= render(:partial => "apply_or_cancel_form") %>
+      </div>
+    <% end %>
+    <div style="margin-bottom: 5px;"></div>
+  <% end %>
+
+  <% if @community.some_thread_createable?(current_user) %>
+    <% display_round_box(:width => "490px") do %>
+      <div class="base_data" style="text-align:center">
+        <%= render(:partial => "/share/links_to_post") %>
+      </div>
+    <% end %>
+  <% elsif !@community.member?(@user) && !@community.pending?(@user) && params[:action] != "confirm_before_apply" %>
+    <% display_round_box(:width => "490px") do %>
+      <div class="base_data" style="text-align:center">
+        このコミュニティに参加されますか？→[<%= link_to("コミュニティに参加", confirm_before_apply_community_path(@community))  %>]
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+<% if @community_linkage.kind == "CommunityInnerLinkage" %>
+  <b>--- 内部コミュニティ登録確認 ---</b><br/>
+  <%= display_form_attr_name(CommunityInnerLinkage, :link_id) %><br />
+  <%= h @community_linkage.inner_link.name %>
+  <%= f.hidden_field :link_id %>
+<% else %>
+  <b>--- 外部コミュニティ登録確認 ---</b><br/>
+  <%= display_form_attr_name(CommunityOuterLinkage, :rss_url) %><br />
+  <%= h @community_linkage.name %>
+  <%= f.hidden_field :rss_url %>
+<% end %>
+
+<%= f.hidden_field :kind %>
+
+

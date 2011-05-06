@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: invites
+#
+#  id                :integer         not null, primary key
+#  email             :string(255)
+#  user_id           :integer
+#  body              :text
+#  relation          :integer
+#  contact_frequency :integer
+#  state             :string(255)
+#  private_token     :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
+invite_user:
+  email: new_sns_user@example.com
+  user: sns_tarou
+  body: "招待状"
+  relation: <%= Friendship::RELATIONS[:nothing] %>
+  contact_frequency: <%= Friendship::CONTACT_FREQUENCIES[:nothing] %>
+  private_token: "3340ca2d5f1cf5082ac9f9c0d5bc3abbe538b9c5"

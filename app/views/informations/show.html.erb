@@ -1,0 +1,14 @@
+<center>
+  <% display_round_box(:width => "610px") do %>
+    <table class="content_table">
+      <tr>
+        <th>お知らせ詳細</th>
+      </tr>
+      <tr>
+        <td>
+          <%= auto_link(br(add_session_query_on_inner_url(@information.content))) { |text| truncate(strip_session_query(text), 60) }.untaint if @information.content %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</center>

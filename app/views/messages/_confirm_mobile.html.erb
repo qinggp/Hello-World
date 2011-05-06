@@ -1,0 +1,23 @@
+<% params[:receiver_ids].each do |id| %>
+  <%= hidden_field_tag "receiver_ids[]", id %>
+<% end %>
+<%= f.hidden_field(:receiver_id) %>
+<%= hidden_field_tag(:received_message_id, params[:received_message_id]) %>
+<%= hidden_field_tag("individually", 1) %>
+
+[メッセージの宛先]<br />
+<%= display_face_photo(@message.receiver.face_photo, :image_type => :thumb) %>
+<%= link_to(h(@message.receiver.name), user_path(@message.receiver)) %><br />
+
+<b>---メッセージ送信---</b><br/>
+[件名]<br />
+<%= h @message.subject %>
+<%= f.hidden_field :subject %>
+<br />
+
+[本文]<br />
+<%= hbr @message.body %>
+<%= f.hidden_field :body %>
+<br />
+
+

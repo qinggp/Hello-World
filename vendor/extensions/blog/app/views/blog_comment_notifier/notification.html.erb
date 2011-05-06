@@ -1,0 +1,10 @@
+
+「<%=h @blog_entry.title %>」<%= @edited ? "のコメント修正" : "にコメント" %>がありました。
+
+[投稿者] <%= @blog_comment.anonymous? ? @blog_comment.user_name : @blog_comment.user.name %>
+[コメント]
+<%= @blog_comment.body %>
+
+<%= blog_entry_url(@blog_entry, :anchor => "blog_comment", :host => CONFIG["host"]) %>
+
+※このメールはお知らせメールです。返信しないでください。

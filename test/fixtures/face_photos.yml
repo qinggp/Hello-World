@@ -1,0 +1,12 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: face_photos
+#
+#  id         :integer         not null, primary key
+#  image      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

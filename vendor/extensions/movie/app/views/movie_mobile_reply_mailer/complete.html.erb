@@ -1,0 +1,11 @@
+<%=h @user.name %>さん
+
+ムービー「<%= @movie.title %>」が正常に登録されました。
+<% unless Mars::Movie::ResourceLoader['application']['realtime_convert'] -%>
+公開までには１日程度かかります。
+<% end -%>
+
+なお、携帯から投稿された動画は公開先が自動的に「<%= @movie.visibility_to_s %>」に設定されます。
+ムービー情報の変更はパソコンより <%= h(root_url(:host => CONFIG["host"])) %> にアクセスして下さい。
+
+※このメールは送信専用アドレスです。返信しないようにお願いします。

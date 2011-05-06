@@ -1,0 +1,220 @@
+<% if @user.new_record? %>
+  <%= render :partial => "confirm_before_create", :locals => {:f => f} %>
+<% end %>
+<tr>
+  <td class="content_table_title" colspan="2">プロフィール情報</td>
+</tr>
+<tr>
+  <td colspan="2">
+    ここで入力した情報はこのサイト内のプロフィールページで公開されます。
+  </td>
+</tr>
+<tr>
+  <th>
+    [名前]
+  </th>
+  <td>
+    <%= h @user.full_real_name %>
+    <%= f.hidden_field :last_real_name %>
+    <%= f.hidden_field :first_real_name %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%= h User.human_attribute_name("real_name_visibility") %>]
+  </th>
+  <td>
+    <%= t("user.visibility_label.#{@user.real_name_visibility_name}") %>
+    <%= f.hidden_field :real_name_visibility %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("name")  %>]
+  </th>
+  <td>
+    <%= h @user.name %>
+    <%= f.hidden_field :name %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("face_photo")  %>]
+  </th>
+  <td>
+    <% if @user.face_photo %>
+      <% fields_for "user[photo_attributes][#{@user.face_photo.fields_for_name}]", @user.face_photo do |fp| %>
+        <%= confirm_attachment_image(fp, @user) %>
+        <%= fp.hidden_field :id %>
+        <%= fp.hidden_field :image_temp %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("gender")  %>]
+  </th>
+  <td>
+    <%= t("user.gender_label.#{@user.gender_name}") %>
+    <%= f.hidden_field :gender %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("birthday")  %>]
+  </th>
+  <td>
+    <%=h l(@user.birthday, :format => :year_month_date) %>
+    <%= f.hidden_field :birthday %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("birthday_visibility")  %>]
+  </th>
+  <td>
+    <%= t("user.visibility_label.#{@user.birthday_visibility_name}") %>
+    <%= f.hidden_field :birthday_visibility %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("blood_type")  %>]
+  </th>
+  <td>
+    <%= display_profile_type_name(@user.blood_type_name, "blood_type") %>
+    <%= f.hidden_field :blood_type %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("now_zipcode")  %>]
+  </th>
+  <td>
+    <%= h @user.now_zipcode %>
+    <%= f.hidden_field :now_zipcode %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("now_prefecture")  %>]
+  </th>
+  <td>
+    <%= h @user.now_prefecture.name %>
+    <%= f.hidden_field :now_prefecture_id %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("now_city")  %>]
+  </th>
+  <td>
+    <%= h @user.now_city %>
+    <%= f.hidden_field :now_city %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("now_street")  %>]
+  </th>
+  <td>
+    <%= h @user.now_street %>
+    <%= f.hidden_field :now_street %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("now_address_visibility")  %>]
+  </th>
+  <td>
+    <%= t("user.visibility_label.#{@user.now_address_visibility_name}") %>
+    <%= f.hidden_field :now_address_visibility %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("phone_number")  %>]
+  </th>
+  <td>
+    <%= h @user.phone_number %>
+    <%= f.hidden_field :phone_number %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("home_prefecture")  %>]
+  </th>
+  <td>
+    <%= h @user.home_prefecture.try(:name).to_s %>
+    <%= f.hidden_field :home_prefecture_id %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("hobbies")  %>]
+  </th>
+  <td>
+    <%= display_users_hobbies(params[:user][:users_hobbies_attributes]).untaint %>
+    <% checked_hobby_ids = params[:user][:users_hobbies_attributes].try(:map) { |attr| attr[:hobby_id].to_i } %>
+    <% Hobby.find(:all).each do |hobby| %>
+      <% if checked_hobby_ids.try(:include?, hobby.id) %>
+        <%= hidden_field_tag "user[users_hobbies_attributes][][hobby_id]", hobby.id %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("job")  %>]
+  </th>
+  <td>
+    <%= h @user.job.try(:name).to_s %>
+    <%= f.hidden_field :job_id %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("job_visibility")  %>]
+  </th>
+  <td>
+    <%= t("user.visibility_label.#{@user.job_visibility_name}") %>
+    <%= f.hidden_field :job_visibility %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("affiliation")  %>]
+  </th>
+  <td>
+    <%= h @user.affiliation %>
+    <%= f.hidden_field :affiliation %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("affiliation_visibility")  %>]
+  </th>
+  <td>
+    <%= t("user.visibility_label.#{@user.affiliation_visibility_name}") %>
+    <%= f.hidden_field :affiliation_visibility %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("message")  %>]
+  </th>
+  <td>
+    <%= hbr @user.message %>
+    <%= f.hidden_field :message %>
+  </td>
+</tr>
+<tr>
+  <th>
+    [<%=h User.human_attribute_name("detail")  %>]
+  </th>
+  <td>
+    <%= hbr @user.detail %>
+    <%= f.hidden_field :detail %>
+  </td>
+</tr>

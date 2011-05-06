@@ -1,0 +1,14 @@
+
+<%= h @user_name %>さん、こんにちは。
+<%= h SnsConfig.title %>からのお知らせです。
+
+<%= h @user_name %>さんが依頼されました「<%= h @community_name %>」への参加が、管理人により承認されましたのでご連絡致します。
+
+以下のURLをクリックしてください。
+
+◆<%= h @community_name %>コミュニティのページ
+<%= h @link %>
+
+今後とも、ぜひ、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

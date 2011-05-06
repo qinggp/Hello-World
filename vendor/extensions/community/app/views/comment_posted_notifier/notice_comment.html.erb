@@ -1,0 +1,13 @@
+「<%= @comment.community.name %> 」に書き込みがありました。
+
+[投稿者] <%= @comment.author.name %>
+<% if @comment.class == CommunityReply -%>
+[親記事] <%= @comment.parent ? @comment.parent.title : @comment.thread.title %>
+<% end -%>
+[<%= @comment.class.human_attribute_name("title") %>] <%= @comment.title %>
+[本文]
+<%= @comment.content %>
+
+<%= @comment.class == CommunityReply ? @comment.thread.polymorphic_url_on_community(self, :host => CONFIG["host"]) : @comment.polymorphic_url_on_community(self, :host => CONFIG["host"]) %>
+
+※このメールはお知らせメールです。返信しないでください。

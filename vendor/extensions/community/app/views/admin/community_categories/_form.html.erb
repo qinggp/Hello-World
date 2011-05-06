@@ -1,0 +1,30 @@
+<% category_name = "カテゴリ" %>
+<% if @community_map_category %>
+   <% category_name = "マップ" + category_name %>
+<% end %>
+<tr>
+  <td class="content_table_title" colspan="2">
+    <b>コミュニティ<%= category_name %>情報変更</b>
+  </td>
+</tr>
+<% if @category_state_id %>
+  <tr>
+    <th valign="top" nowrap>[親カテゴリ名]<font color="red">※</font></th>
+    <td>
+      <% if @category_state_id == "0" %>
+        <%= f.select :parent_id, options_for_select_with_parent_categories(@community_category.parent_id) %>
+      <% else %>
+        <%= h @selected_category.name %>
+        <%= f.hidden_field :parent_id %>
+      <% end %>
+      <%= hidden_field_tag "category_state_id", @category_state_id %>
+    </td>
+  </tr>
+<% end %>
+<tr>
+  <th valign="top" nowrap>
+    [<%= category_name %>名]
+    <font color="red">※</font>
+  </th>
+  <td><%= f.text_field :name %></td>
+</tr>

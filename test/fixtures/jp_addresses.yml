@@ -1,0 +1,11 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: jp_addresses
+#
+#  id            :integer         not null, primary key
+#  prefecture_id :integer
+#  zipcode       :string(255)
+#  city          :string(255)
+#  town          :string(255)
+#

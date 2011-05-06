@@ -1,0 +1,15 @@
+<div id="my_contents">
+  <% Mars::UI.instance.portal_contents_sequences.each do |name|  %>
+    <% next if Mars::UI.instance.portal_contents[name].empty?  %>
+    <div>
+      <%= theme_image_tag("home_bar_#{name}.gif", :size => "490x20") %>
+      <% display_round_box do %>
+        <%= 
+            Mars::UI.instance.portal_contents[name].map do |part|
+              part.display(self)
+            end.join("\n")
+        %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

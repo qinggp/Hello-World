@@ -1,0 +1,7 @@
+<% link_to user_friends_path(displayed_user), :title => "トモダチ一覧" do %>
+  <%= theme_image_tag "friend_menu_list.gif",
+      :alt => "トモダチ一覧",
+      :onmouseover => "this.src=#{theme_image_path('friend_menu_list_ov.gif').to_json}",
+      :onmouseout => "this.src=#{theme_image_path('friend_menu_list.gif').to_json}"
+  %>
+<% end %>

@@ -1,0 +1,9 @@
+<% if flash[:error] %>
+  <center>
+    <% display_round_box do %>
+      <div class="base_data center" style="font-size:140%;">
+        <%= font_coution(flash[:error].untaint, :bold => true) %>
+      </div>
+    <% end %>
+  </center>
+<% end %>

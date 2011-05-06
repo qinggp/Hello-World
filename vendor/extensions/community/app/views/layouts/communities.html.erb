@@ -1,0 +1,95 @@
+<% if !request.mobile? && (@community && !@community.new_record?) %>
+  <% content_for :menu_for_extension do %>
+    <ul id="comm_menu">
+      <li class="first">
+        <!-- コミュニティホーム -->
+        <% link_to community_path(@community), :title => "コミュニティホーム" do %>
+          <%= theme_image_tag "community/com_menu_home.gif",
+              :alt => "コミュニティホーム",
+              :onmouseover => "this.src=#{theme_image_path('community/com_menu_home_ov.gif').to_json}",
+              :onmouseout => "this.src=#{theme_image_path('community/com_menu_home.gif').to_json}"
+              %>
+        <% end %>
+      </li>
+
+      <% unless @community.visibility_private? && !@community.member?(current_user) %>
+        <li>
+          <!-- トピック一覧 -->
+          <% link_to search_community_threads_path(:community_id => @community), :title => "トピック一覧" do %>
+            <%= theme_image_tag "community/com_menu_topics.gif",
+                :alt => "トピック一覧",
+                :onmouseover => "this.src=#{theme_image_path('community/com_menu_topics_ov.gif').to_json}",
+                :onmouseout => "this.src=#{theme_image_path('community/com_menu_topics.gif').to_json}"
+                %>
+          <% end %>
+        </li>
+        <li>
+          <!-- イベントカレンダー -->
+          <% link_to show_calendar_community_events_path(:community_id => @community), :title => "イベントカレンダー" do %>
+            <%= theme_image_tag "community/com_menu_event_calendar.gif",
+                :alt => "イベントカレンダー",
+                :onmouseover => "this.src=#{theme_image_path('community/com_menu_event_calendar_ov.gif').to_json}",
+                :onmouseout => "this.src=#{theme_image_path('community/com_menu_event_calendar.gif').to_json}"
+                %>
+          <% end %>
+        </li>
+        <li>
+          <!-- コミュニティマップ -->
+          <% link_to map_community_markers_path(:community_id => @community), :title => "コミュニティマップ" do %>
+            <%= theme_image_tag "community/com_menu_map.gif",
+                :alt => "コミュニティマップ",
+                :onmouseover => "this.src=#{theme_image_path('community/com_menu_map_ov.gif').to_json}",
+                :onmouseout => "this.src=#{theme_image_path('community/com_menu_map.gif').to_json}"
+                %>
+          <% end %>
+        </li>
+
+        <% if logged_in? %>
+          <li>
+            <!-- メンバー一覧 -->
+            <% link_to show_members_community_path(@community), :title => "メンバー一覧" do %>
+              <%= theme_image_tag "community/com_menu_members.gif",
+                  :alt => "メンバー一覧",
+                  :onmouseover => "this.src=#{theme_image_path('community/com_menu_members_ov.gif').to_json}",
+                  :onmouseout => "this.src=#{theme_image_path('community/com_menu_members.gif').to_json}"
+                  %>
+            <% end %>
+          </li>
+          <li>
+            <!-- トモダチに紹介 -->
+            <% link_to new_message_community_path(@community), :title => "トモダチに紹介" do %>
+              <%= theme_image_tag "community/com_menu_introduce.gif",
+                  :alt => "トモダチに紹介",
+                  :onmouseover => "this.src=#{theme_image_path('community/com_menu_introduce_ov.gif').to_json}",
+                  :onmouseout => "this.src=#{theme_image_path('community/com_menu_introduce.gif').to_json}"
+                  %>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <% if @community.admin?(current_user) %>
+        <li>
+          <%= theme_image_tag "community/com_menu_admin.gif" %>
+        </li>
+      <% elsif @community.member?(current_user) %>
+        <li>
+          <% link_to confirm_before_cancel_community_path(@community), :title => "コミュニティを退会" do %>
+            <%= theme_image_tag "community/com_menu_leave.gif",
+                :alt => "コミュニティを退会",
+                :onmouseover => "this.src=#{theme_image_path('community/com_menu_leave_ov.gif').to_json}",
+                :onmouseout => "this.src=#{theme_image_path('community/com_menu_leave.gif').to_json}"
+                %>
+          <% end %>
+        </li>
+      <% elsif @community.pending?(current_user) %>
+        <li>
+          <%= theme_image_tag "community/com_menu_pending.gif" %>
+        </li>
+      <% end %>
+
+    </ul>
+  <% end %>
+<% end %>
+
+<%= render :file => "layouts/application" %>

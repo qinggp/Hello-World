@@ -1,0 +1,14 @@
+<% 
+  sns_linkages = SnsLinkage.by_enableds(current_user.id)
+%>
+<% unless sns_linkages.map{|sl| sl.sns_link_notice_data.channel.item }.compact.empty? %>
+  <hr size="1" noshade>
+  <%= theme_image_tag("sns_linkage/linkage.gif") %>連携サイト注目情報<br/>
+  <% sns_linkages.each do |sl| %>
+    <% sl.sns_link_notice_data.channel.items.each do |item| %>
+      <b><font color="red">【<%= sl.rss_channel.title %>】</font>
+        <%= link_to item.title, item.link, :target => "_blank" %>
+      </b><br/>
+    <% end %>
+  <% end %>
+<% end %>

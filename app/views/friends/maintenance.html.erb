@@ -1,0 +1,13 @@
+<center>
+  <div align="right" style="margin: 5px;">
+    [ <%= link_to("トモダチ一覧へ戻る", friends_path) %> ]
+  </div>
+
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    トモダチ管理
+  </div>
+
+  <% display_round_box(:width => "620px") do %>
+    <%= render :partial => "maintenance_menu" %>
+  <% end %>
+</center>

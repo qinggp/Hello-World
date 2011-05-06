@@ -1,0 +1,6 @@
+<%= render :partial => "message_address" %>
+
+<%= render :partial => "/share/form",
+           :locals => {:partial_template => "message_form",
+                       :form_notation => form_notation_with_attachments,
+                       :form_params => message_form_params} %>

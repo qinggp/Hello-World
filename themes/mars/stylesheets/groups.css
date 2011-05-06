@@ -1,0 +1,8 @@
+#groups .on_group {
+  padding: 8px;
+  background-color: #F2F2D8;
+}
+
+#groups .off_group {
+  padding: 8px;
+}

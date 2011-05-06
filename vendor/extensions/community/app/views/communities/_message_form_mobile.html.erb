@@ -1,0 +1,13 @@
+<b>--- コミュニティ紹介メッセージ送信 ---</b><br/>
+
+<% friends = current_user.friends.select{|friend| !@community.member?(friend)} %>
+[紹介先]<br />
+<%= check_box_for_receivers(friends) %>
+<br />
+
+[メッセージ]<%= font_coution("※") %><br/>
+<%= f.text_area :body, :rows => 3, :cols => 20 %><br/>
+
+<%= hidden_field_tag("id", @community.id) %>
+<%= hidden_field_tag("message[subject]", subject_for_invite_friend) %>
+

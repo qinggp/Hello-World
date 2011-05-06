@@ -1,0 +1,21 @@
+<tr>
+  <td class="content_table_title" colspan="2">携帯メール情報送信</td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("mobile_email") %>
+  </th>
+  <td>
+    <%=h @user.mobile_email  %>
+    <%= f.hidden_field :mobile_email %>
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("current_password") %>※
+  </th>
+  <td>
+    <%= not_print_password(@user.current_password) %>
+    <%= f.hidden_field :current_password %>
+  </td>
+</tr>

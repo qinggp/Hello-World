@@ -1,0 +1,14 @@
+<% form_for(:user, :url => { :action => 'update_after_forgetting' }) do |f| %>
+新しいパスワードを入力してください。<br/>
+<br/>
+新規パスワード：<br/>
+<%= f.password_field :password %><br/>
+<br/>
+確認のため再入力：<br/>
+<%= f.password_field :password_confirmation %><br/>
+<br/>
+<%= hidden_field_tag :reset_code, params[:reset_code] %>
+<%= f.submit "登録" %>
+<% end %>
+
+<%= render :partial => "footer_mobile" %>

@@ -1,0 +1,46 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: sns_configs
+#
+#  id                      :integer         not null, primary key
+#  title                   :string(255)
+#  outline                 :string(255)
+#  entry_type              :boolean
+#  invite_type             :boolean
+#  approval_type           :integer
+#  login_display_type      :boolean
+#  admin_mail_address      :string(255)
+#  g_map_api_key           :string(255)
+#  g_map_longitude         :float
+#  g_map_latitude          :float
+#  g_map_zoom              :integer
+#  relation_flg            :boolean
+#  created_at              :datetime
+#  updated_at              :datetime
+#  sns_theme_id            :integer
+#  ranking_display_flg     :boolean         default(TRUE)
+#  blog_default_open_range :integer
+#
+
+test01:
+  id: 1
+  title: mars
+  outline: テスト
+  admin_mail_address: test@example.com
+  g_map_api_key: ABQIAAAA-86td2I_y2l55xwIDGSTChTk2SJ8WTVJ8OrC0dGcLywXh9LE9xScrjL3W9j9MezE9Eh4tEPr8EtEqA
+  g_map_longitude: 133.050721
+  g_map_latitude: 35.47507
+  g_map_zoom: 11
+  entry_type: <%= SnsConfig::ENTRY_TYPES[:invitation] %>
+  invite_type: <%= SnsConfig::INVITE_TYPES[:invite] %>
+  approval_type: <%= SnsConfig::APPROVAL_TYPES[:no_approval] %>
+  login_display_type: <%= SnsConfig::LOGIN_DISPLAY_TYPES[:portal_type] %>
+  relation_flg: <%= SnsConfig::RELATION_FLGS[:enable] %>
+<% if Mars::Extension.instance.extension_enabled?(:blog) %>
+  blog_default_open_range: <%= SnsConfig::BLOG_DEFAULT_OPEN_RANGES[:to_friends] %>
+<% end %>
+<% if Mars::Extension.instance.extension_enabled?(:ranking) %>
+  ranking_display_flg: <%= SnsConfig::RANKING_DISPLAY_FLGS[:view] %>
+<% end %>
+  sns_theme_id: 1

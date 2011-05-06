@@ -1,0 +1,11 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityReply, "title") %><br />
+<%= f.text_field :title %><br />
+
+<%= display_form_attr_name(CommunityReply, "content") %><br />
+<%= f.text_area :content, :rows => 2, :cols => 20 %><br/>
+
+<%= f.hidden_field :parent_id %>
+<%= f.hidden_field :thread_id %>
+<%= hidden_field_tag "event_member", params[:event_member] %>

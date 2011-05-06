@@ -1,0 +1,14 @@
+<% if current_user.friendship_by_user_id(displayed_user.id) %>
+  [ トモダチ依頼中 ]<br/>
+  (<%= link_to "再依頼", recreate_friend_application_user_path(displayed_user), :method => :post %>)／
+  (<%= link_to "取り下げ", confirm_before_reject_friend_application_user_path(displayed_user) %>)
+<% else %>
+  このユーザと直接の友人・知人の場合、トモダチに追加しましょう！<br/>
+  [<%= link_to "トモダチ依頼", new_friend_application_user_path(displayed_user) %>]
+<% end %>
+<br/>
+<% relationship_describe = display_relationship_user_to_user(current_user, displayed_user) %>
+<% unless relationship_describe.blank? %>
+  このユーザとのサイト内の関係性 ＝ <%= relationship_describe %>
+  <br/>
+<% end %>

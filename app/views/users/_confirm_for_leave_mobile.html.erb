@@ -1,0 +1,6 @@
+[<%=h User.human_attribute_name("current_password") %>]※<br/>
+<%= not_print_password(@user.current_password) %><br/>
+<%= f.hidden_field :current_password %>
+[<%=h User.human_attribute_name("leave_reason") %>]※<br/>
+<%=hbr @user.leave_reason %><br/>
+<%= f.hidden_field :leave_reason %>

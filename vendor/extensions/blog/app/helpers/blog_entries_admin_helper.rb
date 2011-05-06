@@ -1,0 +1,3 @@
+module BlogEntriesAdminHelper
+  include BlogCategoriesViewHelper
+end

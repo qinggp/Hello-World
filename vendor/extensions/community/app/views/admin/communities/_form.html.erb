@@ -1,0 +1,101 @@
+<tr>
+  <td class="content_table_title" colspan="2">
+    <b>
+      <%= h form_title %><br />
+      <%= font_coution("*** 管理者権限で編集中 ***")%>
+    </b>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[コミュニティ名]<span class="attention">※</span></th>
+  <td><%= f.text_field :name %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[作成者]</th>
+  <td><%= h @community_admin.name %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[コミュニティ区分]<span class="attention">※</span></th>
+  <td>
+    <%= f.select :official, select_options_for_const("Community", "OFFICIALS") %>
+    <%= check_box_tag :initialization_official %>  公認化初期処理を行う<br />
+    <span class="attention" style="font-size:80%;">
+        ※公認コミュニティは、コミュニティ検索の際に優先して表示されます。<br />
+        ※公認コミュニティ(全員)は、登録ユーザ全員参加となります。新規入会時に自動的に参加となります。<br />
+        ※公認コミュニティ(管理人)は、管理人全員参加です。新規作成時に自動的に参加となります。<br />
+        ※公認化初期処理は初めて公認化するときのみお使いください。
+    </span>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[名前表示区分]<span class="attention">※</span></th>
+  <td>
+    <%= f.radio_button(:show_real_name, false) %><%= h(t(:show_real_name, :scope => :community)[false]) %>
+    <%= f.radio_button(:show_real_name, true) %><%= h(t(:show_real_name, :scope => :community)[true]) %>
+    <span style="font-size:80%;">※実名表示は各ユーザの公開条件にかかわらず本名が表示されます。</span>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[参加・公開条件]<span class="attention">※</span></th>
+  <td>
+    <% Community.admin_participation_and_visibility_list.each_with_index do |value_and_description, index| %>
+      <% if index == 3 %><br /><% end %>
+      <%= f.radio_button(:participation_and_visibility, value_and_description.shift) %>
+      <%= hbr value_and_description.shift %>
+    <% end %>
+    <div class="attention" style="font-size: 80%;">
+      ※[全体公開]はメンバー全員に公開されます。
+      <br/>
+      ※[外部公開]は非ログインユーザ(インターネット上)にも公開されます。ご注意ください。
+      <br/>
+      ※[非公開]はコミュニティ参加メンバーのみに公開されます。
+    </div>
+  </td>
+
+</tr>
+<tr>
+  <th valign="top" nowrap>[トピック作成]<span class="attention">※</span></th>
+  <td>
+    <%= f.radio_button(:topic_createable_admin_only, false)  %><%= h(t(:topic_createable_admin_only, :scope => :community)[false]) %>
+    <%= f.radio_button(:topic_createable_admin_only, true)  %><%= h(t(:topic_createable_admin_only, :scope => :community)[true]) %>
+    <span style="font-size: 80%;">※マーカーも含みます。</span>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[イベント作成]<span class="attention">※</span></th>
+  <td>
+    <%= f.radio_button(:event_createable_admin_only, false)  %><%= h(t(:event_createable_admin_only, :scope => :community)[false]) %>
+    <%= f.radio_button(:event_createable_admin_only, true)  %><%= h(t(:event_createable_admin_only, :scope => :community)[true]) %>
+  </td>
+</tr>
+<tr>
+
+  <th valign="top" nowrap>[カテゴリ]<span class="attention">※</span></th>
+  <td>
+    <%= f.select :community_category_id, options_for_select_with_community_categories(@community.community_category_id) %>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[説明文]<span class="attention">※</span></th>
+  <td><%= f.text_area :comment, :rows => 10, :cols => 50 %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[写真]</th>
+  <td>
+    <% if !@community.new_record? && @community.image %>
+      <% link_to(show_unpublic_image_community_path(:community_id => @community.id, :id => @community.id)) do %>
+        <%= theme_image_tag(icon_name_by_extname(@community.image)) %>
+        <%= h(File.basename(@community.image)) %>
+      <% end %>
+      <br />
+      <%= admin_form_attachment_file(@community) %><br />
+    <% end %>
+    <%= file_column_field("community", "image", :size => 40) %>
+    <% if !@community.new_record? && @community.image %>
+      <%= check_box_tag("community[delete_image]")  %>削除
+    <% end %>
+    <br />
+    <span style="font-size: 90%">（添付可能拡張子：.jpg/.jpeg/.png/.gif）</span>
+  </td>
+</tr>
+

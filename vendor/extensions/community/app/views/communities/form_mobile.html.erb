@@ -1,0 +1,14 @@
+<%= render(:partial => "/share/form_mobile") %>
+
+<% if params[:action] == "edit" %>
+  <br />
+  <% form_for(@community, :url => confirm_before_destroy_community_path, :html => {:method => :post}) do |f| %>
+    <b>--- コミュニティを削除する ---</b><br />
+    削除の際はトラブル等を避けるため、あらかじめコミュニティ参加者へ削除の告知をしてください。<br />
+    <%= f.submit("コミュニティ削除") %>
+  <% end %>
+<% end %>
+
+<% unless @community.new_record? %>
+  <%= render :partial => "/share/community_footer" %>
+<% end %>

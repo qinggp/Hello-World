@@ -1,0 +1,13 @@
+<% model.sorted_attachments.each_with_index do |attachment, i| %>
+  <% fields_for "#{model.class.to_s.underscore}[attachments_attributes][#{i+1}]", attachment do |f_ba|  %>
+    <tr>
+      <th>[添付ファイル<%=h attachment.position %>]</th>
+      <td class="data">
+        <%= confirm_attachment_image(f_ba, attachment) %>
+        <%= f_ba.hidden_field :image_temp %>
+        <%= f_ba.hidden_field :position %>
+        <%= f_ba.hidden_field :id unless attachment.new_record? %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>

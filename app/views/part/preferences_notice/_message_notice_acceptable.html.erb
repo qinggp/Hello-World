@@ -1,0 +1,21 @@
+<% if view_type == :form  %>
+  <tr>
+    <th>[<%=h Preference.human_attribute_name("message_notice_acceptable") %>]</th>
+    <td>
+      <%= f.radio_button :message_notice_acceptable, :true %>
+      <%= f.label :message_notice_acceptable_true, '受け取る' %>
+      <%= f.radio_button :message_notice_acceptable, :false  %>
+      <%= f.label :message_notice_acceptable_false, '受け取らない'  %>
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <th>
+      [<%=h Preference.human_attribute_name("message_notice_acceptable") %>]
+    </th>
+    <td>
+      <%=h @preference.message_notice_acceptable ? "受け取る" : "受け取らない" %>
+      <%= f.hidden_field :message_notice_acceptable %>
+    </td>
+  </tr>
+<% end %>

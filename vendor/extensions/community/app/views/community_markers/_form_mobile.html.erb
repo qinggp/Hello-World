@@ -1,0 +1,17 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityMarker, "title") %><br />
+<%= f.text_field :title %><br />
+
+<%= display_form_attr_name(CommunityMarker, "content") %><br />
+<%= f.text_area :content, :rows => 2, :cols => 20 %><br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "form", :model => @community_marker} %>
+<br />
+
+<%= display_form_attr_name(CommunityMarker, "community_map_category_id") %><br />
+<%= select_map_categories(@community, @community_marker.community_map_category_id) %>
+<span style="font-size: 80%;">
+  ※カテゴリ登録がない場合は管理人に作成してもらいましょう。
+</span>

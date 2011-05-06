@@ -1,0 +1,13 @@
+<%= h @schedule.title %><br />
+<%= hbr @schedule.detail %>
+<br /><br />
+
+<% if @schedule.editable?(@user) %>
+  [ <%= link_to("編集", edit_schedule_path(@schedule)) %> ]
+<% end %>
+<% if @schedule.destroyable?(@user) %>
+  [ <%= link_to("削除", confirm_before_destroy_schedule_path(@schedule)) %> ]
+<% end %>
+
+
+

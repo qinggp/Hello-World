@@ -1,0 +1,20 @@
+# == Schema Information
+# Schema version: 20100127063450
+#
+# Table name: jobs
+#
+#  id       :integer         not null, primary key
+#  name     :string(255)
+#  position :string(255)
+#
+
+<% %w(IT関係 事務系 技術系 営業・企画系 クリエーター系 販売系
+      サービス業 ガテン系 役員・管理職 専門職 公務員 教員
+      自営業 アーティスト フリーター 主婦 大学生・院生 高校生
+      中学生 求職中 無職 その他
+      ).each_with_index do |name, i|  %>
+<%= "job_#{i+1}" %>:
+  id: <%= i+1 %>
+  name: <%= name %>
+  position: <%= i+1 %>
+<% end %>

@@ -1,0 +1,17 @@
+
+<%= h @user.name %>さん、こんにちは。
+<%= h SnsConfig.title %>からのお知らせです。
+
+<%= h @user.name %>さんへのアクセス件数が<%= @track_count%>件を超えました。
+記念すべき<%= @track_count%>アクセス目の訪問者は、
+
+<%= h @visitor.name %>さんでした！
+
+以下のURLより <%= h @visitor.name %>さんのプロフィールを見ることができます。
+これをきっかけにアクセスしてみてはいかがですか。
+
+<%= h @visitor_url %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render "/share/mail_footer" %>

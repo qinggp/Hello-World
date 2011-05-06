@@ -1,0 +1,37 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "communities", :checked_type => "file" } %>
+<% form_tag(wrote_administration_communities_admin_communities_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "file") %>
+  <% display_collection_box(@communities, :collection_name => "現在の登録数", :checked_value => 10) do %>
+    <% if @communities %>
+      <table border="0" align="center" width="660" style="border-collapse: collapse;">
+        <tr>
+          <% @communities.each_with_index do |community, index| %>
+            <% if index >= 5 && index % 5 == 1 %>
+              </tr><tr>
+            <% end %>
+            <td nowrap height="100" align="center" width="110" valign="top" style="border: 1px solid gray; padding: 2px;">
+              <div style="padding: 2px;">
+                [<%= link_to 'URL', wrote_administration_communities_admin_communities_path({:type => 'write', :search_id => community.id}) %>]
+                [<%= link_to '削除', community_file_destroy_admin_community_path(community), :method => :delete, :confirm => '本当に削除しますか？' %>]<br/>
+                <%= community.created_at.strftime('%y/%m/%d %H:%M:%S') %><br/>
+              </div>
+              <div>
+              <% link_to(community_path(community)) do %>
+                <%= admin_community_image(community, "thumb") if community.image %>
+              <% end %>
+              </div>
+            </td>
+          <% end %>
+          <% unless @communities.size % 6 == 0 %>
+            <% (6 - @communities.size % 6).times do %>
+              <td width="100px">&nbsp;</td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

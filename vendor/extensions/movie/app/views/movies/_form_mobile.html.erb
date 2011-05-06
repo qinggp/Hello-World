@@ -1,0 +1,12 @@
+<center>
+  <%= theme_image_tag mobile_thumbnail_movie_path(@movie) %>
+</center>
+[ﾀｲﾄﾙ]※<br/>
+<%= f.text_field :title %><br/>
+[ｺﾒﾝﾄ]<br/>
+<%= f.text_area :body, :rows => 2, :cols => 20 %><br/>
+[公開先]<br/>
+<%= f.select :visibility, visibility_options %><br/>
+
+<%#= 住所検索 %>
+<%= render :partial => "/share/select_map_mobile/", :locals => {:f => f, :type => "form", :model => @movie} %>

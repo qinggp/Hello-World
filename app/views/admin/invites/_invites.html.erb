@@ -1,0 +1,30 @@
+<% display_round_box(:width => "610px") do %>
+  <% display_collection_box(@invites, :collection_name => "現在の登録数", :checked_value => 20, :class => "content_box_bg") do %>
+    <table class="content_table">
+      <tr>
+        <% with_options(:default_order => Invite.default_index_order) do |view| %>
+          <th><%= view.link_for_sort "招待日時", :order => "invites.created_at" %></th>
+          <th><%= view.link_for_sort "招待メールアドレス", :order => "invites.email" %></th>
+          <th><%= view.link_for_sort "招待者", :order => "invites.user_id" %></th>
+          <th>ハッシュ</th>
+        <% end %>
+      </tr>
+      <% @invites.each do |invite| %>
+        <tr>
+          <td>
+            <%=h l(invite.created_at, :format => :default_year_month_date)  %>
+          </td>
+          <td>
+            <%= mail_to(h(invite.email)) %>
+          </td>
+          <td>
+            <%= link_to h(invite.user.name), user_path(invite.user) %>
+          </td>
+          <td>
+            <%=h invite.private_token %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

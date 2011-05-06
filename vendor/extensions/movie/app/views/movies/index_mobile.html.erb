@@ -1,0 +1,25 @@
+▽<%= link_to '新着', index_for_recent_movies_path  %>
+<br/>
+
+▽<%= link_to '検索', search_movies_path  %>
+<br/>
+
+▽<%= link_to 'ムービーマップ', index_for_map_movies_path %>
+<br/>
+
+▽<%= link_to 'ムービーカレンダー', show_calendar_movies_path %>
+<br/>
+
+<% if logged_in? %>
+  ▽<%= link_to '登録', new_movie_path  %>
+  <br/>
+
+  ▽<%= link_to 'マイムービー一覧', index_for_user_user_movies_path(:user_id => @user.id)  %>
+  <br/>
+
+  ▽<%= link_to '公開設定', edit_preference_path(@user.preference) %>
+  <br/>
+<% end %>
+
+▽<%= link_to 'パケットについて', about_packet_movies_path %>
+<br/>

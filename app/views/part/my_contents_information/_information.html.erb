@@ -1,0 +1,62 @@
+<%
+  new_informations =
+    Information.by_viewable_for_user(current_user).
+         by_not_expire.display_type_is(Information::DISPLAY_TYPES[:new]).
+           find(:all, :limit => 5)
+  fixed_informations =
+    Information.by_viewable_for_user(current_user).
+         by_not_expire.display_type_is(Information::DISPLAY_TYPES[:fixed])
+  important_informations =
+    Information.by_viewable_for_user(current_user).
+         by_not_expire.display_type_is(Information::DISPLAY_TYPES[:important])
+%>
+<% unless logged_in? %>
+  <div class="content_title_not_bold content_box_bg">
+    <%= h(SnsConfig.title) %>について
+  </div>
+  <div class="base_data">
+    <div>
+      <%= SnsConfig.outline.gsub("\n", "<br/>").untaint %>
+    </div>
+    <div class="all_link">
+      [ <%= link_to "もっと詳しく", page_path("about") %> ]
+    </div>
+  </div>
+<% end %>
+
+<% preference_updated_notify = (!current_user.nil? && current_user.preference.updated?) %>
+<% if !important_informations.empty? || preference_updated_notify %>
+  <div class="content_title_not_bold content_box_bg">
+    <b><font color="red">！！重要なお知らせ！！</font></b>
+  </div>
+  <div class="base_data">
+    <% if preference_updated_notify %>
+      <div class="news_link">
+        ※まずは色々な設定が出来る[ <%= link_to "設定変更", edit_preference_path(current_user.preference) %> ]をしてみよう！
+      </div>
+    <% end %>
+    <% important_informations.each do |info| %>
+      <div class="news_link">
+        <%= auto_link(info.title.gsub("\n", "<br/>")).untaint %>
+        <% if info.display_link_link? %>
+          → [<%= link_to "<b>詳細</b>", information_path(info) %>]
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if logged_in? || (!new_informations.empty? || !fixed_informations.empty?) %>
+  <div class="content_title_not_bold content_box_bg">
+    <%= display_open_colse_box_button('information') if logged_in? %>お知らせ
+  </div>
+  <% if logged_in? %>
+    <% display_open_colse_box(:id => "information", :class => "base_data") do %>
+      <%= render :partial => "part/my_contents_information/information_news", :locals => {:information_news => (new_informations + fixed_informations)} %>
+    <% end %>
+  <% else %>
+    <div class="base_data">
+      <%= render :partial => "part/my_contents_information/information_news", :locals => {:information_news => (new_informations + fixed_informations)} %>
+    </div>
+  <% end %>
+<% end %>

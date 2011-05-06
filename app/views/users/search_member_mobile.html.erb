@@ -1,0 +1,41 @@
+<%
+select_search_params =
+  select_search_member_params_for_paginate_mobile(
+    :gender, :age_range_start, :age_range_end,
+    :blood_type, :now_prefecture_id, :now_city,
+    :detail, :last_real_name, :first_real_name, :name
+  )
+%>
+[<%= link_to "検索条件変更", search_member_form_users_path %>]
+<br/>
+
+<hr size="1" noshade>
+
+<% if @users.empty? %>
+  登録がありません。
+<% else %>
+
+  <%= will_paginate_mobile(@users, :params => select_search_params) %>
+
+  <hr size="1" noshade>
+
+  <% @users.each_with_index do |user, i| %>
+    <a href="#<%= i+2 %>" name="<%= i %>">▼</a>
+    <%= link_to_user user, h(user.name) %>
+    <br/>
+
+    <%= h(user.message) %>
+    <br/>
+
+    <%= user.logged_in_at_by_diff %>
+
+    <hr size="1" noshade>
+  <% end %>
+
+  <%= will_paginate_mobile(@users, :params => select_search_params) %>
+
+<% end %>
+
+<hr size="1" noshade>
+
+[<%= link_to "検索条件変更", search_member_form_users_path %>]

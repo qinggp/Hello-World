@@ -1,0 +1,63 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_map_categories
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)
+#  user_id      :integer
+#  community_id :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+curry_shop:
+  name: カレーショップ
+  author: sns_tarou
+  community: curry
+
+curry_friend:
+  name: カレーのトモダチ
+  author: sns_tarou
+  community: curry
+
+boat_point:
+  name: 絶好ポイント
+  author: sns_tarou
+  community: boat
+
+official_normal_map_category:
+  name: 公認コミュニティのマップカテゴリ
+  author: sns_tarou
+  community: official_normal
+
+official_all_member_category:
+  name: 公認コミュニティ（全員）のマップカテゴリ
+  author: sns_tarou
+  community: official_all_member
+
+official_admin_category:
+  name: 公認コミュニティ（管理人）のマップカテゴリ
+  author: sns_tarou
+  community: official_admin
+
+secret_category:
+  name: ないしょのコミュニティのマップカテゴリ
+  author: sns_tarou
+  community: secret
+
+private_category:
+  name: 非公開のコミュニティのマップカテゴリ
+  author: sns_tarou
+  community: private
+
+public_category:
+  name: 外部公開のコミュニティのマップカテゴリ
+  author: sns_tarou
+  community: public
+
+member_category:
+  name: 全体公開のコミュニティのマップカテゴリ
+  author: sns_tarou
+  community: member
+

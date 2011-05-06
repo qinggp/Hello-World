@@ -1,0 +1,17 @@
+<b>--- トモダチ招待 ---</b><br/>
+招待するにあたり、以下の内容を必ずお読みください。 <br/>
+<%= link_to "トモダチ招待規約", constitution_invites_path %><br/>
+
+<%= display_form_attr_name(Invite, :email) %><br/>
+<%= f.text_field :email %><br/>
+※招待したい友人・知人のメールアドレスを入力してください。<br/>
+
+<%= display_form_attr_name(Invite, :body) %><br/>
+<%= f.text_area :body, :rows => 4, :cols => 40 %><br/>
+
+<%= display_form_attr_name(Invite, :mail_sender_me) %><br/>
+<%= f. check_box :mail_sender_me, {}, true, nil %>
+<%= f.label :mail_sender_me,  "自分のアドレスを差出人にする" %><br/>
+※通常は <%=h SnsConfig.admin_mail_address %> から送信されます。<br/>
+
+<%= render :partial => "/share/form_relation_mobile", :locals => {:f => f} %>

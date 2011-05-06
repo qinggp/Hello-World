@@ -1,0 +1,12 @@
+<% Mars::UI.instance.preference_sequences.each do |name|  %>
+  <tr>
+    <td class="content_table_title" colspan="2"><%= t("preference_category.#{name}") %></td>
+  </tr>
+
+  <%= 
+      Mars::UI.instance.preferences[name].map do |part|
+        part.display(self, :locals => {:f => f, :view_type => :confirm })
+      end.join("\n")
+   %>
+
+<% end %>

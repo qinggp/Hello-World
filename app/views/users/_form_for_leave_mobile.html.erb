@@ -1,0 +1,9 @@
+退会するとあなたの全ての情報がデータベースから削除されます。（削除後復活はできません）<br/>
+※なにか問題を抱えているようでしたら一度、招待者や<%= link_to "運営者へ相談", new_ask_path %>してみましょう。<br/>
+※あなたが作成したコミュニティの管理権は自動的に他の参加者に移りますが、あらかじめ信頼のある参加者への管理権の委譲をお勧めいたします。 <br/>
+<hr size="1" noshade>
+[<%=h User.human_attribute_name("current_password") %>]※<br/>
+<%= f.password_field :current_password, :value => "" %><br/>
+[<%=h User.human_attribute_name("leave_reason") %>]※<br/>
+差し支えのない範囲で結構ですので退会理由をお聞かせください。<br/>
+<%= f.text_area :leave_reason, :rows => 3, :cols => 20 %>

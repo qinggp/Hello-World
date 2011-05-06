@@ -1,0 +1,5 @@
+削除してよろしいですか？<br/>
+[<%= link_to "削除", blog_entry_path(:id => params[:id]), :method => :delete %>]
+[<%= link_to "戻る", index_for_user_user_blog_entries_path(@user) %>]<br/>
+
+<%= render :partial => "/share/footer_mobile" %>

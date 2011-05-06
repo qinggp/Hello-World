@@ -1,0 +1,28 @@
+.mceItemPic {
+	border: 1px dotted #cc0000;
+	background-image: url('../../../themes/advanced/images/image.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #ffffcc;
+}
+.mceItemPic1 {
+	border: 1px dotted #cc0000;
+	background-image: url('../images/1.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #ffffcc;
+}
+.mceItemPic2 {
+	border: 1px dotted #cc0000;
+	background-image: url('../images/2.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #ffffcc;
+}
+.mceItemPic3 {
+	border: 1px dotted #cc0000;
+	background-image: url('../images/3.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #ffffcc;
+}

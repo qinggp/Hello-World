@@ -1,0 +1,7 @@
+<center>
+  <% display_round_box(:width => "600px", :white_bg => true) do %>
+    <table class="content_table">
+      <%= render(:partial => "schedule", :locals => {:schedule => @schedule}) %>
+    </table>
+  <% end %>
+</center>

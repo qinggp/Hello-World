@@ -1,0 +1,10 @@
+<% Mars::UI.instance.mobile_preference_sequences.each do |name|  %>
+  <b>---<%= t("preference_category.#{name}") %>---</b><br/>
+
+  <%= 
+      Mars::UI.instance.preferences[name].map do |part|
+        part.display(self, :locals => {:f => f, :view_type => :form })
+      end.join("\n")
+  %>
+
+<% end %>

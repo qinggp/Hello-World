@@ -1,0 +1,66 @@
+/* NOTE: 名前衝突の恐れがあるためクラス名、IDの先頭には sns_linkage を付けてください。 */
+.sns_linkage_title {
+  border-bottom: 1px dotted gray;
+  margin: 4px;
+  padding: 3px;
+  width: 620px;
+  font-weight: bold;
+}
+
+#sns_linkage .page_title {
+  border-bottom:1px dotted gray;
+  font-size:140%;
+  font-weight:bold;
+  padding:3px;
+}
+
+#sns_linkage .box_content{
+  padding: 5px;
+  text-align: center;
+}
+
+#sns_linkage .sns_linkage_list{
+  border-top:1px solid #ECEBE1;
+  margin-bottom:5px;
+  padding:3px;
+}
+
+#sns_linkage .sns_linkage_data td {
+  padding: 0px;
+}
+
+#sns_linkage .sns_linkage_msg {
+  font-size:90%;
+  padding:5px;
+}
+
+#sns_linkage .sns_linkage_title th {
+  background-color:#F9F9F4;
+  border:2px solid #ECEBE1;
+  font-weight:bold;
+  padding:5px;
+  text-align: center;
+}
+
+#sns_linkage .current_tab a{
+  font-weight: bold;
+}
+
+#sns_linkage .tab a{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#sns_linkage div.tab_notice{
+  padding: 5px;
+}
+
+#sns_linkage div.category{
+  margin: 5px 0px;
+  font-weight: bold;
+}
+
+#sns_linkage div.news_link{
+  margin-left: 10px;
+  text-align: left;
+}

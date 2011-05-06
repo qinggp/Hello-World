@@ -1,0 +1,23 @@
+[ <%= link_to "内部リンク追加", new_community_linkage_path(:community_id => @community, :kind => "CommunityInnerLinkage") %> ]
+[ <%= link_to "外部リンク追加", new_community_linkage_path(:community_id => @community, :kind => "CommunityOuterLinkage") %> ]
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@community_linkages).untaint %>
+<% if @community_linkages.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+
+<% @community_linkages.each do |linkage| %>
+  <%= link_to h(linkage.name), linkage.url(self) %>
+  [<%= link_to "削除", confirm_before_destroy_community_linkage_path(:id => linkage.id, :community_id => @community.id) %>]
+  <%= h linkage.link_type %>
+  <br />
+<% end %>
+
+<% if @community_linkages.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@community_linkages).untaint %>
+
+<hr size="1" noshade>
+<%= link_to "戻る", community_path(@community) %>

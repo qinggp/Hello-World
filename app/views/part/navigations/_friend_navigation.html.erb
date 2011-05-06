@@ -1,0 +1,40 @@
+<div class="navigation_content">
+  <div><%= theme_image_tag "home_friend.gif", :class => "my_navigation_content_title" %></div>
+  <% display_open_colse_box(:id => "my_navigation_friend_list") do %>
+    <% if @user.friends.empty? %>
+      <div class="no_data">
+        現在トモダチがいません。<br/>
+        <%= link_to "寂しいのでトモダチを作りましょう。", search_member_form_users_path %>
+      </div>
+    <% else %>
+      <table width="100%">
+        <% @user.friends.find(:all, :order => "users.logged_in_at DESC", :limit => 6).slice(0, 6).in_groups_of(3) do |friends| %>
+          <tr>
+            <% friends.each do |friend| %>
+              <td class="new_link" align="center" width="80" valign="top">
+                <% if friend %>
+                  <%= display_friend(friend) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <div class="all_link">
+        [ <%= link_to("招待一覧(#{@user.invite_friends_count}人)", index_for_invite_user_friends_path(displayed_user)) %> ]
+        [ <%= link_to("全て(#{@user.friends.count}人)", index_user_friends_path(:user_id => displayed_user.id)) %> ]
+        <% if @user.same_user?(current_user) %>
+          <br />
+          [ <%= link_to("グループ管理", new_group_path) %> ]
+          [ <%= link_to("紹介文管理", list_description_user_friends_path(:user_id => current_user.id)) %> ]
+          [ <%= link_to("トモダチ管理", maintenance_friends_path) %> ]
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<div align="right">
+  <div style="margin-bottom: 5px; cursor: pointer;">
+    <%= display_open_colse_box_button("my_navigation_friend_list") %>
+  </div>
+</div>

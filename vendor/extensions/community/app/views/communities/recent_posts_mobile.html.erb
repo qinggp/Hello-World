@@ -1,0 +1,26 @@
+<%
+  days_ago = params[:days_ago].to_i
+  if days_ago % 7 == 0
+    history = (days_ago / 7).to_s + "週間分"
+  else
+    history = days_ago.to_s + "日分"
+  end
+%>
+
+<% if @threads.total_pages > 1 %>
+  <%= will_paginate_mobile(@threads).untaint %>
+  <hr size="1" noshade>
+<% end %>
+
+-過去<%= history %>-<br />
+<% @threads.each do |thread| %>
+  <%= display_news_line_format_mobile(thread.lastposted_at,
+                                      link_to(h(thread.title) + "(#{thread.active_replies.size})", :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                      link_to(h(thread.community.name), community_path(thread.community))) %>
+  <br />
+<% end %>
+
+<% if @threads.total_pages > 1 %>
+  <hr size="1" noshade>
+  <%= will_paginate_mobile(@threads).untaint %>
+<% end %>

@@ -1,0 +1,8 @@
+<% if @community_reply.new_record? %>
+  <%= render :partial => "share/show_reply", :locals => {:reply => (@community_reply.parent || @community_reply.thread)} %>
+  <hr size="1" noshade>
+<% end %>
+
+<%= render :partial => "/share/confirm" %>
+
+<%= render :partial => "share/community_footer" %>

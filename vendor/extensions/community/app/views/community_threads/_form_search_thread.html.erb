@@ -1,0 +1,14 @@
+<% form_tag(search_community_threads_path(:community_id => @community.id)) do %>
+  [ <%= check_box_tag 'types[]', 'CommunityTopic', 
+  params[:types].blank? || params[:types].include?('CommunityTopic')  %>
+  トピック表示 ]
+  [ <%= check_box_tag 'types[]', 'CommunityEvent', 
+  params[:types].blank? || params[:types].include?('CommunityEvent')
+  %>イベント表示 ]
+  [ <%= check_box_tag 'types[]', 'CommunityMarker', 
+  !params[:types].blank? && params[:types].include?('CommunityMarker') %>
+  マーカー表示 ]
+  <br />
+  <%= text_field_tag("keyword", params[:keyword]) %>
+  <%= submit_tag("検索") %>
+<% end %>

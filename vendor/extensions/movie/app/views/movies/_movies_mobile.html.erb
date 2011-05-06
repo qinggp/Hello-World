@@ -1,0 +1,17 @@
+<% 
+  path_func ||= lambda{|record| movie_path(record) }
+%>
+<% if @movies.empty? %>
+  一致するムービーはありません。
+  <br/>
+<% else %>
+
+  <% @movies.each do |movie|  %>
+    <%=h l(movie.created_at, :format => :default_month_date)  %>
+    <%= link_to(h(movie.title), path_func.call(movie)) %>
+    <br/>
+  <% end %>
+
+  <br/>
+  <%= will_paginate_mobile(@movies, :params => {:query => reencode_to_mobile_code(params[:query])}).untaint %>
+<% end %>

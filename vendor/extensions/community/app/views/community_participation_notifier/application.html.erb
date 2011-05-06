@@ -1,0 +1,24 @@
+<%= render :partial => "/share/mail_header" %>
+
+「<%= h @community_name %>」コミュニティに、
+<%= h @user_name %>さんの参加希望がありましたのでご連絡致します。
+
+<% if @message -%>
+―――― < <%= h @user_name %>さん >から参加にあたって一言 ―――
+
+<%= @message %>
+
+―――――――――――――――――――――――――――――
+<% end -%>
+
+以下のURLをクリックして参加承認作業をしてください。
+
+◆<%= h @community_name %>コミュニティのページ
+<%= h @community_link %>
+
+◇<%= h @user_name %>さんのページ
+<%= h @user_link %>
+
+今後とも、ぜひ、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

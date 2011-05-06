@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sy="http://purl.org/rss/modules/syndication/" xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns="http://purl.org/rss/1.0/">
+  <channel rdf:about="/users/279556402/blog_entries/index_for_user">
+    <title>SNS太郎のブログ</title>
+    <link>/users/279556402/blog_entries/index_for_user</link>
+    <description>SNS太郎のブログ</description>
+    <dc:language>ja</dc:language>
+    <dc:rights>Copyright (C) Network Applied Communication Laboratory Ltd.</dc:rights>
+    <dc:date>Thu, 14 Jan 2010 14:51:06 +0900</dc:date>
+    <item>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/879351352"/>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/579526522"/>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/80618651"/>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/29871735"/>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/546220327"/>
+        <rdf:li rdf:resource="http://localhost:3000/blog_entries/1018334309"/>
+      </rdf:Seq>
+    </item>
+  </channel>
+  <item rdf:about="http://localhost:3000/blog_entries/879351352">
+    <title>全体公開日記</title>
+    <link>http://localhost:3000/blog_entries/879351352</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2010-01-13T16:50:02+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>本文</description>
+    <content:encoded>
+      <![CDATA[本文]]>
+    </content:encoded>
+  </item>
+  <item rdf:about="http://localhost:3000/blog_entries/579526522">
+    <title>本文が長い日記</title>
+    <link>http://localhost:3000/blog_entries/579526522</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2010-01-12T16:50:02+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>項目1&lt;br /&gt;項目2&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;</description>
+    <content:encoded>
+      <![CDATA[項目1<br />項目2<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />]]>
+    </content:encoded>
+  </item>
+  <item rdf:about="http://localhost:3000/blog_entries/80618651">
+    <title>トモダチのみコメント可能日記</title>
+    <link>http://localhost:3000/blog_entries/80618651</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2010-01-11T16:50:02+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>本文</description>
+    <content:encoded>
+      <![CDATA[本文]]>
+    </content:encoded>
+  </item>
+  <item rdf:about="http://localhost:3000/blog_entries/29871735">
+    <title>メンバのみコメント可能日記</title>
+    <link>http://localhost:3000/blog_entries/29871735</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2008-01-01T00:00:00+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>本文</description>
+    <content:encoded>
+      <![CDATA[本文]]>
+    </content:encoded>
+  </item>
+  <item rdf:about="http://localhost:3000/blog_entries/546220327">
+    <title>誰でもコメント可能日記</title>
+    <link>http://localhost:3000/blog_entries/546220327</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2010-01-10T16:50:02+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>本文</description>
+    <content:encoded>
+      <![CDATA[本文]]>
+    </content:encoded>
+  </item>
+  <item rdf:about="http://localhost:3000/blog_entries/1018334309">
+    <title>コメント受け付けない日記</title>
+    <link>http://localhost:3000/blog_entries/1018334309</link>
+    <dc:subject>クチコミ情報</dc:subject>
+    <dc:date>2010-01-09T16:50:02+09:00</dc:date>
+    <dc:creator>SNS太郎</dc:creator>
+    <description>本文</description>
+    <content:encoded>
+      <![CDATA[本文]]>
+    </content:encoded>
+  </item>
+</rdf:RDF>

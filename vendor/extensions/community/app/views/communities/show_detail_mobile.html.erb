@@ -1,0 +1,60 @@
+<%= h(@community.name) %><br />
+管理人：<%= link_to_user(@community_admin, h( @community.member_name(@community_admin))) %>さん<br />
+<hr size="1" noshade>
+
+<!-- コミュニティ詳細 -->
+■コミュニティ詳細<br />
+
+<!-- コミュニティ画像 -->
+<% if @community.image? %>
+  <%= link_to(theme_image_tag(community_image_path(@community, "thumb"), :width => 60, :border => 0), community_image_path(@community, "medium")) %>
+  <br />
+<% end %>
+
+<b>[開設日]</b><br />
+<%= h(@community.created_at.strftime("%Y年%m月%d日")) %>(開設から<%= h(@community.elapsed_days) %>日目)<br />
+
+<b>[カテゴリ]</b><br />
+<%= h @community.community_category.parent.name %>、<%= h @community.community_category.name %><br />
+
+<b>[メンバー数]</b><br />
+<%= h @community.members.count %>人<br />
+
+<b>[参加・公開条件]</b><br />
+<%= h t(:approval_required, :scope => [:community])[@community.approval_required] %>
+(※<%= h @community.describe_note_of_visibility %>)<br />
+
+<% if @community.topic_and_marker_createable_admin_only? || @community.event_createable_admin_only? %>
+  <b>[作成制限]</b><br />
+  <% if @community.topic_and_marker_createable_admin_only? %>
+    ※トピックおよびマーカーの作成が制限されています<br />
+  <% end %>
+  <% if @community.event_createable_admin_only? %>
+    ※イベントの作成が制限されています<br />
+  <% end %>
+<% end %>
+
+<b>[紹介文]</b><br />
+<%= auto_link(hbr(add_session_query_on_inner_url(@community.comment))) { |text| truncate(strip_session_query(text), 60) }  %>
+<br />
+
+<!-- コミュニティ書き込みメール -->
+<% if @community.member?(current_user) %>
+  <hr size="1" noshade>
+  ■コミュニティ書き込みメール<br />
+  <% form_for(@membership, :url => update_comment_notice_acceptable_community_path(@community), :html => {:method => :post}) do |f| %>
+    PC：
+    <%= f.radio_button :comment_notice_acceptable, true %>受け取る
+    <%= f.radio_button :comment_notice_acceptable, false %>受け取らない
+    <% unless current_user.mobile_email.blank? %>
+      <br />
+      携帯：
+      <%= f.radio_button :comment_notice_acceptable_for_mobile, true %>受け取る
+      <%= f.radio_button :comment_notice_acceptable_for_mobile, false %>受け取らない
+    <% end %>
+    <br />
+    <%= f.submit "変更" %>
+  <% end %>
+<% end %>
+
+<%= render :partial => "share/community_footer" %>

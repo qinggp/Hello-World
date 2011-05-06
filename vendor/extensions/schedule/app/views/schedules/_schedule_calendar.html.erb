@@ -1,0 +1,49 @@
+<table class="content_box_bg" style="width:100%; padding-bottom: 6px;">
+  <tr>
+    <td>
+      <%= calendar_selects_remote(:update => "schedule_calendar",
+                                  :url => {:action => :show_calendar, :user_id => @user.id} ) %>
+    </td>
+    <td align="right">
+      <%= calendar_move_remote(:update => "schedule_calendar",
+                               :url => {:action => :show_calendar, :user_id => @user.id} ) %>
+    </td>
+  </tr>
+</table>
+<div style="background-color:#FFFFFF;">
+  <%=
+     mars_calendar(:year => @calendar_year, :month => @calendar_month) do |cur|
+       tmp = link_to(h(cur.day), show_list_schedules_path(:user_id => @user.id, :date => cur.strftime("%Y/%m/%d"))) + " "
+       if @user.id == current_user.id && cur >= Date.today
+         tmp += link_to(theme_image_tag("schedule/sche_new.gif", :size => "16x16", :align => "bottom", :alt => "新規登録", :border => 0), new_schedule_path(:due_date => cur.strftime("%Y/%m/%d")))
+       end
+       cell_text = content_tag(:div, tmp)
+
+       @schedules.find_all{|s| s.due_date == cur}.each do |schedule|
+         schedule_image_file = schedule.public? ? "schedule/sche_public.gif" : "schedule/sche_private.gif"
+         tmp =
+           theme_image_tag(schedule_image_file, :border => 0) +
+           link_to(h(truncate(schedule.title, 12)),
+                   schedule_path(schedule)) + "<br />"
+         cell_text << content_tag(:div, tmp)
+       end
+
+       @friends.find_all{|f| f.birthday?(cur)}.each do |friend|
+         tmp =
+           theme_image_tag("schedule/sche_birthday.gif", :border => 0) +
+           link_to(h(truncate(friend.name, 12)), user_path(friend))
+         cell_text << content_tag(:div, tmp)
+       end
+
+       @events.find_all{|e| e.event_date == cur}.each do |event|
+         tmp =
+           theme_image_tag("schedule/sche_event.gif", :border => 0) +
+           link_to(h(truncate(event.title, 12)), community_event_path(:community_id => event.community_id, :id => event.id))
+         cell_text << content_tag(:div, tmp)
+       end
+
+       [cell_text, nil]
+     end
+  %>
+</div>
+

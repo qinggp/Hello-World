@@ -1,0 +1,32 @@
+<%
+  my_blog_comments = blog_recent_comments_for_my_entries()
+%>
+
+<% if my_blog_comments.empty?  %>
+  <div class="no_data content_box_bg_light">
+    現在ブログへのコメントはありません。<br/>
+    <%= link_to "ブログを書いて", new_blog_entry_path %>トモダチにコメントをもらいましょう。 <br/>
+    <%= display_news_show_option_selects("blog_comments_checklist") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("blog_comments_checklist") %>
+    最新マイブログコメント
+  </div>
+
+  <% display_open_colse_box(:id => "blog_comments_checklist", :class => "base_data") do %>
+    <% my_blog_comments.each do |c| %>
+      <div class="news_link">
+        <% link_to_comment_user = c.anonymous? ? h(c.comment_user_name) : link_to(h(c.comment_user_name), c.user) %>
+        <%= display_news_line_format(c.created_at,
+                                     link_to(h(c.blog_entry.title), blog_entry_path(c.blog_entry, :anchor => "blog_comment")),
+                                     link_to_comment_user) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div align="left">
+        <%= display_news_show_option_selects("blog_comments_checklist") %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

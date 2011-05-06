@@ -1,0 +1,26 @@
+<% if thread.map_viewable? %>
+  <div>
+    <div id="map" style="width:400px;height:300px; margin-bottom:10px; margin-left:3px; border:1px solid gray;">
+      Now Loading...
+    </div>
+  </div>
+  <%= render :partial => "/share/google_map_script" %>
+  <%= javascript_include_tag('gmap_viewer') %>
+  <%= javascript_include_tag('community/community_thread_marker') %>
+  <script type="text/javascript">
+    var marker = null;
+    GMapViewer.markers.push(new CommunityThreadMarker(
+    new GLatLng(<%=h thread.latitude.to_json %>, <%=h thread.longitude.to_json %>),
+    {
+    id : <%= thread.id.to_json %>,
+    title_link : <%= (h(thread.title)).to_json %>,
+    body : "",
+    date : <%= h(l(thread.created_at.to_date, :format => :long)).to_json %>
+    }));
+    GMapViewer.maps_load_for_view("map",
+    {latitude : <%= thread.latitude %>,
+    longitude : <%= thread.longitude %>,
+    zoom : <%= thread.zoom %>});
+    GEvent.trigger(GMapViewer.markers[0].marker, 'click');
+  </script>
+<% end %>

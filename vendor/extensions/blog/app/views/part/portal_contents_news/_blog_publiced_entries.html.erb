@@ -1,0 +1,30 @@
+<%
+  entries = BlogEntry.by_activate_users.
+    visibility_is(BlogPreference::VISIBILITIES[:publiced]).
+      descend_by_created_at.find(:all, :select => ["blog_entries.created_at"], :limit => 10)
+%>
+<% unless entries.empty?  %>
+  <div class="content_box_bg content_title_not_bold">
+    最新ブログ
+  </div>
+
+  <div class="base_data">
+    <% entries.each do |entry| %>
+      <div class="news_link">
+        <%= display_news_line_format(entry.created_at,
+                                     link_to(h(entry.title), blog_entry_path(entry)) + " " + (entry.blog_comments.size == 0 ? "" : "(#{entry.blog_comments.size})"),
+                                     link_to_user(entry.user, h(entry.user.name))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div style="float:left;">
+        <%= link_to theme_image_tag("feed_rdf.gif"), index_feed_blog_entries_path(:format => :rdf) %>
+        <%= link_to theme_image_tag("feed_rss.gif"), index_feed_blog_entries_path(:format => :rss) %>
+        <%= link_to theme_image_tag("feed_atom.gif"), index_feed_blog_entries_path(:format => :atom) %>
+      </div>
+      <div>
+        [ <%= link_to "全て", search_blog_entries_path %> ]
+      </div>
+    </div>
+  </div>
+<% end %>

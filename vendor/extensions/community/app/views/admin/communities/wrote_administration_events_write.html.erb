@@ -1,0 +1,42 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "events", :checked_type => "write" } %>
+<% form_tag(wrote_administration_events_admin_communities_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "write") %>
+  <% display_collection_box(@community_events, :collection_name => "現在の登録数", :checked_value => 5) do %>
+    <% @community_events.each do |community_event| %>
+      <table class="admin_community_content_table" cellspacing="0" cellpadding="0" border="1" align="center" width="600">
+        <tr>
+          <th colspan="2" align="center">
+            [ ID:<%= h community_event.id %> ]
+            [ <%= link_to('URL', community_event_path(:community_id => community_event.community_id, :id => community_event.id))  %> ]
+          </th>
+        </tr>
+        <tr>
+          <th>日付</th>
+          <td><%= community_event.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th>記入者</th>
+          <td><%= link_to h(community_event.author.name), user_path(community_event.author) %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= h community_event.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= h community_event.content %></td>
+        </tr>
+        <tr>
+          <th>添付</th>
+          <td><%= display_write_attachment(community_event) %></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+

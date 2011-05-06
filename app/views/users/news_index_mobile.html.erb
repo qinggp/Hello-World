@@ -1,0 +1,8 @@
+▽メニュー<br/>
+<% Mars::UI.instance.mobile_portal_news_navigations.each do |part| %>
+  <%= part.display(self) %><br/>
+<% end %>
+
+<% Mars::UI.instance.mobile_portal_news.each do |part| %>
+  <%= part.display(self) %>
+<% end %>

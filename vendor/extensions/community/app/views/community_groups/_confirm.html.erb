@@ -1,0 +1,13 @@
+<tr>
+  <td class="content_table_title" colspan="2">コミュニティグループ</td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(CommunityGroup, :name) %></th>
+  <td>
+    <%= h @community_group.name %>
+    <%= f.hidden_field :name %>
+  </td>
+</tr>
+<% if params[:back_to] %>
+  <%= hidden_field_tag "back_to", params[:back_to] %>
+<% end %>

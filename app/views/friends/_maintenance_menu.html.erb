@@ -1,0 +1,90 @@
+<div class="content_box">
+  <% if @friends.empty? %>
+    <div class="no_data">
+      寂しいので友達を作りましょう。
+    </div>
+  <% else %>
+    <% display_collection_box(@friends, :collection_name => "現在の登録数", :per_pages => [5, 10, 20, 50, 100], :checked_value => 5, :width => "610px", :class => "content_box_bg") do %>
+      <table class="content_table">
+        <tr>
+          <th colspan="3">
+            <% with_options(:default_order => "friendships.created_at",
+                            :per_page => params[:per_page],
+                            :page => params[:page]) do |view| %>
+              [ <%= view.link_for_sort("トモダチ日付順", :order => "friendships.created_at", :modifier => "DESC") %>  ]
+              [ <%= view.link_for_sort("名前順", :order => "users.name") %> ]
+            <% end %>
+          </th>
+        </tr>
+        <% @friends.each do |friend| %>
+          <% friendship = current_user.friendship_by_user_id(friend.id) %>
+          <tr>
+            <td width="76" valign="top" class="news_link" rowspan="2" style="text-align: center;">
+              <%= display_face_photo_on_table(friend, :width => 76) %>
+            </td>
+            <td valign="top" style="border-bottom: none;">
+              <% description = friendship.description %>
+              <% if description.blank? %>
+                <%= link_to("紹介文を書く", edit_friend_description_user_path(friend)) %>
+              <% else %>
+                <%= hbr description %>
+                <div>
+                  [ <%= link_to("修正", edit_friend_description_user_path(friend)) %> ]
+                  [ <%= link_to("削除", clear_friend_description_user_path(friend), {:method => :put, :confirm => "紹介文を削除します。よろしいですか？"}) %> ]
+                </div>
+              <% end %>
+            </td>
+            <td valign="top" style="text-align:center; width: 120px; border-bottom: none;">
+              <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+                <div>
+                  <% if current_user.new_blog_entry_displayed?(friend) %>
+                    □最新ブログ表示中<br/>
+                    [
+                    <% link_to(change_new_blog_entry_displayed_friend_path(friend), :confirm => "マイホームのトモダチ最新ブログに表示されなくなります。") do %>
+                      <%= theme_image_tag("z_down.gif", :border => 0) %> 非表示にする
+                    <% end %>
+                    ]
+                  <% else %>
+                    ■最新ブログ非表示中<br/>
+                    [
+                    <% link_to(change_new_blog_entry_displayed_friend_path(friend), :confirm => "マイホームのトモダチ最新ブログに表示されます。") do %>
+                      <%= theme_image_tag("z_up.gif", :border => 0) %> 表示する
+                    <% end %>
+                    ]
+                  <% end %>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="bottom" style="text-align: right; border-top: none;">
+              <% if SnsConfig.relation_flg %>
+                <%= h current_user.display_friend_relation(friend) %>
+                <%= h current_user.display_friend_contact_frequency(friend) %>
+              <% end %>
+            </td>
+            <td align="center" valign="bottom" style="text-align: center; width: 120px; border-top: none;">
+              <div>
+                <%=h l(friendship.created_at.to_date, :format => :default_year_month_date) %>から
+                <%= (Date.today - friendship.created_at.to_date).to_i %>日目<br />
+                <% if current_user.invitation?(friend) %>
+                  招待者は外せません
+                <% elsif current_user.hot_friend?(friend) %>
+                  すぐには外せません
+                <% else %>
+                  [ 
+                  <% link_to(break_off_friend_path(friend), :method => :delete, :confirm => "トモダチ関係を破棄してよろしいですか？") do %>
+                    <%= theme_image_tag("z_down.gif", :border => 0) %> トモダチから外す
+                  <% end %>
+                  ] 
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <%= hidden_field_tag(:order, params[:order]) %>
+      <%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+    <% end %>
+  <% end %>
+</div>

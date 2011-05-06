@@ -1,0 +1,24 @@
+<% @preference.blog_preference ||= BlogPreference.new  %>
+<% f.fields_for :blog_preference do |bpf|  %>
+  <% if view_type == :form %>
+    [<%=h BlogPreference.human_attribute_name("title") %>]※<br/>
+    <%= bpf.text_field :title %><br/>
+
+    [<%=h BlogPreference.human_attribute_name("email_post_visibility") %>]<br/>
+    <%= 
+        bpf.select(:email_post_visibility,
+                 @preference.blog_preference.selectable_visibilities.map do |k, v|
+                   [t("blog.blog_preference.email_post_visibility_label.#{k}"), v]
+                 end
+        )
+    %><br/>
+  <% else %>
+    [<%=h BlogPreference.human_attribute_name("title") %>]※<br/>
+    <%=h @preference.blog_preference.title %>
+    <%= bpf.hidden_field :title %><br/>
+
+    [<%=h BlogPreference.human_attribute_name("email_post_visibility") %>]※<br/>
+    <%=h t("blog.blog_preference.email_post_visibility_label.#{@preference.blog_preference.email_post_visibility_name}") %>
+    <%= bpf.hidden_field :email_post_visibility %><br/>
+  <% end %>
+<% end %>

@@ -1,0 +1,22 @@
+  <div>
+    <div class="community_title">
+      <%= h @community.name %>
+    </div>
+    <table id="community_picuture" width="240" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td align="center" valign="middle">
+          <div id="pic">
+            <%= link_to_if @community.image,
+                           community_image_from_navigation(@community),
+                           show_unpublic_image_community_path(:community_id => @community.id) %>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <% if @community.official? %>
+      <div style="text-align: center;" class="all_link">
+        <%= theme_image_tag("invite.png", :size => "16x16", :align => "middle") %>
+        <%= h(@community.name + @community.official_lable) %>
+      </div>
+    <% end %>
+  </div>

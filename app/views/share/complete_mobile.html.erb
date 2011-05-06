@@ -1,0 +1,8 @@
+<%
+  @back_link_template ||= "complete_back_link"
+%>
+<%= @message.gsub("\n", "<br/>") %><br/>
+
+<p align="center">
+- <%= render :partial => @back_link_template %> -
+</p>

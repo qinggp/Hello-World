@@ -1,0 +1,115 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_categories
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  parent_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+ammusement:
+  id: 1
+  name: 娯楽
+knowledge:
+  id: 2
+  name: 知識
+life:
+  id: 3
+  name: 生活
+group:
+  id: 4
+  name: グループ
+others:
+  id: 5
+  name: その他
+music:
+  id: 6
+  name: 音楽
+  parent_id: 1
+movie:
+  id: 7
+  name: 映画
+  parent_id: 1
+sports:
+  id: 8
+  name: スポーツ
+  parent_id: 1
+game:
+  id: 9
+  name: ゲーム
+  parent_id: 1
+book:
+  id: 10
+  name: 本、マンガ
+  parent_id: 1
+journey:
+  id: 11
+  name: 旅行
+  parent_id: 1
+vehicle:
+  id: 12
+  name: 車、バイク
+  parent_id: 1
+hobby:
+  id: 13
+  name: 趣味
+  parent_id: 1
+pet:
+  id: 14
+  name: ペット
+  parent_id: 1
+tv_program:
+  id: 15
+  name: テレビ番組
+  parent_id: 1
+pc:
+  id: 16
+  name: PC、インターネット
+  parent_id: 2
+research:
+  id: 17
+  name: 学問、研究
+  parent_id: 2
+economy:
+  id: 18
+  name: ビジネス、経済
+  parent_id: 2
+art:
+  id: 19
+  name: アート
+  parent_id: 2
+area:
+  id: 20
+  name: 地域
+  parent_id: 3
+gourmet:
+  id: 21
+  name: グルメ、お酒
+  parent_id: 3
+fashion:
+  id: 22
+  name: ファッション
+  parent_id: 3
+school:
+  id: 23
+  name: 学校
+  parent_id: 4
+company:
+  id: 24
+  name: 会社、団体
+  parent_id: 4
+circle:
+  id: 25
+  name: サークル、ゼミ
+  parent_id: 4
+same_age:
+  id: 26
+  name: 同年代
+  parent_id: 4
+other:
+  id: 27
+  name: その他
+  parent_id: 5

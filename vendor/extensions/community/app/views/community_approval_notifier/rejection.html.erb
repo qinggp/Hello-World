@@ -1,0 +1,16 @@
+
+<%= h @user_name %>さん、こんにちは。
+<%= h SnsConfig.title %>からのお知らせです。
+
+<%= h @user_name %>さんが依頼されました「<%= @community_name %>」への参加が、
+以下の理由により承認されませんでしたので、ご連絡致します。
+
+―――――――――― 管理人より一言 ―――――――――――
+
+<%= @message %>
+
+―――――――――――――――――――――――――――――
+
+今後とも、ぜひ、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

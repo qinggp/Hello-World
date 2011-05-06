@@ -1,0 +1,23 @@
+<% (information_news).each do |info| %>
+  <div class="news_link">
+    <%= auto_link(info.title.gsub("\n", "<br/>")).untaint %>
+    <% if info.display_link_link? %>
+      → [<%= link_to "<b>詳細</b>", information_path(info) %>]
+    <% end %>
+  </div>
+<% end %>
+
+<% if logged_in? %>
+  <div class="news_link">
+    ◇只今の会員数　 <%= font_coution h(User.by_activate.size) %>名 　男性<%= h User.by_activate.gender_is(User::GENDERS[:male]).size %>名／女性<%= h User.by_activate.gender_is(User::GENDERS[:female]).size %>名
+  </div>
+<% end %>
+
+<div class="all_link">
+  <% if Mars::Extension.instance.extension_enabled?(:sns_linkage) && logged_in? %>
+    <%= theme_image_tag "sns_linkage/linkage.gif" %>[<%= link_to "連携サイトお知らせ", info_sns_linkages_path %>]
+  <% end  %>
+  <% if logged_in? %>
+  [<%= link_to "過去のお知らせ", informations_path %>]
+  <% end  %>
+</div>

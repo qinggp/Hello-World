@@ -1,0 +1,35 @@
+#list .category{ 
+  text-align: left;
+  font-weight:bold;
+  padding: 2px;
+  border-bottom:1px solid grey;
+  border-left:10px solid grey;
+}
+
+#list .even{
+  background-color: #FFFFFF;
+  text-align: left;
+}
+
+#list .odd{
+  background-color: #E0E0E0;
+  text-align: left;
+}
+
+#community_category_list { 
+  text-align: left;
+  float:left;
+  height:50px;
+  line-height:1.5;
+  margin-top:2px;
+  overflow:auto;
+  width:740px;
+}
+
+#community_category_list .category { 
+  border-bottom:1px solid gray;
+  border-left:10px solid gray;
+  font-weight:bold;
+  padding:0 2px;
+}
+

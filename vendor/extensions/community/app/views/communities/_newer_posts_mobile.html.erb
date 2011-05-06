@@ -1,0 +1,11 @@
+<% threads_and_comments = @community.threads_and_comments_order_by_post(10) %>
+<% unless threads_and_comments.size.zero? %>
+  ▽最新投稿<br />
+  <% threads_and_comments.each do |t| %>
+    <%= display_news_line_format_mobile(t.created_at,
+                                        link_to(h(t.title), polymorphic_url_on_creating_reply(t)),
+                                        link_to_user(t.author, h( @community.member_name(t.author) ))) %>
+    <br />
+  <% end %>
+  <hr size="1" noshade>
+<% end %>

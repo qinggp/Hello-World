@@ -1,0 +1,20 @@
+こんにちは！ <%= h SnsConfig.title %>からのお知らせです。
+
+<%= h @user.name %>さん から
+コミュニティ「<%= h @community.name %>」の
+イベント「<%= h @event.title %>」の
+参加者の皆様へお知らせがあります。
+
+イベント「<%= h @event.title %>」
+<%= h community_event_url(:id => @event.id, :community_id => @community.id) %>
+
+―――― < <%= h @user.name %>さん >からのメッセージ ―――
+
+<%= h @body %>
+
+―――――――――――――――――――――――――――――
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+
+<%= render :partial => "/share/mail_footer" %>

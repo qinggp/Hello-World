@@ -1,0 +1,19 @@
+こんにちは！ <%= h SnsConfig.title %>からのお知らせです。
+
+<%= h current_user.name %>さん からお勧めのコミュニティのお知らせがあります。
+新たな交流のきっかけとしてご参加されてみてはいかがでしょうか。
+
+「お勧めコミュニティ」
+<%= h @community.name %>
+<%= h community_url(@community) %>
+
+―――― < <%= h current_user.name %>さん >から紹介メッセージ ―――
+
+<%= h @body %>
+
+―――――――――――――――――――――――――――――
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+
+<%= render :partial => "/share/mail_footer" %>

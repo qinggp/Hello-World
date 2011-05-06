@@ -1,0 +1,16 @@
+こんにちは！ <%= h SnsConfig.title %>からのお知らせです。
+
+<%= h @user.name %>さん から
+コミュニティ「<%= h @community.name %>」
+の参加者の皆様へお知らせがあります。
+
+―――― < <%= h @user.name %>さん >からのメッセージ ―――
+
+<%= h @body %>
+
+―――――――――――――――――――――――――――――
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+
+<%= render :partial => "/share/mail_footer" %>

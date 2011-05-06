@@ -1,0 +1,34 @@
+<br/>
+<center>
+  <% form_for(@forgot_password) do |f| %>
+    <% display_round_box(:width => "610px") do %>
+      <%= f.error_messages.untaint %>
+      <div class="content_title content_box_bg" style="padding: 5px; text-align: center;">
+        パスワード再発行
+      </div>
+      <div style="line-height: 1.4;">
+        <center>
+          もしログインパスワードを忘れてしまった場合は、
+          登録されたメールアドレス（ログインユーザー名）宛てに<br/>
+          新規パスワード発行用のURLを送付いたします。<br/>
+          ※メールアドレスによる受信制限を行っている場合は <%=h CONFIG['mail']['mail_sender_from'] %> からのメールを許可してください。<br/>
+          ※携帯アドレスを登録されている方はそちらでも可能です。<br/>
+        </center>
+      </div>
+      <br/>
+      <div align="center">
+        メールアドレス
+        <%= f.text_field :email %>
+        <br/>
+        <br/>
+        <%= f.submit "再発行" %>
+      </div>
+      <br/>
+      <br/>
+      <div align="center">
+        ー<%= link_to "ログインページへ戻る", login_path %>ー
+      </div>
+      <br/>
+    <% end %>
+  <% end %>
+</center>

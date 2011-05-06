@@ -1,0 +1,41 @@
+<% form_for((@search_user || User.new), :url => search_member_users_path) do |f| %>
+  性別
+  <%= f.select :gender, [:male, :female].map{|k| [t("user.gender_label.#{k}"), User::GENDERS[k]]}, :include_blank => true %>
+  <br/>
+
+  年齢
+  <%= f.text_field :age_range_start, :size => "2", :maxlength => "3" %>歳
+  〜
+  <%= f.text_field :age_range_end, :size => "2", :maxlength => "3" %>歳
+  <br/>
+
+  血液型
+  <%= f.select :blood_type, [:a, :b, :o, :ab].map{|k| [t("user.blood_type_label.#{k}") + "型", User::BLOOD_TYPES[k]]}, :include_blank => true %>
+  <br/>
+
+  現住所
+  <%= f.select :now_prefecture_id, Prefecture.select_options, :include_blank => true %>
+  <%= f.text_field :now_city, :size => 10, :id => :now_city %>
+  <br/>
+
+  出身地
+  <%= f.select :home_prefecture_id, Prefecture.select_options, :include_blank => true %>
+  <br/>
+
+  自己紹介
+  <%= f.text_field :message %>
+  <br/>
+
+  <hr size="1" noshade>
+
+  名前
+  <%= f.text_field :last_real_name, :size => 6 %>
+  <%= f.text_field :first_real_name, :size => 6 %>
+  <br/>
+
+  ニックネーム
+  <%= f.text_field :name %>
+  <hr size="1" noshade>
+
+  <%= f.submit "検索" %>
+<% end %>

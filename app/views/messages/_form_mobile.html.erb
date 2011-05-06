@@ -1,0 +1,12 @@
+<%= hidden_field_tag("receiver_ids[]", @message.receiver.id)  %>
+<%= f.hidden_field(:receiver_id) %>
+<%= hidden_field_tag(:received_message_id, params[:received_message_id]) %>
+<%= hidden_field_tag("individually", 1) %>
+
+<b>---メッセージ送信---</b><br />
+[件名]<%= font_coution "※" %><br />
+<%= f.text_field :subject, :size => 20 %><br />
+
+[本文]<%= font_coution "※" %><br />
+<%= f.text_area :body, :rows => 2, :cols => 20 %><br />
+

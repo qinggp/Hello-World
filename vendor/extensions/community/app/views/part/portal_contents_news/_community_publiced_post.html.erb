@@ -1,0 +1,26 @@
+<% threads = CommunityThread.by_publiced_community.lastposts.find(:all, :limit => 10, :include => [:community]) %>
+<% unless threads.empty? %>
+  <div class="content_box_bg content_title_not_bold">
+    コミュニティ最新書込
+  </div>
+
+  <div class="base_data">
+    <% threads.each do |thread| %>
+      <div class="news_link">
+        <%= display_news_line_format(thread.lastposted_at,
+                                     link_to(h(thread.title) + "(#{thread.active_replies.size})", :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                     link_to(h(thread.community.name), community_path(thread.community))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div style="float:left;">
+        <%= link_to theme_image_tag("feed_rdf.gif"), index_feed_communities_path(:format => :rdf) %>
+        <%= link_to theme_image_tag("feed_rss.gif"), index_feed_communities_path(:format => :rss) %>
+        <%= link_to theme_image_tag("feed_atom.gif"), index_feed_communities_path(:format => :atom) %>
+      </div>
+      <div>
+        [ <%= link_to "全て", search_communities_path %> ]
+      </div>
+    </div>
+  </div>
+<% end %>

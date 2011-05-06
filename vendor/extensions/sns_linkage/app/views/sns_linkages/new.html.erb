@@ -1,0 +1,73 @@
+<center>
+  <div class="sns_linkage_title">
+    <%= theme_image_tag "sns_linkage/linkage.gif" %>
+    SNS連携機能
+  </div>
+  <div style="margin:5px;">[<%= link_to "連携先新着一覧を確認する", news_sns_linkages_path %>]</div>
+  <% display_round_box(:width => "610px") do %>
+    <div class="content_box_bg_light content_title_center">
+      ■SNS連携機能とは
+    </div>
+    <div align="center" style="padding: 3px;">
+      ↓詳しい説明や設定方法は下記ページをご覧ください↓
+      <%= link_to theme_image_tag("sns_linkage/banner.gif"), help_sns_linkages_path, :target => "_blank" %>
+    </div>
+
+    <div class="content_box_bg_light content_title_center">
+      ■この地域SNSの新着情報を別のSNSで見る
+    </div>
+
+    <div style="padding:5px;">
+      この地域SNSの新着情報を、別のSNSで見る場合は、下記の連携用キーを、そのSNSに登録してください。 <br/>
+      <%= font_coution <<-EOF
+      ※この連携用キーは第三者に知られないように注意してください。<br/>
+      定期的に連携用キーを変更（再発行）することを推奨します。<br/>
+      その際、この地域SNSの新着情報を見るSNSの側でも、再設定する必要があります。<br/>
+      この地域SNSの新着情報を別のSNSで見ない場合は、連携用キーを削除してください。<br/>
+      EOF
+       %>
+      <div align="center">
+        <hr size="1"/>
+        <% if current_user.sns_link_key.blank? %>
+          連携用キーが発行されていません。このサイトで連携機能を有効にするにはキーの発行を行ってください。<br/>
+          <% form_for(current_user, :url => publish_link_key_sns_linkages_path(current_user)) do |f| %>
+            <%= f.submit "連携キー発行", :confirm => "連携キーを発行してよろしいですか？" %>
+          <% end %>
+        <% else %>
+          <% form_for(current_user, :url => publish_link_key_sns_linkages_path(current_user)) do |f| %>
+            <div align="left">あなたのこのサイトの連携用キー</div>
+            <%= f.text_field :sns_link_key, :size => 80, :value => sns_link_url(current_user.sns_link_key), :onfocus => "this.select()" %><br/>
+            <%= f.submit "連携キー再発行", :confirm => "更新してよろしいですか？" %>
+            <%= f.submit "連携キー削除", :name => :unpublish, :id => :unpublish_user_submit, :confirm => "削除してよろしいですか？" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="content_box_bg_light content_title_center">
+      ■この地域SNSで、他のSNSの新着情報を見る
+    </div>
+
+    <div style="padding:5px;">
+      このサイトで、新着情報を見たいSNSの連携用キーを登録してください。
+      <div align="center">
+        <% form_for(SnsLinkage.new, sns_linkages_path) do |f| %>
+          <%= f.text_field :key, :size => 80 %><br/>
+          <%= f.submit "新規追加", :confirm => "追加してよろしいですか？" %>
+        <% end %>
+      </div>
+    </div>
+
+    <% @sns_linkages.each do |sl| %>
+      <div style="padding:5px;">
+        <hr size="1"/>
+        <%= theme_image_tag "sns_linkage/linkage.gif" %>
+        <%= link_to h(sl.name), sl.url %>
+        <div align="center">
+          <input type="text" size="80" value="<%=h sl.key %>" onfocus="this.select()"></input><br/>
+          <%= button_to "削除", sns_linkage_path(sl), :method => :delete, :confirm => "削除してよろしいですか？" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</center>

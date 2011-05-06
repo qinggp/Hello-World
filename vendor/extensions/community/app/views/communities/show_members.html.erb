@@ -1,0 +1,43 @@
+<% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+  <div style="margin: 5px; text-align: right;">
+    [ <%= link_to("メンバー管理", community_members_path(:community_id => @community.id)) %> ]
+  </div>
+<% end %>
+
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to(h(@community.name), community_path(@community)) %> のメンバーリスト
+  </div>
+
+  <% if @community.member_message_senderable?(current_user) %>
+    <div style="margin-bottom: 5px;">
+      [ <%= theme_image_tag("mail_outbox.gif", :border => 0, :style => "vertical-align: middle;") %>
+      <%= link_to("メンバーへメッセージを送信", new_message_community_member_message_path(@community)) %> ]
+    </div>
+  <% end %>
+
+  <% display_round_box(:width => "650px") do %>
+    <div class="content_box">
+      <% display_collection_box(@members, :collection_name => "現在の参加者数", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 30, :width => "640px", :class => "content_box_bg") do %>
+        <table>
+          <% @members.in_groups_of(6) do |members| %>
+            <tr>
+              <% members.each do |member| %>
+                <td class="new_link" align="center" width="80" valign="top" style="padding: 5px 12px;">
+                  <% if member %>
+                    <%= display_member_on_table(member, @community, :width => 76, :enabled_friend_count => true, :admin => @community.admin?(member), :sub_admin => @community.sub_admin?(member)) %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div style="width: 650px; text-align: right;" >
+    <%= theme_image_tag("community/comm_owner.gif", :size => "30x12") %>管理人
+    <%= theme_image_tag("invite.png", :size => "16x16") %>副管理人
+  </div>
+</center>

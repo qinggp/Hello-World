@@ -1,0 +1,160 @@
+ja:
+  my_community: マイコミュニティ
+  community:
+    visibility:
+      private: 非公開
+      member: 全体公開
+      public: 外部公開
+      secret: ないしょ
+
+    note_of_visibility:
+      private: 非参加者には書き込みは公開されません
+      member: 非参加者にも書き込みは公開されます
+      public: 非ログインユーザにも書き込みが公開されます
+      secret: 非参加者には書き込みは公開されません
+
+    approval_required:
+      yes: 承認必要！
+      no: 誰でもOK！
+
+    topic_createable_admin_only:
+      yes: 管理人のみ
+      no: 参加者全員
+
+    event_createable_admin_only:
+      yes: 管理人のみ
+      no: 参加者全員
+
+    participation_notice:
+      yes: 受信する
+      no: 受信しない
+
+    show_real_name:
+      yes: 実名表示
+      no: ハンドル表示
+
+    official_label:
+      none: 通常コミュニティ
+      normal: 公認コミュニティ
+      all_member: 公認コミュニティ（全員)
+      admin_only: 公認コミュニティ（管理人）
+
+  community_event:
+    public:
+      yes: 全体に公開
+      no: コミュニティにのみ公開
+
+  page_titles:
+    communities_title: コミュニティ
+    community_events_title: イベント
+    community_topics_title: トピック
+    community_marker_title: マーカー
+    community_members_title: メンバー
+    community_categories_title: コミュニティカテゴリ
+    community_map_categories_title: マップカテゴリ管理
+    community_groups_title: コミュニティグループ
+    community_memberships_title: コミュニティ一覧
+    community_linkages_title: コミュニティリンク
+    community_markers_title: コミュニティマップ
+    community_replies_title: 返信
+    defaults:
+      sub_category_list: 一覧
+      sub_category_new: 新規作成
+      sub_category_edit: 編集
+      map_category_list: 一覧
+      map_category_edit: 編集
+      map_category_confirm_before_update: 編集
+      wrote_administration_communities: 書き込み管理
+      wrote_administration_events: イベント書き込み管理
+      wrote_administration_topics: イベント書き込み管理
+    communities:
+      show: ホーム
+      new_message: コミュニティ紹介
+      confirm_before_create_message: コミュニティ紹介
+      create_message:  コミュニティ紹介
+      complete_after_create_message: コミュニティ紹介
+      show_members: コミュニティメンバー一覧
+      recent_posts: コミュニティ新着一覧
+    community_map_categories:
+      new: マップカテゴリ管理
+      edit: マップカテゴリ管理
+    community_groups:
+      new: コミュニティグループ
+      edit: コミュニティグループ
+      community_list: コミュニティグループ
+    community_memberships:
+      index: コミュニティ一覧
+    admin:
+      community_categoris_title: コミュニティカテゴリ
+      communities:
+        wrote_administration_communities: 書き込み管理
+        wrote_administration_events: イベント書き込み管理
+        wrote_administration_topics: トピック書き込み管理
+    community_linkages:
+      index_for_admin: コミュニティリンク管理
+    community_threads:
+      search: トピック一覧
+      show_comment_tree: トピックツリー
+      show_comment_tree_specified_thread: トピックツリー
+    community_markers:
+      map: コミュニティマップ
+    community_events:
+      show_calendar: イベントカレンダー
+      show_members: イベント参加者一覧
+    community_member_messages:
+      new_message: コミュニティメッセージ
+      confirm_before_create_message: コミュニティメッセージ
+      create_message: コミュニティメッセージ
+      complete_after_create_message: コミュニティメッセージ
+
+  community_search_link: コミュニティ検索
+
+  activerecord:
+    models:
+      community: コミュニティ
+      community_event: イベント
+      community_topic: トピック
+      community_marker: マーカー
+      community_map_category: コミュニティマップカテゴリ
+      community_group: コミュニティグループ
+      inner linkage: 内部コミュニティリンク
+      outer linkage: 外部コミュニティリンク
+      community category: コミュニティカテゴリ
+    attributes:
+      community_event:
+        title: イベント名
+        event_date: 開催日
+        content: 詳細
+        event_date_note: 備考
+        place: 開催場所
+        public: イベント公開範囲
+        community_id: コミュニティ名
+      community_topic:
+        title: タイトル
+        content: 本文
+      community_marker:
+        title: マーカー名
+        content: 本文
+        community_map_category_id: マップカテゴリ
+      community_reply:
+        title: タイトル
+        content: 本文
+      community_category:
+        name: カテゴリ名
+      community_map_category:
+        name: マップカテゴリ名
+      community:
+        comment: 本文
+        name: コミュニティ名
+        participation_and_visibility: 参加・公開条件
+        community_category_id: カテゴリ
+        topic_createable_admin_only: トピック作成
+        event_createable_admin_only: イベント作成
+        participation_notice: 参加お知らせメール受信
+      community_group:
+        name: グループ名
+      community_inner_linkage:
+        link_id: サイト内のコミュニティID
+      community_outer_linkage:
+        rss_url: 外部コミュRSS
+

@@ -1,0 +1,15 @@
+<% pending_users = Community.all_pending_users(current_user)  %>
+<% unless pending_users.empty?  %>
+  <hr size="1" noshade>
+  ◆コミュニティ参加依頼<br />
+  <% pending_users.each do |pending_user| %>
+    <%= display_news_line_format_mobile(
+                                        pending_user.created_at,
+                                        link_to(h(pending_user.user.name), {:controller => :users, :action => :show, :id => pending_user.user}),
+                                        [link_to(h(pending_user.community.name) ,(community_path(pending_user.community))),
+                                         link_to("承認・拒否", show_application_community_path(pending_user.community, :pending_id => pending_user.id))]
+                                        ) %>
+    <br />
+  <% end %>
+<% end %>
+

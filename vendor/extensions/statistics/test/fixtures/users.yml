@@ -1,0 +1,60 @@
+DEFAULTS: &DEFAULTS
+  mobile_email:                     default@example.com
+  salt:                      ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 # SHA1('1')
+  private_token:             ac3478d69a # SHA1('1')
+  crypted_password:          b2392c36c27866f6e9437ffe1fab14bbba0b6ebe # 'monkey'
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at:
+  remember_token:
+  birthday: <%= 20.years.ago.to_s :db %>
+  birthday_visibility: <%= User::VISIBILITIES[:publiced] %>
+  first_real_name: "SNS"
+  last_real_name: "松江"
+  real_name_visibility: <%= User::VISIBILITIES[:publiced] %>
+  now_prefecture_id: 1
+  now_zipcode: "690-0826"
+  now_city: "松江市"
+  now_street: "学園南2丁目12-5"
+  now_address_visibility: <%= User::VISIBILITIES[:publiced] %>
+  gender: <%= User::GENDERS[:male] %>
+  blood_type: <%= User::BLOOD_TYPES[:a] %>
+  home_prefecture_id: 1
+  phone_number: 000-0000-0000
+  job_id: 1
+  job_visibility: <%= User::VISIBILITIES[:publiced] %>
+  affiliation: "NaCl"
+  affiliation_visibility: <%= User::VISIBILITIES[:publiced] %>
+  message: "一言メッセージ"
+  detail: "自己紹介"
+  logged_in_at: <%= Time.now.to_s(:db) %>
+  approval_state: 'active'
+  
+last_login_one_week_ago:
+  <<: *DEFAULTS
+  login: one_week_ago@example.com
+  name: 最終ログイン１週間以内ユーザ
+  logged_in_at: <%= 7.days.ago.to_s :db %>
+
+last_login_one_month_ago:
+  <<: *DEFAULTS
+  login: one_month_ago@example.com
+  name: 最終ログイン１ヶ月以内ユーザ
+  logged_in_at: <%= 1.month.ago.to_s :db %>
+
+last_login_today:
+  <<: *DEFAULTS
+  login: today@example.com
+  name: 最終ログイン本日ユーザ
+  logged_in_at: <%= Date.today :db %>
+
+approved_state:
+  <<: *DEFAULTS
+  login: approved_state@example.com
+  name: 承認待ちユーザ
+  approval_state: 'pending'
+
+paused:
+  <<: *DEFAULTS
+  login: paused@example.com
+  name: 一時停止ユーザ
+  approval_state: 'pause'

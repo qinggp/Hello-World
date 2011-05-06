@@ -1,0 +1,16 @@
+<%
+  limit = news_show_option_count_select_value("community_post_news").to_i
+  days_ago = news_show_option_span_select_value("community_post_news").to_i
+  threads = Community.threads_order_by_post(current_user, :limit => limit, :days_ago => days_ago)
+%>
+<% unless threads.empty? %>
+  <hr size="1" noshade>
+  <a name="new_community_post">◆コミュニティ最新書込</a><br />
+  <% threads.each do |thread| %>
+    <%= display_news_line_format(thread.lastposted_at,
+                                 link_to(h(thread.title) + "(#{thread.active_replies.size})", :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                 h(thread.community.name))%>
+    <br />
+  <% end %>
+  [<%= link_to "全て", recent_posts_communities_path(:days_ago => days_ago) %>]
+<% end %>

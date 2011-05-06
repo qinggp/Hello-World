@@ -1,0 +1,6 @@
+<% favorite = Favorite.find(params[:id]) %>
+削除してよろしいですか？<br/>
+[<%= link_to "削除", favorite_path(favorite, :back_url => favorite.url), :method => :delete %>]
+[<%= link_to "戻る", favorite.url %>]<br/>
+
+<%= render "footer_mobile" %>

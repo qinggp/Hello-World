@@ -1,0 +1,7 @@
+<% link_to show_calendar_schedules_path, :accesskey => '3', :title => "スケジュール" do %>
+  <%= theme_image_tag("schedule/my_menu_schedule.gif",
+        :alt => "スケジュール",
+        :onmouseover => "this.src=#{theme_image_path('schedule/my_menu_schedule_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('schedule/my_menu_schedule.gif').to_json}")
+  %>
+<% end %>

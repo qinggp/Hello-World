@@ -1,0 +1,54 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "communities", :checked_type => "write" } %>
+<% form_tag(wrote_administration_communities_admin_communities_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+
+  <%= hidden_field_tag(:type, "write") %>
+  <% display_collection_box(@communities, :collection_name => "現在の登録数", :checked_value => 5) do %>
+    <% @communities.each do |community| %>
+      <table class="admin_community_content_table" align="center">
+        <tr>
+          <th colspan="2" align="center">
+            [ ID:<%= h community.id %> ]
+            [ <%= link_to 'URL', community_path(community.id)  %> ]
+            [ <%= link_to 'トピック一覧', wrote_administration_topics_admin_communities_path({:type => "write", :community_id => community.id}) %> ]
+            [ <%= link_to '設定変更', edit_admin_community_path(community.id) %> ]
+          </th>
+        </tr>
+        <tr>
+          <th>日付</th>
+          <td><%= community.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th>記入者</th>
+          <td><%= link_to h(community.admin.name), user_path(community.admin.id) %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= h community.name %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= h community.comment %></td>
+        </tr>
+        <tr>
+          <th>ステータス</th>
+          <td>[参加・公開条件]
+            <%= h(t(:approval_required, :scope => [:community])[community.approval_required]) %>
+            [ <%= h community.describe_visibility %> ]
+            <% if community.visibility == 4 && community.approval_required == true %>
+            (※非参加者には書き込みは公開されません）
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>添付</th>
+          <td>
+            <%= admin_community_image(community, "thumb") if community.image %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,45 @@
+<div align="center">
+  <% if @community %>
+    <div id="calendar_title">
+      <%= link_to(h(@community.name), community_path(@community)) %>のイベントカレンダー
+    </div>
+  <% else %>
+    <div id="calendar_title">
+      イベントカレンダー
+    </div>
+
+    <% unless @events_on_today.try(:size).try(:zero?) %>
+      <% display_round_box(:width => "710px") do %>
+        <div class="content_title content_box_bg" style="text-align: center;">
+          本日<%= h(l(Date.today, :format => :year_month_date)) %>のイベント・ピックアップ
+        </div>
+        <div class="no_data">
+          <% @events_on_today.each do |event| %>
+            [
+            <%= theme_image_tag('flag.png', :border => 0) %>
+            <%= link_to(h(event.title),
+                        community_event_path(:id => event.id, :community_id => event.community_id)) %>
+            ]
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div>
+      ※イベントは各参加コミュニティの[イベント作成]で登録できます。
+    </div>
+  <% end %>
+
+  <% display_round_box(:width => "710px") do %>
+    <div id="calendar">
+      <%= render :partial => "calendar" %>
+    </div>
+  <% end %>
+
+  <% if @community %>
+    <div style="border-top: 1px dotted gray; margin: 4px; padding: 3px; width: 720px; text-align: right;">
+      <%= theme_image_tag "schedule/sche_new.gif" %>イベント登録
+      <%= theme_image_tag "flag.png" %>コミュニティイベント
+    </div>
+  <% end %>
+</div>

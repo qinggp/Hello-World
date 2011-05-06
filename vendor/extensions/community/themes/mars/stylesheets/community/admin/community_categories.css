@@ -1,0 +1,18 @@
+.community_categories_table {
+  width: 600px;
+  border: 2px solid #ECEBE1;
+  border-collapse: collapse;
+}
+.community_categories_table TH {
+  color: black;
+  background-color: #F9F9F4;
+  border: 1px solid #ECEBE1;
+  padding: 6px;
+  white-space: nowrap;
+}
+.community_categories_table TD {
+  background-color: #FFFFFF;
+  border: 1px solid #ECEBE1;
+  padding: 6px;
+  line-height: 1.2;
+}

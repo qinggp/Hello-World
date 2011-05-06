@@ -1,0 +1,45 @@
+<table class="content_box_bg" style="width:100%; padding-bottom: 6px;">
+  <tr>
+    <td>
+      <%= calendar_selects_remote(:update => "calendar",
+            :url => {:action => :show_calendar, :community_id => @community.try(:id)} ) %>
+    </td>
+    <td align="right">
+      <%= calendar_move_remote(:update => "calendar",
+            :url => {:action => :show_calendar, :community_id => @community.try(:id)} ) %>
+    </td>
+  </tr>
+</table>
+<div style="background-color:#FFFFFF;">
+  <%=
+     mars_calendar(:year => @calendar_year, :month => @calendar_month) do |cur|
+       events = @community_events.select{|e| e.event_date == cur}
+       unless events.blank?
+         if @community
+           cell_text = link_to(cur.mday, search_community_threads_path(:community_id => @community.id,
+                                                                       :types => "CommunityEvent",
+                                                                       :event_date => cur))
+         else
+           cell_text = link_to(cur.mday,list_on_date_community_events_path(:date => cur))
+         end
+       end
+
+       if @community && Date.today <=  cur && @community.topic_and_marker_createable?(current_user)
+         cell_text ||= cur.mday.to_s
+         cell_text << "&nbsp;" +
+           link_to(theme_image_tag("schedule/sche_new.gif"),
+                   new_community_event_path(:community_id => @community.id,
+                                            :event_date => cur))
+       end
+
+       events.each do |event|
+         cell_text << "<br/>"
+         cell_text << theme_image_tag('flag.png', :border => 0)
+         cell_text << link_to(h(truncate(event.title, 15)),
+                              community_event_path(:id => event.id, :community_id => event.community_id))
+         cell_text << "<br/>"
+       end
+       [cell_text, nil]
+     end
+  %>
+</div>

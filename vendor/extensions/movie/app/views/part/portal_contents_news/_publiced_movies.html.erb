@@ -1,0 +1,25 @@
+<% movies = Movie.by_activate_users.visibility_is(MoviePreference::VISIBILITIES[:publiced]).find(:all, :order => "movies.created_at DESC", :limit => 5) %>
+<% if movies.empty?  %>
+  <div class="no_data content_box_bg_light">
+    現在最新ムービーはありません。
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    最新ムービー
+  </div>
+
+  <div class="base_data">
+    <% movies.each do |movie| %>
+      <div class="news_link">
+        <%= display_news_line_format(movie.created_at,
+                                     link_to(h(movie.title), movie_path(movie)),
+                                     link_to_user(movie.user, h(movie.user.name))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div>
+        [ <%= link_to "全て", search_movies_path %> ]
+      </div>
+    </div>
+  </div>
+<% end %>

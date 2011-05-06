@@ -1,0 +1,5 @@
+<% if @evnt %>
+  <%= link_to "戻る", show_members_community_event_path(:id => @event.id, :community_id => @community.id) %>
+<% else %>
+  <%= link_to "戻る", community_path(@community) %>
+<% end %>

@@ -1,0 +1,24 @@
+<div style="text-align:center;">
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    [
+    <% link_to(new_community_topic_path(:community_id => @community)) do %>
+      <%= theme_image_tag("community/comm_topic.gif", :align => "top", :border => 0) %>トピックの作成
+    <% end %>
+    ]
+  <% end %>
+  <% if @community.event_createable?(current_user) %>
+    [
+    <% link_to(new_community_event_path(:community_id => @community)) do %>
+      <%= theme_image_tag("community/comm_event.gif", :align => "top", :border => 0) %>イベントの作成
+    <% end %>
+    ]
+  <% end %>
+  <% if @community.topic_and_marker_createable?(current_user) %>
+    [
+    <% link_to(new_community_marker_path(:community_id => @community)) do %>
+      <%= theme_image_tag("map_pin.png", :align => "top", :border => 0) %>マーカーの作成
+    <% end %>
+    ]
+  <% end %>
+</div>
+

@@ -1,0 +1,9 @@
+<% if @prev_message %>
+  [<%= link_to("前へ", message_path(@prev_message)) %>]
+<% end %>
+<% if @next_message %>
+  [<%= link_to("次へ", message_path(@next_message)) %>]
+<% end %>
+<% if @prev_message || @next_message %>
+  <hr size="1" noshade>
+<% end %>

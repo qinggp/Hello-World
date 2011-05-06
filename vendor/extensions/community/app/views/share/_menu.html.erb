@@ -1,0 +1,19 @@
+<div id="comm_menu">
+  <%= link_to "コミュニティホーム", community_path(@community) %>
+  |
+  <%= link_to "トピック一覧", search_community_threads_path(:community_id => @community) %>
+  |
+  <%= link_to "イベントカレンダー", show_calendar_community_events_path(:community_id => @community) %>
+  |
+  <%= link_to "コミュニティマップ", map_community_markers_path(:community_id => @community) %>
+  |
+  <%= link_to "メンバー一覧", show_members_community_path(@community) %>
+  |
+  <%= link_to "トモダチに紹介", new_message_community_path(@community) %>
+  |
+  <% if @community.admin?(current_user) %>
+    コミュニティ管理人
+  <% else %>
+    <%= link_to "退会", confirm_before_cancel_community_path(@community) %>
+  <% end %>
+</div>

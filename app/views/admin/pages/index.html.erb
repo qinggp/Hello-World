@@ -1,0 +1,27 @@
+<% pagination_params = {:per_page => params[:per_page], :page => params[:page]} %>
+<center>
+<div style="text-align:center; margin:5px;">
+  [ <%= link_to '画像管理', image_management_admin_pages_path %> ]
+</div>
+<% display_round_box(:width => "600px", :white_bg => false) do %>
+  <% form_tag(admin_pages_path,:method => :get) do %>
+    <% display_collection_box(@pages, :collection_name => "現在の登録数", :checked_value => 5) do %>
+      <table class="content_table" align="center">
+        <tr>
+          <%= render :partial => "page_order_link", :locals => {:paginate_parameter => pagination_params} %>
+          <th width="">&nbsp;</th>
+        </tr>
+        <% @pages.each do |page| %>
+          <tr>
+            <td><%= h page.page_id %></td>
+            <td><%= h page.title %></td>
+            <td align="center" nowrap>
+              <%= link_to '編集', edit_admin_page_path(page.id) %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+</center>

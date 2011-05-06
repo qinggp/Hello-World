@@ -1,0 +1,37 @@
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to h(displayed_user.name), user_path(displayed_user) %>さんの紹介文
+  </div>
+
+  <% display_collection_box(@friendships, :width => "620px", :collection_name => "現在の登録数", :checked_value => 20, :all_pages => true, :per_pages => [5, 10, 20, 50, 100]) do %>
+    <% display_round_box(:width => "620px") do %>
+      <% if @friendships.total_entries.zero? %>
+        <div>紹介文はありません</div>
+      <% else %>
+        <table class="content_table">
+          <% @friendships.each do |friendship| %>
+            <tr>
+              <td class="new_link" width="76" style="text-align:center;">
+                <div>
+                  <%= display_face_photo(friendship.user.face_photo, :image_type => "thumb", :width => 50)%>
+                </div>
+                <div>
+                  <%= link_to(h(friendship.user.name), user_path(friendship.user)) %>
+                </div>
+              </td>
+              <td valign="top">
+                <%= hbr friendship.description %>
+                <% if current_user.id == friendship.user_id %>
+                  <div>
+                    [ <%= link_to("修正", edit_friend_description_user_path(displayed_user)) %> ]
+                    [ <%= link_to("削除", clear_friend_description_user_path(displayed_user), {:method => :put, :confirm => "紹介文を削除します。よろしいですか？"}) %> ]
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

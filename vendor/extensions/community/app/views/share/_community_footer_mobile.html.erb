@@ -1,0 +1,4 @@
+<% community_id ||= @community.try(:id) %>
+
+<hr size="1" noshade>
+<%= link_to "#{emoticon_5}コミュニティトップへ戻る", community_path(community_id), :accesskey => "5" %>

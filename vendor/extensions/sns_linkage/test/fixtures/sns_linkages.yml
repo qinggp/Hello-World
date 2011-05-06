@@ -1,0 +1,13 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: sns_linkages
+#
+#  id         :integer         not null, primary key
+#  key        :string(255)
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  name       :text
+#  url        :text
+#

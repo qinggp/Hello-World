@@ -1,0 +1,29 @@
+<% pagination_params = {:per_page => params[:per_page], :page => params[:page]}
+   category_type = "サブカテゴリ名"%>
+<div align="center">
+  [ <%= link_to "サブカテゴリ作成", :action => 'sub_category_new', :category_state_id => params[:id] %> ]
+  <% form_tag(sub_category_list_admin_community_category_path, :method => :get, :id => params[:id] ) do %>
+    <% display_round_box(:width => "610px", :white_bg => false) do %>
+      <% display_collection_box(@community_categories, :collection_name => "現在の登録数", :checked_value => 5) do %>
+        <table class="community_categories_table" align="center">
+          <tr>
+            <th>カテゴリ名</th>
+            <%= render :partial => "community_category_order_link", :locals => {
+                                                                    :paginate_parameter => pagination_params,
+                                                                    :category_type => category_type } %>
+            <th>&nbsp;</th>
+          </tr>
+          <% @community_categories.each do |community_category| %>
+            <tr>
+              <td><%= h find_parent_category_name(community_category.parent_id) %></td>
+              <td><%= h community_category.name %></td>
+              <td align="center" nowrap>
+                <%= link_to "編集", sub_category_edit_admin_community_category_path(community_category) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

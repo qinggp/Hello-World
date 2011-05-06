@@ -1,0 +1,19 @@
+<%= render(:partial => "/share/form") %>
+
+<% if params[:action] == "edit" %>
+  <center>
+    <div style="margin-top: 30px;">
+      <% display_round_box(:width => "660px", :white_bg => false) do %>
+        <% form_for(@community, :url => confirm_before_destroy_community_path, :html => {:method => :post}) do |f| %>
+          <center>
+            <div><b>このコミュニティを削除する</b></div>
+            <div class="white-box">
+              削除の際はトラブル等を避けるため、あらかじめコミュニティ参加者へ削除の告知をしてください。<br />
+              <%= f.submit("コミュニティ削除") %>
+            </div>
+          </center>
+        <% end %>
+      <% end %>
+    </div>
+  </center>
+<% end %>

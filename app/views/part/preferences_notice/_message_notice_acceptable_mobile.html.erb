@@ -1,0 +1,8 @@
+<% if view_type == :form  %>
+  [<%=h Preference.human_attribute_name("message_notice_acceptable") %>]※<br/>
+  <%= f.select :message_notice_acceptable, [["受け取る", true], ["受け取らない", false]], :selected => @preference.message_notice_acceptable %><br/>
+<% else %>
+  [<%=h Preference.human_attribute_name("message_notice_acceptable") %>]<br />
+  <%=h @preference.message_notice_acceptable ? "受け取る" : "受け取らない" %><br />
+  <%= f.hidden_field :message_notice_acceptable %>
+<% end %>

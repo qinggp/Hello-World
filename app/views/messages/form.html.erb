@@ -1,0 +1,14 @@
+<% if params[:individually] %>
+  <center>
+    <% display_round_box(:width => "660px") do %>
+      <table style="border-collapse: collapse;">
+        <tr>
+          <td style="background-color: #F9F9F4;">[メッセージの宛先]</td>
+          <td><%= user_image_on_list(@message.receiver) %></td>
+        </tr>
+      </table>
+    <% end %>
+  </center>
+<% end %>
+
+<%= render :partial => "/share/form" %>

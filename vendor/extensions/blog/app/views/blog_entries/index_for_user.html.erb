@@ -1,0 +1,56 @@
+<div id="blog_home">
+  <%= render :partial => "/share/blog_title" %>
+
+  <div id="blog_container">
+    <div id="blog_container_bg">
+
+      <div id="blog_contents">
+        <div id="blogmain">
+          <% display_round_box(:width => "515px") do %>
+            <div class="content_box_bg">
+              <div class="content_title">
+                <% if @blog_entry && @blog_entry.search_word %>
+                  ■<%=h @blog_entry.search_word %>の検索結果
+                <% elsif @blog_category %>
+                  ■<%=h @blog_category.name %>の書き込み
+                <% elsif @calendar_year %>
+                  ■<%=h @calendar_year %>年<%=h @calendar_month %>月<%=h "#{@calendar_day}日" if @calendar_day %>の書き込み
+                <% else %>
+                  ■最近の書き込み
+                <% end %>
+              </div>
+            </div>
+
+            <% if @blog_entries.empty?  %>
+              <div class="blog_entry_border" style="text-align: center;">
+                ブログの書き込みがありません。
+              </div>
+            <% else %>
+              <% display_collection_box(@blog_entries, :collection_name => "書き込み数", :checked_value => 10) do %>
+                <% @blog_entries.each do |entry| %>
+                  <%= render :partial => "blog_entry_header", :locals => {:blog_entry => entry} %>
+
+                  <div class="content_body">
+                    <%= display_blog_entry_body(entry,
+                                                :display_type => :normal,
+                                                :trancate_bytes => 800) -%>
+                    <% if entry.map_viewable? %>
+                      <div>
+                        <%= theme_image_tag "map_pin.png" %>[地図情報有り]
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <%= render :partial => "blog_entry_footer", :locals => {:blog_entry => entry} %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render :partial => "/share/blog_navigation" %>
+
+    </div>
+  </div>
+</div>

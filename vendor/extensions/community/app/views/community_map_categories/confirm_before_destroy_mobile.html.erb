@@ -1,0 +1,5 @@
+削除してよろしいですか？<br/>
+[<%= link_to "削除", community_map_category_path(:id => params[:id]), :method => :delete %>]
+[<%= link_to "戻る", new_community_map_category_path(:id => params[:id]) %>]<br/>
+
+<%= render :partial => "/share/community_footer" %>

@@ -1,0 +1,9 @@
+<% if logged_in? && SnsConfig.ranking_display_flg %>
+  <% link_to rankings_path, :title => "ランキング" do %>
+    <%= theme_image_tag "ranking/ranking.gif",
+        :alt => "ランキング",
+        :onmouseover => "this.src=#{theme_image_path('ranking/ranking_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('ranking/ranking.gif').to_json}"
+    %>
+  <% end %>
+<% end %>

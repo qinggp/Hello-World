@@ -1,0 +1,10 @@
+コミュニティマップカテゴリ一覧
+<hr size="1" noshade>
+
+<% @community_markers.each do |category| %>
+  <%= link_to h(category.name), map_for_mobile_community_markers_path(:community_id => @community, :community_map_category_id => category, :latitude => @community.latitude, :longitude => @community.longitude, :span_lat => CommunityMarker::DEFAULT_SPAN_LAT, :span_lng => CommunityMarker::DEFAULT_SPAN_LNG ) %>
+  (<%= category.community_markers.count %>)
+  <br />
+<% end %>
+
+<%= render :partial => "/share/community_footer" %>

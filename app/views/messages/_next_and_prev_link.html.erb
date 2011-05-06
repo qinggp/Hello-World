@@ -1,0 +1,20 @@
+<div style="padding: 3px; text-align: center; font-size: 80%;">
+  <div style="text-align: left; float: left;">
+    <% if @prev_message %>
+      <% link_to(message_path(@prev_message)) do %>
+        <%= "＜＜" + h(truncate(@prev_message.subject, 20)) %>
+      <% end %>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
+  <div style="text-align: right;">
+    <% if @next_message %>
+      <% link_to(message_path(@next_message)) do %>
+        <%= "＞＞" + h(truncate(@next_message.subject, 20)) %>
+      <% end %>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
+</div>

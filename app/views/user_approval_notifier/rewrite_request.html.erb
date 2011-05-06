@@ -1,0 +1,20 @@
+<%= render :partial => "/share/mail_header" %>
+
+◆承認者の<%= @approval_user_name %>さんから
+　「<%=h SnsConfig.title %>」の参加に関して、プロフィール内容修正依頼の
+  メッセージが届いています。
+
+<% unless @user.reason.blank? %>
+———— < <%= @approval_user_name %> >からあなたへのメッセージ ———
+
+<%= h @user.reason %>
+
+—————————————————————————————
+<% end %>
+
+以下のアドレスにログインして情報を修正してください。
+　<%= edit_user_url(@user, :host => CONFIG["host"]) %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

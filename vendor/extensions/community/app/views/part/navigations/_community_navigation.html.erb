@@ -1,0 +1,61 @@
+<%
+  admin_communities = CommunityMembership.admin_communities(displayed_user)
+  if displayed_user.same_user?(current_user)
+    communities = @user.communities.find(:all, :limit => 6, :order => "lastposted_at DESC")
+  else
+    communities = @user.communities.not_secret.find(:all, :limit => 6, :order => "lastposted_at DESC")
+  end
+%>
+
+<div class="navigation_content">
+  <div><%= theme_image_tag "community/home_comm.gif", :class => "my_navigation_content_title" %></div>
+  <% display_open_colse_box(:id => "my_navigation_community") do %>
+    <table width="100%">
+      <% if communities.size.zero? %>
+        <tr>
+          <td nowrap="" align="center">
+            現在参加コミュニティはありません。
+            <% if displayed_user.same_user?(current_user) %>
+              <br/>
+              <%= link_to("積極的にみんなの輪に飛び込もう！", search_communities_path) %>
+            <% end %>
+          </td>
+        </tr>
+      <% else %>
+        <% admin_community_ids = admin_communities.map(&:id)  %>
+        <% communities.in_groups_of(3) do |grouping_communities| %>
+          <tr>
+            <% grouping_communities.each do |community| %>
+              <td class="new_link" align="center" width="80" valign="top">
+                <% if community %>
+                  <%= link_to(community_display_image(community, :width => 76, :admin => admin_community_ids.include?(community.id)),
+                              community_path(community.id)) %>
+                  <div>
+                    <%= link_to(h(community.name), community_path(community.id)) %>
+                  </div>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+
+    <% unless communities.size.zero? %>
+      <div class="all_link">
+        [ <%= link_to("管理コミュ(#{admin_communities.size})", communities_path(:user_id => displayed_user, :role => "admin")) %> ]
+        [ <%= link_to("全て(#{@user.communities.count})", communities_path(:user_id => displayed_user.id)) %> ]
+        <% if displayed_user.same_user?(current_user) %>
+          <br />
+          [ <%= link_to("グループ管理", new_community_group_path) %> ]
+          [ <%= link_to("コミュニティ管理", community_memberships_path) %> ]
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<div align="right">
+  <div style="margin-bottom: 5px; cursor: pointer;">
+    <%= display_open_colse_box_button("my_navigation_community") %>
+  </div>
+</div>

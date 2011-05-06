@@ -1,0 +1,45 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "topics", :checked_type => "file" } %>
+<% form_tag(wrote_administration_topics_admin_communities_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <% if @community_id %>
+    <%= hidden_field_tag(:community_id, @community_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "write") %>
+  <% display_collection_box(@community_topics, :collection_name => "現在の登録数", :checked_value => 5) do %>
+    <% @community_topics.each do |community_topic| %>
+      <table class="admin_community_content_table" cellspacing="0" cellpadding="0" border="1" align="center" width="600">
+        <tr>
+          <th colspan="2" align="center">
+            [ ID:<%= h community_topic.id %> ]
+            [ <%= path_corresponding_to_kind(community_topic)  %> ]
+          </th>
+        </tr>
+        <tr>
+          <th>日付</th>
+          <td><%= community_topic.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th>記入者</th>
+          <td><%= link_to h(username_extract(community_topic.user_id)), user_path(community_topic.user_id) %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= h community_topic.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= h community_topic.content %></td>
+        </tr>
+        <tr>
+          <th>添付</th>
+          <td><%= attachments_corresponding_to_topic(community_topic) %></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+

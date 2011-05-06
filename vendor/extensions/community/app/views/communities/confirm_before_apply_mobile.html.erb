@@ -1,0 +1,24 @@
+<%= h(@community.name) %><br />
+管理人：<%= h(@community_admin.name) %>さん<br />
+<hr size="1" noshade>
+
+<% form_tag(apply_community_path(@community)) do %>
+  <% if !@community.approval_required? %>
+    このコミュニティ「<%= h @community.name %>」に参加しますか？<br /><br />
+    <%= submit_tag("参加する") %>
+  <% else %>
+    <% if @community.approval_required? && !@community.invited?(current_user) %>
+      このコミュニティ「<%= h(@community.name) %>」へ参加するには管理人の承認が必要です。<br />
+      参加依頼をしますか？<br /><br />
+      参加にあたって一言（任意）<br />
+      <%= text_area_tag(:message, {}, :cols => 40, :rows => 4) %>
+      <%= submit_tag("参加依頼する") %>
+    <% else %>
+      このコミュニティ「<%= h @community.name %>」に参加しますか？<br /><br />
+      <% if @community.approval_required? && @community.invited?(current_user) %>
+        ※あなたは管理人から招待を受けているため、承認なしで参加できます。<br /><br />
+        <%= submit_tag("参加する") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

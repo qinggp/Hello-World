@@ -1,0 +1,55 @@
+<center>
+  <% display_round_box(:width => "600px") do  %>
+    <% if @users.empty? %>
+      <div class="no_data">登録がありません。</div>
+    <% else  %>
+      <% display_collection_box(@users,
+                                :collection_name => "現在の登録メンバー数",
+                                :checked_value => 10, :class => "content_box_bg",
+                                :form => {:url_for_options => {:user => params[:user],
+                                            :order => params[:order],
+                                            :order_modifier => params[:order_modifier]},
+                                          :options => {:method => :post}}) do  %>
+        <table class="content_table">
+          <tr>
+            <th style="text-align:center;" colspan="5">
+              <% with_options(:default_order => User.default_index_order, :action => :search_member, :user => params[:user]) do |view| %>
+                [ <%= view.link_for_sort("最新ログイン順", :order => "users.logged_in_at") %> ]
+                [ <%= view.link_for_sort("名前順", :order => "users.name") %> ]
+                [ <%= view.link_for_sort("登録順", :order => "users.created_at") %> ]
+              <% end %>
+            </th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <td style="height: 5px; background-color:#ECEBE1; padding:0px; border: none;" colspan="5"/>
+            </tr>
+            <tr>
+              <td rowspan="3" style="text-align:center;">
+                <%= display_face_photo(user.face_photo, :no_photo_width => 100, :no_photo_height => 100) %>
+              </td>
+              <th>ニックネーム</th>
+              <td colspan="3"><%= link_to h(user.name), user_path(user) %></td>
+            </tr>
+            <tr>
+              <th>一言メッセージ</th>
+              <td colspan="3"><%= h(user.message) %></td>
+            </tr>
+            <tr>
+              <th>最終ログイン</th>
+              <td width="320"><%= user.logged_in_at_by_diff %></td>
+              <th width="80" style="text-align:center;">
+                <% unless user.same_user?(current_user) %>
+                  <%= link_to theme_image_tag("mail_outbox.gif"), new_message_path(:individually => 1, :receiver_id => user.id) %>
+                <% end %>
+              </th>
+              <th width="80" style="text-align:center;">
+                <%= link_to theme_image_tag("syousai.gif"), user_path(user) %>
+              </th>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

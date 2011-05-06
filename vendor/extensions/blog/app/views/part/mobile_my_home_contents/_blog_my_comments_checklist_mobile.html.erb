@@ -1,0 +1,11 @@
+<% comments = BlogComment.recents_my_comment(current_user, current_user, 10, 14.day.ago) %>
+<% unless comments.empty? %>
+  <hr size="1" noshade>
+  ◆コメント記入履歴<br/>
+  <% comments.each do |c| %>
+    <%= display_news_line_format_mobile(c.created_at,
+                                 link_to(h(c.title) + "(#{c.blog_comments_count})", blog_entry_path(c.blog_entry_id, :anchor => "blog_comment")),
+                                 link_to(h(c.name), user_path(c.user_id))) %>
+    <br/>
+  <% end %>
+<% end %>

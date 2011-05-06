@@ -1,0 +1,16 @@
+＜名前変更依頼＞
+
+[ユーザID]		<%= @user.id %>
+[ニックネーム]	<%=h @user.name %>
+[メールアドレス]	<%=h @user.login %>
+[現在のお名前]	<%=h @user.full_real_name %>
+[変更後のお名前]	<%=h @user.change_last_real_name %> <%=h @user.change_first_real_name %>
+[変更理由]
+<%=h @user.change_name_reason %>
+
+
+----------------------------------------------------
+REMOTE_HOST     : <%= @request.remote_host %>
+REMOTE_ADDR     : <%= @request.remote_addr %>
+HTTP_USER_AGENT : <%= @request.user_agent %>
+----------------------------------------------------

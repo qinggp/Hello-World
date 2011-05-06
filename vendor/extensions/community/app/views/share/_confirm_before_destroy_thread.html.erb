@@ -1,0 +1,7 @@
+<% thread = CommunityThread.find params[:id] %>
+
+削除してよろしいですか？<br />
+[<%= link_to("削除する", thread.polymorphic_url_on_community(self), :method => :delete) %>]
+[<%= link_to("戻る", community_threads_path(:id => thread.community_id)) %>]
+
+<%= render :partial => "share/community_footer" %>

@@ -1,0 +1,28 @@
+<% comments = blog_recent_my_comments() %>
+<% if comments.empty?  %>
+  <div class="no_data content_box_bg_light">
+    どこにもコメントしてません。<br/>
+    <%= link_to "メンバーのブログ", search_blog_entries_path %>にコメントを書きましょう。<br/>
+    <%= display_news_show_option_selects("blog_my_comments_checklist") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("blog_my_comments_checklist") %>
+    コメント記入履歴
+  </div>
+
+  <% display_open_colse_box(:id => "blog_my_comments_checklist", :class => "base_data") do %>
+    <% comments.each do |c| %>
+      <div class="news_link">
+        <%= display_news_line_format(c.created_at,
+                                     link_to(h(c.title)  + " (#{c.blog_comments_count})", blog_entry_path(c.blog_entry_id, :anchor => "blog_comment")),
+                                     link_to(h(c.name), user_path(c.user_id))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div align="left">
+        <%= display_news_show_option_selects("blog_my_comments_checklist") %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

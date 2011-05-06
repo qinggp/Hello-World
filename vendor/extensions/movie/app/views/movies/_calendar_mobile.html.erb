@@ -1,0 +1,11 @@
+<%=
+   mars_calendar_mobile do |day|
+     html = []
+     @calendar_movies.find_all{|m| m.display?(day)}.each do |movie|
+       html << (link_to(h(movie.title), movie_path(movie)))
+     end
+
+     html
+   end
+%>
+

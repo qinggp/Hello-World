@@ -1,0 +1,6 @@
+<%= render :partial => "header" %>
+<hr size="1" noshade>
+
+グループ「<%= h @group.name%>」を削除してよろしいですか？<br/>
+[<%= link_to "削除", group_path(@group), :method => :delete %>]
+[<%= link_to "戻る", new_group_path %>]<br/>

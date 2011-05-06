@@ -1,0 +1,33 @@
+# これは rmovie の設定ファイルです
+application:
+  # OpenSNP が動作しているトップURLを指定
+  top_url: http://xxxxx.jp/
+  
+  # メール送信時の差出人アドレス
+  mail_from: XXXXSNS管理事務局 <xxxx@xxxxx.jp>
+  
+  # リアルタイム変換
+  realtime_convert: true
+  
+  # 動画ファイルアップロード制限サイズ(Byte)
+  # デフォルト100MB
+  movie_limited_size: 104857600
+  
+  # 動画アップロードサイズ制限を有効化
+  movie_limited: true
+
+# 動画用メールアドレスの設定
+movie_mail_setting:
+  pop_server: # pop server IP or HOSTNAME
+  port: 110
+  account: # account name
+  password: # password
+
+# デバッグモード
+debug:
+  # 動画変換時に最新データもコンバート対象にふくめる
+  convert_now: false
+  
+  # メール受信設定で受信済みのメールを削除しない
+  disable_remove_mail: false
+

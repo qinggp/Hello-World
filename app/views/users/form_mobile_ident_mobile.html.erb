@@ -1,0 +1,18 @@
+<% if current_user.mobile_ident.blank? %>
+  現在、未設定です。<br/>
+  <% form_for(current_user, :url => set_mobile_ident_users_path, :html => {:utn => ""}) do |f| %>
+    <%= f.submit "設定する" %><br/>
+  <% end %>
+<% else %>
+  すでに設定ずみです。<br/>
+  <% form_for(current_user, :url => release_mobile_ident_users_path) do |f| %>
+    <%= f.submit "解除する" %><br/>
+  <% end %>
+<% end %>
+<br/>
+[簡単ログインとは]<br/>
+携帯電話の個体識別番号を利用して、毎回パスワードを入力しなくてもログインできる機能です。<br/>
+※電話番号などの個人情報は含まれません<br/>
+設定後はボタン一つでかんたんにログインすることができます。<br/>
+※一部機種では携帯の個体識別番号を送信できないためご利用になれません｡ <br/>
+[<%= link_to "戻る", edit_mobile_ident_users_path %>]

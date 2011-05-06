@@ -1,0 +1,32 @@
+<% entries = blog_recent_my_entries() %>
+<% if entries.empty?  %>
+  <div class="no_data content_box_bg_light">
+    現在最新ブログはありません。
+    <%= link_to "ブログを書きましょう。", new_blog_entry_path %><br/>
+    <%= display_news_show_option_selects("blog_my_entries_checklist") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("blog_my_entries_checklist") %>
+    最新マイブログ
+  </div>
+
+  <% display_open_colse_box(:id => "blog_my_entries_checklist", :class => "base_data") do %>
+    <% entries.each do |entry| %>
+      <div class="news_link">
+        <%= display_news_line_format(entry.created_at,
+                                     link_to(h(entry.title) + " (#{entry.blog_comments_count})", blog_entry_path(entry)),
+                                     link_to(h(entry.user.name), user_path(entry.user))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div style="float:left;">
+        <%= display_news_show_option_selects("blog_my_entries_checklist") %>
+      </div>
+      <div>
+        [ <%= link_to "ブログを書く", new_blog_entry_path %> ]
+        [ <%= link_to "全て", index_for_user_user_blog_entries_path(current_user) %> ]
+      </div>
+    </div>
+  <% end %>
+<% end %>

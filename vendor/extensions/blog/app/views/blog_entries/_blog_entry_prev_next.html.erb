@@ -1,0 +1,13 @@
+<% blog_entry ||= @blog_entry  %>
+<% entries =  BlogEntry.by_visible(current_user).by_user(displayed_user).id_does_not_equal(blog_entry.id).descend_by_created_at %>
+<div class="content_box_bg" style="font-size:80%;width:100%;">
+  <div style="text-align: left; float: left;">
+    <% prev_entry = entries.find(:first, :conditions => ["created_at <= ?", blog_entry.created_at]) %>
+    <%= link_to(h("<<" + prev_entry.title), blog_entry_path(prev_entry)) if prev_entry %>
+  </div>
+  <div style="float:right; text-align: right;">
+    <% next_entry = entries.find(:last, :conditions => ["created_at > ?", blog_entry.created_at]) %>
+    <%= link_to(h(next_entry.title + ">>"), blog_entry_path(next_entry)) if next_entry %>
+  </div>
+  <div style="clear:both"></div>
+</div>

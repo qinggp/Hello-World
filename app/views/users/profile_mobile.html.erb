@@ -1,0 +1,57 @@
+<%= render_profile_header %>
+
+<%= Mars::UI.instance.mobile_profile_menus.map{|part| part.display(self) }.join("<br/>") %>
+
+<hr size="1" noshade>
+
+<% if displayed_user.visible_profile?(current_user, :real_name)  %>
+  <%=h displayed_user.full_real_name %>（<%= t("user.gender_label.#{displayed_user.gender_name}") %>）
+  <br/>
+<% end %>
+
+<%= display_face_photo(displayed_user.face_photo, :image_type => :thumb) %>
+<br/>
+
+<% if displayed_user.visible_profile?(current_user, :birthday) %>
+  [年齢／誕生日]<%= displayed_user.age %>歳（<%=h l(displayed_user.birthday, :format => :month_date) %>）
+  <br/>
+<% end %>
+
+<% if displayed_user.blood_type_name  %>
+  [血液型]<%=h t("user.blood_type_label.#{displayed_user.blood_type_name}") %>型
+  <br/>
+<% end %>
+
+<% if displayed_user.visible_profile?(current_user, :now_address)  %>
+  [現住所]<%=h displayed_user.now_prefecture.name %><%=h displayed_user.now_city %>
+  <br/>
+<% end %>
+
+<% if displayed_user.visible_profile?(current_user, :job) && displayed_user.job %>
+  [職業]<%=h displayed_user.job.name %>
+  <br/>
+<% end %>
+
+<% if displayed_user.visible_profile?(current_user, :affiliation) && !displayed_user.affiliation.blank? %>
+  [所属]<%=h displayed_user.affiliation %>
+  <br/>
+<% end %>
+
+[一言メッセージ]
+<%=hbr displayed_user.message %>
+<br/>
+
+<hr size="1" noshade>
+▽トモダチ一覧<br/>
+<% displayed_user.friends.find(:all, :order => "users.logged_in_at DESC").take(6).each do |friend| %>
+  <%= link_to_user friend, h(friend.name) %>さん(<%= friend.friends.size %>)<%= link_to emoticon_mail, new_message_path(:individually => 1, :receiver_id => friend.id) %>
+  <br/>
+<% end %>
+[<%= link_to "招待一覧(#{displayed_user.invite_friends_count})", index_for_invite_user_friends_path(:user_id => displayed_user.id) %>]<br/>
+[<%= link_to "全て(#{displayed_user.friends.size})", index_user_friends_path(:user_id => displayed_user.id) %>]<br/>
+
+<% Mars::UI.instance.mobile_profile_contents.map do |part|%>
+  <hr size="1" noshade>
+  <%= part.display(self) %>
+<% end %>
+

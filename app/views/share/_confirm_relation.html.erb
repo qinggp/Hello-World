@@ -1,0 +1,16 @@
+<% if SnsConfig.relation_flg %>
+  <tr>
+    <th><%=h Invite.human_attribute_name(:relation) %></th>
+    <td>
+      <%= h t("friendship.relation_label.#{model_instance.relation_name}") %>
+      <%= f.hidden_field :relation %>
+    </td>
+  </tr>
+  <tr>
+    <th><%=h Invite.human_attribute_name(:contact_frequency) %></th>
+    <td>
+      <%= h t("friendship.contact_frequency_label.#{model_instance.contact_frequency_name}") %>
+      <%= f.hidden_field :contact_frequency %>
+    </td>
+  </tr>
+<% end %>

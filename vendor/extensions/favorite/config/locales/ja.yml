@@ -1,0 +1,18 @@
+ja:
+  favorite: お気に入り
+  page_titles:
+    favorites_title: お気に入り
+    favorites:
+      index: お気に入り
+      confirm_before_destroy_by_footer: お気に入り削除
+      confirm_before_create: お気に入り追加
+
+  activerecord:
+    models:
+      favorite: お気に入り
+    attributes:
+      favorite:
+        name: お気に入り名
+        url: URL
+        category: カテゴリ
+

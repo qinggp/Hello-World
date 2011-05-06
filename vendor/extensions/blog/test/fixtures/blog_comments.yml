@@ -1,0 +1,99 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: blog_comments
+#
+#  id            :integer         not null, primary key
+#  user_id       :integer
+#  blog_entry_id :integer
+#  body          :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#  email         :string(255)
+#  user_name     :string(255)
+#  anonymous     :boolean
+#
+
+user_friend_2_entry_comment:
+  user: sns_hanako
+  blog_entry: visibility_public_entry
+  body: SNS花子からSNS太郎への記事へコメント
+  created_at: <%= 1.day.ago.to_s(:db) %>
+
+sns_zirou_entry_comment:
+  user: sns_zirou
+  blog_entry: visibility_public_entry
+  body: SNS次郎からSNS太郎への記事へコメント
+  created_at: <%= 2.day.ago.to_s(:db) %>
+
+sns_saburou_entry_comment:
+  user: sns_saburou
+  blog_entry: visibility_public_entry
+  body: SNS三郎からSNS太郎への記事へコメント
+  created_at: <%= 3.day.ago.to_s(:db) %>
+
+sns_sirou_entry_comment:
+  user: sns_saburou
+  blog_entry: visibility_public_entry
+  body: SNS四郎からSNS太郎への記事へコメント
+  created_at: <%= 4.day.ago.to_s(:db) %>
+
+sns_gorou_entry_comment:
+  user: sns_gorou
+  blog_entry: visibility_public_entry
+  body: SNS五郎からSNS太郎への記事へコメント
+  created_at: <%= 5.day.ago.to_s(:db) %>
+
+sns_rokurou_entry_comment:
+  user: sns_rokurou
+  blog_entry: visibility_public_entry
+  body: SNS六郎からSNS太郎への記事へコメント
+  created_at: <%= 6.day.ago.to_s(:db) %>
+
+anonymous_comment_to_visibility_public_entry:
+  user_name: 匿名
+  email: tokumei@example.com
+  blog_entry: visibility_public_entry
+  body: 匿名からSNS太郎への記事へコメント
+  anonymous: true
+  created_at: <%= 7.day.ago.to_s(:db) %>
+
+sns_hanako_to_visibility_member_only_entry:
+  user: sns_hanako
+  blog_entry: visibility_member_only_entry
+  body: SNS花子から太郎のメンバのみ公開日記へのコメント
+  created_at: <%= 2.day.ago.to_s(:db) %>
+
+sns_hanako_to_visibility_friend_only_entry:
+  user: sns_hanako
+  blog_entry: visibility_friend_only_entry
+  body: SNS花子から太郎のトモダチのみ公開日記へのコメント
+  created_at: <%= 3.day.ago.to_s(:db) %>
+
+sns_hanako_to_comment_restraint_public_entry:
+  user: sns_hanako
+  blog_entry: comment_restraint_public_entry
+  body: SNS花子から太郎の誰でもコメント可能日記へのコメント
+  created_at: <%= 7.day.ago.to_s(:db) %>
+
+sns_hanako_to_comment_restraint_member_only_entry:
+  user: sns_hanako
+  blog_entry: comment_restraint_member_only_entry
+  body: SNS花子から太郎のメンバのみコメント可能日記へのコメント
+  created_at: <%= 14.day.ago.to_s(:db) %>
+
+sns_hanako_to_comment_restraint_friend_only_entry:
+  user: sns_hanako
+  blog_entry: comment_restraint_friend_only_entry
+  body: SNS花子から太郎のトモダチのみコメント可能日記へのコメント
+  created_at: <%= 1.year.ago.to_s(:db) %>
+
+sns_hanako_to_user_friend_1_entry:
+  user: sns_hanako
+  blog_entry: user_friend_1_entry
+  body: SNS花子から次郎日記１へのコメント
+
+sns_hanako_to_long_body_entry:
+  user: sns_hanako
+  blog_entry: long_body_entry
+  body: SNS花子から本文が長い日記へのコメント

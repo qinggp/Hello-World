@@ -1,0 +1,22 @@
+<% if threads.empty? %>
+  <table class="content_table">
+    <tr>
+      <td nowrap="" align="center">登録がありません。</td>
+    </tr>
+  </table>
+<% else %>
+  <div id="community_tree">
+    <% threads.each do |thread| %>
+      <div class="box">
+        <div class="target">
+          <span>
+            <%= link_to("+", thread.polymorphic_url_on_community(self), :title => "全て表示", :style => "text-decoration: none; font-weight: bold;") %>
+            <%= display_comment_tree_format(thread) %>
+          </span>
+        </div>
+        <ul><%= display_comment_tree(thread) %></ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

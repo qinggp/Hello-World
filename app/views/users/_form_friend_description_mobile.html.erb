@@ -1,0 +1,6 @@
+<%= f.error_messages.untaint %>
+
+[<%= h Friendship.human_attribute_name("description") %>]<%= font_coution("※") %><br />
+<%= f.text_area :description, :rows => 3, :cols => 20%><br />
+
+<%= render :partial => "/share/form_relation_mobile", :locals => {:f => f} %>

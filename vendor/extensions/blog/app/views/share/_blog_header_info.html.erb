@@ -1,0 +1,13 @@
+<div style="text-align: right;">
+  公開範囲：
+  [ <%=h t("blog.blog_preference.visibility_label.#{@user.preference.blog_preference.visibility_name}") %> ]
+
+  <% if current_user.try(:id) == @user.id %>
+    [ <%= link_to(t("blog.new_entry"), new_blog_entry_path) %> ]
+    [ <%= link_to("ブログ管理", user_blog_entries_admin_index_path(@user)) %> ]
+    [ <%= link_to("カテゴリ管理", new_user_blog_category_path(@user)) %> ]
+    [ <%= link_to("設定変更", edit_preference_path(@user.preference)) %> ]
+  <% end %>
+
+  [ <%= link_to("ブログトップへ戻る", index_for_user_user_blog_entries_path(@user)) %> ]
+</div>

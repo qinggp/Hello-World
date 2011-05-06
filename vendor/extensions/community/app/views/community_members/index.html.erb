@@ -1,0 +1,42 @@
+<div style="margin: 5px; text-align: right;">
+  [ <%= link_to("メンバー管理", community_members_path(:community_id => @community.id)) %> ]
+</div>
+<div align="center">
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to(h(@community.name), community_path(@community)) %>
+    のメンバーリスト
+  </div>
+  <div>※副管理人は「書き込み管理権」「マップカテゴリ管理権」「承認権限」「強制退会権限」が割り当てられます。
+  </div>
+
+  <% if @community.member_message_senderable?(current_user) %>
+    <div style="margin-bottom: 5px;">
+      [ <%= theme_image_tag("mail_outbox.gif", :border => 0, :style => "vertical-align: middle;") %>
+      <%= link_to("メンバーへメッセージを送信", new_message_community_member_message_path(@community)) %> ]
+    </div>
+  <% end %>
+
+  <div class="center_box">
+    <% display_round_box(:width => "600px", :white_bg => false) do %>
+      <% display_collection_box(@members, {:collection_name => "現在の参加者数", :width => "580px", :per_pages => [1, 5, 10, 20, 30, 50, 100], :checked_value => 30, :form => {:url_for_options => {:community_id => @community.id}, :options => {:method => :get}}}) do %>
+        <table id="member_list" cellspacing="0" cellpadding="0" align="center" width="590" style="border-collapse: collapse; background-color: #FFF;">
+          <% @members.each do |member| %>
+            <tr>
+              <td><%= h member.created_at.strftime("%y年%m月%d日 %I時%m分")  %></td>
+              <td><%= link_to(h( @community.member_name(member)), {:controller => :users, :action => :show, :id => member}) %></td>
+              <% if @current_user.has_role?("community_admin", @community) %>
+                <td align="center"><%= link_to_assign_sub_admin_with(member, @community) %></td>
+                <td align="center"><%= link_to_delegate_admin_to(member, @community) %></td>
+              <% end %>
+              <td align="center"><%= link_to_dismiss(member, @community) %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+    <div align="right" style="width: 600px;">
+      <%= theme_image_tag("community/comm_owner.gif") %>管理人
+      <%= theme_image_tag("invite.png") %>副管理人
+    </div>
+  </div>
+</div>

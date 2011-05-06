@@ -1,0 +1,37 @@
+default: &default
+  mail:
+    receive_domain: localhost.localdomain
+  host: localhost.localdomain
+  ssl_enable: true
+  mobile_domains:
+    - docomo.ne.jp
+    - ezweb.ne.jp
+    - softbank.ne.jp
+    - i.softbank.jp
+    - d.vodafone.ne.jp
+    - h.vodafone.ne.jp
+    - t.vodafone.ne.jp
+    - c.vodafone.ne.jp
+    - r.vodafone.ne.jp
+    - k.vodafone.ne.jp
+    - n.vodafone.ne.jp
+    - q.vodafone.ne.jp
+    - s.vodafone.ne.jp
+    - pdx.ne.jp
+    - di.pdx.ne.jp
+    - dj.pdx.ne.jp
+    - dk.pdx.ne.jp
+    - wm.pdx.ne.jp
+
+development:
+  <<: *default
+  mail:
+    receive_domain: test.mars.jp
+  host: localhost:3000
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+

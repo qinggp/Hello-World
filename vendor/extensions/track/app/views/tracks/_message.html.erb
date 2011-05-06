@@ -1,0 +1,11 @@
+<% if action_name == "index" %>
+  これまでのあなたへのアクセス件数は
+  <%= h @total_access %>件(<%= h @total_visitor %>名)です。
+<% elsif action_name == "search" && Track.range_of_total_count?(current_user, params[:specific_number].to_i)  %>
+  記念すべき<%= h params[:specific_number] %>件目を踏んだトモダチは以下の方です。
+<% elsif action_name == "search" && !params[:split_number].blank? && Track.range_of_total_count?(current_user, params[:split_number].to_i) %>
+  <%= h params[:split_number] %>件ごとのキリ番のトモダチは以下の方々です。
+  <% else %>
+    これまでのあなたへのアクセス件数は
+    <%= h @total_access %>件(<%= h @total_visitor %>名)です。
+<% end %>

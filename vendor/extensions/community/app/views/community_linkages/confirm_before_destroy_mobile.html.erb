@@ -1,0 +1,3 @@
+「<%= h @community_linkage.name %>」を削除してよろしいですか？<br/>
+[<%= link_to "削除", community_linkage_path(:id => params[:id], :community_id => @community.id), :method => :delete %>]
+[<%= link_to "戻る", index_for_admin_community_linkages_path(:community_id => @community.id) %>]<br/>

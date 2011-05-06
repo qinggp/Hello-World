@@ -1,0 +1,11 @@
+config:
+  font: MSUIGOTHIC.ttf
+  fontsize: 20
+  size: 
+    x: 50
+    y: 80
+  lang: ja
+
+category:
+  - label: 基盤機能
+    tables:

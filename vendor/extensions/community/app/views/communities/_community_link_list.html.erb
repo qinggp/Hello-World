@@ -1,0 +1,33 @@
+<div style="margin-top: 20px;">
+  <% display_round_box do %>
+    <div class="navigation_title">
+      ■コミュニティリンク
+    </div>
+    <div style="padding: 5px 3px;">
+      <% if @linkages.size.zero? %>
+        <div class="no_data">
+          登録がありません。
+        </div>
+      <% else %>
+        <table width="100%">
+          <% @linkages.in_groups_of(3) do |linkages| %>
+            <tr>
+              <% linkages.each do |linkage| %>
+                <td class="new_link" align="center" width="80" valign="top" style="padding: 2px;">
+                  <% if linkage %>
+                    <%= display_community_link_on_table(linkage, self, :width => "68") %>
+                  <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <div class="all_link">
+          <% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+            [ <%= link_to "管理", index_for_admin_community_linkages_path(:community_id => @community.id) %> ]
+          <% end %>
+          [ <%= link_to "全て(#{@linkages.count})", community_linkages_path(:community_id => @community.id) %> ]
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,103 @@
+ja:
+  blog_search_link: ブログ検索
+
+  sns_config:
+    blog_default_open_range_label:
+      to_friends: トモダチまで公開
+      to_all: 全体に公開
+      to_outside: 外部にも公開
+
+  page_titles:
+    blog_entries_title: ブログ記事
+    blog_categories_title: ブログカテゴリ
+    blog_entries:
+      index_for_map: クチコミマップ
+      map: クチコミマップ
+      map_for_mobile: クチコミマップ
+      not_friend_error: ブログ閲覧エラー
+      search_for_user_mobile: ブログ内検索
+      backnumber_mobile: バックナンバ
+      show_calendar: ブログカレンダー
+      search_for_friends: トモダチブログ検索
+    blog_entries_admin:
+      all_checked: ブログ管理
+      confirm_before_destroy_checked: ブログ記事一括削除
+      confirm_before_update_checked: ブログ記事一括変更
+    admin:
+      blog_categories_title: ブログカテゴリ
+      blog_entries:
+        wrote_administration_blog_entries: 書き込み管理
+        wrote_administration_blog_comments: コメント書き込み管理
+
+  blog:
+    my_blog: マイブログ
+    new_entry: 新規投稿
+    new_blog_entry_index: 最近のブログ
+    hot_blog_entry_by_friends: トモダチ最新ブログ
+    new_friend_blog_entries_none: トモダチの最新ブログはありません
+    new_my_blog_entries_none: 最近のブログ投稿はありません
+    blog_entries:
+      new: ブログ投稿
+      index: ブログ一覧
+      edit: ブログ編集
+    blog_entry:
+      visibility_label:
+        unpubliced: 非公開or下書き
+        friend_only: トモダチのみ
+        member_only: メンバーのみ
+        publiced: 外部公開
+      comment_restraint_label:
+        unpubliced: 受け付けない
+        friend_only: トモダチのみ
+        member_only: メンバーのみ
+        publiced: 受け付ける
+    blog_preference:
+      basic_color_label:
+        green: 緑（標準）
+        blue: 青
+        orange: オレンジ
+        brown: ブラウン
+      visibility_label:
+        friend_only: トモダチまで公開
+        member_only: 内部に公開
+        publiced: 外部にも公開
+      email_post_visibility_label:
+        unpubliced: 非公開or下書き
+        friend_only: トモダチまで公開
+        member_only: 全体に公開
+        publiced: 外部にも公開
+      wyswyg_editor_label:
+        "true": WYSWYG
+        "false": 通常
+
+  activerecord:
+    models:
+      blog entry: ブログ記事
+      blog category: ブログカテゴリ
+      blog preference: ブログ設定
+      blog comment: ブログコメント
+    attributes:
+      blog_entry:
+        title: タイトル
+        body: 本文
+        comment_restraint: コメント制限
+        visibility: 公開制限
+        longitude: 経度
+        latitude: 緯度
+        zoom: ズーム
+        created_at: 投稿日
+      blog_preference:
+        comment_notice_acceptable: ブログコメントお知らせ
+        visibility: ブログ公開範囲
+        title: ブログタイトル
+        basic_color: ブログデザイン
+        email_post_visibility: メール投稿初期公開制限
+        rss_url: 外部ブログRSS
+        wyswyg_editor: ブログ編集エディタ
+      preference:
+        blog_preference: ""
+      blog_category:
+        name: カテゴリ名
+      blog_comment:
+        user_name: 名前
+        body: コメント

@@ -1,0 +1,13 @@
+<% @blog_entry ||= BlogEntry.new %>
+<% form_for(@blog_entry, :url => search_for_user_mobile_user_blog_entries_path(:user_id => @user.id)) do |f| %>
+  <%= text_field_tag :keyword, @blog_entry.search_word %>
+  <%= f.submit "検索" %>
+  <br/>
+  ※タイトル・本文より検索を行います。 
+<% end %>
+
+<hr size="1" noshade>
+
+<%= render :partial => "search_blog_entries" %>
+
+<%= render :partial => "/share/footer_mobile" %>

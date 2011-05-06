@@ -1,0 +1,13 @@
+<% threads = CommunityThread.by_publiced_community.lastposts.find(:all, :limit => 5) %>
+<hr size="1" noshade>
+<% if threads.empty? %>
+  現在最新コミュニティの書き込みはありません。
+<% else %>
+  <a name="community_news">▽コミュニティ最新書込</a><br />
+  <% threads.each do |thread| %>
+    <%= display_news_line_format_mobile(thread.lastposted_at,
+                                        link_to(h(thread.title), :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                        link_to(h(thread.community.name), community_path(thread.community))) %>
+    <br />
+    <% end %>
+<% end %>

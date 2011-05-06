@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: roles
+#
+#  id                :integer         not null, primary key
+#  name              :string(40)
+#  authorizable_type :string(40)
+#  authorizable_id   :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
+frind_to_sns_hanako:
+  name: "friend"
+  authorizable: sns_hanako(User)
+
+frind_to_sns_tarou:
+  name: "friend"
+  authorizable: sns_tarou(User)
+
+frind_to_sns_zirou:
+  name: "friend"
+  authorizable: sns_zirou(User)

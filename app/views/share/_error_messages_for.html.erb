@@ -1,0 +1,19 @@
+<table class="content_table">
+  <tr>
+    <th colspan="2">
+      <font color="red">
+        <b>必須項目未入力・入力データエラー</b>
+      </font>
+    </th>
+  </tr>
+  <tr>
+    <td colspan="2">
+      下記の入力項目が必須項目未入力または入力データエラーです。再度入力をお確かめください。<br/>
+      <div style="margin-top: 3px; margin-left: 10px;">
+        <%- messages.sort.each do |mes| -%>
+          <%=h mes %><br/>
+        <%- end -%>
+      </div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,60 @@
+<%= render :partial => "header" %>
+
+<% if @friends.total_entries.zero? %>
+  <hr size="1" noshade>
+  トモダチはいません。
+<% else %>
+  <% if @friends.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@friends).untaint %>
+  <% end %>
+
+  <% @friends.each do |friend| %>
+    <hr size="1" noshade>
+    <%= link_to(h(friend.name), user_path(friend)) %><br />
+    [紹介文]<br />
+    <% description = current_user.friendship_by_user_id(friend.id).try(:description) %>
+    <% if description.blank? %>
+      <%= link_to("紹介文を書く", edit_friend_description_user_path(friend)) %>
+    <% else %>
+      <%= hbr description %><br />
+      <%= link_to("修正", edit_friend_description_user_path(friend, :user_id => friend.id)) %> |
+      <%= link_to("削除", confirm_before_clear_friend_description_user_path(friend, :user_id => friend.id)) %>
+    <% end %>
+    <br />
+
+    <% if SnsConfig.relation_flg %>
+      <% if (relation = current_user.display_friend_relation(friend)) && !relation.blank? %>
+        <%= h relation %><br />
+      <% end %>
+
+      <% if (contact_frequency = current_user.display_friend_contact_frequency(friend)) && ! contact_frequency.blank? %>
+        <%= h  contact_frequency %><br />
+      <% end %>
+    <% end %>
+
+    [ブログ表示設定]<br />
+    <% if current_user.new_blog_entry_displayed?(friend) %>
+      現在は最新ブログ表示中<br />
+      <%= link_to("非表示にする", change_new_blog_entry_displayed_friend_path(friend)) %>
+    <% else %>
+      現在は最新ブログ非表示中<br />
+      <%= link_to("表示にする", change_new_blog_entry_displayed_friend_path(friend)) %>
+    <% end %>
+    <br />
+
+    <% if current_user.invitation?(friend) %>
+      招待者は外せません<br/>
+    <% elsif current_user.hot_friend?(friend) %>
+      すぐには外せません<br/>
+    <% else %>
+      <%= link_to "トモダチから外す", confirm_before_break_off_friend_path(friend) %><br/>
+    <% end %>
+  <% end %>
+
+  <% if @friends.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@friends).untaint %>
+  <% end %>
+<% end %>
+

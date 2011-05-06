@@ -1,0 +1,107 @@
+<center>
+  <% form_for((@search_user || User.new), :url => search_member_users_path) do |f| %>
+    <% display_round_box(:width => "600px") do %>
+      <table class="content_table">
+        <tr>
+          <th colspan="2" class="content_table_title">
+            メンバー検索
+          </th>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td>
+            <%= f.radio_button :gender, nil %>
+            <%= f.label "gender", "選択なし" %>
+            <% [:male, :female].each do |key| %>
+              <%= f.radio_button :gender, User::GENDERS[key] %>
+              <%= f.label "gender_#{User::GENDERS[key]}", t("user.gender_label.#{key}") %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>年齢</th>
+          <td>
+            <%= f.text_field :age_range_start, :size => "2", :maxlength => "3" %>歳 〜
+            <%= f.text_field :age_range_end, :size => "2", :maxlength => "3" %>歳
+          </td>
+        </tr>
+        <tr>
+          <th>血液型</th>
+          <td>
+            <%= f.radio_button :blood_type, nil %>
+            <%= f.label "blood_type", "選択なし" %>
+            <% [:a, :b, :o, :ab].each do |key| %>
+              <%= f.radio_button :blood_type, User::BLOOD_TYPES[key] %>
+              <%= f.label "blood_type_#{User::BLOOD_TYPES[key]}", t("user.blood_type_label.#{key}") + "型" %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>現住所</th>
+          <td>
+            <%= f.select :now_prefecture_id, Prefecture.select_options, :include_blank => true %>
+            <%= f.text_field :now_city, :size => 10, :id => :now_city %>
+          </td>
+        </tr>
+        <tr>
+          <th>出身地</th>
+          <td>
+            <%= f.select :home_prefecture_id, Prefecture.select_options, :include_blank => true %>
+          </td>
+        </tr>
+        <tr>
+          <th>趣味</th>
+          <td>
+            <%= f.select :search_hobby_id, Hobby.ascend_by_position.map{|h| [h.name, h.id]}, :include_blank => true %>
+          </td>
+        </tr>
+        <tr>
+          <th>自己紹介</th>
+          <td>
+            <%= f.text_field :message %>
+          </td>
+        </tr>
+        <tr>
+          <th>写真の有無</th>
+          <td>
+            <%= f.check_box :haved_face_photo, {}, true, nil  %>
+            <%= f.label :haved_face_photo, "有りのみ" %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+
+    <br/>
+
+    <% display_round_box(:width => "600px") do %>
+      <table class="content_table">
+        <tr>
+          <th colspan="2" class="content_table_title">
+            名前で検索
+          </th>
+        </tr>
+        <tr>
+          <th>名前</th>
+          <td>
+            姓：<%= f.text_field :last_real_name, :size => 6 %>
+            名：<%= f.text_field :first_real_name, :size => 6 %>
+          </td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td>
+            <%= f.text_field :name %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+
+    <br/>
+
+    <% display_round_box(:width => "600px") do %>
+      <div class="content_box_bg" align="center">
+        <%= f.submit "検索" %>
+      </div>
+    <% end %>
+  <% end %>
+</center>

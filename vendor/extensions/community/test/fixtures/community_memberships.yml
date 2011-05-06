@@ -1,0 +1,93 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_memberships
+#
+#  id                                   :integer         not null, primary key
+#  user_id                              :integer
+#  community_id                         :integer
+#  created_at                           :datetime
+#  updated_at                           :datetime
+#  state                                :string(255)
+#  new_comment_displayed                :boolean         default(TRUE)
+#  comment_notice_acceptable            :boolean
+#  comment_notice_acceptable_for_mobile :boolean
+#
+
+DEFAULTS: &DEFAULTS
+  new_comment_displayed: true
+  comment_notice_acceptable: true
+
+user_curry:
+  user: sns_tarou
+  community: curry
+  new_comment_displayed: false
+  comment_notice_acceptable: false
+  created_at: <%= 10.days.ago.to_s :db %>
+
+user_friend1_ramen:
+  <<: *DEFAULTS
+  user: sns_zirou
+  community: ramen
+
+user_friend1_curry:
+  <<: *DEFAULTS
+  user: sns_zirou
+  community: curry
+
+user_friend2_curry:
+  <<: *DEFAULTS
+  user: sns_hanako
+  community: curry
+
+user_ramen:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: ramen
+
+user_boat:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: boat
+
+user_boat_zirou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  community: boat
+
+user_official_normal_tarou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: official_normal
+
+user_official_all_member_tarou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: official_all_member
+
+user_official_all_member_hanako:
+  <<: *DEFAULTS
+  user: sns_hanako
+  community: official_all_member
+
+user_official_all_member_zirou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  community: official_all_member
+
+user_official_official_admin_tarou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: official_admin
+
+<% %w(public public_and_approval_required member member_and_approval_required private secret).each do |community| %>
+user_<%= community %>_tarou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  community: <%= community %>
+<% end %>
+
+hanako_admin_hanako:
+  <<: *DEFAULTS
+  user: sns_hanako
+  community: hanako_admin

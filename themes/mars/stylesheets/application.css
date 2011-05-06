@@ -1,0 +1,551 @@
+/* NOTE: このファイルを変更したらcache_default.cssも更新すること！！ */
+/***** 基本設定 *****/
+body {
+  font-size: 12px;
+  background: #fee1a8 url("../images/bg_body.gif") repeat-x 0 0;
+  font-family: 'ＭＳ Ｐゴシック', メイリオ, Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', sans-serif;
+  color: #333;
+  margin: 0px;
+  width: 100%;
+  word-break: break-all;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, form {
+  margin:0;
+  padding:0;
+}
+
+td {
+  font-size: 12px;
+}
+
+img {
+  border: 0;
+}
+
+a{
+  text-decoration: underline;
+}
+
+a:link{
+  color: #c21a04;
+}
+
+a:visited{
+  color: #670c00;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+a img{
+  border: none;
+}
+
+#container {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#container_bg {
+  margin: 0 auto;
+  padding: 0 1px 30px 1px;
+  text-align: justify;
+  width: 775px;
+  background: #fff url("../images/bg_header.jpg") no-repeat 1px 0;
+  overflow: hidden;
+}
+
+#container_inner {
+  width: 755px;
+  margin: 0 auto;
+}
+
+#container_navi {
+  margin-bottom:20px;
+}
+
+#container_navi ul{
+  overflow: hidden;
+}
+
+#container_navi li{
+  display: inline;
+}
+
+#container_navi li a{
+  display: block;
+  float: left;
+}
+
+#header {
+  height: 148px;
+  margin-bottom: 5px;
+  color:#000000;
+}
+
+#sns_logo {
+  width: 400px;
+  height: 100px;
+  padding-top: 3px;
+  float: left;
+}
+
+#sns_status {
+  width: 320px;
+  padding: 10px;
+  float: right;
+  text-align: right;
+}
+
+#font_size {
+  height: 20px;
+  text-align: right;
+  margin-bottom:10px;
+  padding-top: 3px;
+}
+
+#main {
+  width: 740px;
+}
+
+#main_menu {
+  border-bottom:8px solid #FE854F;
+  padding:0px;
+  height: 26px;
+  clear: both;
+  overflow: hidden;
+  margin:0;
+}
+
+#main_menu li {
+  float: left;
+  margin-right: 4px;
+}
+
+#main_menu li a {
+  display: block;
+}
+
+#my_menu {
+  width: 755px;
+  overflow: hidden;
+  padding-left: 13px;
+  background: url("../images/my_menu.gif") no-repeat 0 0;
+  margin: 3px 0 0 0;
+}
+
+#friend_menu {
+  width: 755px;
+  overflow: hidden;
+  padding-left: 13px;
+  background: url("../images/friend_menu.gif") no-repeat 0 0;
+  margin: 3px 0 0 0;
+}
+
+#my_menu li,
+#friend_menu li
+{
+  float: left;
+  padding-left: 8px;
+  margin-right: 4px;
+}
+
+#my_menu li.first,
+#friend_menu li.first
+{
+  padding-left: 0;
+  background: none;
+}
+
+#my_menu li {
+  background: url("../images/separater_mymenu.gif") no-repeat 0 3px;
+}
+
+#friend_menu li {
+  background: url("../images/separater_friendmenu.gif") no-repeat 0 3px;
+}
+
+#my_contents {
+  float:left;
+  width:490px;
+}
+
+.my_navigation_content {
+  border: 1px solid #B5B4A8;
+  width: 240px;
+  margin-top: 10px;
+}
+
+.my_navigation_content_title {
+  border-bottom: 1px solid #B5B4A8;
+  height: 14px;
+  width: 240px;
+}
+
+#my_navigation div.navigation_content {
+  margin:5px 0 0 0;
+  border: 1px solid #B5B4A8;
+  width: 240px;
+  margin-top: 10px;
+}
+
+#main_search {
+  background: url("../images/search_bar.gif") repeat-x 0 0;
+  padding-top: 8px;
+  text-align:center;
+  margin-right:3px;
+  vertical-align:middle;
+}
+
+#main_search img,
+#main_search input {
+  margin-right:3px;
+  vertical-align:middle;
+}
+
+table.content_table {
+  border-collapse:collapse;
+  width: 100%;
+  align:center;
+}
+
+table.content_table .content_table_title {
+  background-color: #F9F9F4;
+  border:1px solid #B5B4A8;
+  padding:6px;
+  text-align:center;
+  font-weight:bold;
+}
+
+table.content_table th {
+  background-color: #F9F9F4;
+  border:1px solid #B5B4A8;
+  color:#000000;
+  font-weight:normal;
+  padding:6px;
+  width:100px;
+  text-align:left;
+}
+
+table.content_table td {
+  text-align:left;
+  background-color:#FFFFFF;
+  border:1px solid #B5B4A8;
+  padding:6px;
+}
+
+table.content_table td.search_result_photo{
+  text-align: center;
+}
+
+table.content_table td.search_result_photo img {
+  width: 100px;
+  text-align: center;
+}
+
+table.content_table td.search_result_bar {
+  padding: 0px;
+  height: 5px;
+  background-color: #ECEBE1;
+  border: none;
+}
+
+div.search_result_sorts {
+  font-weight: bold;
+  margin: 0;
+  padding: 4px;
+  text-align: center;
+}
+
+.center {
+  margin: 0 auto;
+  text-align:center;
+}
+
+table.no_border td {
+  border: none;
+}
+
+.news_footer {
+  border-top:1px dotted gray;
+  padding:5px 5px 4px 4px;
+  text-align:right;
+}
+
+div.no_data {
+  padding:3px;
+  text-align:center;
+}
+
+div.base_data {
+  line-height:1.5;
+  padding:3px;
+}
+
+#name_status {
+  height: 24px;
+  text-align: right;
+}
+#banner      {
+  height: 60px;
+  text-align: right;
+}
+#bannerBox   {
+  position: absolute;
+  top: 90px;
+}
+#search_box {
+  margin-right: 5px;
+}
+#etc_box {
+  margin-right: 5px;
+}
+#rank_box {
+
+}
+#footer_bar {
+  border-bottom: 2px solid #DDDDDD;
+  background-color: #DDDDDD;
+  margin-top: 20px;
+  clear: both;
+}
+#footer_bar2 {
+  border-bottom: 2px solid #DDDDDD;
+  background-color: #DDDDDD;
+}
+#footer_menu {
+  text-align: center;
+  padding: 10px;
+}
+#copyright {
+  text-align: center;
+  padding: 5px;
+}
+#system_ver {
+  text-align: right;
+  color: #666666;
+  font-size: 90%;
+  padding: 5px;
+}
+
+#secure_login_information {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: green;
+}
+#nonsecure_login_information {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: red;
+}
+
+/* 角丸div */
+div.round {
+}
+
+div.round div.r1 {
+  margin: 0 5px;
+  height:1px;
+  overflow: hidden;
+}
+
+div.round div.r2 {
+  margin: 0 3px;
+  height:1px;
+  overflow: hidden;
+}
+
+div.round div.r3 {
+  margin: 0 2px;
+  height:1px;
+  overflow: hidden;
+}
+
+div.round div.r4 {
+  margin: 0 1px;
+  height:1px;
+  overflow: hidden;
+}
+
+.content_inner_box {
+  padding: 4px;
+}
+
+.content_header {
+  width: auto;
+  padding: 3px;
+}
+
+.content_inner_bg {
+  width: auto;
+  margin: 1px;
+}
+
+.content_body {
+  padding: 10px;
+}
+
+.content_title {
+  text-align: left;
+  font-weight:bold;
+  margin:0;
+  padding:4px;
+}
+
+.content_title_not_bold {
+  text-align: left;
+  margin:0;
+  padding:4px;
+}
+
+.content_title_not_bold img {
+  cursor:pointer;
+  vertical-align:middle;
+}
+
+.content_title_center {
+  text-align: center;
+  font-weight:bold;
+  margin:0;
+  padding:4px;
+}
+
+.content_box_bg {
+  background-color: #ECEBE1;
+}
+
+.content_box_bg_light {
+  background-color: #F9F9F4;
+}
+
+.content_box {
+  text-align: justify;
+}
+
+.all_link {
+  overflow: hidden;
+}
+
+#face_photo {
+  width: 240px;
+}
+
+#face_photo tr {
+  background: url("../images/home_photo.gif") repeat-x 0 0;
+  height: 224px;
+}
+
+#face_photo img {
+  border: solid 4px #FFFFFF;
+}
+
+/***** Ajax indicator(by redmine) ******/
+#ajax-indicator {
+position: absolute; /* fixed not supported by IE */
+background-color:#eee;
+border: 1px solid #bbb;
+top:35%;
+left:40%;
+width:20%;
+font-weight:bold;
+text-align:center;
+padding:0.6em;
+z-index:100;
+filter:alpha(opacity=50);
+opacity: 0.5;
+}
+
+html>body #ajax-indicator { position: fixed; }
+
+#ajax-indicator span {
+background-position: 0% 40%;
+background-repeat: no-repeat;
+background-image: url(../images/loading.gif);
+padding-left: 26px;
+vertical-align: bottom;
+}
+
+/***** GoogleMap表示 ******/
+div#map_container div#map {
+  position:relative;
+  border:1px solid gray;
+  float:left;
+  height:500px;
+  padding:0px;
+  width:560px;
+  text-align:justfy;
+}
+
+div#map_container div#list {
+  border:1px solid gray;
+  float:right;
+  height:500px;
+  line-height:1.4;
+  overflow-x:visible;
+  overflow-y:scroll;
+  margin:0px 3px;
+  width:165px;
+  text-align:justfy;
+}
+
+div#map_container div.map_list_even {
+  padding: 0px;
+  margin: 0px;
+}
+
+div#map_container div.map_list_odd {
+  padding: 0px;
+  margin: 0px;
+  background-color: #ECEBE1;
+}
+
+div#map_container div.map_list .map_title {
+  font-weight: bold;
+}
+
+div#map_container div.map_list .map_name {
+  text-align: right;
+}
+
+div#map_container div.map_list .map_created_at {
+  color: #eeeeee;
+}
+
+div#invisible {
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 0;
+
+}
+
+/*非表示*/
+.acc {
+        position: absolute;
+        overflow: hidden;
+        height: 0;
+        width: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+}
+
+/*スキップリンク(キーボード対応）*/
+p.skiplink a {
+        position:absolute;
+        z-index: 2;
+        width: 10em;
+        padding: 5px;
+        left: -9999px;
+        top: 0;
+        text-align: center;
+}
+
+p.skiplink a:focus,
+p.skiplink a:active {
+        left: 0;
+        background: #666;
+        color: #fff;
+}

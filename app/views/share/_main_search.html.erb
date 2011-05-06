@@ -1,0 +1,9 @@
+<% if @show_main_search %>
+  <div id="main_search">
+    <% form_tag({}, :method => :post) do %>
+      <%= theme_image_tag "search.gif", :height => 14, :width => 44, :alt => "検索" %>
+      <%= text_field_tag :keyword, "", :size => 20, :style => "width:200px;" %>
+      <%= Mars::UI.instance.main_search_buttons.map{|part| part.display(self) } %>
+    <% end %>
+  </div>
+<% end %>

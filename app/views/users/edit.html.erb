@@ -1,0 +1,10 @@
+<div align="right">
+  [<%= link_to "プロフィールの確認", user_path(current_user) %>]
+</div>
+
+<%= render :partial => "/share/ssl_form_link",
+           :locals => {:https_link => edit_user_path(current_user, :only_path => false, :protocol => "https://"),
+                       :http_link => edit_user_path(current_user, :only_path => false, :protocol => "http://")}
+%>
+
+<%= render :partial => "/share/form" %>

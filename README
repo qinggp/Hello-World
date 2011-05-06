@@ -1,0 +1,57 @@
+= mars
+
+Rubyによる松江発Social Networking Service
+
+= 導入手順
+
+== 必要なライブラリ
+
+本アプリケーションを動作させるために必要なライブラリを以下に記します．
+
+* Ruby 1.8.7
+* RubyGems 1.3.5
+* Rails 2.3.5
+* Postgres
+* ImageMagick
+
+gemで入れるライブラリは
+
+  /config/environment.rb
+
+を参照してください。
+
+== 環境のセットアップ（開発環境）
+
+(1) database.ymlの作成
+database.yml.postgresをdatabase.ymlにリネームし，Railsの規約に沿って
+database.ymlを作成してください．
+
+(2) settings.ymlの作成
+settings.yml.exampleをsettings.ymlにリネームし、環境にあった設定に編集してください。
+
+(3) データベースの作成
+  $ rake db:create:all
+
+(4) テーブルのマイグレーション
+  $ rake mars:db:init
+
+(5) DBへのデータロード
+  $ rake mars:test_data:load
+
+以上で、環境が整います。
+
+$ ruby script/server
+
+にて、サーバを起動し、以下のURLへアクセスします。
+
+http://PCのホスト名（or IPアドレス）:3000/
+
+ただし、顔写真の表示などはx_sendfileの使用を前提としております。
+script/serverで単純に動かす場合は、application_controllerのx_send_fileメソッドのオプションを書き換えて下さい。
+
+= ライセンス
+
+以下のファイルを参照してください。
+
+* COPYING
+* LEGAL

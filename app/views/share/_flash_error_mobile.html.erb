@@ -1,0 +1,4 @@
+<% if flash[:error] %>
+  <%= font_coution(flash[:error].untaint, :bold => true) %>
+  <hr size="2" noshade>
+<% end %>

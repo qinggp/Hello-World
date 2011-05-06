@@ -1,0 +1,7 @@
+table tr.unread td {
+  background-color:#FFE0E0;
+}
+
+table tr.read td {
+  background-color:#FFFFFF;
+}

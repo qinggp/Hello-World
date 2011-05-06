@@ -1,0 +1,47 @@
+<center>
+  <% display_round_box(:width => "610px") do %>
+    <% if @informations.empty?  %>
+      <center>
+        <div style="padding:6px;">
+          登録がありません。
+        </div>
+      </center>
+    <% else %>
+      <% display_collection_box(@informations, :collection_name => "お知らせ数", :class => "content_box_bg", :checked_value => 20) do %>
+          <table class="content_table">
+            <tr>
+              <% with_options(:default_order => Information.default_index_order) do |view| %>
+                <th>
+                  <%= view.link_for_sort("登録日", :order => "created_at") %>
+                </th>
+                <th>
+                  <%= view.link_for_sort("表示期間", :order => "expire_date") %>
+                </th>
+                <th>
+                  タイトル
+                </th>
+                <th>
+                </th>
+              <% end %>
+            </tr>
+            <% @informations.each do |information|  %>
+              <tr>
+                <td width="20%">
+                  <%= h l(information.created_at.to_date, :format => :default) %>
+                </td>
+                <td width="20%">
+                  <%= h l(information.expire_date, :format => :default) %>
+                </td>
+                <td>
+                  <%= auto_link(br(add_session_query_on_inner_url(information.title))) { |text| truncate(strip_session_query(text), 60) }.untaint %>
+                </td>
+                <td width="10%">
+                  <%= link_to "詳細", information_path(information) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

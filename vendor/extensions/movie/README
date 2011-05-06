@@ -1,0 +1,89 @@
+
+= ムービー機能実装システム
+
+== ムービーアップロード機能
+ムービーアップロード機能については一般的なファイルアップロードシステムと同様の形式を
+用いています。ファイルアップロードの確認画面が必要になるので、アップロードファイ
+ルは２段階保存されます。第一段階では MovieController::TEMPORARY_DATA_DIR にて定義
+されるディレクトリに "セッションID"+"オリジナルファイルの拡張子" の形式で保存しま
+す。その後、問題なく保存される段階になるとセッションIDから第一段階で保存されたフ
+ァイル名を利用して MovieController::ORIGINAL_DATA_DIR にて定義されたディレクトリ
+に "Movie モデルの主キー" + "オリジナルファイルの拡張子" の形式で保存します。
+これでファイルアップロード時の保存は完了となります。
+
+== ムービーファイルの変更
+本システムではムービーファイルは変更できない仕様になっております。これは、任意の端末
+にて再生可能にするため、ムービーファイルの変換を行うことに起因しています。
+ムービーファイルを変更するためには一度既存ファイルを削除し、新たに登録し直す必要が
+あります。
+
+== ムービーファイル変換機能
+前述の通り、本システムではムービーファイルの変換を行います。
+しかし、ムービーファイルの変換は高価は処理であり、アップロード時に行うとシステム全体の
+パフォーマンスが著しく低下する危険性があります。
+そこで、本システムでは前日24時までに登録されたムービーを夜間バッチ処理にて変換を行います。
+変換されたファイルは MovieController::DATA_DIR にて定義されたディレクトリに保存
+されます。ディスクスペース削減のため本システムではオリジナルファイルの保存は行いません。
+
+== ムービーファイル変換に必要なライブラリ
+* ffmpeg(r20188)
+** faac(1.25)
+** opencore-amr(0.1.2)
+* MP4Box
+
+== ライブラリ導入方法（Ubuntu9.04）
+
+=== faac
+DL元：http://sourceforge.net/projects/faac
+
+ tar xzpf faac-1.25.tar.gz
+ cd faac
+ nkf -d bootstrap > bootstrap2
+ mv configure.in configure.in_orig
+ nkf -d configure.in_orig > configure.in
+ vi configure.in
+ chmod +x bootstrap2
+ ./bootstrap2
+ ./configure
+ make
+ sudo make install
+
+=== opencore-amr
+DL元：http://sourceforge.net/projects/opencore-amr/
+
+ ./configure
+ make
+ sudo make install
+
+ cd /usr/lib
+ ln -s /usr/local/lib/libopencore-amrnb.so.0.0.2
+ ln -s /usr/local/lib/libopencore-amrwb.so.0.0.2
+ mv libopencore-amrnb.so.0.0.2 libopencore-amrnb.so.0
+ mv libopencore-amrwb.so.0.0.2 libopencore-amrwb.so.0
+
+=== ffmpeg
+svn から取得する
+svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg
+
+ ./configure --enable-nonfree --enable-libfaac --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-version3
+ make
+ make install
+ sudo ln -s /usr/local/bin/ffmpeg /usr/bin/ffmpeg
+ svn up -r20188
+
+=== MP4Box
+ /etc/apt/source.list に、以下を追加（debianのversionは適宜読み替えてください）
+ deb http://www.debian-multimedia.org etch main
+
+ パッケージリストを更新する
+ sudo apt-get update
+
+ 公開鍵エラーがでたら、debian-multimedia-keyringをインストールし、再度パッケージリストを更新する
+ sudo apt-get install debian-multimedia-keyring
+ sudo apt-get update
+
+ gpacをインストールする
+ sudo apt-get install gpac
+
+ アプリケーションで使用するMP4Boxコマンドのパスが/usr/local/bin/MP4Boxとなっているので、異なっていればシンボリックリンクを張る
+ sudo ln -s /usr/bin/MP4Box /usr/local/bin/MP4Box

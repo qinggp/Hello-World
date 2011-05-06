@@ -1,0 +1,50 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "blog_entries", :checked_type => "write" } %>
+<% form_tag({:action => :wrote_administration_blog_entries}, :method => :get ) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "write") %>
+  <% display_collection_box(@blog_entries, :collection_name => "現在の登録数", :checked_value => 5) do %>
+    <% @blog_entries.each do |blog_entry| %>
+      <table class="admin_blog_entry_content_table" align="center">
+        <tr>
+          <th colspan="2" align="center">
+            [ ID:<%= h blog_entry.id %> ]
+            [ <%= link_to 'URL', blog_entry_path(blog_entry.id)  %> ]
+            [ <%= link_to "コメント（#{blog_entry.blog_comments.size}）", :action => :wrote_administration_blog_comments,  :type => 'write', :search_id => blog_entry.id %> ]
+          </th>
+        </tr>
+        <tr>
+          <th>日付</th>
+          <td><%= blog_entry.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th>記入者</th>
+          <td><%= link_to h(blog_entry.user.name), user_path(blog_entry.user.id) %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= h blog_entry.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= display_blog_entry_body(blog_entry, :display_type => :confirm) %></td>
+        </tr>
+        <tr>
+          <th>ステータス</th>
+          <td>
+            [カテゴリ] <%= h blog_entry.blog_category.name %><br />
+            [公開範囲] <%= t("blog.blog_entry.visibility_label.#{h(blog_entry.visibility_name)}")  %><br />
+            [コメント制限] <%= t("blog.blog_entry.comment_restraint_label.#{h(blog_entry.comment_restraint_name)}") %>
+          </td>
+        </tr>
+        <tr>
+          <th>添付</th>
+          <td>
+            <%= display_write_attachment(blog_entry) %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

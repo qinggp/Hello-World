@@ -1,0 +1,10 @@
+<center>
+  <% display_round_box(:width => "610px") do %>
+    <div class="content_box_bg content_title" style="text-align: center; font-size: 140%;">
+      <%= h @page.title %>
+    </div>
+    <div style="padding: 10px; line-height: 1.5;">
+      <%= (br @page.body).untaint %>
+    </div>
+  <% end %>
+</center>

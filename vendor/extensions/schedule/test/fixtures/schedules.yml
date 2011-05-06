@@ -1,0 +1,79 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: schedules
+#
+#  id         :integer         not null, primary key
+#  due_date   :date
+#  start_time :datetime
+#  end_time   :datetime
+#  title      :string(255)
+#  detail     :text
+#  public     :boolean
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+first_schedule_on_oct_at_5:
+  due_date: <%= Date.civil(2009, 10, 5) %>
+  start_time: <%= DateTime.civil(2009, 10, 5, 13) %>
+  end_time: <%= DateTime.civil(2009, 10, 5, 17) %>
+  title: 昼の予定
+  detail: 今日のお昼はおでかけです。
+  public: false
+  author: sns_tarou
+
+second_schedule_on_oct_at_5:
+  due_date: <%= Date.civil(2009, 10, 5) %>
+  start_time: <%= DateTime.civil(2009, 10, 5, 19) %>
+  end_time: <%= DateTime.civil(2009, 10, 5, 22) %>
+  title: 夜の予定
+  detail: 今日の夜はお食事に出かけます。
+  public: false
+  author: sns_tarou
+
+third_schedule_on_oct_at_5:
+  due_date: <%= Date.civil(2009, 10, 5) %>
+  title: 釣り大会
+  detail: よくわからないけど、どこかの沖であるみたいです。
+  public: true
+  author: sns_tarou
+
+first_schedule_on_oct_at_20:
+  due_date: <%= Date.civil(2009, 10, 20) %>
+  start_time: <%= DateTime.civil(2009, 10, 20, 10) %>
+  title: 潮干狩り
+  detail: 今日は家族みんなで潮干狩りに行ってきます。
+  public: false
+  author: sns_tarou
+
+second_schedule_on_oct_at_20:
+  due_date: <%= Date.civil(2009, 10, 20) %>
+  title: DVD返却
+  detail: 今日返さないと延滞料金がつくので早く返すこと!!
+  public: false
+  author: sns_tarou
+
+third_schedule_on_oct_at_20:
+  due_date: <%= Date.civil(2009, 10, 20) %>
+  start_time: <%= DateTime.civil(2009, 10, 20, 10) %>
+  end_time: <%= DateTime.civil(2009, 10, 20, 18) %>
+  title: 第173回ちびっこ大相撲大会
+  detail: 未来の横綱目指して頑張ろう
+  public: true
+  author: sns_hanako
+
+tarou_public_schedule_on_today:
+  due_date: <%= Date.today %>
+  title: 太郎の公開スケジュールです。
+  detail: これは他人から太郎のスケジュールを見ても表示されます。
+  public: true
+  author: sns_tarou
+
+tarou_private_schedule_on_today:
+  due_date: <%= Date.today %>
+  title: 太郎の非公開スケジュールです。
+  detail: これは他人から太郎のスケジュールを見ると表示されません。
+  public: false
+  author: sns_tarou

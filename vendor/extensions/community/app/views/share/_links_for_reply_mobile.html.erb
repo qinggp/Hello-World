@@ -1,0 +1,9 @@
+<% if @community.member?(current_user) %>
+  <% if reply.destroyable?(current_user) %>
+    [<%= link_to("削除", reply.polymorphic_url_on_community(self, :action => :confirm_before_destroy)) %>]
+  <% end %>
+  <% if reply.editable?(current_user) %>
+    [<%= link_to("修正", reply.polymorphic_url_on_community(self, :action => :edit)) %>]
+  <% end %>
+  [<%= link_to("返信", polymorphic_url_on_creating_reply(reply)) %>]
+<% end %>

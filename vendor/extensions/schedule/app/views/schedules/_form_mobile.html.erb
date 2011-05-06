@@ -1,0 +1,22 @@
+<b>--- スケジュール登録 ---</b><br /><br />
+
+[予定日]<%= font_coution "※" %><br />
+<%= f.date_select(:due_date, :start_year => Time.now.year-3, :end_year => Time.now.year + 3).untaint  %>
+<br /><br />
+
+[予定時間]<br />
+開始時間を有効にする<%= check_box_tag("enabled_start_time", "yes", @schedule.start_time) %>
+<%= f.time_select :start_time, :time_separator => ":" %><br />
+終了時間を有効にする<%= check_box_tag("enabled_end_time", "yes", @schedule.end_time) %><%= f.time_select :end_time, :time_separator => ":" %>
+<br /><br />
+
+[タイトル]<%= font_coution "※" %><br />
+<%= f.text_field :title %><br /><br />
+
+[詳細]<%= font_coution "※" %><br />
+<%= f.text_area :detail, :rows => 4, :cols => 30 %><br /><br />
+
+[公開/非公開]<%= font_coution "※" %><br />
+<%= f.radio_button :public, true %><%= h(t(:public, :scope => [:schedule])[true]) %>
+<%= f.radio_button :public, false %><%= h(t(:public, :scope => [:schedule])[false]) %><br /><br />
+

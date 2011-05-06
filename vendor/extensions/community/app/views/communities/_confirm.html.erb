@@ -1,0 +1,70 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h form_title %></td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[コミュニティ名]</th>
+  <td><%= h @community.name %></td>
+  <%= f.hidden_field :name %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[カテゴリ]</th>
+  <td><%= h @community.community_category.name_with_parent %></td>
+  <%= f.hidden_field :community_category_id %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[参加・公開条件]</th>
+  <td>
+    <%= h t(:approval_required, :scope => [:community])[@community.approval_required] %>
+    [ <%= h @community.describe_visibility %> ]
+  </td>
+  <%= f.hidden_field :participation_and_visibility %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[トピック作成]</th>
+  <td><%= h(t(:topic_createable_admin_only, :scope => :community)[@community.topic_createable_admin_only]) %></td>
+  <%= f.hidden_field :topic_createable_admin_only %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[イベント作成]</th>
+  <td><%= h(t(:event_createable_admin_only, :scope => :community)[@community.event_createable_admin_only]) %></td>
+  <%= f.hidden_field :event_createable_admin_only %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[説明文]</th>
+  <td><%= auto_link(hbr(@community.comment)) { |text| truncate(text, 60) } %></td>
+  <%= f.hidden_field :comment %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[写真]</th>
+  <td>
+    <%= confirm_community_image(@community) %>
+    <%= f.hidden_field :image_temp %>
+    <% if params[:community][:delete_image] %>
+      <%= hidden_field_tag("community[delete_image]", 1) %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[参加お知らせメール受信]</th>
+  <td><%= h(t(:participation_notice, :scope => :community)[@community.participation_notice]) %></td>
+  <%= f.hidden_field :participation_notice %>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">コミュニティマップ初期位置</td>
+</tr>
+<tr>
+  <th valign="top" nowrap>[マップ座標]</th>
+  <td><%= h @community.longitude %></td>
+  <%= f.hidden_field :longitude %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[マップ座標]</th>
+  <td><%= h @community.latitude %></td>
+  <%= f.hidden_field :latitude %>
+</tr>
+<tr>
+  <th valign="top" nowrap>[マップズーム]</th>
+  <td><%= h @community.zoom %></td>
+  <%= f.hidden_field :zoom %>
+</tr>
+

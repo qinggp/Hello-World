@@ -1,0 +1,21 @@
+<b>コミュニティカマップテゴリ一覧</b><br />
+
+<% if @map_categories.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@map_categories).untaint %>
+<hr size="1" noshade>
+
+<% @map_categories.each do |c| %>
+  <%= h c.name %>
+  [ <%= link_to("マップ", map_for_mobile_community_markers_path(:community_id => @community, :community_map_category_id => c, :latitude => @community.latitude, :longitude => @community.longitude, :span_lat => CommunityMarker::DEFAULT_SPAN_LAT, :span_lng => CommunityMarker::DEFAULT_SPAN_LNG)) %> ]
+  [ <%= link_to("編集", edit_community_map_category_path(:id => c, :community_id => @community)) %> ]
+  [ <%= link_to("削除", confirm_before_destroy_community_map_category_path(:id => c, :community_id => @community), :method => :post) %> ]
+  <br />
+<% end %>
+
+<% if @map_categories.total_pages > 1 %>
+  <hr size="1" noshade>
+<% end %>
+<%= will_paginate_mobile(@map_categories).untaint %>
+<hr size="1" noshade>

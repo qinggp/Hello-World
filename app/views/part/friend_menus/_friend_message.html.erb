@@ -1,0 +1,7 @@
+<% link_to new_message_path(:individually => 1, :receiver_id => displayed_user.id), :title => "メッセージを送る" do %>
+  <%= theme_image_tag "friend_menu_message.gif",
+      :alt => "メッセージを送る",
+      :onmouseover => "this.src=#{theme_image_path('friend_menu_message_ov.gif').to_json}",
+      :onmouseout => "this.src=#{theme_image_path('friend_menu_message.gif').to_json}"
+  %>
+<% end %>

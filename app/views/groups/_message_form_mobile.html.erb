@@ -1,0 +1,12 @@
+<b>--- グループメッセージ送信 ---</b><br/>
+
+[件名]<%= font_coution("※") %><br/>
+<%= f.text_field :subject %><br/>
+
+[本文]<%= font_coution("※") %><br/>
+<%= f.text_area :body, :rows => 3, :cols => 20 %><br/>
+
+<%= hidden_field_tag("id", @group.id) %>
+<% @receivers.each do |r| %>
+  <%= hidden_field_tag("receiver_ids[]", r.id)  %>
+<% end %>

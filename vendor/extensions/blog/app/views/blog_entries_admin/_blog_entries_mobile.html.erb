@@ -1,0 +1,25 @@
+<% if @blog_entries.empty? %>
+  指定された条件の記事はありません。
+<% else %>
+  <% if @blog_entries.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@blog_entries).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% @blog_entries.each do |entry| %>
+    <%= check_box_tag "checked_ids[]", entry.id, params[:checked_ids].try(:include? ,entry.id), {:id => "checked_id_" + entry.id.to_s} %>
+    <%=h l(entry.created_at, :format => :default_year_month_date) %>
+    <%= link_to(h(entry.title), blog_entry_path(entry)) %>
+    [<%= link_to(h(entry.blog_category.name),
+          index_for_user_user_blog_entries_path(entry.user,
+            :blog_category_id => entry.blog_category_id
+    )) -%>]
+    <br/>
+  <% end %>
+
+  <% if @blog_entries.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@blog_entries).untaint %>
+  <% end %>
+<% end %>

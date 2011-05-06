@@ -1,0 +1,31 @@
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= h(l(@date, :format => :year_month_date)) %>のイベント
+  </div>
+
+  <% display_round_box(:width => "610px", :white_bg => false) do %>
+    <% display_collection_box(@community_events, {:collection_name => "イベント数", :width => "580px", :per_pages => [5, 10, 20, 50, 100], :checked_value => 10, :form => { :options => {:method => :get}}}) do %>
+      <table class="content_table">
+        <% @community_events.each do |event| %>
+          <tr>
+            <th width="80"><%= h CommunityEvent.human_attribute_name(:title) %></th>
+            <td width="420">
+              <%= theme_image_tag('flag.png', :border => 0) %>
+              <%= link_to h(event.title), event.polymorphic_url_on_community(self) %>
+              (<%= h event.active_replies.size %>)
+            </td>
+          </tr>
+          <tr>
+            <th width="80"><%= h CommunityEvent.human_attribute_name(:place) %></th>
+            <td width="420"><%= h event.place %></td>
+          </tr>
+          <tr>
+            <th width="80"><%= h CommunityEvent.human_attribute_name(:community_id) %></th>
+            <td width="420"><%= link_to h(event.community.name), community_path(event.community.id) %>
+          </tr>
+          <tr><td style="border :none; height: 3px; background-color: #ECEBE1;" colspan="2"></td></tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+</center>

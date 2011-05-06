@@ -1,0 +1,34 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "face_photo", :checked_type => "file" } %>
+<% form_tag(wrote_administration_face_photo_admin_users_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <% display_collection_box(@users, :collection_name => "現在の登録数", :checked_value => 10) do %>
+    <% if @users %>
+      <table border="0" align="center" width="660" style="border-collapse: collapse;">
+        <tr>
+          <% @users.each_with_index do |user, index| %>
+            <% if index >= 5 && index % 5 == 1 %>
+              </tr><tr>
+            <% end %>
+            <td height="100" align="center" width="110" valign="top" style="border: 1px solid gray; padding: 2px;">
+              <div style="padding: 2px;">
+                [<%= link_to 'URL', user_path(user) %>]
+                [<%= link_to '削除', face_photo_destroy_admin_user_path(user), :method => :delete, :confirm => '本当に削除しますか？' %>]<br/>
+                <%= user.face_photo.created_at.strftime('%y/%m/%d %H:%M:%S') %>
+              </div>
+              <div>
+                <%= image_face_photo_list_view(user) %>
+              </div>
+            </td>
+          <% end %>
+          <% unless @users.size % 6 == 0 %>
+            <% (6 - @users.size % 6).times do %>
+              <td width="100px">&nbsp;</td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

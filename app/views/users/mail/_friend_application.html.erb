@@ -1,0 +1,20 @@
+<% friendship = @friendship || friendship -%>
+<%=h "#{friendship.friend.name}さん、こんにちわ。" %>
+<%=h SnsConfig.title %>からのお知らせです。
+
+<%=h friendship.user.name %>さんからトモダチ依頼がありました。
+トモダチ承認するには以下のURLをクリックしてください。
+
+<%= user_url(friendship.user) %>
+
+<% unless friendship.message.blank? %>
+―――― < <%=h friendship.user.name %>さん >からあなたへのメッセージ ―――
+
+<%= h friendship.message %>
+
+―――――――――――――――――――――――――――――
+<% end %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

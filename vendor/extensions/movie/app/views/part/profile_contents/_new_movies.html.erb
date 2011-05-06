@@ -1,0 +1,23 @@
+<% display_round_box do %>
+  <div class="content_box_bg content_title_not_bold">
+    最近のムービー
+  </div>
+
+  <% movies = Movie.user_id_is(displayed_user.id).by_visible(current_user).find(:all, :order => "created_at DESC", :limit => 5) %>
+  <% if movies.empty?  %>
+    <div class="no_data">最近のムービー投稿はありません。</div>
+  <% else %>
+    <div class="news_data">
+      <% movies.each do |movie| %>
+        <div class="news_link">
+          <%= display_news_line_format(movie.created_at,
+                                       link_to(h(movie.title), movie_path(movie)),
+                                       link_to_user(movie.user, h(movie.user.name))) %>
+        </div>
+      <% end %>
+    </div>
+    <div class="news_footer">
+      [<%= link_to "全て(#{Movie.user_id_is(displayed_user.id).by_visible(current_user).count})", movies_path %>]
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,17 @@
+お気に入り登録・削除方法<br/>
+お気に入りに登録可能なページは、画面下に[お気に入り追加]ボタンが表示されます。クリックで[登録]。<br/>
+すでに登録済みのページの場合は、画面下に[お気に入り削除]リンクが表示されます。クリックで[削除]。<br/>
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@favorites).untaint %>
+
+<% @favorites.each do |f| %>
+
+  カテゴリ名：<%= link_to(h(f.name), f.url) %>
+  [<%= link_to "編集", edit_favorite_path(f) %>]
+  [<%= link_to "削除", confirm_before_destroy_favorite_path(f) %>]
+  <br/>
+
+<% end %>
+
+<%= will_paginate_mobile(@favorites).untaint %>

@@ -1,0 +1,23 @@
+  <div class="center-box" style="margin:10px;">
+    <div class="center-box-w" style="width:610px;">
+      <b class="box"><b class="box1"><b></b></b><b class="box2"><b></b></b><b class="box3"></b><b class="box4"></b><b class="box5"></b></b>
+      <div class="box-content">
+        <div style="background-color:#FFFFFF; text-align: center; padding-top: 10px; padding-bottom: 10px; padding-left: 60px; padding-right: 60px;">
+          <span style="font-weight: bold; font-size: 1.2em;">
+            ムービーを登録しました。
+          </span>
+          <br/><br/>
+          <% unless Mars::Movie::ResourceLoader['application']['realtime_convert'] -%>
+            <span style="color: red; font-weight: bold;">
+              ムービー登録後、公開まで１日程度かかります。
+            </span>
+            <br/><br/>
+          <% end -%>
+          ムービーの情報を編集するには各ページの [<%= link_to('編集する', :action => 'edit', :id => @movie) %>] から編集できます。<br/>
+          <br/><br/>
+          [<%= link_to('ムービートップへ戻る', :action => 'index') %>]
+        </div>
+      </div>
+      <b class="box"><b class="box5"></b><b class="box4"></b><b class="box3"></b><b class="box2"><b></b></b><b class="box1"><b></b></b></b>
+    </div>
+  </div>

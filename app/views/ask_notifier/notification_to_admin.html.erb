@@ -1,0 +1,28 @@
+＜お問い合わせ・要望事項＞
+
+<% unless @user.new_record? -%>
+[ユーザID]		<%= @user.id %>
+[ニックネーム]	<%=h @user.name %>
+<% end -%>
+[お名前]			<%=h @user.full_real_name %>
+[メールアドレス]	<%=h @user.login %>
+[お問い合わせ内容・要望事項]
+<%=h @user.ask_body %>
+
+<% unless @user.new_record? -%>
+
+＜システム不具合・エラー状況＞
+[発生した日時]	<%=h @user.errored_at %>
+[発生したページのURL]	<%=h @user.error_page_url %>
+[再現性]			<%= t("user.error_repeatability_label.#{@user.error_repeatability_name}") unless @user.error_repeatability_name.blank? %>
+[表示されたエラーメッセージ]
+<%=h @user.error_message %>
+<% end -%>
+
+<% if @request -%>
+----------------------------------------------------
+REMOTE_HOST	: <%= @request.remote_host %>
+REMOTE_ADDR	: <%= @request.remote_addr %>
+HTTP_USER_AGENT	: <%= @request.user_agent %>
+----------------------------------------------------
+<% end -%>

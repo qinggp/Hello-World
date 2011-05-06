@@ -1,0 +1,14 @@
+<% entries = BlogEntry.user_id_is(current_user.id).
+      by_visible_for_user(current_user, false).recents(10, 14.day.ago) %>
+<% unless entries.empty? %>
+  <hr size="1" noshade>
+  ◆最新マイブログ</a><br/>
+  <% entries.each do |entry| %>
+    <%= display_news_line_format_mobile(
+                                        entry.created_at,
+                                        link_to(h(entry.title), blog_entry_path(entry)),
+                                        link_to(h(entry.user.name), user_path(entry.user))
+                                        ) %>
+    <br/>
+  <% end %>
+<% end %>

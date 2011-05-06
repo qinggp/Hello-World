@@ -1,0 +1,24 @@
+<% if @community.member?(current_user)  %>
+  <% if thread.destroyable?(current_user) %>
+    [<%= link_to("削除", thread.polymorphic_url_on_community(self, :action => :confirm_before_destroy)) %>]
+  <% end %>
+
+  <% if thread.editable?(current_user) %>
+    [<%= link_to("修正", thread.polymorphic_url_on_community(self, :action => :edit)) %>]
+  <% end %>
+
+  <% if thread.kind == "CommunityEvent" %>
+    [<%= link_to("参加者(#{thread.participations.size})", show_members_community_event_path(:id => thread.id, :community_id => @community.id)) %>]
+    <br />
+    <% if thread.author.id != current_user.id  %>
+      <% if thread.participations?(current_user) %>
+        [<%= link_to("参加キャンセル", new_community_event_reply_path(:community_event_id => thread.id, :event_member => "cancel")) %>]
+      <% else %>
+        [<%= link_to("参加する", new_community_event_reply_path(:community_event_id => thread.id, :event_member => "entry")) %>]
+      <% end %>
+    <% end %>
+    [<%= link_to("コメント", new_community_event_reply_path(:community_event_id => thread.id)) %>]
+  <% else %>
+    [<%= link_to("返信", polymorphic_url_on_creating_reply(thread)) %>]
+  <% end %>
+<% end %>

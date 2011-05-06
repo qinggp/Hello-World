@@ -1,0 +1,25 @@
+<tr>
+  <td class="content_table_title" colspan="2">名前変更依頼</td>
+</tr>
+<tr>
+  <th>現在のお名前</th>
+  <td>
+    <%= h @user.full_real_name %>
+  </td>
+</tr>
+<tr>
+  <th>変更後のお名前</th>
+  <td>
+    <%= h @user.change_last_real_name %>
+    <%= h @user.change_first_real_name %>
+    <%= f.hidden_field :change_last_real_name, :size => 6 %>
+    <%= f.hidden_field :change_first_real_name, :size => 6 %>
+  </td>
+</tr>
+<tr>
+  <th><%= h User.human_attribute_name("change_name_reason") %></th>
+  <td>
+    <%= hbr @user.change_name_reason %>
+    <%= f.hidden_field :change_name_reason %>
+  </td>
+</tr>

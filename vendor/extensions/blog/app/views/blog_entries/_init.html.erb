@@ -1,0 +1,28 @@
+<%= theme_stylesheet_link_tag "blog/blog" %>
+<%= theme_stylesheet_link_tag "mini_calendar" -%>
+<%= javascript_include_tag "blog/blog" %>
+<%= javascript_include_tag "gmap_selector" %>
+<%= javascript_include_tag "movie/swfobject.js" -%>
+
+<% unless %w(search map search_for_friends).include?(action_name) %>
+  <%= write_basic_color_style(displayed_user.preference.blog_preference) %>
+<% end %>
+<%= use_tiny_mce %>
+
+<% if action_name == "search" && !logged_in? %>
+  <%= auto_discovery_link_tag :rss, index_feed_blog_entries_url(:format => :rdf), :title => h(SnsConfig.title)+"新着ブログ(RSS1.0)" %>
+  <%= auto_discovery_link_tag :rss, index_feed_blog_entries_url(:format => :rss), :title => h(SnsConfig.title)+"新着ブログ(RSS2.0)" %>
+  <%= auto_discovery_link_tag :atom, index_feed_blog_entries_url(:format => :atom), :title => h(SnsConfig.title)+"新着ブログ(Atom1.0)" %>
+<% end %>
+
+<% if action_name == "map" %>
+  <%= auto_discovery_link_tag :rss, map_blog_entries_url(:format => :rdf), :title => h(SnsConfig.title)+"クチコミマップ(RSS1.0)" %>
+  <%= auto_discovery_link_tag :rss, map_blog_entries_url(:format => :rss), :title => h(SnsConfig.title)+"クチコミマップ(RSS2.0)" %>
+  <%= auto_discovery_link_tag :atom, map_blog_entries_url(:format => :atom), :title => h(SnsConfig.title)+"クチコミマップ(Atom1.0)" %>
+<% end %>
+
+<% if %w(index_for_user show).include?(action_name) && displayed_user.preference.blog_preference.visibility_publiced? %>
+  <%= auto_discovery_link_tag :rss, index_feed_for_user_user_blog_entries_url(displayed_user, :format => :rdf), :title => h("#{displayed_user.preference.blog_preference.title}(RSS1.0)") %>
+  <%= auto_discovery_link_tag :rss, index_feed_for_user_user_blog_entries_url(displayed_user, :format => :rss), :title => h("#{displayed_user.preference.blog_preference.title}(RSS2.0)") %>
+  <%= auto_discovery_link_tag :atom, index_feed_for_user_user_blog_entries_url(displayed_user, :format => :atom), :title => h("#{displayed_user.preference.blog_preference.title}(Atom1.0)") %>
+<% end %>

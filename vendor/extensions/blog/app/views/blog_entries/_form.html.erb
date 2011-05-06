@@ -1,0 +1,141 @@
+<tr>
+  <td class="content_table_title" colspan="2">ブログ投稿</td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(BlogEntry, "created_at", :force_presence_mark => true) %></th>
+  <td class="data">
+    <% if @blog_entry.visibility_unpubliced? %>
+      <%= f.datetime_select(:created_at).untaint %>
+      <%= button_to_function "現時刻を入力", "Blog.nowTime()" %>
+    <% else %>
+      <%= l(post_time_or_now(@blog_entry), :format => "default_minute") %>
+      <%= f.hidden_field :created_at %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>[投稿者]<%= font_coution '※'%></th>
+  <td class="data"><%=h current_user.name %></td>
+</tr>
+<tr>
+  <th>[カテゴリ]<%= font_coution '※' %></th>
+  <td class="data">
+    <%= f.select :blog_category_id, categories_select_options %>→[<%= link_to "カテゴリ管理", new_user_blog_category_path(current_user) %>]
+    <div style="font-size:80%;">
+      ※クチコミ情報を選択し、地図表示を入力すると[<%= link_to "クチコミマップ", index_for_map_blog_entries_path %>]に表示されます。
+      <br/>この場合、ブログ公開範囲に関わらず、タイトルと本文の一部が[<b>外部公開</b>]となります。ご注意ください。
+    </div>
+  </td>
+</tr>
+<tr>
+  <th>[タイトル]<%= font_coution '※' %></th>
+  <td class="data"><%= f.text_field :title %></td>
+</tr>
+<tr>
+  <th>[本文]<%= font_coution '※' %></th>
+  <td class="data">
+    <%= f.text_area choice_body_setter_name %>
+<% unless current_user.preference.blog_preference.wyswyg_editor? %>
+  <div id="ext_window" style="position:relative; display:none;">
+    <div style="position:absolute; width:300px; height:auto; background-color:#FFFFFF; border:1px solid gray;">
+      <div style="text-align:right; background-color:#CCCCCC;"><a href="javascript:void(0);" style="color:black;text-decoration:none;font-weight:bold;" onClick="$('ext_window').hide();" title="閉じる">×</a></div>
+      <div style="text-align:center">●EXTタグ一覧●</div>
+
+      <div style="margin:3px; padding:0px;">
+        <div>
+          ○<a href="javascript:void(0);" style="color:black;" onclick="Blog.addTag('blog_entry_body','&lt;EXT type=&quot;youtube&quot; data=&quot;&quot;&gt;');$('ext_window').hide();">YouTube動画貼り付け</a><br>
+          &nbsp;&nbsp;&lt;EXT type=&quot;youtube&quot; data=&quot;YouTube動画URL&quot;&gt;
+	</div>
+  
+        <% if BlogExtension.instance.extension_enabled?(:movie) %>
+          <div>
+            ○<a href="javascript:void(0);" style="color:black;" onclick="Blog.addTag('blog_entry_body','&lt;EXT type=&quot;matsue_movie&quot; data=&quot;&quot;&gt;');$('ext_window').hide();">松江SNS動画貼り付け</a><br>
+            &nbsp;&nbsp;&lt;EXT type=&quot;matsue_movie&quot; data=&quot;松江SNS動画URL&quot;&gt;
+	  </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div style="color:black;">
+    使用可能HTMLタグ：
+    <b>
+      <%= link_to_function h("<b>"), "Blog.addTag('blog_entry_body', '<b></b>')" %>
+      <%= link_to_function h("<i>"), "Blog.addTag('blog_entry_body', '<i></i>')" %>
+      <%= link_to_function h("<u>"), "Blog.addTag('blog_entry_body', '<u></u>')" %>
+      <%= link_to_function h("<font>"), "Blog.addTag('blog_entry_body', '<font size=\"\" color=\"\"></font>')" %>
+      <%= link_to_function h("<hr>"), "Blog.addTag('blog_entry_body', '<hr>')" %>
+      <%= link_to_function h("<PIC>"), "Blog.addTag('blog_entry_body', '<PIC no=\"\">')" %>
+      <%= link_to_function h("<EXT>"), "$('ext_window').show()" %>
+    </b>
+  </div>
+  <div style="color:red;font-size:80%;">
+    ※上記HTMLタグをクリックすれば最終行に挿入できます。閉じ忘れに注意！<br/>
+    ※HTMLタグの使い方は[ <a href="http://www.google.co.jp/search?hl=ja&q=HTML%E3%82%BF%E3%82%B0&lr=lang_ja" target="_blank">検索</a> ]して勉強してね！<br/>
+    ※&lt;PIC&gt;はオリジナルタグです。添付画像をNoで指定し、本文中の好きな場所に画像を表示できます。<br/>
+    　＜例＞1つめの添付を表示する場合：&lt;PIC no="1"&gt;<br/>
+    ※EXTはオリジナルタグです。詳しくは使い方をご覧ください。→[ <%= link_to_function h("EXTタグの使い方"), "$('ext_window').show()" %> ]<br/>
+  </div>
+<% end %>
+  </td>
+</tr>
+
+<tr>
+  <td class="content_table_title" colspan="2">添付ファイル</td>
+</tr>
+<tr>
+  <th>[添付ファイル]</th>
+  <td class="data">
+    <% @blog_entry.sorted_blog_attachments.each_with_index do |attachment, i| %>
+      <% fields_for "blog_entry[blog_attachments_attributes]", attachment, :index => (i+1) do |f_ba|  %>
+        <div>
+          <%= form_attachment_image(attachment) %>
+          <%= f_ba.file_field :image  %>
+          <%= f_ba.hidden_field :position %>
+          <% unless attachment.new_record? %>
+            <%= f_ba.check_box :_delete, {}, "1" %>
+            <%= f_ba.hidden_field :id %>
+          <% end %>
+          <br/>
+          （添付可能拡張子：.jpg/.jpeg/.png/.gif/.txt/.pdf/.doc/.xls/.ppt/.zip/.lzh/.wma）
+        </div>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">地図表示</td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td class="data">
+    <%= f.text_field(:longitude, :size => 8, :id => :longitude) %>
+    <%= f.text_field(:latitude, :size => 8, :id => :latitude) %>
+    <%= f.text_field(:zoom, :size => 2, :id => :zoom) %>
+    <span style="font-size: 0.8em;">(0〜19)</span>
+    <input type="button" value="座標値クリア" class="button_style" onclick="GMapSelector.clear_coordinate_values()"/>
+    <input type="button" value="マップを見る" class="button_style" onclick="GMapSelector.open_map_window('<%= select_map_blog_entries_url %>')"/>
+  </td>
+</tr>
+
+<tr>
+  <td class="content_table_title" colspan="2">投稿別設定</td>
+</tr>
+<tr>
+  <th>[公開制限]<%= font_coution '※' %></th>
+  <td class="data">
+
+    <%= restraint_radio_button_for :visibility, f %>
+    <div style="font-size:80%;">
+      <div style="color:red;">
+        ※トモダチのみの場合でも、タイトルはブログ検索にて全体に公開されますのでご注意ください。
+      </div>
+      ※ブログ全体の公開範囲は[ <%= link_to("設定変更", edit_preference_path(current_user.preference)) %> ]で出来ます。
+    </div>
+  </td>
+</tr>
+<tr>
+  <th>[コメント制限]<%= font_coution '※' %></th>
+  <td class="data">
+    <%= restraint_radio_button_for :comment_restraint, f %>
+  </td>
+</tr>

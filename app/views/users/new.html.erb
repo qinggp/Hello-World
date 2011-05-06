@@ -1,0 +1,6 @@
+<%= render :partial => "/share/ssl_form_link",
+           :locals => {:https_link => new_user_path(:private_token => params[:private_token], :only_path => false, :protocol => "https://"),
+                       :http_link => new_user_path(:private_token => params[:private_token], :only_path => false, :protocol => "http://")}
+%>
+
+<%= render :partial => "/share/form" %>

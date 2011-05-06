@@ -1,0 +1,56 @@
+/* NOTE: このファイルを変更したらcache_default.cssも更新すること！！ */
+.calendar {
+  /* margin: auto; */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.dayName th {
+  font-size: 1.0em;
+  padding-top: 0.6em;
+  padding-bottom: 0.3em;
+  background-color: #ffffff;
+  color: black;
+  text-align: center;
+  font-weight: normal;
+  width: 14%;
+}
+
+.otherMonth, .day, .specialDay {
+  height: 30px;
+}
+
+.otherMonth {
+  color: #eeeeee;
+  background-color: white;
+  text-align: center;
+}
+
+.day, .specialDay {
+  text-align: center;
+  vertical-align: center;
+  background-color: #ffffff;
+}
+.specialDay {
+  background-color: #003355;
+  color: white;
+}
+.specialDay a, .specialDay a:visited, .specialDay a:hover {
+  color: white;
+  text-decoration: none;
+  padding: 1em;
+}
+.specialDay a:hover {
+  color: white;
+  background-color: black;
+}
+.saturday {
+  background-color: #d7ffff;
+}
+.sunday {
+  background-color: #ffecec;
+}
+.today{
+	background-color: #eeeeee;
+}

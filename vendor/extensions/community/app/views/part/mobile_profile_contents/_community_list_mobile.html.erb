@@ -1,0 +1,13 @@
+<a name="blog">▽</a>参加コミュ一覧<br/>
+<% communities = displayed_user.communities.find(:all, :limit => 6) %>
+<% if communities.empty? %>
+  参加しているコミュニティはありません。<br />
+<% else %>
+  <% communities.each do |community| %>
+    <%= link_to(h(community.name), community_path(community)) %>
+    (<%= h community.members.count %>)
+    (<%= link_to_user(community.admin, h(community.admin.name)) %>)
+    <br />
+  <% end %>
+  [<%= link_to("全て(#{displayed_user.communities.count})", communities_path(:user_id => displayed_user)) %>]
+<% end %>

@@ -1,0 +1,94 @@
+<center>
+
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to h(@community.name), community_path(@community) %>のコミュニティマップ
+  </div>
+
+  <% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+    <div align="right" style="margin: 5px;">
+      [ <%= link_to("マップ初期位置設定", edit_community_path(@community)) %> ]
+      [ <%= link_to("カテゴリ管理", new_community_map_category_path(:community_id => params[:community_id])) %> ]
+    </div>
+  <% end %>
+
+  <div>
+    ※マーカーを登録するには[ <%= link_to("マーカー作成", new_community_marker_path(:community_id => @community.id)) %> ]でマップカテゴリを選択してください。<br />
+    ※カテゴリメニューからカテゴリを選ぶとマーカーが表示されます。<br />
+    ※登録数100件を超えるカテゴリの表示には時間がかかる場合がございます。<br />
+  </div>
+
+  <div id="map_container">
+    <div id="map">Now Loading...</div>
+    <div id="list">
+      <% category_index = 0 %>
+      <% @community_markers.each do |category_id, markers| -%>
+  <div class="category" style="border-color: <%= category_color(category_index) %>;">
+    <!-- カテゴリーを表示・非表示にするリンク  -->
+    <%= render :partial => "category_switch", :locals => {:category_index => category_index, :markers => markers, :category_id => category_id, :suffix => "right"} %>
+  </div>
+  <!-- カテゴリ内のマーカー情報を表示 -->
+  <div id="category_<%= category_index %>" style="display: none;">
+    <% markers.each_with_index do |marker, index| %>
+            <div class="map_list">
+        <% css_class = index.even? ? "even" : "odd" %>
+              <div class="<%= css_class %>">・
+    <a href="#map_top" onclick="GMapViewer.open_info_window(<%= marker.id %>);"><%= h(marker.title) %>(<%= h marker.active_replies.size %>)
+    </a>
+        </div>
+            </div>
+    <% end %>
+  </div>
+  <% category_index += 1 %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="community_category_list">
+    <% category_index = 0 %>
+    <% @community_markers.each do |category_id, markers| -%>
+      <span class="category" style="border-color: <%= category_color(category_index) %>;">
+  <%= render :partial => "category_switch", :locals => {:category_index => category_index, :markers => markers, :category_id => category_id, :suffix => "bottom"} %>
+      </span>
+      <% category_index += 1 %>
+    <% end %>
+  </div>
+
+
+  <%= render :partial => "/share/google_map_script" %>
+  <%= javascript_include_tag('gmap_viewer') %>
+  <%= javascript_include_tag('community/community_markers') %>
+  <script type="text/javascript">
+    <% if @community.latitude && @community.longitude && @community.zoom %>
+      GMapViewer.maps_load("map", {latitude : <%= @community.latitude %>, longitude : <%= @community.longitude %>, zoom : <%= @community.zoom %> });
+    <% else %>
+      GMapViewer.maps_load("map", {latitude : <%= SnsConfig.master_record.g_map_latitude %>, longitude : <%= SnsConfig.master_record.g_map_longitude %>, zoom : <%= SnsConfig.master_record.g_map_zoom %> });
+    <% end %>
+    var marker = null;
+    <% category_index = 0 %>
+    <% @community_markers.each do |category_id, markers| -%>
+      <% markers.each do |marker| %>
+  GMapViewer.markers.push(new CommunityMapMarker(
+  new GLatLng(<%=h marker.latitude.to_json %>, <%=h marker.longitude.to_json %>),
+  {
+  id : <%= marker.id.to_json %>,
+  title_link : <%= (link_to(h(marker.title), community_marker_path(:id => marker.id, :community_id => @community.id))).to_json %>,
+  category_name : <%= h(marker.map_category.name).to_json %>,
+  body : <%= h(truncate(marker.content, :length => 200)).to_json %>,
+  reply : <%= link_to("コメントする", new_community_reply_path(:community_marker_id => marker)).to_json %>
+  },
+  <%= category_index %>
+  ));
+      <% end  %>
+      <% category_index += 1 %>
+    <% end  %>
+  </script>
+
+  <% if @community.visibility_public? %>
+    <div id="rss_container">
+      <%= link_to theme_image_tag("feed_rdf.gif"), map_community_markers_path(:format => :rdf) %>
+      <%= link_to theme_image_tag("feed_rss.gif"), map_community_markers_path(:format => :rss) %>
+      <%= link_to theme_image_tag("feed_atom.gif"), map_community_markers_path(:format => :atom) %>
+    </div>
+  <% end %>
+</center>
+

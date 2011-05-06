@@ -1,0 +1,26 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: blog_categories
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  shared     :boolean
+#
+
+diary:
+  id: 1
+  name: 日記
+  shared: true
+
+wom:
+  id: 2
+  name: クチコミ情報
+  shared: true
+
+ruby:
+  user: sns_tarou
+  name: Ruby

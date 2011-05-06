@@ -1,0 +1,44 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: pending_community_users
+#
+#  id             :integer         not null, primary key
+#  user_id        :integer
+#  community_id   :integer
+#  apply_message  :text
+#  reject_message :text
+#  state          :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
+sns_hanako_pending_boat:
+  user: sns_hanako
+  community: boat
+  state: pending
+  created_at: <%= 2.day.ago.to_s(:db) %>
+
+sns_zirou_pending_boat:
+  user: sns_zirou
+  community: boat
+  state: pending
+  created_at: <%= 4.day.ago.to_s(:db) %>
+
+sns_sirou_rejected_curry:
+  user: sns_sirou
+  community: curry
+  state: rejected
+  created_at: <%= 10.day.ago.to_s(:db) %>
+
+sns_hanako_invited_to_member_and_approval_required:
+  user: sns_hanako
+  community: member_and_approval_required
+  state: invited
+  created_at: <%= 3.day.ago.to_s(:db) %>
+
+sns_zirou_pending_to_member_and_approval_required:
+  user: sns_zirou
+  community: member_and_approval_required
+  state: pending
+  created_at: <%= 3.day.ago.to_s(:db) %>

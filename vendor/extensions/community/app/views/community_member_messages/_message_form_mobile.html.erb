@@ -1,0 +1,16 @@
+<b>--- <%= h @model_class.human_name %>参加者にメッセージ送信 ---</b><br/>
+
+[宛先]<%= font_coution("※") %><br />
+<%= check_box_for_receivers(@members) %>
+<br />
+
+[メッセージ]<%= font_coution("※") %><br/>
+<%= f.text_area :body, :rows => 3, :cols => 20 %><br/>
+
+<%= hidden_field_tag("id", @community.id) %>
+<% if @event %>
+  <%= hidden_field_tag("event_id", @event.id) %>
+<% end %>
+<%= hidden_field_tag("message[subject]", Message.normal_subject(current_user)) %>
+
+

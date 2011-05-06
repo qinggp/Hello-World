@@ -1,0 +1,16 @@
+<%= render :partial => "header" %>
+
+<center>
+  <% display_round_box(:width => "310px", :height => "210px") do %>
+    <table style="width:100%;height:100%;">
+      <tr>
+        <td valign="middle" align="center">
+          <%=hbr @message %>
+          <br /><br />
+          [ <%= link_to("登録コミュニティ管理", community_list_community_group_path(params[:id])) %>]
+        </td>
+      </tr>
+    </table>
+  <% end %>
+- <%= link_to "戻る", new_community_group_path %> -
+</center>

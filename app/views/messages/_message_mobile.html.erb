@@ -1,0 +1,27 @@
+<% @title = message_kind(@message, current_user) + "表示" %>
+
+<%= render :partial => "next_and_prev_link" %>
+
+<%= sender_or_receiver_label(@message, current_user) %>：<%= link_to(h(@message_receiver_or_sender.name), user_path(@message_receiver_or_sender)) %><br />
+日付：<%= h @message.created_at.strftime("%y年%m月%d日 %H時%M分") %><br />
+件名：<%= h @message.subject %><br />
+<hr size="1" noshade>
+
+<%= auto_link(hbr(add_session_query_on_inner_url(@message.body))) { |text| truncate(strip_session_query(text), 60) } %>
+
+<br />
+<% @message.attachments.each do |a| %>
+  <%= display_attachment_file(a, :image_type => "thumb") %><br />
+<% end %>
+<hr size="1" noshade>
+
+<% if @message.receiver?(current_user) %>
+  [<%= link_to("返信", new_message_path(:individually => 1, :received_message_id => @message)) %>]
+<% end %>
+[<%= link_to("削除", confirm_before_delete_message_path(@message)) %>]
+<hr size="1" noshade>
+
+<%= render :partial => "next_and_prev_link" %>
+
+<%= render :partial => "back_to_top" %>
+

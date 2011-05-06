@@ -1,0 +1,25 @@
+<%= render :partial => "header" %>
+<center>
+  <%= render :partial => "/share/form", :locals => {:display_round_box_opts => {:width => "510px"}} %>
+
+  <div align="center" style="margin: 10px; font-weight: bold;">グループメンバー一覧</div>
+  <div align="center" style="margin: 5px;">※メンバーを登録する場合は、メンバー上の[追加]ボタンを押して下さい。</div>
+
+  <% if @friends.total_entries.zero? %>
+    トモダチがいません
+  <% else %>
+    <% display_collection_box(@friends, :width => "490px", :collection_name => "トモダチ数", :per_pages => [5, 10, 15, 20, 50, 100], :checked_value => 15) do %>
+      <% display_round_box(:width => "498px") do %>
+        <table id="groups" width="490" cellspacing="0" cellpadding="8" border="0" align="center">
+          <% @friends.in_groups_of(5) do |friends| %>
+            <tr>
+              <% friends.each do |friend| %>
+                <%= display_friend_on_group(friend, @group)  %>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

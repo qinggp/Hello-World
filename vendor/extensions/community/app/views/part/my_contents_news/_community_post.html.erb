@@ -1,0 +1,33 @@
+<%
+  limit = news_show_option_count_select_value("community_post_news").to_i
+  days_ago = news_show_option_span_select_value("community_post_news").to_i
+  threads = Community.threads_order_by_post(displayed_user, :limit => limit, :days_ago => days_ago)
+%>
+<% if threads.empty? %>
+  <div class="no_data content_box_bg_light">
+    <%= link_to "コミュニティ", search_communities_path %>に参加して情報交換しよう。<br/>
+    <%= display_news_show_option_selects("community_post_news") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("community_post_news") %>
+    コミュニティ最新書き込み
+  </div>
+  <% display_open_colse_box(:id => "community_post_news", :class => "base_data") do %>
+    <% threads.each do |thread| %>
+      <div class="news_link">
+        <%= display_news_line_format(thread.lastposted_at,
+                                     link_to(h(thread.title) + "(#{thread.active_replies.size})", :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                     link_to(h(thread.community.name), community_path(thread.community))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div style="float:left;">
+        <%= display_news_show_option_selects("community_post_news") %>
+      </div>
+      <div>
+        [ <%= link_to "全て", recent_posts_communities_path(:days_ago => days_ago) %> ]
+      </div>
+    </div>
+  <% end %>
+<% end %>

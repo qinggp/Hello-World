@@ -1,0 +1,7 @@
+<% link_to(index_for_user_user_blog_entries_path(:user_id => current_user.try(:id)), :accesskey => '1', :title => "マイブログ") do %>
+    <%= theme_image_tag "blog/my_menu_blog.gif",
+        :alt => "マイブログ",
+        :onmouseover => "this.src=#{theme_image_path('blog/my_menu_blog_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('blog/my_menu_blog.gif').to_json}"
+    %>
+<% end %>

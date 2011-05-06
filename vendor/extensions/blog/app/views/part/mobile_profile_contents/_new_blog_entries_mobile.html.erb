@@ -1,0 +1,14 @@
+<a name="blog">▽</a>最新ブログ<br/>
+<% entries = BlogEntry.by_visible(current_user).by_user(displayed_user).recents(10, nil) %>
+<% if entries.empty?  %>
+  最近のブログ投稿はありません。<br/>
+<% else %>
+  <% entries.each do |entry| %>
+    [<%= l(entry.created_at, :format => :default_month_date) %>]
+    <%= link_to h(entry.title), blog_entry_path(entry) %>
+    (<%= entry.blog_comments.size %>)
+    (<%= link_to_user entry.user, h(entry.user.name) %>)
+    <br/>
+  <% end %>
+  [<%= link_to "全て(#{BlogEntry.by_visible(current_user).by_user(displayed_user).count})", index_for_user_user_blog_entries_path(displayed_user) %>]
+<% end %>

@@ -1,0 +1,26 @@
+<% movies = Movie.by_visible(current_user).find(:all, :order => "created_at DESC", :limit => 5) %>
+<% if movies.empty?  %>
+  <div class="no_data content_box_bg_light">
+  </div>
+  <div class="all_link">
+    [ <%= link_to "全て", movies_path %> ]
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("new_movielist") %>
+    新しいムービー
+  </div>
+
+  <% display_open_colse_box(:id => "new_movielist", :class => "base_data") do %>
+    <% movies.each do |movie| %>
+      <div class="news_link">
+        <%= display_news_line_format(movie.created_at,
+                                     link_to(h(movie.title), movie_path(movie)),
+                                     link_to(h(movie.user.name), user_path(movie.user))) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      [ <%= link_to "全て", movies_path %> ]
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,26 @@
+<% if RankingExtension.instance.extension_enabled?(:track) %>
+  昨日のアクセス数<br />
+  <%= render :partial => "access", :collection => @latest_accesses_ranking, :as => :access %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if RankingExtension.instance.extension_enabled?(:community) %>
+  昨日盛り上がったコミュニティ<br />
+  <%= render :partial => "community", :collection => @latest_community_comments_ranking, :as => :community %>
+  <hr size="1" noshade>
+<% end %>
+
+<% if RankingExtension.instance.extension_enabled?(:blog) %>
+  最近人気のブログ(全体・外部公開のみ）<br />
+  <%= render :partial => "blog_entry", :collection => @latest_popular_blog_ranking, :as => :blog_entry %>
+  <hr size="1" noshade>
+<% end %>
+
+最近トモダチが増えたメンバー<br />
+<%= render :partial => "user", :collection => @latest_friend_count_ranking, :as => :user %>
+<hr size="1" noshade>
+
+<% if RankingExtension.instance.extension_enabled?(:community) %>
+  最近参加の多いコミュニティ<br />
+  <%= render :partial => "community", :collection => @latest_member_count_ranking, :as => :community %>
+<% end %>

@@ -1,0 +1,19 @@
+<%  with_options(:default_order => Community.default_index_order,
+                 :per_page => params[:per_page],
+                 :keyword => params[:keyword],
+                 :type => params[:type],
+                 :community_category_id => params[:community_category_id],
+                 :page => params[:page]) do |view| %>
+
+  [ <%= view.link_for_sort("最終投稿順", :order => "communities.lastposted_at") %> ]
+  [ <%= view.link_for_sort("登録順", :order => "communities.created_at") %> ]
+  [ <%= view.link_for_sort("コミュ名順", :order => "communities.name") %> ]
+  [ <%= view.link_for_sort("メンバー数順", :order => "communities.members_count") %> ]
+  [ <%= view.link_for_sort("トピック数順", :order => "communities.topics_count") %> ]
+  [ <%= view.link_for_sort("イベント数順", :order => "communities.events_count") %> ]
+  [ <%= view.link_for_sort("マーカー数順", :order => "communities.markers_count") %> ]
+<% end %>
+<%= hidden_field_tag(:order, params[:order]) %>
+<%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+
+

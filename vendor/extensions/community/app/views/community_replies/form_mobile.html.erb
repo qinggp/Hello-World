@@ -1,0 +1,20 @@
+<% if @community_reply.new_record? %>
+  <center>
+    [<a href="#reply_form">返信書込</a>]
+    [<%= mail_to_for_mobile h(CommunityReplyReceiver.mars_receive_address(current_user, [@community_reply.thread.id, params[:parent_id]].compact)), "メール作成", :subject => @community_reply.default_subject %>]
+  </center>
+  ※[メール返信]の場合は写真1枚(200KB)を3枚まで。<br/>
+  <hr size="1" noshade>
+  <% if @community.visibility_public? %>
+    <%= font_coution("※このコミュニティは[外部公開]となっております。この投稿も外部に公開されます。ご注意ください。") %>
+      <hr size="1" noshade>
+  <% end %>
+  <a name="reply_form"></a>
+
+  <%= render :partial => "share/show_reply", :locals => {:reply => (@community_reply.parent || @community_reply.thread)} %>
+  <hr size="1" noshade>
+<% end %>
+
+<%= render :partial => "/share/form" %>
+
+<%= render :partial => "share/community_footer" %>

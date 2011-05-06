@@ -1,0 +1,56 @@
+<% display_round_box(:width => "610px", :white_bg => false) do %>
+  <%= render(:partial => "next_and_prev_link") %>
+
+  <table class="content_table">
+    <tr>
+      <th style="text-align:center; font-weight: bold;"  align="center" colspan="3"><%= message_kind(@message, current_user) %>表示</th>
+    </tr>
+    <tr>
+      <th nowrap="" width="60"><%= sender_or_receiver_label(@message, current_user) %></th>
+      <td width="440">
+        <% link_to user_path(@message_receiver_or_sender) do %>
+          <%= h(@message_receiver_or_sender.name) %>
+        <% end %>
+      </td>
+      <td  style="text-align: center;"  width="100" rowspan="3">
+        <% link_to(user_path(@message_receiver_or_sender)) do %>
+          <%= display_face_photo(@message_receiver_or_sender.face_photo, :width => 60) %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th nowrap="" width="60">日付</th>
+      <td width="440"><%= h @message.created_at.strftime("%Y年%m月%d日 %H時%M分") %></td>
+    </tr>
+    <tr>
+      <th nowrap="" width="60">件名</th>
+      <td width="440"><%= h @message.subject %></td>
+    </tr>
+    <tr>
+      <th nowrap="" width="60">本文</th>
+      <td colspan="2">
+        <%= auto_link(hbr(@message.body)){ |text| truncate(text, 60) } %>
+        <% unless @message.attachments.size.zero? %>
+          <div style="margin-top: 5px;">
+            <% @message.attachments.each do |a| %>
+              <%= display_attachment_file(a, :image_type => "thumb") %>
+            <% end %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left; border-right: none;">
+        [ <%= link_to("削除", delete_message_path(@message), :method => :put, :confirm => "削除してよろしいですか？") %> ]
+      </td>
+      <td style="text-align: right; border-left: none;" colspan="2">
+        <% if @message.receiver?(current_user) %>
+          [ <%= link_to("返信", new_message_path(:individually => 1, :received_message_id => @message)) %> ]
+        <% elsif @message.cancelable?(current_user) %>
+          [ <%= link_to("取り消し", message_path(@message), :method => :delete, :confirm => "取り消してもよろしいですか？") %> ]
+        <% end %>
+      </td>
+  </table>
+
+  <%= render(:partial => "next_and_prev_link") %>
+<% end %>

@@ -1,0 +1,46 @@
+<div id="login_base">
+  <div id="login_bg">
+    <div id="login_form">
+      <% display_round_box do  %>
+        <div class="base_data">
+          <div id="login_title">[ ログインアカウントを入力してください ]</div>
+          <div id="login_msg">※認証にはCookieを使用しています</div>
+          <% if CONFIG["ssl_enable"] %>
+            <% if request.ssl? %>
+              <div id="secure_login_information" style="center">ログイン情報は暗号化されています</div>
+            <% else %>
+              <div id="nonsecure_login_information">ログイン情報は暗号化されていません</div>
+            <% end %>
+          <% end %>
+          <% form_tag session_path, :html => {:style => "margin: 0px;"} do -%>
+            <div class="login_form_title">ユーザ名(E-Mail)</div>
+            <div class="login_form_title"><%= text_field_tag 'login', @login %></div>
+            <div class="login_form_title">パスワード</div>
+            <div class="login_form_title"><%= password_field_tag 'password', nil %></div>
+            <div class="login_form_title">[ もしくは、OpenIDを入力してください ]</div>
+            <div class="login_form_title">OpenID</div>
+            <div class="login_form_title"><%= text_field_tag 'openid_url' %></div>
+            <div id="login_from_exe">
+              <%= submit_tag t('Log in') %>
+              <span id="login_from_autologin">
+                <%= check_box_tag 'remember_me', '1', @remember_me %>
+                <%= label_tag 'remember_me', t('remember_me') %>
+              </span>
+            </div>
+          <% end -%>
+          <div id="login_footer_link">
+            <% if CONFIG["ssl_enable"] %>
+              <% if request.ssl? %>
+                <div><%= link_to("HTTPログイン", login_path(:only_path => false, :protocol => "http://")) %></div>
+              <% else %>
+                <div><%= theme_image_tag "ssl.gif" %><%= link_to("こちら（HTTPS）でログインしてください", login_path(:only_path => false, :protocol => "https://")) %></div>
+              <% end %>
+            <% end %>
+            [<%= link_to "新規ユーザ登録", new_user_path %>]
+            [<%= link_to "パスワードを忘れた方はこちら", forgot_password_path  %>]
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

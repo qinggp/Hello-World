@@ -1,0 +1,61 @@
+<% unless request.mobile? %>
+<center>
+  <% display_round_box(:width => "630px") do %>
+    <div class="content_title_center content_box_bg_light">
+      <%= h SnsConfig.title %>モバイル
+    </div>
+    <div style="text-align:center;">
+      どこでもケータイから<%= h SnsConfig.title %>が楽しめます！
+      <br/>
+      ブログの投稿やコメントの書き込み、メッセージやコミュニティ閲覧などが行えます。
+      <br/>
+      <br/>
+      <%= h SnsConfig.title %>モバイルをお使いいただくには、携帯メールアドレスを登録する必要があります。
+      <br/>
+      携帯メールアドレスを登録する方法は、下記のの２つがあります。いずれかの方法で、登録してください。
+      <br/>
+      <br/>
+      【１つめの方法】
+      <br/>
+      下記のURLまたはQRコードから、携帯でアクセスし、現在お使いのPCメールアドレスとパスワードを入力します。
+      <br/>
+      初回ログイン時に、携帯メールアドレスを訊かれますので、入力してください。
+      <br/>
+      <br/>
+      <table width="540" align="center">
+        <tbody>
+          <tr>
+            <td>[ <%= h SnsConfig.title %>モバイルURL ]</td>
+            <td>[ <%= h SnsConfig.title %>モバイルQRコード ]</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; font-size: 140%;"><%= root_url %></td>
+            <td><%= theme_image_tag qrcode_url(:url => user_url(current_user), :size => 2) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+      【２つめの方法】
+      <br/>
+      下記のフォームに、携帯メールアドレスと現在お使いのパスワードを入力します。
+      <br/>
+      携帯に登録URLが記載されたメールが届きますので、そのURLにアクセスし、ログインしてください。
+      <br/>
+      携帯メールアドレスは、既に登録されていますので、再度携帯から入力する必要はありません。
+      <br/>
+      <br/>
+      【推奨携帯電話】
+      <br/>
+      NTT DoCoMo：FOMA以降
+      <br/>
+      KDDI（au）：CDMA 1X WIN以降
+      <br/>
+      SoftBank：3G以降
+      <br/>
+      ※フルブラウザやPCサイトビューアー、Windows Mobile上のブラウザはサポート対象外となります。
+    </div>
+  <% end %>
+</center>
+<% end %>
+
+<%= render :partial => "/share/form", :locals => {:partial_template => "form_mobile_email", :form_params => form_mobile_email_params} %>

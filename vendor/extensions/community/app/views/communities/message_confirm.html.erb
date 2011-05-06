@@ -1,0 +1,9 @@
+<%= render :partial => "header_for_invitation" %>
+
+<%= render :partial => "/share/confirm",
+           :locals => {:partial_template => "message_confirm",
+                       :confirm_form_params => message_confirm_params} %>
+
+<% if request.mobile? %>
+  <%= render :partial => "/share/community_footer" %>
+<% end %>

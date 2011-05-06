@@ -1,0 +1,28 @@
+<div class="center" style="width:610px;">
+  <% display_round_box(:width => "610px") do %>
+    <table style="width: 600px; background-color: rgb(255, 255, 255);">
+      <tr>
+        <td width="80px">
+          ▼キーワード
+        </td>
+        <td>
+          <% form_for(@blog_entry, :url => search_for_friends_blog_entries_path) do |f| %>
+            <%= text_field_tag :keyword, @blog_entry.search_word %>
+            <%= f.submit "検索" %>
+            <br/>
+            ※タイトル・本文より検索を行います。
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+  <br/>
+
+  <% display_round_box(:width => "610px") do %>
+
+    <div id="search_blog_entries">
+      <%= render :partial => "search_blog_entries" %>
+    </div>
+
+  <% end %>
+</div>

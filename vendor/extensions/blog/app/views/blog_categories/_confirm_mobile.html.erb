@@ -1,0 +1,5 @@
+<b>--- ブログカテゴリ投稿 ---</b><br/>
+
+[<%=h BlogCategory.human_attribute_name("name") %>]※<br/>
+<%=h @blog_category.name %><br/>
+<%= f.hidden_field :name %>

@@ -1,0 +1,51 @@
+<tr>
+  <td class="content_table_title" colspan="2">お問い合わせ・要望事項</td>
+</tr>
+<tr>
+  <td colspan="2">
+    お問い合わせ状況やご質問内容によって、お返事を差し上げるのにお時間がかかってしまう場合がございます。要望事項については、全てのご要望に応じられるとは限りませんが、検討させていただきます。<br/>
+    記入漏れや情報が不足していますと、迅速で的確な対応が難しくなりますので、できるだけ詳しい状況をご記入ください。<br/>
+  </td>
+</tr>
+<tr>
+  <th>[お名前]<%= font_coution('※') %></th>
+  <td>
+    <%= f.text_field :last_real_name, :size => 5 %>
+    <%= f.text_field :first_real_name, :size => 5 %>
+  </td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(User, "login") %></th>
+  <td><%= f.text_field :login, :size => 50 %></td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(User, "ask_body", :force_presence_mark => true) %></th>
+  <td><%= f.text_area :ask_body, :rows => 5, :cols => 50 %></td>
+</tr>
+
+<% if logged_in? %>
+  <tr>
+    <td class="content_table_title" colspan="2">システム不具合・エラー状況</td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      もしシステムの不具合やエラーが表示された場合は、以下の内容を出来るだけ詳しくご記入ください。
+    </td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(User, "errored_at") %></th>
+    <td><%= f.text_field :errored_at %></td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(User, "error_page_url") %></th>
+    <td><%= f.text_field :error_page_url %></td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(User, "error_repeatability") %></th>
+    <td><%= f.select :error_repeatability, select_options_for_const("User", "ERROR_REPEATABILITIES"), :include_blank => true %></td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(User, "error_message") %></th>
+    <td><%= f.text_area :error_message, :rows => 5, :cols => 50 %></td>
+  </tr>
+<% end %>

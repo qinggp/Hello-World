@@ -1,0 +1,25 @@
+<%= h current_user.name %>さんのトモダチ依頼中一覧<br />
+<hr size="1" noshade>
+
+<%= render :partial => "index_header_mobile" %>
+
+<% if @friendships.empty? %>
+  <hr size="1" noshade>
+  今のところ誰にもトモダチ依頼していません。
+<% else %>
+  <% if @friendships.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@friendships).untaint %><br/>
+  <% end %>
+
+  <% @friendships.each do |friendship| %>
+    <hr size="1" noshade>
+    <%= l(friendship.created_at, :format => :default_year_month_date) %><br/>
+    <%= link_to h(friendship.friend.name), user_path(friendship.friend) %><br/>
+  <% end %>
+
+  <% if @friendships.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@friendships).untaint %><br/>
+  <% end %>
+<% end %>

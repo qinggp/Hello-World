@@ -1,0 +1,14 @@
+<%
+  css_class_name = message.unread? ? "unread" : "read"
+  user = message.sender?(current_user) ? message.receiver : message.sender
+%>
+
+<tr class="<%= css_class_name %>" >
+  <td width="20"><%= theme_image_tag(message.image_path(current_user)) %></td>
+  <td width="20"><%= check_box_tag("receiver_ids[]", message.id) %></td>
+  <td width="80"><%= message.created_at.strftime("%y/%m/%d %H:%M")%></td>
+  <td width="100"><%= link_to(h(user.name), user_path(user)) %></td>
+  <td><%= link_to(h(message.subject), message_path(message)) %></td>
+</tr>
+
+

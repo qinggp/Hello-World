@@ -1,0 +1,34 @@
+# コミュニティ情報
+# RSS 2.0
+carwings = (action_name == "map")
+xml.instruct!
+
+mars_rss2_feed_layout(xml,
+                      :title => @xml_title,
+                      :link => @xml_link,
+                      :description => @xml_title,
+                      :carwings => carwings) do |xml|
+  @threads.each do |t|
+    xml.item do |item|
+      item.title(h(t.title))
+      item.link(t.polymorphic_url_on_community(self))
+      item.description(normalize_text_for_feed(strip_tags(t.content)))
+      item.comments(t.polymorphic_url_on_community(self))
+      item.guid(t.polymorphic_url_on_community(self))
+      item.pubDate(t.send(@time).to_formatted_s(:rfc822))
+      item.category(t.community.name)
+      item.tag!("content:encoded") do
+        item.cdata!(normalize_text_for_feed(t.content))
+      end
+      if carwings
+        item.tag!("carwings:readtitle", h(t.title))
+        item.tag!("carwings:lat", h(t.latitude))
+        item.tag!("carwings:lon", h(t.longitude))
+        item.tag!("carwings:link", t.polymorphic_url_on_community(self))
+        item.tag!("carwings:data") do
+          item.cdata!(mars_rss2_carwings_data(t.title + "(コミュ)"))
+        end
+      end
+    end
+  end
+end

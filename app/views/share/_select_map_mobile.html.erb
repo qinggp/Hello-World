@@ -1,0 +1,49 @@
+<% if type == "form" %>
+  <br/>
+  [地図登録]<br/>
+
+  <% if search_address_request_for_mobile? %>
+    <% if params[:clear_address] %>
+      <%#= 地図情報クリアボタン押下 %>
+      <%= params[:address] = nil %>
+      <%= model.zoom = nil %>
+      <%= f.hidden_field :latitude, :value => "" %>
+      <%= f.hidden_field :longitude, :value => "" %>
+    <% elsif map = static_map_by_address_for_mobile(params[:address], model.zoom) %>
+      <%= f.hidden_field :latitude, :value => map.latitude %>
+      <%= f.hidden_field :longitude, :value => map.longitude %>
+      <%= theme_image_tag map.to_s %>
+    <% else %>
+      <%= font_coution "住所が正しくありません。" %>
+    <% end %>
+  <% else %>
+    <% if map = static_map_for_mobile(model.latitude, model.longitude, model.zoom) %>
+      <%= f.hidden_field :latitude, :value => map.latitude %>
+      <%= f.hidden_field :longitude, :value => map.longitude %>
+      <%= theme_image_tag map.to_s %>
+    <% end %>
+  <% end  %>
+  <br/>
+  住所：<%= text_field_tag :address, params[:address] %><br/>
+  ズーム：<%= f.select :zoom, zoom_select_options, :include_blank => true %><br/>
+  <%= f.submit "住所検索", :name => :search_address %>
+  <%= f.submit "住所クリア", :name => :clear_address %><br/>
+
+<% else %>
+
+  <br/>
+  [地図登録]<br/>
+  <% if map = static_map_for_mobile(model.latitude, model.longitude, model.zoom) %>
+    <%= theme_image_tag map.to_s %>
+  <% end  %>
+  <br/>
+  住所：<%=h params[:address] %><br/>
+  ズーム：<%=h model.zoom %><br/>
+
+  <%= hidden_field_tag :address, params[:address] %>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :zoom %>
+  <br/>
+
+<% end %>

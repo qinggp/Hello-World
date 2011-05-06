@@ -1,0 +1,17 @@
+<% @preference.blog_preference ||= BlogPreference.new  %>
+<% f.fields_for :blog_preference do |bpf|  %>
+  <% if view_type == :form %>
+    [<%=h BlogPreference.human_attribute_name("visibility") %>]※<br/>
+    <%= 
+        bpf.select(:visibility, %w(friend_only member_only publiced).map do |name|
+          [t("blog.blog_preference.visibility_label.#{name}"),
+           BlogPreference::VISIBILITIES[name.to_sym]]
+        end)
+    %>
+    <br/>
+  <% else %>
+    [<%=h BlogPreference.human_attribute_name("visibility") %>]<br/>
+    <%=h t("blog.blog_preference.visibility_label.#{@preference.blog_preference.visibility_name}") %>
+    <%= bpf.hidden_field :visibility %><br/>
+  <% end %>
+<% end %>

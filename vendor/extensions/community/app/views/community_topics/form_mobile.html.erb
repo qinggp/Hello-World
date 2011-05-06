@@ -1,0 +1,19 @@
+<%= render(:partial => "/share/community_header") %>
+
+<% if @community_topic.new_record? %>
+  <center>
+    [<a href="#topic_form">新規作成</a>]
+    [<a href="mailto:<%=h CommunityTopicReceiver.mars_receive_address(current_user, @community.id) %>">メール作成</a>]
+  </center>
+  ※[メール作成]の場合は写真1枚(200KB)を3枚まで。<br/>
+  <hr size="1" noshade>
+  <% if @community.visibility_public? %>
+    <%= font_coution("※このコミュニティは[外部公開]となっております。この投稿も外部に公開されます。ご注意ください。") %>
+      <hr size="1" noshade>
+  <% end %>
+  <a name="community_form"></a>
+<% end %>
+
+<%= render :partial => "/share/form" %>
+
+<%= render :partial => "/share/community_footer" %>

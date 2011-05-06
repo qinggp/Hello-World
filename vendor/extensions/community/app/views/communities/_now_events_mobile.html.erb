@@ -1,0 +1,11 @@
+<% unless @community.events.open.count.zero? %>
+  ▽本日開催のイベント<br />
+  <% @community.events.open.each do |event| %>
+    <%= display_news_line_format_mobile(
+                                        event.event_date.to_time,
+                                        link_to(h(event.title) + " (#{event.active_replies.size})", community_event_path(:community_id => @community.id, :id => event.id)),
+                                        link_to_user(event.author, h( @community.member_name(event.author) ))) %>
+    <br />
+  <% end %>
+  <hr size="1" noshade>
+<% end %>

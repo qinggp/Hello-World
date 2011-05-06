@@ -1,0 +1,12 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: blog_attachments
+#
+#  id            :integer         not null, primary key
+#  image         :string(255)
+#  blog_entry_id :integer
+#  position      :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#

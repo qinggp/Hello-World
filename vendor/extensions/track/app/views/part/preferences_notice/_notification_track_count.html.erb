@@ -1,0 +1,19 @@
+<% @preference.track_preference ||= TrackPreference.new  %>
+<% f.fields_for :track_preference do |tpf|  %>
+  <% if view_type == :form %>
+    <tr>
+      <th>[<%=h TrackPreference.human_attribute_name("notification_track_count") %>]</th>
+      <td>
+        <%= tpf.text_field :notification_track_count, :size => 8  %>
+        <span style="font-size: 80%;">件目にメールおよびメッセージを受け取る<br/>
+          ※お知らせを受け取りたいアクセス数を入力してください。＜例＞1000</span>
+      </td>
+    </tr>
+  <% else %>
+    <tr>
+      <th>[<%=h TrackPreference.human_attribute_name("notification_track_count") %>]</th>
+      <td><%= h @preference.track_preference.notification_track_count %></td>
+      <%= tpf.hidden_field :notification_track_count %>
+    </tr>
+  <% end %>
+<% end %>

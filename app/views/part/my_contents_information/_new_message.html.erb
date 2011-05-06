@@ -1,0 +1,21 @@
+<% messages = Message.received_messages_for_user(current_user).unread_is(true).descend_by_created_at %>
+<% unless messages.empty? %>
+  <div class="content_title_not_bold content_box_bg">
+    新着メッセージ
+  </div>
+  <div class="news_data">
+    <% messages.each do |message| %>
+
+      <div class="news_link" align="left" style="color: red; font-weight: bold;">
+        <%= display_news_line_format(
+                                     message.created_at,
+                                     link_to(h(message.subject), message_path(message)),
+                                     link_to(h(message.sender.name), user_path(message.sender))
+                                     ) %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      [ <%= link_to "全て", messages_path %> ]
+    </div>
+  </div>
+<% end %>

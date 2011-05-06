@@ -1,0 +1,18 @@
+<%
+   community_and_member_params = {
+     :id => @member.id,
+     :community_id => @community.id
+   }
+%>
+
+<%= render(:partial => "share/header", :locals => {:community => @community}) %>
+<hr size="1" noshade>
+
+<%= h @member.name %>を「<%= h @community.name %>」から強制退会させてよろしいですか？<br />
+
+[<%= link_to("退会させる", dismiss_community_member_path(community_and_member_params)) %>]
+[<%= link_to("戻る", community_member_path(community_and_member_params)) %>]<br />
+<hr size="1" noshade>
+
+<%= link_to("コミュニティトップへ戻る", community_path(@community)) %>
+

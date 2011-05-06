@@ -1,0 +1,11 @@
+ja:
+  ranking: いろいろランキング
+
+  sns_config:
+    ranking_display_flg_label:
+      view: 表示
+      disable: 非表示
+
+  page_titles:
+    rankings:
+      index: ランキング

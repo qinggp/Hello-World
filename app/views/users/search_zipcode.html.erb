@@ -1,0 +1,25 @@
+<center>
+  郵便番号検索：<%=h params[:zipcode] %>
+  <br/>
+  <br/>
+  <table class="content_table">
+    <tr>
+      <th>郵便番号</th>
+      <th>都道府県</th>
+      <th>市区町村</th>
+      <th>町域</th>
+      <th></th>
+    </tr>
+    <% @jp_addressess.each do |address| %>
+      <tr>
+        <td><%=h address.zipcode %></td>
+        <td><%=h address.prefecture.name %></td>
+        <td><%=h address.city %></td>
+        <td><%=h address.town %></td>
+        <td><%= link_to_function "挿入", "Users.select_jp_address(#{address.prefecture_id}, #{address.city.to_json}, #{address.town.to_json})" %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+  <%= button_to_function "閉じる", "Mars.window_close()" %>
+</center>

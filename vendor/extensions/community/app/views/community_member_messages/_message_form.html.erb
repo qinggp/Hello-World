@@ -1,0 +1,39 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= h @model_class.human_name %>参加者にメッセージを送る</td>
+</tr>
+<tr>
+  <td colspan="2"><%= h @model_class.human_name %>参加者にメッセージが送れます。連絡用にご活用ください。</td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[宛先]<%= font_coution("※") %></th>
+  <td>
+    <input type="checkbox" onclick="Message.allCheck()" id="check_all"/>全員チェック
+    <div>
+      <% @members.in_groups_of(6) do |members| %>
+        <table width="96%">
+          <tr>
+            <% members.each do |member| %>
+              <td width="16%" style="border: none;">
+                <% if member %>
+                  <%= check_box_tag("receiver_ids[]", member.id,
+                                    params[:receiver_ids].try(:include?, (member.id.to_s))) %>
+                  <%= link_to_user member, h(@community.member_name(member)) %>
+                <% end %>
+               </td>
+             <% end %>
+           </tr>
+        </table>
+      <% end %>
+    </div>
+  </td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[メッセージ]<%= font_coution("※") %></th>
+  <td><%= f.text_area :body, :rows => 5, :cols => 50 %></td>
+</tr>
+
+<%= hidden_field_tag("id", @community.id) %>
+<% if @event %>
+  <%= hidden_field_tag("event_id", @event.id) %>
+<% end %>
+<%= hidden_field_tag("message[subject]", Message.normal_subject(current_user)) %>

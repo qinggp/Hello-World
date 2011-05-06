@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="ja" xmlns="http://www.w3.org/2005/Atom">
+  <id></id>
+  <link type="text/html" rel="alternate" href="/users/279556402/blog_entries/index_for_user"/>
+  <link type="application/atom+xml" rel="self" href="http://localhost:3000/users/279556402/blog_entries/index_feed_for_user.atom"/>
+  <title>SNS太郎のブログ</title>
+  <subtitle>SNS太郎のブログ</subtitle>
+  <author>
+    <name>松江SNS</name>
+  </author>
+  <updated>2010-01-14T14:50:22+09:00</updated>
+  <generator uri="http://localhost:3000/" vesion="0">http://localhost:3000/</generator>
+  <rights>Copyright (C) Network Applied Communication Laboratory Ltd.</rights>
+  <entry>
+    <id>http://localhost:3000/blog_entries/879351352</id>
+    <published>2010-01-13T16:50:02+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/879351352"/>
+    <title>全体公開日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">本文</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        本文
+      </div>
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:3000/blog_entries/579526522</id>
+    <published>2010-01-13T16:50:02+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/579526522"/>
+    <title>本文が長い日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">項目1&lt;br /&gt;項目2&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;あああああああああああああああああああああああああ&lt;br /&gt;</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <![CDATA[項目1<br />項目2<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />あああああああああああああああああああああああああ<br />]]>
+      </div>
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:3000/blog_entries/80618651</id>
+    <published>2010-01-13T16:50:02+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/80618651"/>
+    <title>トモダチのみコメント可能日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">本文</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        本文
+      </div>
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:3000/blog_entries/29871735</id>
+    <published>2008-01-01T00:00:00+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/29871735"/>
+    <title>メンバのみコメント可能日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">本文</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        本文
+      </div>
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:3000/blog_entries/546220327</id>
+    <published>2010-01-13T16:50:02+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/546220327"/>
+    <title>誰でもコメント可能日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">本文</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        本文
+      </div>
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:3000/blog_entries/1018334309</id>
+    <published>2010-01-13T16:50:02+09:00</published>
+    <updated>2010-01-13T16:50:02+09:00</updated>
+    <link type="text/html" rel="alternate" href="http://localhost:3000/blog_entries/1018334309"/>
+    <title>コメント受け付けない日記</title>
+    <author>
+      <name>SNS太郎</name>
+    </author>
+    <category schema="/users/279556402/blog_entries/index_for_user?blog_category_id=2" label="クチコミ情報" term="クチコミ情報" xml:lang="ja"/>
+    <summary type="text" xml:lang="ja">本文</summary>
+    <content type="xhtml" xml:lang="ja">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        本文
+      </div>
+    </content>
+  </entry>
+</feed>

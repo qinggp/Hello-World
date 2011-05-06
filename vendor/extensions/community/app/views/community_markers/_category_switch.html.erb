@@ -1,0 +1,5 @@
+<%= theme_image_tag("z_up.gif", :id => "category_off_#{category_index}_#{suffix}", :onclick => "CommunityMarker.category_switch(#{category_index}, 'ON');") %>
+<%= theme_image_tag("z_down.gif", :id => "category_on_#{category_index}_#{suffix}", :style => "display:none;", :onclick => "CommunityMarker.category_switch(#{category_index}, 'OFF');") %>
+<%= h CommunityMapCategory.find(category_id).name %>
+(<%= h markers.size %>) 
+

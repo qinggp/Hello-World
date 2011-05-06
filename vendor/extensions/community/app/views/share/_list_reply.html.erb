@@ -1,0 +1,53 @@
+<% if replies.empty? %>
+  <% display_round_box(:width => "600px", :white_bg => true) do %>
+    <div class="no_data" styhe>書き込みはありません</div>
+  <% end %>
+<% else %>
+  <% display_round_box(:width => "600px", :white_bg => false) do %>
+    <% display_collection_box(replies, {:collection_name => "書き込み数", :width => "580px", :per_pages => [5, 10, 20, 50, 100], :checked_value => 20, :form => { :options => {:method => :get}}}) do %>
+      <table class="content_table">
+        <tr>
+          <% with_options(:default_order => CommunityReply.default_index_order,
+                          :per_page => params[:per_page],
+                          :page => params[:page]) do |view| %>
+            <th>[ <%= view.link_for_sort("日付順", :order => "community_replies.created_at") %> ]</th>
+            <th colspan="3">[ <%= view.link_for_sort("投稿者順", :order => "users.name") %> ]</th>
+          <% end %>
+          <%= hidden_field_tag(:order, params[:order]) %>
+          <%= hidden_field_tag(:order_modifier, params[:order_modifier]) %>
+        </tr>
+        <% replies.each do |reply| %>
+          <tr>
+            <td style="padding: 0px; height: 5px; background-color: #ECEBE1; border: none;" colspan="4"></td>
+          </tr>
+          <tr>
+            <td width="100" valign="top" style="background-color: #FFFFFF; text-align: center;" rowspan="4">
+
+              <%= h reply.created_at.strftime("%Y年%m月%d日") %><br />
+              <%= h reply.created_at.strftime("%H:%M") %>
+            </td>
+            <th nowrap="" width="60">タイトル</th>
+            <td width="400" colspan="2"><%= h reply.title %></td>
+          </tr>
+          <tr>
+            <th nowrap="" width="60">投稿者</th>
+            <td width="400" colspan="2"><%= link_to_user reply.author, h(@community.member_name(reply.author)) %></td>
+          </tr>
+          <tr>
+            <th nowrap="" width="60">本文</th>
+            <td width="400" colspan="2">
+              <%=  auto_link(display_quote_content(reply.content)) { |text| truncate(text, 60) } %>
+              <%= render :partial => "share/attachments", :locals => {:model => reply}%>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="text-align: right;">
+              <%= render :partial => "share/links_for_reply", :locals => {:reply => reply} %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+

@@ -1,0 +1,4 @@
+メッセージの宛先<br />
+グループ名：<%= link_to(h(@group.name), friends_path(:group_id => @group.id)) %><br />
+<%= h(@group.friends.map(&:name).join("・")) %>
+<hr size="1" noshade>

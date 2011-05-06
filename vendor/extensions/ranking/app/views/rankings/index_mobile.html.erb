@@ -1,0 +1,12 @@
+<%= link_to_if(params[:type] == "total", "最新ランキング", rankings_path) %> |
+<%= link_to_if(params[:type] != "total", "総合ランキング", rankings_path(:type => "total")) %>
+<br />
+
+<%= params[:type] == "total" ? "総合" : "最新" %>ランキングTop<%= h @limit %>を表示中<br />
+<hr size="1" noshade>
+
+<% if params[:type] == "total" %>
+  <%= render :partial => "total_ranking" %>
+<% else %>
+  <%= render :partial => "latest_ranking" %>
+<% end %>

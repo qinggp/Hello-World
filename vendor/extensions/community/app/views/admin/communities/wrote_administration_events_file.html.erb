@@ -1,0 +1,35 @@
+<%= render :partial => "/admin/contents/search_form", :locals => {:checked_genre => "events", :checked_type => "file" } %>
+<% form_tag(wrote_administration_events_admin_communities_path, :method => :get) do %>
+  <% if @search_id %>
+    <%= hidden_field_tag(:search_id, @search_id) %>
+  <% end %>
+  <%= hidden_field_tag(:type, "file") %>
+  <% display_collection_box(@community_thread_attachments, :collection_name => "現在の登録数", :checked_value => 10) do %>
+    <% if @community_thread_attachments %>
+      <table border="0" align="center" width="660" style="border-collapse: collapse;">
+        <tr>
+          <% @community_thread_attachments.each_with_index do |attachment, index| %>
+            <% if index >= 5 && index % 5 == 1 %>
+              </tr><tr>
+            <% end %>
+            <td nowrap height="100" align="center" width="110" valign="top" style="border: 1px solid gray; padding: 2px;">
+              <div style="padding: 2px;">
+                [<%= link_to 'URL', wrote_administration_events_admin_communities_path({:type => 'write', :search_id => attachment.thread_id}) %>]
+                [<%= link_to '削除', community_event_file_destroy_admin_community_path(attachment), :method => :delete, :confirm => '本当に削除しますか？' %>]<br/>
+                <%= attachment.thread.updated_at.strftime('%y/%m/%d %H:%M:%S') %><br/>
+              </div>
+              <div>
+                <%= display_attachment(attachment)  %>
+              </div>
+            </td>
+          <% end %>
+          <% unless @community_thread_attachments.size % 6 == 0 %>
+            <% (6 - @community_thread_attachments.size % 6).times do %>
+              <td width="100px">&nbsp;</td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

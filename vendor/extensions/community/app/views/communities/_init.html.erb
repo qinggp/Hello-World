@@ -1,0 +1,16 @@
+<%= theme_stylesheet_link_tag "community/community" %>
+<%= javascript_include_tag "gmap_selector" %>
+<%= theme_stylesheet_link_tag "mini_calendar" -%>
+<%= javascript_include_tag "messages" %>
+
+<% if action_name == "search" && !logged_in? %>
+  <%= auto_discovery_link_tag :rss, index_feed_communities_url(:format => :rdf), :title => h(SnsConfig.title)+"新着コミュニティトピック(RSS1.0)" %>
+  <%= auto_discovery_link_tag :rss, index_feed_communities_url(:format => :rss), :title => h(SnsConfig.title)+"新着コミュニティトピック(RSS2.0)" %>
+  <%= auto_discovery_link_tag :atom, index_feed_communities_url(:format => :atom), :title => h(SnsConfig.title)+"新着コミュニティトピック(Atom1.0)" %>
+<% end %>
+
+<% if action_name == "show" && @community.visibility_public? %>
+  <%= auto_discovery_link_tag :rss, index_feed_for_community_url(@community, :format => :rdf), :title => h("#{@community.name} - #{SnsConfig.title}(RSS1.0)") %>
+  <%= auto_discovery_link_tag :rss, index_feed_for_community_url(@community, :format => :rss), :title => h("#{@community.name} - #{SnsConfig.title}(RSS2.0)") %>
+  <%= auto_discovery_link_tag :atom, index_feed_for_community_url(@community, :format => :atom), :title => h("#{@community.name} - #{SnsConfig.title}(Atom2.0)") %>
+<% end %>

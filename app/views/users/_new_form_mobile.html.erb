@@ -1,0 +1,26 @@
+<% if SnsConfig.master_record.entry_type_free_registration? %>
+  <%= display_form_attr_name(User, "login") %>
+  <br/>
+  <%= f.text_field :login %>
+  <br/>
+  ※このメールアドレスは公開されることはありません。
+  <br/>
+<% else %>
+  <%= display_form_attr_name(User, "login") %>
+  <br/>
+  <%= h @user.login %>
+  <br/>
+  ※このメールアドレスは公開されることはありません。
+  <br/>
+  <%= f.hidden_field :login %>
+  <%= hidden_field_tag :private_token, params[:private_token] %>
+<% end %>
+
+[希望パスワード]<%= font_coution '※' %>
+<br/>
+<%= f.password_field :password, :value => "" %>
+<br/>
+<%= f.password_field :password_confirmation, :value => "" %>(確認のため再入力)
+<br/>
+※任意のパスワードを6～12文字の半角英数字で入力してください。  
+<br/>

@@ -1,0 +1,41 @@
+      <% if params[:action] == "confirm_before_apply" %>
+        <% unless @community.approval_required? %>
+          このコミュニティ「<%= h @community.name %>」に参加しますか？
+          <% form_tag(apply_community_path(@community)) do %>
+            <%= hidden_field_tag("id", @community.id) %>
+            <%= submit_tag("参加する", :confirm => "このコミュニティに参加してよろしいですか？") %>
+          <% end %>
+        <% else %>
+          <% if @community.invited?(current_user) %>
+            <!-- 管理人により招待されているとき -->
+            このコミュニティ「<%= h @community.name %>」に参加しますか？<br /><br />
+            ※あなたは管理人から招待を受けているため、承認なしで参加できます。<br /><br />
+            <% form_tag(apply_community_path(@community)) do %>
+              <%= hidden_field_tag("id", @community.id) %>
+              <%= submit_tag("参加する", :confirm => "このコミュニティに参加してよろしいですか？") %>
+            <% end %>
+          <% else %>
+            <% form_tag(apply_community_path(@community)) do %>
+              このコミュニティ「<%= h @community.name %>」へ<br />参加するには管理人の承認が必要です。<br />参加依頼をしますか？<br /><br />参加にあたって一言(任意)<br />
+              <%= text_area_tag("message", nil, :rows => 4, :cols => 40) %><br />
+              <%= hidden_field_tag("id", @community.id) %>
+              <%= submit_tag("参加依頼する", :confirm => "このコミュニティへの参加依頼をします。よろしいですか？") %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% elsif params[:action] == "confirm_before_cancel" %>
+        このコミュニティ「<%= h @community.name %>」から退会しますか？
+         <% form_tag(cancel_community_path(@community)) do %>
+           <%= hidden_field_tag("id", @community.id) %>
+           <%= submit_tag("退会する", :confirm => "このコミュニティから退会してよろしいですか？") %>
+         <% end %>
+      <% elsif params[:action] == "show_application" %>
+        <% form_tag(approve_or_reject_community_path(@community)) do %>
+          <%= h @pending.user.name %> さんがこのコミュニティ「<%= h @community.name %>」への参加を希望しています。<br /><br />管理人から参加にあたって一言(任意)<br />
+          <%= text_area_tag("message", nil, {:rows => 4, :cols => 40}) %><br />
+          <%= hidden_field_tag("pending_id", @pending.id) %>
+          <%= submit_tag("承認する", :confirm => "#{@pending.user.name}さんの参加を承認します。よろしいですか？", :name => :approve) %>
+          <%= submit_tag("拒否する", :confirm => "#{@pending.user.name}さんの参加を拒否します。よろしいですか？", :name => :reject) %>
+          <div style="font-size: 80%;">※拒否の場合は一言の記入時のみ非承認通知がメールで送信されます。<br/>お断りする理由をお知らせしたい場合にご記入ください。</div>
+        <% end %>
+      <% end %>

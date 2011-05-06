@@ -1,0 +1,36 @@
+<b>--- お問い合わせ・要望事項 ---</b><br/>
+
+[お名前]<%= font_coution('※') %><br/>
+<%=h @user.full_real_name %>
+<%= f.hidden_field :last_real_name %>
+<%= f.hidden_field :first_real_name %>
+<br/>
+
+<%= display_form_attr_name(User, "login") %><br/>
+<%=h @user.login %>
+<%= f.hidden_field :login %>
+<br/>
+
+<%= display_form_attr_name(User, "ask_body", :force_presence_mark => true) %><br/>
+<%= hbr @user.ask_body %>
+<%= f.hidden_field :ask_body %><br/>
+</tr>
+
+<% if logged_in? %>
+  <b>システム不具合・エラー状況</b><br/>
+  <%= display_form_attr_name(User, "errored_at") %><br/>
+  <%= h @user.errored_at %>
+  <%= f.hidden_field :errored_at %><br/>
+
+  <%= display_form_attr_name(User, "error_page_url") %><br/>
+  <%= h @user.error_page_url %>
+  <%= f.hidden_field :error_page_url %><br/>
+
+  <%= display_form_attr_name(User, "error_repeatability") %><br/>
+  <%= t("user.error_repeatability_label.#{@user.error_repeatability_name}") unless @user.error_repeatability_name.blank? %>
+  <%= f.hidden_field :error_repeatability %><br/>
+
+  <%= display_form_attr_name(User, "error_message") %><br/>
+  <%= hbr @user.error_message %>
+  <%= f.hidden_field :error_message %><br/>
+<% end %>

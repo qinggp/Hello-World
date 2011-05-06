@@ -1,0 +1,21 @@
+<%= render :partial => "/share/my_community_mainte_link" %>
+<hr size="1" noshade>
+
+<%= render :partial => "/share/form" %>
+<hr size="1" noshade>
+
+<% if action_name == "new" || action_name == "create" %>
+  コミュニティグループ一覧<br />
+
+  <% if @community_groups.count.zero? %>
+    コミュニティグループがありません
+  <% else %>
+    <% @community_groups.each do |group| %>
+      <%= h(group.name + "(#{group.communities.count})") %><br />
+      [ <%= link_to("登録コミュニティ管理", community_list_community_group_path(group)) %> ]
+      [ <%= link_to("編集", edit_community_group_path(group)) %> ]
+      [ <%= link_to("削除", confirm_before_destroy_community_group_path(group)) %> ]
+      <br /><br />
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,30 @@
+<% if logged_in? %>
+  <% display_round_box do %>
+    <div class="navigation_title">
+      ■メンバーリスト
+    </div>
+    <div class="community_member_box">
+      <div>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+          <% @community_members.in_groups_of(3) do |members| %>
+            <tr>
+              <% members.each do |member| %>
+                <td class="new_link" align="center" width="80" valign="top" style="padding: 2px;">
+                  <% if member %>
+                    <%= display_member_on_table(member, @community, :width => 68, :enabled_friend_count => true, :admin => @community.admin?(member), :sub_admin => @community.sub_admin?(member)) %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <div class="all_link">
+          <% if @community.admin?(current_user) || @community.sub_admin?(current_user) %>
+            [ <%= link_to("メンバー管理", community_members_path(@community)) %> ]
+          <% end %>
+          [ <%= link_to("全て(#{@community.members.count})人", show_members_community_path(@community)) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

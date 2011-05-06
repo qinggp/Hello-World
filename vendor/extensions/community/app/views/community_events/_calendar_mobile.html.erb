@@ -1,0 +1,11 @@
+<%=
+   mars_calendar_mobile do |day|
+     html = []
+     @community_events.find_all{|e| e.event_date == day}.each do |event|
+       html << link_to(h(event.title),
+                        community_event_path(:id => event.id, :community_id => event.community_id))
+     end
+
+     html
+   end
+%>

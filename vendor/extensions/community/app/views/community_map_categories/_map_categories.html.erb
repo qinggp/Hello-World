@@ -1,0 +1,32 @@
+<% display_round_box(:width => "610px", :white_bg => true) do %>
+  <% if @map_categories.total_entries.zero? %>
+    <div class="no_data">登録がありません</div>
+  <% else %>
+    <% display_round_box(:width => "610px", :white_bg => false) do %>
+      <% display_collection_box(@map_categories, :width => "590px", :collection_name => "現在の登録数", :per_pages => [5, 10, 20, 50, 100]) do %>
+        <table class="content_table">
+          <tr>
+            <% with_options(:default_order => CommunityMapCategory.default_index_order,
+                            :per_page => params[:per_page],
+                            :page => params[:page]) do |view| %>
+              <th>
+                <%= view.link_for_sort("カテゴリ名", :order => "community_map_categories.name") %>
+              </th>
+              <th>
+                <%= view.link_for_sort("作成者", :order => "users.name") %>
+              </th>
+              <th></th>
+            <% end %>
+          </tr>
+          <% @map_categories.each do |c| %>
+            <tr>
+              <td><%= h c.name %></td>
+              <td><%= link_to h( @community.member_name(c.author)), user_path(c.author) %></td>
+              <td style="text-align:center;"><%= link_to("修正 ／ 削除", edit_community_map_category_path(:community_id => params[:community_id], :id => c.id)) %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

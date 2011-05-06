@@ -1,0 +1,27 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_groups
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+tarou_all_communities:
+  name: 太郎の所属する全てのコミュニティが入っています
+  user: sns_tarou
+
+tarou_curry_only:
+  name: カレー部だけが入っています
+  user: sns_tarou
+
+tarou_no_communities:
+  name: 何も入っていません
+  user: sns_tarou
+
+hanako_curry_and_official:
+  name: カレー部と公認コミュニティ（全員）が入っています
+  user: sns_hanako

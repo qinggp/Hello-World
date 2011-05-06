@@ -1,0 +1,37 @@
+<% entries = blog_recent_friend_entries() %>
+<% if entries.empty?  %>
+  <div class="no_data content_box_bg_light">
+    <%= link_to "トモダチ", search_member_form_users_path %>を作って<%= link_to "ブログ", search_blog_entries_path %>を読もう。<br/>
+    <%= display_news_show_option_selects("blog_friend_entries_news") %>
+    <%= display_news_show_rss_option_selects("blog_friend_entries_news") %>
+  </div>
+<% else %>
+  <div class="content_box_bg content_title_not_bold">
+    <%= display_open_colse_box_button("blog_friend_entries_news") %>
+    トモダチ最新ブログ
+  </div>
+  <% display_open_colse_box(:id => "blog_friend_entries_news", :class => "base_data") do %>
+    <% entries.each do |entry| %>
+      <div class="news_link" >
+          <% if entry.imported_by_rss %>
+            <%= display_news_line_format(entry.created_at,
+                                         link_to(h(entry.title) + theme_image_tag("outlink.gif"), h(entry.url_to_article)),
+                                         link_to(h(entry.user.name), user_path(entry.user))) %>
+          <% else %>
+            <%= display_news_line_format(entry.created_at,
+                                         link_to(h(entry.title)   + " (#{entry.blog_comments_count})" , blog_entry_path(entry)),
+                                         link_to(h(entry.user.name), user_path(entry.user))) %>
+          <% end %>
+      </div>
+    <% end %>
+    <div class="all_link">
+      <div style="float:left;">
+        <%= display_news_show_option_selects("blog_friend_entries_news") %>
+        <%= display_news_show_rss_option_selects("blog_friend_entries_news") %>
+      </div>
+      <div>
+        [ <%= link_to "全て", search_for_friends_blog_entries_path %> ]
+      </div>
+    </div>
+  <% end %>
+<% end %>

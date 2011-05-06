@@ -1,0 +1,6 @@
+<% if params[:action] == "new" %>
+  <%= render :partial => "new_mobile" %>
+<% else %>
+  <%= render :partial => "/share/form" %>
+<% end %>
+<%= render :partial => "footer_mobile" %>

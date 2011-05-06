@@ -1,0 +1,26 @@
+<tr>
+  <td class="content_table_title" colspan="2">携帯メール情報送信</td>
+</tr>
+<tr>
+  <td colspan="2">
+    ※メールアドレスによる受信制限を行っている場合は <b>admin@localhost.localdomain</b> からのメールを許可してください。 
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("mobile_email") %>
+  </th>
+  <td>
+    <%= text_field_tag "user[mobile_email_account_domain][account]", @user.mobile_email_account %>
+    @
+    <%= select_tag "user[mobile_email_account_domain][domain]", options_for_select([""] + CONFIG["mobile_domains"], @user.mobile_email_domain), :include_blank => true %>
+  </td>
+</tr>
+<tr>
+  <th>
+    <%=h User.human_attribute_name("current_password") %>※
+  </th>
+  <td>
+    <%= f.password_field :current_password, :value => "" %>
+  </td>
+</tr>

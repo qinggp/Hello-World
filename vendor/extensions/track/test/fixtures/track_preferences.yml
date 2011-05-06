@@ -1,0 +1,19 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: track_preferences
+#
+#  id                       :integer         not null, primary key
+#  preference_id            :integer
+#  notification_track_count :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value

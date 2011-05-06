@@ -1,0 +1,30 @@
+<% if @friends.total_entries.zero? %>
+  <% if @group %>
+    グループ「<%= h @group.name %>」にはトモダチはいません。
+  <% else %>
+    トモダチはいません。
+  <% end %>
+<% else %>
+
+  <% if @friends.total_pages > 1 %>
+    <%= will_paginate_mobile(@friends).untaint %>
+    <hr size="1" noshade>
+  <% end %>
+
+  <% if @group %>
+    グループ「<%= h @group.name %>」のトモダチ一覧<br />
+    <% if !@group.friends.count.zero? %>
+      <%= link_to(emoticon_mail + "グループメッセージ", new_message_group_path(@group, :receiver_ids => @group.friends.map(&:id)), :method => :post) %>
+      <br />
+    <% end %>
+  <% end %>
+
+  <% @friends.each do |friend| %>
+    <%= link_to(h(friend.name), user_path(friend)) %><br />
+  <% end %>
+
+  <% if @friends.total_pages > 1 %>
+    <hr size="1" noshade>
+    <%= will_paginate_mobile(@friends).untaint %>
+  <% end %>
+<% end %>

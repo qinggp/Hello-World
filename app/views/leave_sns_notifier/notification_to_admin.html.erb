@@ -1,0 +1,14 @@
+こんにちは！ <%= h SnsConfig.title %>からのお知らせです。
+
+No.<%= @user.id %> <%=h @user.name_and_full_real_name %>さん<<%=h @user.login %>> が
+<%= h SnsConfig.title %>から退会しました。
+
+———— < <%=h @user.name_and_full_real_name %>さん >の退会理由 ————
+
+<%=h @user.leave_reason %>
+
+—————————————————————————————
+
+※連絡を取りたい場合は返信すれば登録アドレス宛になります。
+
+<%= render "/share/mail_footer" %>

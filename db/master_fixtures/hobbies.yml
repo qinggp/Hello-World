@@ -1,0 +1,19 @@
+# == Schema Information
+# Schema version: 20100127063450
+#
+# Table name: hobbies
+#
+#  id       :integer         not null, primary key
+#  name     :string(255)
+#  position :integer
+#
+
+<% %w(映画鑑賞 スポーツ スポーツ観戦 音楽鑑賞 カラオケ・バンド
+      料理 グルメ お酒 ショッピング ファッション アウトドア ドライブ 旅行
+      アート 習いごと 語学 読書 マンガ テレビ ゲーム インターネット
+      ギャンブル ペット 美容・ダイエット).each_with_index do |name, i|  %>
+<%= "hobby_#{i+1}" %>:
+  id: <%= i+1 %>
+  name: <%= name %>
+  position: <%= i+1 %>
+<% end %>

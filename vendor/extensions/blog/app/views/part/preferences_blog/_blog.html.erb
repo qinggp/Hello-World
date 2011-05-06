@@ -1,0 +1,87 @@
+<% @preference.blog_preference ||= BlogPreference.new  %>
+<% f.fields_for :blog_preference do |bpf|  %>
+  <% if view_type == :form %>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "title") %></th>
+      <td>
+        <%= bpf.text_field :title %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "basic_color") %></th>
+      <td>
+        <%= bpf.select :basic_color, BlogPreference::BASIC_COLORS.map{|k, v| [t("blog.blog_preference.basic_color_label.#{k}"), v]}  %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "rss_url") %></th>
+      <td>
+        <%= bpf.text_field :rss_url %>
+        <div style="font-size: 80%;">
+          ※外部に日記・ブログをお持ちの場合、RSSのURLをご記入ください。<br/>
+          ＜例＞http://www.○○○.jp/index.rdf<br/>
+          ※RSS/1.0/2.0/atomで動作確認済み。形式によって動作しない場合もございます。<br/>
+          ※外部ブログ取り込みは更新情報反映まで時間がかかる場合がございます。
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "email_post_visibility") %></th>
+      <td>
+        <%=
+          html = ""
+          @preference.blog_preference.selectable_visibilities.each do |k, v|
+             html << bpf.radio_button(:email_post_visibility, v)
+             html << bpf.label("email_post_visibility_#{v}", t("blog.blog_preference.email_post_visibility_label.#{k}"))
+          end
+          html
+        %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "wyswyg_editor") %></th>
+      <td>
+        <%= bpf.radio_button :wyswyg_editor, true  %>
+        <%= bpf.label :wyswyg_editor_true, t("blog.blog_preference.wyswyg_editor_label.true") %>
+        <%= bpf.radio_button :wyswyg_editor, false  %>
+        <%= bpf.label :wyswyg_editor_false, t("blog.blog_preference.wyswyg_editor_label.false")  %>
+      </td>
+    </tr>
+  <% else %>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "title") %></th>
+      <td>
+        <%=h @preference.blog_preference.title %>
+        <%= bpf.hidden_field :title %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "basic_color") %></th>
+      <td>
+        <%=h t("blog.blog_preference.basic_color_label.#{@preference.blog_preference.basic_color_name}") %>
+        <%= bpf.hidden_field :basic_color %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "rss_url") %></th>
+      <td>
+        <%=h @preference.blog_preference.rss_url %>
+        <%= bpf.hidden_field :rss_url %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "email_post_visibility") %></th>
+      <td>
+        <%=h t("blog.blog_preference.email_post_visibility_label.#{@preference.blog_preference.email_post_visibility_name}") %>
+        <%= bpf.hidden_field :email_post_visibility %><br/>
+      </td>
+    </tr>
+    <tr>
+      <th><%= display_form_attr_name(BlogPreference, "wyswyg_editor") %></th>
+      <td>
+        <%=h t("blog.blog_preference.wyswyg_editor_label.#{@preference.blog_preference.wyswyg_editor}") %>
+        <%= bpf.hidden_field :wyswyg_editor %><br/>
+      </td>
+    </tr>
+  <% end %>
+<% end %>

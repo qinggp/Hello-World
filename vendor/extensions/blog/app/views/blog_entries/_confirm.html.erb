@@ -1,0 +1,88 @@
+<tr>
+  <td class="content_table_title" colspan="2">ブログ投稿</td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(BlogEntry, "created_at", :force_presence_mark => true) %></th>
+  <td>
+    <%= l(post_time_or_now(@blog_entry), :format => "default_minute") %>
+    <%= f.hidden_field :created_at %>
+  </td>
+</tr>
+<tr>
+  <th>[投稿者]</th>
+  <td>
+    <%=h current_user.name %>
+  </td>
+</tr>
+<tr>
+  <th>[カテゴリ]</th>
+  <td>
+    <%=h @blog_entry.blog_category.name %>
+    <%= f.hidden_field :blog_category_id %>
+  </td>
+</tr>
+<tr>
+  <th>[タイトル]</th>
+  <td>
+    <%=h @blog_entry.title %>
+    <%= f.hidden_field :title %>
+  </td>
+</tr>
+<tr>
+  <th>[本文]</th>
+  <td>
+    <%= display_blog_entry_body(@blog_entry, :display_type => :confirm) %>
+    <%= f.hidden_field :body %>
+    <%= f.hidden_field :body_format %>
+  </td>
+</tr>
+<tr>
+  <td class="content_table_title" colspan="2">添付ファイル</td>
+</tr>
+<% @blog_entry.sorted_blog_attachments.each_with_index do |attachment, i| %>
+  <% fields_for "blog_entry[blog_attachments_attributes][#{i+1}]", attachment do |f_ba|  %>
+    <tr>
+      <th>[添付ファイル<%=h attachment.position %>]</th>
+      <td class="data">
+        <%= confirm_attachment_image(f_ba, attachment) %>
+        <%= f_ba.hidden_field :image_temp %>
+        <%= f_ba.hidden_field :position %>
+        <%= f_ba.hidden_field :id unless attachment.new_record? %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+<tr>
+  <td class="content_table_title" colspan="2">地図表示</td>
+</tr>
+<tr>
+  <th>[マップ座標]</th>
+  <td>
+    <%= f.hidden_field(:latitude) %>
+    <%= f.hidden_field(:longitude) %>
+    <%= f.hidden_field(:zoom) %>
+    <% if @blog_entry.longitude && @blog_entry.latitude && @blog_entry.zoom -%>
+      経緯度: [<%=h @blog_entry.longitude %>, <%=h @blog_entry.latitude %>], ズームレベル: <%=h @blog_entry.zoom %>
+    <% else -%>
+      設定なし
+    <% end -%>
+  </td>
+</tr>
+
+<tr>
+  <td class="content_table_title" colspan="2">投稿別設定</td>
+</tr>
+<tr>
+  <th>[公開制限]</th>
+  <td>
+    <%= t("blog.blog_entry.visibility_label.#{@blog_entry.visibility_name.to_s}") %>
+    <%= f.hidden_field :visibility %>
+  </td>
+</tr>
+<tr>
+  <th>[コメント制限]</th>
+  <td>
+    <%= t("blog.blog_entry.comment_restraint_label.#{@blog_entry.comment_restraint_name.to_s}") %>
+    <%= f.hidden_field :comment_restraint %>
+  </td>
+</tr>

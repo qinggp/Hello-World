@@ -1,0 +1,38 @@
+<b>--- スケジュール登録確認 ---</b><br /><br />
+
+[予定日]<br />
+<%= h l(@schedule.due_date, :default => :year_month_date) %>
+<%= f.hidden_field :due_date %>
+<br /><br />
+
+[予定開始時間]<br />
+<% if @schedule.start_time %>
+  <%= h l(@schedule.start_time, :format => :hour_minute_date) %>
+<% end %>
+<%= f.hidden_field :start_time %>
+<br /><br />
+
+[予定終了時間]<br />
+<% if @schedule.end_time %>
+  <%= h l(@schedule.end_time, :format => :hour_minute_date) %>
+<% end %>
+<%= f.hidden_field :end_time %>
+<br /><br />
+
+[タイトル]<br />
+<%= h @schedule.title %>
+<%= f.hidden_field :title %>
+<br /><br />
+
+[詳細]<br />
+<%= hbr @schedule.detail %>
+<%= f.hidden_field :detail %>
+<br /><br />
+
+[公開/非公開]<br />
+<%= h(t(:public, :scope => [:schedule])[@schedule.public]) %>
+<%= f.hidden_field :public %>
+<br /><br />
+
+<%= hidden_field_tag "enabled_start_time" %>
+<%= hidden_field_tag "enabled_end_time" %>

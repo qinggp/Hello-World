@@ -1,0 +1,152 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: movies
+#
+#  id             :integer         not null, primary key
+#  user_id        :integer
+#  title          :string(255)
+#  body           :text
+#  created_at     :datetime
+#  visibility     :integer
+#  start_date     :date
+#  end_date       :date
+#  convert_status :integer
+#  zoom           :integer
+#  updated_at     :datetime
+#  latitude       :decimal(9, 6)
+#  longitude      :decimal(9, 6)
+#
+
+DEFAULTS: &DEFAULTS
+  user: sns_tarou
+  title: タイトル
+  body: 本文
+  visibility: <%= MoviePreference::VISIBILITIES[:publiced] %>
+  convert_status: <%= Movie::CONVERT_STATUSES[:done] %>
+
+sns_tarou_public:
+  <<: *DEFAULTS
+  title: 太郎の動画（外部公開）
+  body: 太郎の動画（外部公開）本文
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  created_at: <%= 1.day.ago.to_s(:db) %>
+  zoom: 16
+
+sns_hanako_public:
+  <<: *DEFAULTS
+  user: sns_hanako
+  title: 花子の動画（外部公開）
+  body: 花子の動画（外部公開）本文
+  latitude: <%= 35.469051 + (rand(100).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(100).to_f / 100000) %>
+  created_at: <%= 2.day.ago.to_s(:db) %>
+  zoom: 16
+
+sns_tarou_member:
+  <<: *DEFAULTS
+  title: 太郎の動画（全体）
+  body: 太郎の動画（全体）本文
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  created_at: <%= 3.day.ago.to_s(:db) %>
+
+sns_hanako_member:
+  <<: *DEFAULTS
+  user: sns_hanako
+  title: 花子の動画（全体）
+  body: 花子の動画（全体）本文
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  created_at: <%= 4.day.ago.to_s(:db) %>
+
+convert_yet:
+  title: 未変換ムービー
+  body: 全体公開ムービーだが未変換なので見えない
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  convert_status: <%= Movie::CONVERT_STATUSES[:yet] %>
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  <<: *DEFAULTS
+
+sns_zirou_friend:
+  <<: *DEFAULTS
+  user: sns_zirou
+  title: 次郎の動画（トモダチまで）
+  body: 次郎が登録してトモダチである太郎にだけ見えるムービー
+  visibility: <%= MoviePreference::VISIBILITIES[:friend_only] %>
+  created_at: <%= 6.day.ago.to_s(:db) %>
+
+today_movie:
+  <<: *DEFAULTS
+  title: 本日のムービー
+  body: 本日ムービーとして表示されるムービー
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  start_date: <%= Date.today.to_s(:db) %>
+  end_date: <%= Date.today.to_s(:db) %>
+  created_at: <%= 7.day.ago.to_s(:db) %>
+
+yesterday_tomorrow:
+  <<: *DEFAULTS
+  title: 昨日から明日までのムービー
+  body: 当日が期間に入るムービー
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  start_date: <%= (Date.today - 1).to_s(:db) %>
+  end_date: <%= (Date.today + 1).to_s(:db) %>
+  created_at: <%= 8.day.ago.to_s(:db) %>
+
+sns_hanako_unpubliced:
+  <<: *DEFAULTS
+  user: sns_hanako
+  title: 花子の非公開ムービー
+  body: 花子の非公開ムービー本文
+  visibility: <%= MoviePreference::VISIBILITIES[:unpubliced] %>
+  created_at: <%= 9.day.ago.to_s(:db) %>
+
+convert_error:
+  <<: *DEFAULTS
+  title: 変換エラームービー
+  body: 全体公開ムービーだが変換エラーなので見えない
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  convert_status: <%= Movie::CONVERT_STATUSES[:error] %>
+  created_at: <%= 10.day.ago.to_s(:db) %>
+
+sns_tarou_public_movie:
+  <<: *DEFAULTS
+  title: 外部公開ムービー
+  body: テストデータのためムービーデータはなし
+  latitude: <%= 35.469051 + (rand(10).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(10).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 11.day.ago.to_s(:db) %>
+
+search_sns_hanako_public:
+  <<: *DEFAULTS
+  title: 検索用
+  latitude: <%= 35.469051 + (rand(10).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(10).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 12.day.ago.to_s(:db) %>
+
+search_sns_tarou_member:
+  <<: *DEFAULTS
+  body: 検索用
+  visibility: <%= MoviePreference::VISIBILITIES[:member_only] %>
+  latitude: <%= 35.469051 + (rand(10).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(10).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 13.day.ago.to_s(:db) %>
+
+multi_search_sns_hanako_public:
+  <<: *DEFAULTS
+  title: 複数検索ワード
+  latitude: <%= 35.469051 + (rand(10).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(10).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 14.day.ago.to_s(:db) %>
+
+multi_search_sns_tarou_member:
+  <<: *DEFAULTS
+  body: 検索複数ワード
+  latitude: <%= 35.469051 + (rand(10).to_f / 100000) %>
+  longitude: <%= 133.061600 + (rand(10).to_f / 100000) %>
+  zoom: 16
+  created_at: <%= 15.day.ago.to_s(:db) %>

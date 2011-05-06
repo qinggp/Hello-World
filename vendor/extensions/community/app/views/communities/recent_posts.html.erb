@@ -1,0 +1,29 @@
+<%
+  days_ago = params[:days_ago].to_i
+  if days_ago % 7 == 0
+    history = (days_ago / 7).to_s + "週間分"
+  else
+    history = days_ago.to_s + "日分"
+  end
+%>
+
+<center>
+  <% display_collection_box(@threads, {:collection_name => "新着書き込み", :width => "610px", :color => "#FFFFFF", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 20, :form => {:options => {:method => :get}, :url_for_options => {:action => :recent_posts, :days_ago => params[:days_ago]}}}) do %>
+    <% display_round_box(:width => "600px", :white_bg => false) do %>
+      <div align="center">
+        <%= h current_user.name %>さんが参加しているコミュニティの最新書き込み一覧です。<br />
+        過去<%= history %>を表示します。
+      </div>
+
+      <% @threads.each do |thread| %>
+        <div class="news_view">
+          <div align="left">
+            <%= display_news_line_format(thread.lastposted_at,
+                                         link_to(h(thread.title) + "(#{thread.active_replies.size})", :controller => thread.class.to_s.underscore.pluralize, :action => :show, :community_id => thread.community.id, :id => thread.id),
+                                         link_to(h(thread.community.name), community_path(thread.community))) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

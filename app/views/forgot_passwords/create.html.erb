@@ -1,0 +1,19 @@
+<br/>
+<center>
+  <% display_round_box(:width => "450px", :height => "130px") do %>
+    <div class="content_title content_box_bg" style="padding: 5px; text-align: center;">
+      パスワード再発行
+    </div>
+    <div style="line-height: 1.4; padding: 10px;">
+      <center>
+        パスワード再発行メールを<%=h @forgot_password.user.login %>宛に送信しました。<br/>
+        メールを受信してお確かめください。
+      </center>
+    </div>
+    <br/>
+    <br/>
+    <div align="center">
+      ー<%= link_to "ログインページへ戻る", login_path %>ー
+    </div>
+  <% end %>
+</center>

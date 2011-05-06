@@ -1,0 +1,18 @@
+<center>
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;">
+    <%= link_to h(@community.name), community_path(@community) %>のトピックツリー
+  </div>
+
+  <div style="margin-top:10px;">
+    <div style="width: 600px; text-align: right;">
+      [
+      <%= theme_image_tag("community/topic.gif", :style => "vertical-align: middle;", :size => "12x12") %>
+      <%= link_to("トピック一覧", search_community_threads_path(:community_id => @community)) %>
+      ]
+    </div>
+
+    <% display_round_box(:width => "610px", :white_bg => false) do %>
+      <%= render :partial => "share/comment_tree", :locals => {:threads => [@community_thread]}%>
+    <% end %>
+  </div>
+</center>

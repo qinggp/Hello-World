@@ -1,0 +1,102 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: information
+#
+#  id           :integer         not null, primary key
+#  title        :text
+#  content      :text
+#  display_type :integer
+#  display_link :integer
+#  public_range :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  expire_date  :date
+#
+
+DEFAULTS: &DEFAULTS
+  content: <b>詳細</b>
+  expire_date: <%= 2.years.since.to_s(:db) %>
+
+new_and_on_link_and_sns_only:
+  <<: *DEFAULTS
+  title: <b>最新のお知らせ（SNS内のみ：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:new] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:sns_only] %>
+
+fixed_and_link_none_and_published_externally:
+  <<: *DEFAULTS
+  title: <b>固定のお知らせ（外部も公開：詳細リンクなし）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:fixed] %>
+  display_link: <%= Information::DISPLAY_LINKS[:no_link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:published_externally] %>
+
+fixed_and_on_link_and_published_externally:
+  <<: *DEFAULTS
+  title: <b>固定のお知らせ（外部も公開：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:fixed] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:published_externally] %>
+
+important_and_on_link_and_external_only:
+  <<: *DEFAULTS
+  title: <b>重要なお知らせ（外部のみ公開：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:important] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:external_only] %>
+
+important_and_on_link_and_published_externally:
+  <<: *DEFAULTS
+  title: <b>重要なお知らせ（外部も公開：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:important] %>
+  display_link: <%= Information::DISPLAY_LINKS[:no_link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:published_externally] %>
+
+private_and_on_link_and_published_externally:
+  <<: *DEFAULTS
+  title: <b>非公開お知らせ（外部も公開：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:private] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:published_externally] %>
+
+expire_on_link_and_published_externally:
+  <<: *DEFAULTS
+  title: <b>表示期限切れのお知らせ（外部も公開：詳細リンク有り）</b>
+  display_type: <%= Information::DISPLAY_TYPES[:private] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  public_range: <%= Information::PUBLIC_RANGES[:published_externally] %>
+  expire_date: <%= 2.years.ago.to_s(:db) %>
+
+test1005:
+  id: 2
+  title: status2
+  content: status2
+  expire_date: 2010-10-01
+  display_type: <%= Information::DISPLAY_TYPES[:fixed] %>
+  public_range: <%= Information::PUBLIC_RANGES[:sns_only] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  created_at: 2010-10-02
+  updated_at: 2010-10-02
+
+test1005-2:
+  id: 3
+  title: status3
+  content: status3
+  expire_date: 2010-10-01
+  display_type: <%= Information::DISPLAY_TYPES[:new] %>
+  public_range: <%= Information::PUBLIC_RANGES[:sns_only] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  created_at: 2010-10-02
+  updated_at: 2010-10-02
+
+test1005-3:
+  id: 4
+  title: status4
+  content: status4
+  expire_date: 2010-10-01
+  display_type: <%= Information::DISPLAY_TYPES[:important] %>
+  public_range: <%= Information::PUBLIC_RANGES[:sns_only] %>
+  display_link: <%= Information::DISPLAY_LINKS[:link] %>
+  created_at: 2010-10-02
+  updated_at: 2010-10-02

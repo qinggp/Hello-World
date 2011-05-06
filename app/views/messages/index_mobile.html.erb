@@ -1,0 +1,20 @@
+<%= render :partial => "navigation" %>
+<hr size="1" noshade>
+
+<%= will_paginate_mobile(@messages).untaint %>
+<hr size="1" noshade>
+
+<% @messages.each do |message| %>
+  [<%= h(message.created_at.strftime("%m/%d")) %>]
+  <% if message.unread? %>
+    <%= font_coution "*" %>
+  <% end %>
+  <%= link_to(h(message.subject), message_path(message)) %>
+  (<%= link_to(h(message.sender.name), user_path(message.sender)) %>)
+  <br />
+  <hr size="1" noshade>
+<% end %>
+
+<%= will_paginate_mobile(@messages).untaint %>
+<hr size="1" noshade>
+

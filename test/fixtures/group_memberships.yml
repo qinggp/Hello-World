@@ -1,0 +1,23 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: group_memberships
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  group_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+membership1:
+  user: sns_tarou
+  group: member_tarou
+
+membershp2:
+  user: sns_tarou
+  group: member_tarou_and_saburou
+
+membership3:
+  user: sns_saburou
+  group: member_tarou_and_saburou

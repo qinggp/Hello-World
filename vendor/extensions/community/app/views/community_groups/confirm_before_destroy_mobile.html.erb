@@ -1,0 +1,6 @@
+<%= render :partial => "/share/my_community_mainte_link" %>
+<hr size="1" noshade>
+
+コミュニティグループ「<%= h @community_group.name%>」を削除してよろしいですか？<br/>
+[<%= link_to "削除", community_group_path(@community_group), :method => :delete %>]
+[<%= link_to "戻る", new_community_group_path %>]<br/>

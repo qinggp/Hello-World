@@ -1,0 +1,25 @@
+<% if SnsConfig.relation_flg %>
+  <tr>
+    <td colspan="2">
+      相手との現実の関係を「直感的」に選んで下さい。
+    </td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(Invite, :relation) %></th>
+    <td>
+      <% select_options_for_const("Friendship", "RELATIONS").each do |label,  value| %>
+        <%= f.radio_button :relation, value %>
+        <%= f.label "relation_#{value}", h(label) %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= display_form_attr_name(Invite, :contact_frequency) %></th>
+    <td>
+      <% select_options_for_const("Friendship", "CONTACT_FREQUENCIES").each do |label,  value| %>
+        <%= f.radio_button :contact_frequency, value %>
+        <%= f.label "contact_frequency_#{value}", h(label) %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

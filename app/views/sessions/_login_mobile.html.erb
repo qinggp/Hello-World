@@ -1,0 +1,21 @@
+<hr size="1" noshade>
+ログインアカウントを<br>
+入力してください<br>
+<% form_tag session_path, {} do -%>
+  ユーザ名(E-Mail)<br>
+  <%= text_field_tag 'login', @login %><br>
+  パスワード<br>
+  <%= password_field_tag 'password', nil %><br>
+  <%= submit_tag t('Log in') %><br>
+<% end %>
+<br>
+■このページをブックマークしてください。<br>
+<hr size="1" noshade>
+外部公開閲覧<br/>
+<% Mars::UI.instance.mobile_portal_menus.each do |link| %>
+▽<%= link.display(self) %><br/>
+<% end %>
+<hr size="1" noshade>
+▽<%= link_to "パスワードを忘れた方はこちら", forgot_password_path %>
+<br/>
+▽<%= link_to "新規ユーザ登録", new_user_path %>

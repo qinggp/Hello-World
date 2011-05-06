@@ -1,0 +1,9 @@
+<% with_options(:default_order => Page.default_index_order) do |view| %>
+  <th width="" nowrap="">
+    <%= view.link_for_sort "ページID", :order => "pages.page_id" %>
+  </th>
+  <th width="" nowrap="">
+    <%= view.link_for_sort "タイトル", :order => "pages.title" %>
+  </th>
+<% end %>
+

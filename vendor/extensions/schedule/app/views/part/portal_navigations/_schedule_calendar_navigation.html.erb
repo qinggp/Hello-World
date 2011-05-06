@@ -1,0 +1,33 @@
+<div id="schedule_calendar">
+  <div  class="navigation_content">
+    <div><%= theme_image_tag "schedule/home_sche.gif", :class => "my_navigation_content_title" %></div>
+    <table class="content_box_bg" style="width:100%;">
+      <tr>
+        <td style="text-align: left;">
+          <%=h display_calender_month(:format => :year_month) %>
+        </td>
+        <td style="text-align: right;">
+          <%= calendar_move_remote(:update => "schedule_calendar",
+                                   :partial => "part/portal_navigations/schedule_calendar_navigation",
+                                   :url => {:action => :show_calendar} ) %>
+        </td>
+      </tr>
+    </table>
+    <div style="background-color:#FFFFFF;">
+      <%=
+         mars_calendar(:year => @calendar_year, :month => @calendar_month) do |cur|
+           if @schedules_date.detect{|d| d.to_date == cur}
+             cell_text = ""
+             cell_text << link_to(cur.mday, list_on_date_community_events_path(:date => cur))
+             [cell_text, nil]
+           else
+             [nil, nil]
+           end
+         end
+         %>
+    </div>
+    <div class="all_link">
+      [ <%= link_to("イベントカレンダー", show_calendar_community_events_path) %> ]
+    </div>
+  </div>
+</div>

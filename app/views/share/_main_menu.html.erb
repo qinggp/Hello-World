@@ -1,0 +1,7 @@
+<ul id="main_menu">
+  <% Mars::UI.instance.main_menus.map do |part| %>
+    <li>
+      <%= part.display(self) %> 
+    </li>
+  <% end %>
+</ul>

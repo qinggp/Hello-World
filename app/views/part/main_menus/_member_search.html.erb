@@ -1,0 +1,9 @@
+<% if logged_in? %>
+  <% link_to search_member_form_users_path, :title => "メンバー検索" do %>
+    <%= theme_image_tag "m_search.gif",
+        :alt => "メンバー検索",
+        :onmouseover => "this.src=#{theme_image_path('m_search_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('m_search.gif').to_json}"
+    %>
+  <% end %>
+<% end %>

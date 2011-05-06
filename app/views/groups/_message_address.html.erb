@@ -1,0 +1,15 @@
+<center>
+  <% display_round_box(:width => "660px") do %>
+    <table class="content_table">
+      <tr>
+        <th>[メッセージの宛先]</th>
+        <td>
+          グループ名：[ <%= link_to(h(@group.name), friends_path(:group_id => @group.id)) %> ]<br />
+          <div style="margin: 3px 3px 3px 10px;">
+            <%= h(@group.friends.map(&:name).join("・")) %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</center>

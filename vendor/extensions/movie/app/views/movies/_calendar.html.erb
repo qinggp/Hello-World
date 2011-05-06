@@ -1,0 +1,31 @@
+<table class="content_box_bg" style="width:100%; padding-bottom: 6px;">
+  <tr>
+    <td>
+      <%= calendar_selects_remote(:update => "calendar",
+            :url => {:action => :show_calendar} ) %>
+    </td>
+    <td align="right">
+      <%= calendar_move_remote(:update => "calendar",
+            :url => {:action => :show_calendar} ) %>
+    </td>
+  </tr>
+</table>
+<div style="background-color:#FFFFFF;">
+  <%=
+     mars_calendar(:year => @calendar_year, :month => @calendar_month) do |day|
+       todays_movies = @calendar_movies.collect {|m|
+         m if m.display?(day)
+       }.compact
+       content = "#{day.mday}<br/>"
+       if (todays_movies.size > 0)
+         todays_movies.each do |m|
+           content += '&nbsp;<span style="font-size: 0.9em;">'
+           content += link_to(theme_image_tag('flag.png', :border => 0) + h(m.title),
+                              movie_path(m))
+           content += '</span><br/>'
+         end
+       end
+       [content, nil]
+     end
+  %>
+</div>

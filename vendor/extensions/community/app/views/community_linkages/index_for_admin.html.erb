@@ -1,0 +1,48 @@
+<%= render :partial => "link_for_admin" %>
+
+<center>
+  <%= render :partial => "community_linkage_title" %>
+
+  [ <%= link_to "内部リンク追加", new_community_linkage_path(:community_id => @community, :kind => "CommunityInnerLinkage") %> ]
+  [ <%= link_to "外部リンク追加", new_community_linkage_path(:community_id => @community, :kind => "CommunityOuterLinkage") %> ]
+
+  <% if @community_linkages.size.zero? %>
+    <% display_round_box(:width => "610px") do %>
+      <div class="no_data">登録がありません。</div>
+    <% end %>
+  <% else %>
+    <% display_round_box(:width => "610px", :white_bg => false) do %>
+      <% display_collection_box(@community_linkages, :width => "600px", :collection_name => "現在の登録数は", :checked_value => 20, :per_pages => [5, 10, 20, 50, 100]) do %>
+        <% form_tag(destroy_checked_ids_community_linkages_path(:community_id => @community.id), :method => :delete) do %>
+          <table class="content_table">
+            <tr>
+              <th style="width: 20px;">
+                <input type="checkbox" onclick="CommunityLinkage.allCheck()" id="check_all"/>
+              </th>
+              <th style="width: 560px;">コミュニティリンク</th>
+              <th style="width: 30px;">種別</th>
+            </tr>
+            <% @community_linkages.each do |linkage| %>
+              <tr>
+                <td style="width: 20px;">
+                  <%= check_box_tag("community_linkage_ids[]", linkage.id) %>
+                </td>
+                <td>
+                  <% link_to linkage.url(self) do %>
+                    <%= h linkage.name %>
+                    <% if linkage.kind == "CommunityOuterLinkage" %>
+                      <%= theme_image_tag("community/outlink.gif", :size => "12x12", :border => 0) %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td style="width: 30px;">
+                  <%= h linkage.link_type %>
+                </td>
+            <% end %>
+          </table>
+          <%= submit_tag("チェック分を削除", :confirm => "削除してよろしいですか？") %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

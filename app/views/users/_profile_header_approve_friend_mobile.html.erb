@@ -1,0 +1,3 @@
+<%= h displayed_user.name %>さんがトモダチを希望しています。<br/>
+[<%= link_to "承認", new_approve_friend_user_path(displayed_user) %>]
+[<%= link_to "拒否", confirm_before_reject_friend_application_user_path(displayed_user) %>]

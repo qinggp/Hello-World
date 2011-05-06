@@ -1,0 +1,48 @@
+<tr>
+  <td class="content_table_title" colspan="2"><%= @title %></td>
+</tr>
+<tr>
+  <th>タイトル<span style="color: red;">※</span></th>
+  <td><%= f.hidden_field(:title) %><%= h(@movie.title) %></td>
+</tr>
+<tr>
+  <th>本文</th>
+  <td><%= f.hidden_field(:body) %><%= simple_format(h(@movie.body)) %></td>
+</tr>
+<tr>
+  <th>カレンダー日付</th>
+  <td><%= f.hidden_field(:start_date) %><%= @movie.start_date.strftime('%Y/%m/%d') rescue '設定なし' %>
+    〜 <%= f.hidden_field(:end_date) %><%= @movie.end_date.strftime('%Y/%m/%d') rescue '設定なし' %><br/>
+    <span style="color: red;">
+      ※この日付でカレンダーに表示されます。
+    </span>
+  </td>
+</tr>
+<tr>
+  <th>公開先<span style="color: red;">※</span></th>
+  <td>
+    <%= f.hidden_field(:visibility) %><%=h @movie.visibility_to_s %>
+  </td>
+</tr>
+<tr>
+  <% if @movie.new_record? -%>
+    <th>ムービーファイル<span style="color: red;">※</span></th>
+    <td>形式: <%=h @movie_file[:content_type] %> サイズ: <%=h @movie_file[:size] %>バイト</td>
+  <% else -%>
+    <th>サムネイル</th>
+    <td><%= theme_image_tag(thumbnail_movie_url(@movie)) %></td>
+  <% end -%>
+</tr>
+<tr>
+  <th>地図登録</th>
+  <td class="form-content">
+    <%= f.hidden_field(:latitude) %>
+    <%= f.hidden_field(:longitude) %>
+    <%= f.hidden_field(:zoom) %>
+    <% if @movie.longitude && @movie.latitude && @movie.zoom -%>
+      経緯度: [<%=h @movie.longitude %>, <%=h @movie.latitude %>], ズームレベル: <%=h @movie.zoom %>
+    <% else -%>
+      設定なし
+    <% end -%>
+  </td>
+</tr>

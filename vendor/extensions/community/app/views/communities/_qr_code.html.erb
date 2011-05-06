@@ -1,0 +1,10 @@
+<div class="content_box_bg_light">
+  <div class="content_title">■このコミュニティのURL</div>
+</div>
+
+<div class="content_body" align="center">
+  <div style="font-size: 80%;">
+    <%= community_url(@community) %>
+  </div>
+  <%= theme_image_tag(qrcode_url(:url => community_url(@community), :size => 2), :height => 74, :width => 74) %>
+</div>

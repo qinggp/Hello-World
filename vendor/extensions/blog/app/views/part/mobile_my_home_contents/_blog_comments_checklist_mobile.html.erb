@@ -1,0 +1,12 @@
+<% comments = BlogComment.recents_my_blog(current_user, current_user, 10, 14.day.ago) %>
+<% unless comments.empty? %>
+  <hr size="1" noshade>
+  <a name="new_my_comment">◆最新マイブログコメント</a><br/>
+  <% comments.each do |c| %>
+    <% link_to_comment_user = c.anonymous? ? h(c.comment_user_name) : link_to(h(c.comment_user_name), c.user) %>
+    <%= display_news_line_format_mobile(c.created_at,
+                                 link_to(h(c.blog_entry.title), blog_entry_path(c.blog_entry, :anchor => "blog_comment")),
+                                 link_to_comment_user) %>
+    <br/>
+  <% end %>
+<% end %>

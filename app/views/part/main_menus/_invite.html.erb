@@ -1,0 +1,9 @@
+<% if logged_in? && SnsConfig.master_record.invite_type_invite? %>
+  <% link_to new_invite_path, :title => "トモダチ招待" do %>
+    <%= theme_image_tag "t_syoutai.gif",
+        :alt => "トモダチ招待",
+        :onmouseover => "this.src=#{theme_image_path('t_syoutai_ov.gif').to_json}",
+        :onmouseout => "this.src=#{theme_image_path('t_syoutai.gif').to_json}"
+    %>
+  <% end %>
+<% end %>

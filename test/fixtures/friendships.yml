@@ -1,0 +1,166 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: friendships
+#
+#  id                       :integer         not null, primary key
+#  user_id                  :integer
+#  friend_id                :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#  description              :text
+#  relation                 :integer         default(5)
+#  contact_frequency        :integer         default(5)
+#  approved                 :boolean
+#  message                  :text
+#  new_blog_entry_displayed :boolean         default(TRUE)
+#
+
+DEFAULTS: &DEFAULTS
+  description:
+  relation: <%= Friendship::RELATIONS[:nothing] %>
+  contact_frequency: <%= Friendship::CONTACT_FREQUENCIES[:nothing] %>
+  created_at: <%= 2.day.ago.to_s(:db) %>
+  approved: true
+
+sns_tarou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  friend: sns_zirou
+  description: 太郎から次郎への紹介文
+  created_at: <%= Time.now.to_s(:db) %>
+  <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+  new_blog_entry_displayed: false
+  <% end %>
+
+sns_zirou_to_tarou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_tarou
+
+sns_tarou_to_hanako:
+  <<: *DEFAULTS
+  user: sns_tarou
+  friend: sns_hanako
+  created_at: <%= 4.day.ago.to_s(:db) %>
+
+sns_hanako_to_tarou:
+  <<: *DEFAULTS
+  user: sns_hanako
+  friend: sns_tarou
+  created_at: <%= 4.day.ago.to_s(:db) %>
+
+sns_zirou_to_saburou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_saburou
+  created_at: <%= 3.days.ago.to_s :db  %>
+  description: 次郎から三郎への紹介文
+  relation: <%= Friendship::RELATIONS[:relative_or_lover] %>
+  contact_frequency: <%= Friendship::CONTACT_FREQUENCIES[:many] %>
+
+sns_saburou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_saburou
+  friend: sns_zirou
+  description: 三郎から次郎への紹介文
+  created_at: <%= 3.days.ago.to_s :db  %>
+
+sns_zirou_to_sirou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_sirou
+  created_at: <%= 4.days.ago.to_s :db  %>
+
+sns_sirou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_sirou
+  friend: sns_zirou
+  description: 四郎から次郎への紹介文
+  created_at: <%= 4.days.ago.to_s :db  %>
+
+sns_zirou_to_gorou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_gorou
+  created_at: <%= 5.days.ago.to_s :db  %>
+
+sns_gorou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_gorou
+  friend: sns_zirou
+  description: 五郎から次郎への紹介文
+  created_at: <%= 5.days.ago.to_s :db  %>
+
+sns_zirou_to_rokurou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_rokurou
+  created_at: <%= 6.days.ago.to_s :db  %>
+
+sns_rokurou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_rokurou
+  friend: sns_zirou
+  created_at: <%= 6.days.ago.to_s :db  %>
+
+sns_zirou_to_sitirou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_sitirou
+  created_at: <%= 7.days.ago.to_s :db  %>
+
+sns_sitirou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_sitirou
+  friend: sns_zirou
+  created_at: <%= 7.days.ago.to_s :db  %>
+
+sns_zirou_to_hatirou:
+  <<: *DEFAULTS
+  user: sns_zirou
+  friend: sns_hatirou
+  created_at: <%= 8.days.ago.to_s :db  %>
+  <% if Mars::Extension.instance.extension_enabled?(:blog) %>
+  new_blog_entry_displayed: false
+  <% end %>
+
+sns_hatirou_to_zirou:
+  <<: *DEFAULTS
+  user: sns_hatirou
+  friend: sns_zirou
+  created_at: <%= 8.days.ago.to_s :db  %>
+
+applicate_friend_sns_tarou_to_saburou:
+  <<: *DEFAULTS
+  user: sns_tarou
+  friend: sns_saburou
+  approved: false
+  created_at: <%= 8.days.ago.to_s :db  %>
+  message: 三郎よろしくお願いします。
+
+applicate_friend_sns_sirou_to_tarou:
+  <<: *DEFAULTS
+  user: sns_sirou
+  friend: sns_tarou
+  approved: false
+  created_at: <%= 8.days.ago.to_s :db  %>
+  message: 太郎さんよろしくお願いします。
+
+applicate_friend_sns_saburou_to_sirou:
+  <<: *DEFAULTS
+  user: sns_saburou
+  friend: sns_sirou
+  approved: false
+  created_at: <%= 3.days.ago.to_s :db  %>
+  message: 四郎さんよろしくお願いします。
+
+pause_to_sns_tarou:
+  <<: *DEFAULTS
+  user: pause
+  friend: sns_tarou
+
+sns_tarou_to_pause:
+  <<: *DEFAULTS
+  user: sns_tarou
+  friend: pause

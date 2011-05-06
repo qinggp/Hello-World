@@ -1,0 +1,14 @@
+<%= mixi_myhome_layout_style if current_user.preference.home_layout_type_mixi? %>
+
+<div id="myhome">
+  <div id="my_container">
+    <%= render :partial => "my_contents" %>
+    <%= render :partial => "my_navigation" %>
+  </div>
+</div>
+<div style="font-size: 80%; text-align: right; margin-top: 10px; clear: both;">
+  <% form_for(current_user.preference, :url => update_home_layout_type_preferences_path, :method => :post) do |f| %>
+    <%= f.select :home_layout_type, select_options_for_const("Preference", "HOME_LAYOUT_TYPES") %>
+    <%= f.submit "変更" %>
+  <% end %>
+</div>

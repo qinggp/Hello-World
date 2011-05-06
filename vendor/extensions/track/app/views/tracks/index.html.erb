@@ -1,0 +1,42 @@
+<center>
+
+  <%= render :partial => "header" %>
+
+  <% display_round_box(:width => "460px;", :white_bg => false) do %>
+    <div style="text-align:center;">
+      <b><%= render :partial => "message" %></b>
+    </div>
+    <div style="text-align: right;">
+      <% form_tag(search_tracks_path) do %>
+        <%= select_tag(:split_number, options_for_select(split_number_list_for_select, params[:split_number])) %>
+        <%= text_field_tag :specific_number, params[:specific_number], :size => 8 %>
+        <%= submit_tag("キリ番") %>
+      <% end %>
+      <table class="content_table">
+        <tr>
+          <% if action_name == "search" && Track.range_of_total_count?(current_user, params[:split_number].to_i) %>
+            <th>キリ番</th>
+          <% end %>
+          <th>訪問日</th>
+          <th>訪問者</th>
+        </tr>
+        <% @tracks.each do |track| %>
+          <% if track.visitor_realy_exists? %>
+            <tr>
+              <% if action_name == "search" && Track.range_of_total_count?(current_user, params[:split_number].to_i) %>
+                <td>
+                  <%= h track.number %>件目
+                </td>
+              <% end %>
+              <td>
+                <%= h l(track.created_at, :format => :year_month_date) %>
+                <%= h l(track.created_at, :format => :hour_minute_date) %>
+              </td>
+              <td><%= link_to(h(track.visitor.name), user_path(track.visitor)) %>さん</td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</center>

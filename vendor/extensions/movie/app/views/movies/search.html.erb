@@ -1,0 +1,107 @@
+<div class="center" style="width: 610px;">
+  <br/>
+  <!-- 検索フォーム -->
+  <% display_round_box(:width => "610px") do %>
+    <div style="background-color:#FFFFFF; padding-top: 10px; padding-bottom: 10px; padding-left: 60px; padding-right: 60px;">
+      <% form_tag(search_movies_path, :method => :get, :name => 'search') do %>
+        <table border="0" cellpadding="0" cellspacing="10" style="width: 100%; padding: 0;">
+          <tr>
+            <td style="width: 150px; text-align:right;">
+              ▼キーワード
+            </td>
+            <td>
+              <%= text_field_tag(:query, params[:query], :size => 40) %> <%= submit_tag('検索', :class => 'button_style') %><br/>
+              <span style="font-size: 0.9em;">タイトル、本文より検索を行います。</span>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  <% end %>
+  <br/>
+
+  <!-- 検索結果 -->
+  <% display_round_box(:width => "610px") do %>
+    <div class="search_movies">
+      <table border="0" cellpadding="0" cellspacing="0" class="content_box_bg" style="width: 100%;">
+        <tr>
+          <td style="width: 33%;">
+            <!-- 検索ヒット数 -->
+            <% if params[:query].blank? -%>
+              現在の登録数は全 <%= @movies.total_entries %> 件です。
+            <% else -%>
+              キーワード「<%= h(params[:query]) %>」で検索した結果は <%= @movies.total_entries %> 件です。
+            <% end -%>
+          </td>
+          <td style="text-align: center;">
+            <!-- 数字による paginate -->
+            [ <%= link_to_page_numbers_for_search(@movies, :action => 'search', :query => params[:query]) %> ]
+          </td>
+          <td style="width: 33%; text-align: right;">
+            <!-- 前後ページへのリンク -->
+            [<%= link_to_prev_page_for_search(@movies, :action => 'search', :query => params[:query], :label => '前のページ') %>]
+            [<%= link_to_next_page_for_search(@movies, :action => 'search', :query => params[:query], :label => '次のページ') %>]
+          </td>
+        </tr>
+      </table>
+      <div align="center">
+        <!-- 検索結果 -->
+        <table class="content_table">
+          <% @movies.each do |movie| -%>
+            <tr>
+              <td rowspan="4" style="width: 70px; text-align: center;">
+                <%= link_to(theme_image_tag(thumbnail_movie_url(movie)), movie_path(movie)) %>
+              </td>
+              <th>タイトル</th>
+              <td colspan="3">
+                <%= search_highlight(h(movie.title), @query_words, '<span class="keyword">\1</span>') %>
+              </td>
+            </tr>
+            <tr>
+              <th>本文</th>
+              <td class="search-content" colspan="3">
+                <%= search_highlight(simple_format(truncate(h(movie.body), :limit => 50, :ommision => '…')), @query_words, '<span class="keyword">\1</span>') %>
+                [<%= link_to('続きを読む', movie_path(movie)) %>]
+              </td>
+            </tr>
+            <tr>
+              <th>投稿者</th>
+              <td style="width: 145px;"><%= link_to_username(movie.user) %>さん</td>
+              <th>投稿日</th>
+              <td style="width: 145px;"><%= movie.created_at.strftime('%Y/%m/%d') rescue '不明' %></td>
+            </tr>
+            <tr>
+              <th>&nbsp;</th>
+              <td colspan="2">&nbsp;</td>
+              <th style="text-align: center;">
+                <%= link_to(theme_image_tag('syousai.gif', :border => 0), movie_path(movie)) %>
+              </th>
+            </tr>
+          <% end -%>
+        </table>
+      </div>
+      <table border="0" cellpadding="0" cellspacing="0" class="content_box_bg" style="width:100%;">
+        <tr>
+          <td style="width: 33%;">
+            <!-- paginateオプション -->
+            <% form_tag(search_movies_path, :method => :get, :name => 'paginate', :style => 'margin:0;') do %>
+              <%= hidden_field_tag(:query, params[:query]) %>
+              <%= select_tag(:per_page, options_for_select([5, 10, 20, 50, 100].collect {|c| ["#{c}件", c]}, @movies.per_page)) %>
+              <%= select_tag(:page, options_for_select((1..@movies.total_pages).to_a.collect {|c| ["#{c}ページ", c]}, @movies.current_page)) %>
+              <%= submit_tag('表示', :class => 'button_style') %>
+            <% end %>
+          </td>
+          <td style="text-align: center;">
+            <!-- 数字による paginate -->
+            [ <%= link_to_page_numbers_for_search(@movies, :action => 'search', :query => params[:query]) %> ]
+          </td>
+          <td style="width: 33%; text-align: right;">
+            <!-- 前後ページへのリンク -->
+            [<%= link_to_prev_page_for_search(@movies, :action => 'search', :query => params[:query], :label => '前のページ') %>]
+            [<%= link_to_next_page_for_search(@movies, :action => 'search', :query => params[:query], :label => '次のページ') %>]
+          </td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+</div>

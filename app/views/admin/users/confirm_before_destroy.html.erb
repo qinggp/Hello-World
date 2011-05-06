@@ -1,0 +1,49 @@
+ <center>
+  <% display_round_box(:width => "400px") do %>
+    <div class="no_data">
+      <% if request.ssl? %>
+        [<%= link_to "通常(http)フォームはこちら",  confirm_before_destroy_admin_user_path(@user, :only_path => false, :protocol => "http://") %>]
+      <% else %>
+        [<%= theme_image_tag "ssl.gif" %><%= link_to "SSL(https)対応フォームはこちら",  confirm_before_destroy_admin_user_path(@user, :only_path => false, :protocol => "https://") %>]
+      <% end %>
+    </div>
+  <% end %>
+</center>
+<%
+ form  = confirm_form_params
+ display_round_box_opts ||= {:width => "660px"}
+%>
+
+<center>
+  <div>
+    <%= confirm_notation %>
+  </div>
+  <% display_round_box(display_round_box_opts) do %>
+    <% form_tag(form[:url], {:method => form[:method]}) do %>
+      <table class="content_table" align="center">
+        <tr align="center" valign="middle" >
+          <th colspan="2">
+            <center>
+              <b>
+                <%= link_to(h("#{@user.name_and_full_real_name}"), user_path(current_user.id)) %>さんを強制退会します
+              </b>
+            </center>
+          </th>
+        </tr>
+        <tr>
+          <th nowrap >
+           強制退会理由
+          </th>
+          <td>
+            <%=h @reason %>
+            <%= hidden_field_tag("memo[reason]",@reason) %>
+          </td>
+        </tr>
+      </table>
+      <div class="content_box_bg" align="center">
+        <%= submit_tag '送信する' %>
+        <%= submit_tag '入力画面へ戻る', :name => "cancel" %>
+      </div>
+    <% end %>
+  <% end %>
+</center>

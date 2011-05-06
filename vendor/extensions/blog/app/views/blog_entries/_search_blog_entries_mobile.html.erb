@@ -1,0 +1,52 @@
+<% if @blog_entries.empty? %>
+
+  キーワード「<%=h params[:keyword] %>」ではマッチしませんでした。
+  <br/>
+
+<% else %>
+
+  <% if show_paginated_ui?(@blog_entries) %>
+
+    <%= will_paginate_mobile(@blog_entries,
+          :params => {:keyword => reencode_to_mobile_code(params[:keyword])}) %>
+
+    <hr size="1" noshade>
+
+  <% end %>
+
+  <% @blog_entries.each_with_index do |entry, i| %>
+
+    <%= link_to "▼#{h(entry.title)}", blog_entry_path(entry) %>（<%= entry.blog_comments.size %>）
+    <br/>
+
+    <%=h entry.user.name %>[<%= l(entry.created_at, :format => :default_year_month_date) %>]
+    <br/>
+
+    <% if entry.visible?(current_user) %>
+      <%= display_blog_entry_body(entry, :display_type => :br, :trancate_bytes => 200) %>
+    <% else %>
+      <font color="gray">
+        このブログはトモダチにならないと閲覧できません。<br/>
+        <%= link_to "トモダチ依頼", new_friend_application_user_path(entry.user) %>をしてみましょう。<br/>
+      </font>
+    <% end %>
+    <br/>
+
+    カテゴリ：<%= h entry.blog_category.name %>
+    <br/>
+
+    <% if i < @blog_entries.size-1 %>
+      <hr size="1" noshade>
+    <% end %>
+
+  <% end %>
+
+  <% if show_paginated_ui?(@blog_entries) %>
+
+    <hr size="1" noshade>
+
+    <%= will_paginate_mobile(@blog_entries,
+          :params => {:keyword => reencode_to_mobile_code(params[:keyword])}) %>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,8 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityTopic, "title") %><br />
+<%= f.text_field :title %><br />
+
+<%= display_form_attr_name(CommunityTopic, "content") %><br />
+<%= f.text_area :content, :rows => 2, :cols => 20 %><br/>
+

@@ -1,0 +1,15 @@
+<% if @blog_entry.new_record? %>
+  <center>
+    [<a href="#blog_form">新規投稿</a>]
+    [<a href="mailto:<%=h BlogEntryReceiver.mars_receive_address(current_user) %>">メール投稿</a>]
+  </center>
+  <br/>
+  ※メール投稿の場合は写真1枚(200KB)を3枚まで。<br/>
+  ※メール投稿の場合の[初期公開制限]は[<%=h t("blog.blog_preference.email_post_visibility_label.#{current_user.preference.blog_preference.email_post_visibility_name}") %>]です。<br/>
+  <hr size="2" noshade>
+  <a name="blog_form"></a>
+<% end %>
+
+<%= render :partial => "/share/form_mobile" %>
+
+<%= render :partial => "/share/footer_mobile" %>

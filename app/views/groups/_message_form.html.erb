@@ -1,0 +1,32 @@
+<% @receivers.each do |r| %>
+  <%= hidden_field_tag("receiver_ids[]", r.id)  %>
+<% end %>
+
+<tr>
+  <td class="content_table_title" colspan="2">メッセージ送信</td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[件名]<%= font_coution("※") %></th>
+  <td><%= f.text_field :subject, :size => 60 %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[本文]<%= font_coution("※") %></th>
+  <td><%= f.text_area :body, :rows => 10, :cols => 50 %></td>
+</tr>
+<tr>
+  <th nowrap="" valign="top">[添付]</th>
+  <td>
+    <% @message.sorted_attachments.each_with_index do |attachment, i|  %>
+      <% fields_for "message[attachments_attributes]", attachment, :index => (i+1) do |f_ba|  %>
+        <div>
+          <%= f_ba.file_field :image, :size => 40  %>
+          <%= f_ba.hidden_field :position %>
+          <br/>
+          （添付可能拡張子：.jpg/.jpeg/.png/.gif/.txt/.csv/.pdf/.doc/.xls/.ppt/.zip/.lzh）
+        </div>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+
+<%= hidden_field_tag("id", @group.id) %>

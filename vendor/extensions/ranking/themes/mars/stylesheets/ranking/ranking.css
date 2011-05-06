@@ -1,0 +1,45 @@
+/* NOTE: 名前衝突の恐れがあるためクラス名、IDの先頭には ranking を付けてください。 */
+
+#ranking .page_title {
+  border-bottom:1px dotted gray;
+  font-size:140%;
+  font-weight:bold;
+  padding:3px;
+}
+
+#ranking .box_content{
+  padding: 5px;
+  text-align: center;
+}
+
+#ranking .ranking_list{
+  border-top:1px solid #ECEBE1;
+  margin-bottom:5px;
+  padding:3px;
+}
+
+#ranking .ranking_data td {
+  padding: 0px;
+}
+
+#ranking .ranking_msg {
+  font-size:90%;
+  padding:5px;
+}
+
+#ranking .ranking_title th {
+  background-color:#F9F9F4;
+  border:2px solid #ECEBE1;
+  font-weight:bold;
+  padding:5px;
+  text-align: center;
+}
+
+#ranking .current_tab a{
+  font-weight: bold;
+}
+
+#ranking .tab a{
+  text-decoration: none;
+  font-weight: bold;
+}

@@ -1,0 +1,13 @@
+<tr>
+  <td class="content_table_title" colspan="2">
+  <% if params[:action] == 'new' %>
+   共通カテゴリ
+  <% else %>
+   ブログカテゴリ
+  <% end %>
+  </td>
+</tr>
+<tr>
+  <th>[<%=h BlogCategory.human_attribute_name("name") %>]<font color="red">※</font></th>
+  <td><%= f.text_field :name %></td>
+</tr>

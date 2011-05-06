@@ -1,0 +1,14 @@
+<% messages = Message.received_messages_for_user(current_user).unread_is(true).descend_by_created_at.all(:limit => 5) %>
+<% unless messages.empty? %>
+  <hr size="1" noshade>
+  <a name="new_message"></a>
+  ◆新着メッセージ<br />
+  <% messages.each do |message| %>
+    <%= display_news_line_format_mobile(
+                                        message.created_at,
+                                        link_to(h(message.subject), message_path(message)),
+                                        link_to(h(message.sender.name), user_path(message.sender))
+                                        ) %>
+    <br />
+  <% end %>
+<% end %>

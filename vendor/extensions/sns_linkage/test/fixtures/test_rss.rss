@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>松江SNS</title>
+    <link>http://matsuesns.jp/</link>
+    <description>松江SNS</description>
+    <language>ja-jp</language>
+    <pubDate>Wed, 18 Nov 2009 13:50:30 +0900</pubDate>
+    <lastBuildDate>Wed, 18 Nov 2009 13:50:30 +0900</lastBuildDate>
+    <docs>http://matsuesns.jp/rss</docs>
+    <generator>MeMeNet RSS</generator>
+    <copyright>Copyright (C) InfoMeMe Co.,Ltd</copyright>
+    <image>
+      <url>http://matsuesns.jp/images/linkage_logo.gif</url>
+      <title>松江SNS</title>
+      <link>http://matsuesns.jp/</link>
+      <width>76</width>
+      <height>76</height>
+   </image>
+    <item>
+      <title>&lt;/b&gt;◇只今の会員数&lt;/b&gt;　&lt;font color=&quot;red&quot;&gt; &lt;b&gt;651名&lt;/b&gt; &lt;/font&gt;　男性480名／女性171名 　(11/17  10:00)
+</title>
+      <link></link>
+      <pubDate>Mon, 03 Dec 2007 13:58:15 +0900</pubDate>
+      <author>松江SNS</author>
+      <category>お知らせ</category>
+    </item>
+    <item>
+      <title>&lt;span style=&quot;font-weight:bold; color: red;&quot;&gt;松江SNSリニューアルのお知らせ&lt;/span&gt;
+
+日ごろは、松江ＳＮＳをご利用いただきありがとうございます。
+松江ＳＮＳは、来年３月にプログラミング言語『Ｒｕｂｙ』で開発されたＳＮＳへリニューアルいたします。現在の機能に加え新機能が追加され、より楽しいＳＮＳになる予定ですのでご期待ください。
+</title>
+      <link></link>
+      <pubDate>Wed, 18 Nov 2009 13:45:10 +0900</pubDate>
+      <author>松江SNS</author>
+      <category>お知らせ</category>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=SHIFT_JIS">
+    <title><%= [t(:project_mobile_name), page_title_mobile].compact.join("-") %></title>
+  </head>
+  <body>
+    <center><%= t(:project_mobile_name) %></center>
+    <hr size="2" noshade>
+
+    <a name="page_top"></a>
+
+    <% unless @title_off %>
+      ◆<%= page_title_mobile %><br/>
+
+      <hr size="2" noshade>
+
+    <% end %>
+
+    <%= render :partial => "/share/flash_error" %>
+
+    <%= yield %>
+
+    <hr size="2" noshade>
+    <%= render :partial => "/share/mobile_footers" %>
+    <% if controller.action_name == "my_home" %>
+      <a href="#page_top" accesskey="0"><%= "#{emoticon_0}ホーム" %></a>
+      <a name="page_bottom"></a>
+      <a href="#page_top" accesskey="0"><%= emoticon_0 %>↑</a>
+    <% else %>
+      <%= link_to "#{emoticon_0}ホーム", root_url, :accesskey => 0 %>
+      <a name="page_bottom"></a>
+      <a href="#page_top" accesskey="2"><%= emoticon_2 %>↑</a>
+    <% end %>
+    <a href="#page_bottom" accesskey="8"><%= emoticon_8 %>↓</a><br>
+    <% if CONFIG["ssl_enable"] %>
+      <% if request.ssl? %>
+        <%= link_to "HTTPで閲覧する", "http://" + request.host + request.request_uri %><br/>
+        SSL(HTTPS)で閲覧中<br/>
+      <% else %>
+        HTTP で閲覧中<br/>
+        <%= link_to "SSL(HTTPS) で閲覧する", root_url(:protocol => "https") %><br/>
+      <% end %>
+    <% end %>
+    <%= link_to "お問い合わせ", new_ask_path %><br/> 
+    <hr size="1" noshade>
+    <% if logged_in? %>
+      <%= link_to "#.ログアウト", logout_url(:accesskey => "#") %>
+    <% end %>
+    <hr size="1" noshade>
+    <center>Mars Mobile</center>
+  </body>
+</html>

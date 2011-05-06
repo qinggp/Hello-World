@@ -1,0 +1,23 @@
+<% display_round_box(:width => "610px", :white_bg => false) do %>
+  <% if thread.active_replies.size.zero? %>
+    <table class="content_table">
+      <tr>
+        <td nowrap="" align="center">返信書き込みはありません。</td>
+      </tr>
+    </table>
+  <% else %>
+    書き込みツリー表示
+    <div id="community_tree" style="width: 600px;">
+      <div class="box">
+        <% class_name = parent_id ? "sub" : "target" %>
+        <div class="<%= class_name %>">
+          <span>
+            <%= link_to("+", thread.polymorphic_url_on_community(self), :title => "全て表示", :style => "text-decoration: none; font-weight: bold;") %>
+            <%= display_comment_tree_format(thread) %>
+          </span>
+        </div>
+        <ul><%= display_comment_tree(thread, parent_id.to_i) %></ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>

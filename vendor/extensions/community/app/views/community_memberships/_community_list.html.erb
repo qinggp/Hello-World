@@ -1,0 +1,84 @@
+<% if @communities.size.zero? %>
+  <div class="no_data" style="padding: 10px;">
+    現在参加コミュニティはありません。<br >
+    <%= link_to "積極的にみんなの輪に飛び込もう！", search_communities_path %>
+  </div>
+<% else %>
+  <div class="content_box">
+    <% display_collection_box(@communities, :collection_name => "コミュニティ参加数", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 30, :width => "610px", :class => "content_box_bg") do %>
+      <table class="content_table">
+        <% @communities.each do |community| %>
+          <tr>
+            <td width="76" valign="top" class="news_link" rowspan="2" style="text-align: center;">
+              <% if community.admin?(current_user) %>
+                <%= theme_image_tag("community/comm_owner.gif", :size => "30x12") %>
+              <% end %>
+              <%= theme_image_tag(community_image_path(community, "thumb"),
+                                  :width => 76) %>
+            </td>
+            <th nowrap="">コミュニティ名</th>
+            <td><%= h community.name %></td>
+            <td rowspan="2" style="text-align:center; width: 120px;">
+              <div>
+                <% if community.new_comment_displayed?(current_user) %>
+                  □最新書込表示中<br/>
+                  [
+                  <% link_to(change_new_comment_displayed_community_membership_path(community), :confirm => "マイホームのコミュニティ最新書込に表示されなくなります。") do %>
+                    <%= theme_image_tag("z_down.gif", :border => 0) %> 非表示にする
+                  <% end %>
+                  ]
+                <% else %>
+                  ■最新書込非表示中<br/>
+                  [
+                  <% link_to(change_new_comment_displayed_community_membership_path(community), :confirm => "マイホームのコミュニティ最新書込に表示されます。") do %>
+                    <%= theme_image_tag("z_up.gif", :border => 0) %> 表示する
+                  <% end %>
+                  ]
+                <% end %>
+              </div>
+              <br />
+              <div>
+                □書き込み通知メール<br/>
+                PC:
+                <% if community.comment_notice_acceptable?(current_user) %>
+                  [
+                  <% link_to(change_comment_notice_acceptable_community_membership_path(community), :confirm => "このコミュニティの書き込み通知メールを停止します。") do %>
+                    <%= theme_image_tag("z_down.gif", :border => 0) %> 通知停止
+                  <% end %>
+                  ]
+                <% else %>
+                  [
+                  <% link_to(change_comment_notice_acceptable_community_membership_path(community), :confirm => "このコミュニティの書き込み通知がメールで届きます。") do %>
+                    <%= theme_image_tag("z_up.gif", :border => 0) %> 通知開始
+                  <% end %>
+                  ]
+                <% end %>
+                <% unless current_user.mobile_email.blank? %>
+                  <br />
+                  携帯:
+                  <% if community.comment_notice_acceptable_for_mobile?(current_user) %>
+                    [
+                    <% link_to(change_comment_notice_acceptable_for_mobile_community_membership_path(community), :confirm => "このコミュニティの書き込み通知メールを停止します。") do %>
+                      <%= theme_image_tag("z_down.gif", :border => 0) %> 通知停止
+                    <% end %>
+                    ]
+                  <% else %>
+                    [
+                    <% link_to(change_comment_notice_acceptable_for_mobile_community_membership_path(community), :confirm => "このコミュニティの書き込み通知がメールで届きます。") do %>
+                      <%= theme_image_tag("z_up.gif", :border => 0) %> 通知開始
+                    <% end %>
+                    ]
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="">参加人数</th>
+            <td><%= h community.members.count %>名</td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+<% end %>

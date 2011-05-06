@@ -1,0 +1,70 @@
+<div align="center">
+  <div style="border-bottom: 1px dotted gray; margin: 4px; padding: 3px; width: 620px; font-weight: bold;"> お気に入り一覧 </div>
+  <div style="padding: 3px; width: 620px; text-align: left;">
+    ＜お気に入り登録・削除方法＞
+    <div style="margin-left: 5px;">
+      お気に入りに登録可能なページは、マイメニューの[お気に入り]の横に(＋)マークが表示されます。クリックで[登録]。
+      <br/>
+      すでに登録済みのページの場合は、マイメニューの[お気に入り]の横に(－)マークが表示されます。クリックで[削除]。
+    </div>
+  </div>
+</div>
+
+<center>
+  <% display_round_box(:width => "610px") do %>
+    <% if @favorites.empty?  %>
+      <center>
+        <div style="padding:6px;">
+          登録がありません。
+        </div>
+      </center>
+    <% else %>
+      <% display_collection_box(@favorites, :collection_name => "現在の登録数", :class => "content_box_bg", :checked_value => 20) do %>
+        <% form_tag(destroy_checked_favorites_path) do %>
+          <table class="content_table">
+            <tr>
+              <th style="width: 20px;">
+                <input id="check_all" type="checkbox" onclick="Favorite.allCheck()"/>
+              </th>
+              <% with_options(:default_order => Favorite.default_index_order) do |view| %>
+                <th style="width: 380px;">
+                  <%= view.link_for_sort("お気に入り", :order => "name") %>
+                </th>
+                <th  style="width: 80px;">
+                  <%= view.link_for_sort("カテゴリ", :order => "category") %>
+                </th>
+                <th style="width: 90px;">
+                  <%= view.link_for_sort("登録日", :order => "created_at") %>
+                </th>
+                <th style="width: 30px;">
+                </th>
+              <% end %>
+            </tr>
+            <% @favorites.each do |favorite|  %>
+              <tr>
+                <td>
+                  <%= check_box_tag "checked_ids[]", favorite.id, params[:checked_ids].try(:include? ,favorite.id), {:id => "checked_id_#{favorite.id}"} %>
+                </td>
+                <td>
+                  <%= link_to(h(favorite.name), favorite.url) %>
+                </td>
+                <td>
+                  <%= h favorite.category %>
+                </td>
+                <td>
+                  <%= h l(favorite.created_at, :format => :default_minute) %>
+                </td>
+                <td>
+                  <%= link_to "編集", edit_favorite_path(favorite) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+          <div class="content_box_bg">
+            <%= submit_tag "チェック分を削除", :confirm => "削除してよろしいですか？" %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>

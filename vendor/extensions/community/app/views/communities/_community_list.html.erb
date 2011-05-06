@@ -1,0 +1,26 @@
+<div class="content_box">
+  <% display_collection_box(@communities, :collection_name => "コミュニティ参加数", :per_pages => [5, 10, 20, 30, 50, 100], :checked_value => 30, :width => "640px", :class => "content_box_bg") do %>
+    <table width="640" cellspacing="0" cellpadding="8" border="0" align="center">
+      <% if @communities.empty? && @community_group  %>
+        <div style="text-align: center;">このグループにはコミュニティの登録がありません。</div>
+      <% elsif @communities.empty? %>
+        <div>
+          現在参加コミュニティはありません。<br />
+        <%= link_to("積極的にみんなの輪に飛び込もう！", search_communities_path) %>
+        </div>
+      <% else %>
+        <% @communities.in_groups_of(6) do |communities| %>
+          <tr>
+            <% communities.each do |community| %>
+              <td class="new_link" align="center" width="80" valign="top">
+                <% if community %>
+                  <%= display_community_on_table(community, :width => 76, :admin => community.admin?(@user)) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% end %>
+</div>

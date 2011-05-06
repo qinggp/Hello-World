@@ -1,0 +1,32 @@
+<% if displayed_user.same_user?(current_user) %>
+  ▽<%= link_to "ブログを書く", new_blog_entry_path %><br/>
+  ▽<%= link_to "ブログ管理", user_blog_entries_admin_index_path(current_user) %><br/>
+  ▽<%= link_to "ブログカテゴリ管理", new_user_blog_category_path(:user_id => current_user.id) %><br/>
+<% end %>
+▽<%= link_to "ブログ内検索", search_for_user_mobile_user_blog_entries_path(:user_id => displayed_user.id) %><br/>
+▽<%= link_to "バックナンバ", backnumber_mobile_user_blog_entries_path(:user_id => displayed_user.id) %><br/>
+
+<hr size="1" noshade>
+<%= will_paginate_mobile(@blog_entries).untaint %>
+<hr size="1" noshade>
+
+<% @blog_entries.each_with_index do |entry, i| %>
+  <a name="<%= i %>" href="#<%= i+1 %>">▼</a>
+  <%=h l(entry.created_at, :format => :default_minute) %><br/>
+  <% if entry.imported_by_rss %>
+    <%= link_to(h(entry.title), h(entry.url_to_article)) %><br/>
+    （リンク先は<%=h SnsConfig.title %>の外のコンテンツになります）<br/>
+  <% else %>
+    <%= link_to(h(entry.title), blog_entry_path(entry)) %>(<%= entry.blog_comments.size %>)<br/>
+
+    <% if current_user.try(:has_role?, :blog_entry_author, entry)  %>
+      [<%= link_to("編集", edit_blog_entry_path(entry)) %>]
+    <% end %>
+  <% end %>
+
+  <hr size="1" noshade>
+<% end  %>
+
+<%= will_paginate_mobile(@blog_entries).untaint %>
+
+<%= render :partial => "/share/footer_mobile" %>

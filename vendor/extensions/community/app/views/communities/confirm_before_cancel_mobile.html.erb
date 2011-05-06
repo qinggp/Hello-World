@@ -1,0 +1,11 @@
+<%= h(@community.name) %><br />
+管理人：<%= link_to(h(@community_admin.name), user_path(@community_admin)) %>さん<br />
+<hr size="1" noshade>
+
+このコミュニティ「<%= h(@community.name) %>」から退会しますか？<br />
+<% form_tag(cancel_community_path(@community)) do %>
+  <br />
+  <%= submit_tag("退会する")  %>
+  <%= hidden_field_tag(:id, @community.id) %>
+<% end %>
+

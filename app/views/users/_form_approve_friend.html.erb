@@ -1,0 +1,36 @@
+<% friendship = displayed_user.friendship_by_user_id(current_user.id) %>
+<div style="text-align: center;">[トモダチ依頼受付中]</div>
+<div style="margin-left: 20px; text-align: left; margin-top: 5px;">
+  <% relationship_describe = display_relationship_user_to_user(current_user, displayed_user) %>
+  <% unless relationship_describe.blank? %>
+    このユーザとのサイト内の関係性 ＝ <%= relationship_describe %><br/><br/>
+  <% end %>
+<% unless friendship.message.blank? %>
+  <div style="border-top: 1px solid rgb(117, 186, 255); border-bottom: 1px solid rgb(117, 186, 255); padding: 5px; width: 480px; text-align: left;">
+    <%= hbr friendship.message %>
+  </div>
+<% end %>
+<%= h displayed_user.name %>さんがトモダチを希望しています。<br/>
+直接の友人・知人でない人からのリクエストは、承認されなくても構いません。<br/>
+まったく交流のない異性からのリクエストは、拒否を選ぶことをおすすめします。<br/>
+拒否された場合、相手にその旨がメールされることもありませんので、ご心配はいりません。 <br/>
+</div>
+<div style="margin-left: 20px; padding-bottom: 10px;">
+  <% form_for(:friendship, :url => approve_friend_user_path(displayed_user)) do |f| %>
+    <% display_round_box(:width => "490px") do %>
+      <table class="content_table" style="width: 480px;">
+        <tr>
+          <th>一言メッセージ</th>
+          <td><%= f.text_area :message, :rows => 4, :cols => 40  %></td>
+        </tr>
+        <%= render :partial => "/share/form_relation", :locals => {:f => f} %>
+      </table>
+    <% end %>
+    <div align="left" style="width:50%; text-align:right; float:left;">
+      <%= f.submit("承認する", :confirm => "承認してよろしいですか？") %>
+    </div>
+  <% end %>
+  <div align="left">
+    <%= button_to("拒否する", reject_friend_application_user_path(displayed_user), :confirm => "拒否してよろしいですか？") %>
+  </div>
+</div>

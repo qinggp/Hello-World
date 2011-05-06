@@ -1,0 +1,13 @@
+<hr size="1" noshade>
+<%= will_paginate_mobile(@blog_categories).untaint %>
+
+<% @blog_categories.each do |c| %>
+
+  カテゴリ名：<%=h c.name %>
+  [<%= link_to "編集", edit_user_blog_category_path(current_user, c) %>]
+  [<%= link_to "削除", confirm_before_destroy_user_blog_category_path(current_user, c) %>]
+  <br/>
+
+<% end %>
+
+<%= will_paginate_mobile(@blog_categories).untaint %>

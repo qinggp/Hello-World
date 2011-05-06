@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: groups
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+no_member:
+  user: sns_zirou
+  name: まだ誰もメンバーがいません
+
+member_tarou:
+  user: sns_zirou
+  name: 太郎さんだけいます
+
+member_tarou_and_saburou:
+  user: sns_zirou
+  name: 太郎さんと三郎さんがいます
+

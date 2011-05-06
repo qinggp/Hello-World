@@ -1,0 +1,17 @@
+<%= render(:partial => "/share/mail_header", :locals => {:salutation => "#{@user.invitation.name}さん、こんにちわ"}) %>
+
+◆ あなたが 「<%= h @user.login %>」 宛に招待状を送ったトモダチが、ユーザ登録を完了しました。
+
+登録されたトモダチの名前（本名）とニックネームは以下になります。
+
+[名前（本名）] <%= h @user.full_real_name %>
+[ニックネーム] <%= h @user.name %>
+
+
+その他の登録されたユーザ情報は、以下のプロフィールページを参照下さい。
+
+<%= user_url(@user).untaint %>
+
+今後とも、<%= h SnsConfig.title %>をご活用ください。
+
+<%= render :partial => "/share/mail_footer" %>

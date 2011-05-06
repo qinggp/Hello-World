@@ -1,0 +1,20 @@
+<center>
+  <% if @schedules.empty? %>
+    <% display_round_box(:width => "600px", :white_bg => true) do %>
+      <div class="no_data">登録がありません</div>
+    <% end %>
+  <% else %>
+    <% form_tag(show_list_schedules_path, :method => :get) do %>
+      <% display_collection_box(@schedules, {:collection_name => "登録数", :width => "600px", :color => "#FFFFFF", :per_page => [5, 10, 20, 50, 100], :checked_value => 20, :form => {:options => {:method => :get}}}) do %>
+        <% display_round_box(:width => "600px", :white_bg => true) do %>
+          <table class="content_table">
+            <%= render(:partial => "schedule", :collection => @schedules) %>
+            <%= hidden_field_tag :date, params[:date] %>
+            <%= hidden_field_tag :user_id, @user.id %>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</center>
+

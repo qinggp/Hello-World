@@ -1,0 +1,31 @@
+<%= render :partial => "header_mobile" %>
+
+<%
+  @blog_comment ||= BlogComment.new
+  urls = blog_comments_confirm_urls(@blog_comment)
+%>
+
+※は必須項目です。<br/>
+<% form_for(@blog_comment, :url => urls[:form], :html => {:method => :post}) do |f| %>
+  <b><%= display_blog_comment_form_name(@blog_comment) %></b>
+  <br/>
+  <% if current_user == nil %>
+    名前※<br/>
+    <%= f.text_field :user_name %><br/>
+    E-Mail<br/>
+    <%= f.text_field :email %><br/>
+    ※このブログの著者にのみ公開されます。<br/>
+  <% end %>
+  [コメント]※
+  <br/>
+  <%= f.text_area :body, :rows => 2, :cols => 20 %>
+  <br/>
+  <%= f.hidden_field :blog_entry_id, :value => @blog_entry.id %>
+  <%= f.submit '次へ進む' %>
+  <%= f.submit '全てクリア', :name => :clear %>
+  <br/>
+  <br/>
+  [<%= link_to "記事へ戻る", blog_entry_path(@blog_entry) %>]
+<% end %>
+
+<%= render :partial => "/share/footer_mobile" %>

@@ -1,0 +1,17 @@
+<tr>
+  <td class="content_table_title" colspan="2">コミュニティグループ</td>
+</tr>
+<tr>
+  <td colspan="2">グループ分けすることによって、一覧を見やすくカスタマイズすることができます</td>
+</tr>
+<tr>
+  <th><%= display_form_attr_name(CommunityGroup, :name) %></th>  
+  <td><%= f.text_field :name, :maxlength => 20 %></td>
+</tr>
+<% if action_name == "community_list" %>
+  <%= hidden_field_tag "back_to", "community_list" %>
+<% end %>
+<% if params[:back_to] %>
+  <%= hidden_field_tag "back_to", params[:back_to] %>
+<% end %>
+

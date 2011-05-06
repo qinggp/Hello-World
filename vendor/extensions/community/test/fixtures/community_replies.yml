@@ -1,0 +1,136 @@
+# == Schema Information
+# Schema version: 20100227074439
+#
+# Table name: community_replies
+#
+#  id           :integer         not null, primary key
+#  thread_id    :integer
+#  parent_id    :integer
+#  title        :string(255)
+#  content      :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  user_id      :integer
+#  community_id :integer
+#  deleted      :boolean
+#
+
+curry_event_reply_by_sns_tarou:
+  thread: curry_event
+  author: sns_tarou
+  parent:
+  title: いいですね
+  content: やりましょう。来週の日曜はどうですか？
+  community: curry
+  created_at: <%= 18.days.ago.to_s :db  %>
+
+curry_event_reply_by_sns_hanako:
+  thread: curry_event
+  author: sns_hanako
+  parent: curry_event_reply_by_sns_tarou
+  title: 予定
+  content: 来週はちょっと…再来週になりませんか？
+  community: curry
+  created_at: <%= 17.days.ago.to_s :db  %>
+
+curry_topic_reply_by_sns_tarou:
+  thread: curry_topic
+  author: sns_tarou
+  parent:
+  title: カレーは飲み物か？
+  content: 毎朝飲んでます。
+  community: curry
+  created_at: <%= 4.days.ago.to_s :db  %>
+
+curry_topic_reply_by_sns_hanako:
+  thread: curry_topic
+  author: sns_hanako
+  parent: curry_topic_reply_by_sns_tarou
+  title: え
+  content: |-
+    > 毎朝飲んでます。
+    いや、食べ物ですよね？
+  community: curry
+  created_at: <%= 3.days.ago.to_s :db  %>
+
+curry_topic_reply2_by_sns_tarou:
+  thread: curry_topic
+  author: sns_tarou
+  parent:
+  title: 今日のカレー
+  content: キーマカレーでした
+  community: curry
+  created_at: <%= 3.days.ago.to_s :db  %>
+
+curry_topic_reply2_by_sns_hanako:
+  thread: curry_topic
+  author: sns_hanako
+  parent: curry_topic_reply2_by_sns_tarou
+  title: 今日のカレーへの返信その1
+  content: おいしそうですね
+  community: curry
+  created_at: <%= 2.days.ago.to_s :db  %>
+
+curry_topic_reply2_by_sns_zirou:
+  thread: curry_topic
+  author: sns_zirou
+  parent: curry_topic_reply2_by_sns_tarou
+  title: 今日のカレーへの返信その2
+  content: おごってください
+  community: curry
+  created_at: <%= 1.days.ago.to_s :db  %>
+
+curry_topic_reply3_by_sns_zirou:
+  thread: curry_topic
+  author: sns_zirou
+  parent: curry_topic_reply2_by_sns_tarou
+  title: 引用文
+  content: |-
+    > 引用文
+    > これも引用文
+    本文
+    > 引用文
+  community: curry
+  created_at: <%= 1.days.ago.to_s :db  %>
+
+curry_marker_reply_by_sns_tarou:
+  thread: curry_shop_marker1
+  author: sns_tarou
+  parent:
+  title: そうだね
+  content: うん、そうだね
+  community: curry
+  created_at: <%= 3.days.ago.to_s :db  %>
+
+curry_marker_reply_by_sns_hanako:
+  thread: curry_shop_marker1
+  author: sns_hanako
+  parent: curry_marker_reply_by_sns_tarou
+  title: そうかな
+  content: |-
+    返信元文章。
+    > うん、そうだね
+    うーん、そうかな
+  community: curry
+  created_at: <%= 2.days.ago.to_s :db  %>
+
+deleted_reply:
+  thread: curry_topic
+  author: sns_tarou
+  parent: curry_topic_reply2_by_sns_zirou
+  title: 削除された返信
+  content: もう削除されているのでみえない
+  community: curry
+  deleted: true
+  created_at: <%= 1.days.ago.to_s :db  %>
+
+reply_to_deleted_replies:
+  thread: curry_topic
+  author: sns_tarou
+  parent: deleted_reply
+  title: 削除された返信への返信
+  content: 親は見えないけど、自分は当然見えます
+  community: curry
+  created_at: <%= 1.days.ago.to_s :db  %>
+
+

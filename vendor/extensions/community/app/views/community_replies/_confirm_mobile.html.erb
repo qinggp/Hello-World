@@ -1,0 +1,15 @@
+<b>--- <%= form_title %> ---</b><br/>
+
+<%= display_form_attr_name(CommunityReply, "title") %><br />
+<%= h @community_reply.title %>
+<%= f.hidden_field :title %>
+<br />
+
+<%= display_form_attr_name(CommunityReply, "content") %><br />
+<%= auto_link(hbr(@community_reply.content)) { |text| truncate(text, 60) } %>
+<%= f.hidden_field :content %>
+<br />
+
+<%= f.hidden_field :parent_id %>
+<%= f.hidden_field :thread_id %>
+<%= hidden_field_tag "event_member", params[:event_member] %>

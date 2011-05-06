@@ -1,0 +1,185 @@
+<div id="blog_navigation">
+  <% display_round_box do %>
+    <div class="content_box_bg">
+      <div class="content_title">■プロフィール</div>
+    </div>
+
+    <div class="content_body">
+      <div style="margin: 3px; font-weight: bold;">
+        <%= t(:name_suffix, :value => h(displayed_user.name)) %>
+      </div>
+      <div class="pic" style="width:100%;">
+        <%= link_to_user displayed_user, display_face_photo(displayed_user.face_photo, :no_photo_width => 100, :no_photo_height => 100) %>
+        [一言]
+        <br/>
+        <div>
+          <%=h displayed_user.message %>
+        </div>
+      </div>
+      <div style="text-align: right; clear: left;">
+        <% if displayed_user.profile_displayable?(current_user) %>
+          [<%= link_to "プロフィールを見る", user_path(displayed_user) %>]
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <% display_round_box do %>
+    <div id="blog_entries_calendar">
+      <%= render :partial => "/share/blog_entries_calendar" %>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <% display_round_box do %>
+
+    <div class="content_box_bg">
+      <div class="content_title">
+        ■ブログ内検索
+      </div>
+    </div>
+    <table>
+      <% form_tag(index_for_user_user_blog_entries_path(displayed_user,
+                    :blog_category_id => params[:blog_category_id],
+                    :year => params[:year], :month => params[:month])) do %>
+        <tr>
+          <td><%= text_field_tag :keyword, params[:keyword] %></td>
+        </tr>
+        <tr>
+          <td><%= submit_tag "検索" %></td>
+        </tr>
+        <tr>
+          <td>※タイトル・本文より検索を行います。</td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="content_box_bg">
+      <div class="content_title">
+        ■最近の書き込み
+      </div>
+    </div>
+    <table>
+      <%
+        hot_entries =
+           BlogEntry.merge_imported_entries_by_rss(
+            displayed_user.preference.blog_preference.rss_url,
+            BlogEntry.by_user(displayed_user).by_visible(current_user, false).
+              descend_by_created_at.find(:all, :limit => 5)).take(5)
+      %>
+      <% if hot_entries.blank? %>
+          <tr><td>書き込みはありません。</td></tr>
+      <% else %>
+        <% hot_entries.each do |entry| %>
+          <tr>
+            <td>
+              <% if entry.imported_by_rss %>
+                <%= display_news_line_format(entry.created_at,
+                      link_to(h(entry.title) + theme_image_tag("outlink.gif"), h(entry.url_to_article)),
+                      link_to_user(displayed_user, h(displayed_user.name))) %>
+              <% else %>
+                <%= display_news_line_format(entry.created_at,
+                      link_to(h(entry.title), blog_entry_path(entry)),
+                      link_to_user(entry.user, h(entry.user.name))) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+
+    <div class="content_box_bg">
+      <div class="content_title">
+        ■最近のコメント
+      </div>
+    </div>
+    <table>
+      <% hot_comments = BlogComment.recents_my_blog(displayed_user, current_user, 5, 10.years.ago, true) %>
+      <% if hot_comments.blank? %>
+          <tr><td>コメントはありません。</td></tr>
+      <% else %>
+        <% hot_comments.each do |comment| %>
+          <tr>
+            <td>
+              <% if comment.anonymous? %>
+                <%= display_news_line_format(comment.created_at,
+                      link_to(h(comment.blog_entry.title), blog_entry_path(comment.blog_entry)),
+                      h(comment.comment_user_name)) %>
+              <% else %>
+                <%= display_news_line_format(comment.created_at,
+                      link_to(h(comment.blog_entry.title), blog_entry_path(comment.blog_entry)),
+                      link_to_user(comment.user, h(comment.comment_user_name))) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+
+    <div class="content_box_bg">
+      <div class="content_title">
+        ■カテゴリ
+      </div>
+    </div>
+    <table>
+      <% categories = BlogCategory.shared_is(true) + BlogCategory.user_id_is(displayed_user.id) %>
+      <% categories.each do |category| %>
+        <tr>
+          <td>
+            <%= link_to h(category.name), index_for_user_user_blog_entries_path(displayed_user, :blog_category_id => category.id) %>
+            （<%= category.blog_entries.by_visible(current_user).by_user(@user).size %>）
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div class="content_box_bg">
+      <div class="content_title">
+        ■バックナンバー
+      </div>
+    </div>
+    <div id="blog_navigation_backnumber">
+      <%= render :partial => "/share/blog_navigation_backnumber" %>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <% display_round_box do %>
+    <% if displayed_user.preference.blog_preference.visibility_publiced? %>
+      <% unless displayed_user.preference.blog_preference.rss_url.blank? %>
+        <div class="content_box_bg">
+          <div class="content_title">■外部ブログリンク</div>
+        </div>
+
+        <div class="content_body">
+          <%= BlogEntry.link_to_external_blog(self, displayed_user.preference.blog_preference.rss_url) %>
+        </div>
+      <% end %>
+
+      <div class="content_box_bg">
+        <div class="content_title">■RSSフィード</div>
+      </div>
+
+      <div class="content_body">
+        <%= link_to theme_image_tag("feed_rdf.gif"), index_feed_for_user_user_blog_entries_path(:user_id => displayed_user.id, :format => :rdf) %>
+        <%= link_to theme_image_tag("feed_rss.gif"), index_feed_for_user_user_blog_entries_path(:user_id => displayed_user.id, :format => :rss) %>
+        <%= link_to theme_image_tag("feed_atom.gif"), index_feed_for_user_user_blog_entries_path(:user_id => displayed_user.id, :format => :atom) %>
+      </div>
+    <% end %>
+
+    <div class="content_box_bg">
+      <div class="content_title">■このブログのURL</div>
+    </div>
+
+    <div class="content_body" align="center">
+      <div style="font-size: 80%;">
+        <%= index_for_user_user_blog_entries_url(displayed_user) %>
+      </div>
+      <%= theme_image_tag(qrcode_url(:url => index_for_user_user_blog_entries_url(displayed_user), :size => 2), :height => 74, :width => 74) %>
+    </div>
+  <% end %>
+</div>

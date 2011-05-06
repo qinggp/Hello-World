@@ -1,0 +1,8 @@
+<%= link_to(h(displayed_user.name), user_path(displayed_user)) %>さんのスケジュール<br />
+<%= @calendar_year %>年<%= @calendar_month %>月<br />
+<%= link_to("新規作成", new_schedule_path) %>
+<hr size="1" noshade>
+
+<%= render(:partial => "/share/calendar", :locals => {:user_id => @user.id}) %>
+
+
